@@ -37,6 +37,8 @@ Gruntfile.js
 .*.yml
 *.yml
 
+!.svgo.yml
+
 # misc
 *.gz
 *.md
