@@ -1,10 +1,54 @@
-.component {
-  /* display: flex;
-  flex: 1; */
+.projectsApp {
+  position: relative;
+  background: #f2f2f2;
   width: 100%;
+  font-family: Calibri, sans-serif;
 }
 
-.routes {
-  /* display: flex;
-  flex: 1; */
+.backgroundImg {
+  position: absolute;
+  background-color: chartreuse;
+  height: calc(100vh - 70px);
+  width: 100%;
+  z-index: 0;
+}
+
+.contanier {
+  padding: 60px 8.4%;
+}
+
+.heading {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.headingTitle {
+  color: #fff;
+  font-size: 72px;
+}
+
+.headingButton {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  font-size: 16px;
+  max-height: 50px;
+  padding: 20px 30px;
+  border: 1px solid white;
+  cursor: pointer;
+}
+
+.headingDetails {
+  min-width: 100%;
+  color: #fff;
+  font-size: 30px;
+  margin: 20px 0;
+}
+
+.headingDetailNumber {
+  font-size: 40px;
+  font-weight: bold;
 }
