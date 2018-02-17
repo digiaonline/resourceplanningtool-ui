@@ -1,0 +1,8 @@
+.containerHeader {
+  display: flex;
+  flex-direction: row;
+}
+
+.newCustomerButton {
+  float: right;
+}
