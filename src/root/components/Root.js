@@ -12,15 +12,15 @@ import css from './Root.css';
 
 const Root = () => (
   <div className={css.component}>
-    <Header />
     <Router>
       <div className={css.routes}>
+        <Header />
         <Switch>
-          <Route exact path="/" component={Hello} />
-          <Route path='/projects' component={ProjectsContainer} />
-          <Route path='/customers' component={CustomersContainer} />
-          <Route path='/people' component={PeopleContainer} />
-          <Route path='*' component={NotFound} />
+          <Route exact path="/" component={ProjectsContainer} />
+          <Route path="/projects" component={ProjectsContainer} />
+          <Route path="/customers" component={CustomersContainer} />
+          <Route path="/people" component={PeopleContainer} />
+          <Route path="*" component={NotFound} />
         </Switch>
       </div>
     </Router>
