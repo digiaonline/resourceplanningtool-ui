@@ -52,3 +52,22 @@
   font-size: 40px;
   font-weight: bold;
 }
+
+.filters {
+  position: relative;
+  display: flex;
+  margin-top: 40px;
+}
+
+.filter {
+  display: flex;
+  flex-direction: column;
+  margin-right: 5%;
+  width: 30%;
+  color: #fff;
+  font-size: 17px;
+}
+
+.filter select {
+  height: 45px;
+}

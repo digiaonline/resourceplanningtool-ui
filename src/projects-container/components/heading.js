@@ -11,7 +11,7 @@ const Heading = props => {
       <div className={css.headingTitle}>Heading</div>
       <div className={css.headingButton}>
         <img src={iconAdd} alt="icon add" />
-        <span>New Project</span>
+        <span>&nbsp;NEW PROJECT</span>
       </div>
       <div className={css.headingDetails}>
         <span className={css.headingDetailNumber}> {props.projects} </span>projects
