@@ -3,7 +3,9 @@
 import React, {Component} from 'react';
 import Heading from './heading';
 import Filters from './filters';
+import Projrcts from './projects';
 import css from './ProjectsContainer.css';
+import Data from '../../MOCK_DATA.json';
 
 class ProjectsContainer extends Component {
   render() {
@@ -13,6 +15,7 @@ class ProjectsContainer extends Component {
         <div className={css.contanier}>
           <Heading projects="122" members="22" customers="12" />
           <Filters />
+          <Projrcts Data={Data} />
         </div>
       </div>
     );

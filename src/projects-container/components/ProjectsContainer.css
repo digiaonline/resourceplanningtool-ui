@@ -71,3 +71,63 @@
 .filter select {
   height: 45px;
 }
+
+.projects {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.project {
+  width: 30%;
+  background-color: #fff;
+  margin-bottom: 25px;
+  display: flex;
+  flex-direction: column;
+}
+
+.projectImg {
+  width: 100%;
+}
+
+.projectDetails {
+  padding: 30px;
+}
+
+.projectName {
+  font-size: 34px;
+  color: red;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.projectView {
+  font-size: 16;
+  font-weight: bold;
+  color: #000;
+  margin-top: 18px;
+}
+
+.projectView a {
+  color: #14688f;
+  font-size: 17px;
+  font-weight: normal;
+  text-decoration: none;
+  padding: 0 4px;
+}
+
+.projectDesciption {
+  font-size: 17px;
+  line-height: 1.3;
+  margin: 22px 0 20px;
+}
+
+.technologies span {
+  background: black;
+  color: white;
+  font-size: 17px;
+  padding: 10px;
+  margin: 0 2px;
+}
