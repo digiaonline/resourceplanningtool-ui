@@ -13,7 +13,7 @@ const Header = () => (
       <div className={css.logoTitle}>Digia Nord P&amp;P</div>
     </NavLink>
     <div className={css.navbar}>
-      <NavLink exact to="/" activeClassName={css.active}>
+      <NavLink exact to="/projects" activeClassName={css.active}>
         PROJECTS
       </NavLink>
       <NavLink to="/customers" activeClassName={css.active}>

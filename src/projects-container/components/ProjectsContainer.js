@@ -1,12 +1,14 @@
 // @flow
 
 import React, {Component} from 'react';
+import {observer} from 'mobx-react';
+import ProjectStore from '../store';
 import Heading from './heading';
 import Filters from './filters';
 import Projrcts from './projects';
 import css from './ProjectsContainer.css';
-import Data from '../../MOCK_DATA.json';
 
+@observer
 class ProjectsContainer extends Component {
   render() {
     return (
@@ -15,7 +17,7 @@ class ProjectsContainer extends Component {
         <div className={css.contanier}>
           <Heading projects="122" members="22" customers="12" />
           <Filters />
-          <Projrcts Data={Data} />
+          <Projrcts Data={ProjectStore.Data} />
         </div>
       </div>
     );
