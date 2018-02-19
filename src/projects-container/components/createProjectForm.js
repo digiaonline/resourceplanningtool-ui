@@ -6,7 +6,71 @@ class ProjectModal extends Component {
     return (
       <div>
         <div className={css.modalTitle}>{this.props.modalName}</div>
-        <form />
+        <form>
+          <div className={css.section}>
+            <div className={css.cell}>
+              <InputText
+                label="Customer name"
+                inputId="custemerName"
+                placeholder=""
+                value=""
+              />
+              <InputText
+                label="Customer email"
+                inputName=""
+                placeholder=""
+                name=""
+              />
+              <div className={css.inputGroup}>
+                <InputCheckbox label="Customer feedback" />
+                <InputCheckbox label="Project entered in CV's" />
+              </div>
+            </div>
+            <div className={css.verticalLine} />
+            <div className={css.cell}>
+              <InputText
+                label="Project name"
+                inputName=""
+                placeholder=""
+                name=""
+              />
+              <InputText
+                label="Sub-project"
+                inputName=""
+                placeholder=""
+                name=""
+              />
+              <div className={css.inputGroup}>
+                <InputText
+                  label="Start time (apprx)"
+                  inputName=""
+                  placeholder=""
+                  name=""
+                />
+                <InputText
+                  label="End time (apprx)"
+                  inputName=""
+                  placeholder=""
+                  name=""
+                />
+              </div>
+            </div>
+            <div className={css.verticalLine} />
+            <div className={css.cell}>
+              <div className={css.inputGroup}>
+                <InputCheckbox label="Project on-going" />
+                <InputCheckbox label="project retro" />
+              </div>
+              <InputText
+                label="Bose project manager"
+                inputName=""
+                placeholder=""
+                name=""
+              />
+              <InputText label="Bose ID" inputName="" placeholder="" name="" />
+            </div>
+          </div>
+        </form>
       </div>
     );
   }
@@ -14,85 +78,27 @@ class ProjectModal extends Component {
 
 export default ProjectModal;
 
-const Form1 = () => (
-  <div className={css.section}>
-    <div className={css.cell}>
-      <div className={css.inputGroup}>
-        <label className={css.label}>Customer name</label>
-        <input />
-      </div>
-      <div className={css.inputGroup}>
-        <label className={css.label}>Customer email</label>
-        <input />
-      </div>
-      <div className={css.checkboxGroup}>
-        <div className={css.inputGroup}>
-          <div className={css.label}>Customer feedback</div>
-          <label className={css.checkboxLabel}>
-            <input type="checkbox" />
-            <div className={css.squire} />
-            <span>Done</span>
-          </label>
-        </div>
-        <div className={css.inputGroup}>
-          <div className={css.label}>Customer entered in CV's</div>
-          <label className={css.checkboxLabel}>
-            <input type="checkbox" />
-            <div className={css.squire} />
-            <span>Done</span>
-          </label>
-        </div>
-      </div>
-    </div>
-    <div className={css.verticalLine} />
-    <div className={css.cell}>
-      <div className={css.inputGroup}>
-        <label className={css.label}>Project name</label>
-        <input />
-      </div>
-      <div className={css.inputGroup}>
-        <label className={css.label}>Sub-project</label>
-        <input />
-      </div>
-      <div className={css.checkboxGroup}>
-        <div className={css.inputGroup}>
-          <label className={css.label}>Start time (apprx)</label>
-          <input />
-        </div>
-        <div className={css.inputGroup}>
-          <label className={css.label}>End time (apprx)</label>
-          <input />
-        </div>
-      </div>
-    </div>
-    <div className={css.verticalLine} />
-    <div className={css.cell}>
-      <div className={css.checkboxGroup}>
-        <div className={css.inputGroup}>
-          <div className={css.label}>Project on-goin</div>
-          <label className={css.checkboxLabel}>
-            <input type="checkbox" />
-            <div className={css.squire} />
-            <span>Done</span>
-          </label>
-        </div>
-        <div className={css.inputGroup}>
-          <div className={css.label}>Project retro</div>
-          <label className={css.checkboxLabel}>
-            <input type="checkbox" />
-            <div className={css.squire} />
-            <span>Done</span>
-          </label>
-        </div>
-      </div>
-      <div className={css.inputGroup}>
-        <label className={css.label}>Bose project manager</label>
-        <input />
-      </div>
-      <div className={css.inputGroup}>
-        <label className={css.label}>Bose ID</label>
-        <input />
-      </div>
-    </div>
+const InputText = props => (
+  <div className={css.inputSection}>
+    <label htmlFor={props.inputID} className={css.label}>
+      {props.label}
+    </label>
+    <input
+      type="text"
+      placeholder={props.placeholder}
+      value={props.value}
+      id={props.inputID}
+    />
+  </div>
+);
+
+const InputCheckbox = props => (
+  <div className={css.inputSection}>
+    <div className={css.label}>{props.label}</div>
+    <label className={css.checkboxLabel}>
+      <input type="checkbox" />
+      <div className={css.squire} />
+      <span>Done</span>
+    </label>
   </div>
 );
