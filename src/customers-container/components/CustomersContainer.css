@@ -1,5 +1,19 @@
+:root {
+  --border: 2px solid rgb(220, 220, 220);
+  --color: rgb(54, 54, 54);
+  --letter-spacing: 0.4px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 .container {
   margin: 85px 18% auto;
+  font-family: Calibri, sans-serif;
+  font-weight: normal;
+  letter-spacing: normal;
+  font-stretch: normal;
 }
 
 .header {
@@ -8,8 +22,32 @@
   justify-content: space-between;
 }
 
+.header__headline {
+  font-size: 34px;
+  width: 144px;
+  height: 20px;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  font-weight: normal;
+}
+
 .header__button {
-  float: right;
+  border: var(--border);
+  background-color: inherit;
+  width: 202px;
+  height: 50px;
+  letter-spacing: var(--letter-spacing);
+  color: var(--color);
+  font-weight: bold;
+  padding: 15px 30px;
+  text-align: left;
+  font-size: 16px;
+}
+
+.button__plusIcon {
+  width: 21px;
+  height: 21px;
 }
 
 .container__table {
@@ -21,9 +59,10 @@
 
 .row {
   text-align: left;
-  border-bottom: 1px solid rgb(100, 100, 100);
-  box-sizing: border-box;
+  border-bottom: var(--border);
   height: 45px;
+  line-height: 10px;
+  letter-spacing: var(--letter-spacing);
 }
 
 .row__name {
@@ -34,6 +73,7 @@
 .row__website {
   width: 30%;
   composes: row;
+  overflow: hidden;
 }
 
 .row__industry {
