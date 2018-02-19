@@ -8,6 +8,10 @@
   box-sizing: border-box;
 }
 
+.element--hover:hover {
+  cursor: pointer;
+}
+
 .container {
   margin: 85px 18% auto;
   font-family: Calibri, sans-serif;
@@ -43,6 +47,7 @@
   padding: 15px 30px;
   text-align: left;
   font-size: 16px;
+  composes: element--hover;
 }
 
 .button__plusIcon {
@@ -55,28 +60,4 @@
   width: 100%;
   table-layout: fixed;
   border-collapse: collapse;
-}
-
-.row {
-  text-align: left;
-  border-bottom: var(--border);
-  height: 45px;
-  line-height: 10px;
-  letter-spacing: var(--letter-spacing);
-}
-
-.row__name {
-  width: 40%;
-  composes: row;
-}
-
-.row__website {
-  width: 30%;
-  composes: row;
-  overflow: hidden;
-}
-
-.row__industry {
-  width: 30%;
-  composes: row;
 }

@@ -1,14 +1,22 @@
+/* base styles to compose other elements */
+.element--hover:hover {
+  cursor: pointer;
+}
+
+/* general style */
 * {
   box-sizing: border-box;
   font-family: Calibri, sans-serif;
 }
 
+/* specific style */
 .buttonContainer {
   display: flex;
   flex-flow: row-reverse;
 }
 
 .modal__close {
+  composes: element--hover;
   margin: 15px 15px auto auto;
   width: 14px;
   height: 14px;
@@ -17,13 +25,11 @@
 }
 
 .formContainer {
-  margin: 16px 40px;
+  margin: 16px 40px 40px;
 }
 
 .formContainer__h3 {
-  margin-bottom: 110px;
-  width: 189px;
-  height: 23px;
+  margin-bottom: 90px;
   font-size: 34px;
 }
 
@@ -40,8 +46,42 @@
   margin: auto 30px auto 0;
 }
 
+.form__lastField {
+  composes: form__field;
+  margin: 0;
+}
+
 .field__input {
-  margin-top: 5px;
   height: 45px;
   padding: 16px 10px;
+  margin-top: 5px;
+  background-color: rgba(220, 220, 220, 0.64);
+  border: 1px solid rgba(100, 100, 100, 0.6);
+}
+
+.form__actions {
+  display: flex;
+  flex-direction: row-reverse;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  margin: 0 40px 40px 0;
+}
+
+.actions__button {
+  composes: element--hover;
+  width: 102px;
+  height: 50px;
+  text-align: center;
+  background: inherit;
+}
+
+.actions__buttonSubmit {
+  composes: actions__button;
+  border: 2px solid rgba(200, 200, 200, 0.8);
+}
+
+.actions__buttonReset {
+  composes: actions__button;
+  border: 0 solid rgba(0, 0, 0, 0);
 }
