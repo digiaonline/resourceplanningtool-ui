@@ -15,7 +15,13 @@ class ProjectsContainer extends Component {
       <div className={css.projectsApp}>
         <div className={css.backgroundImg} />
         <div className={css.contanier}>
-          <Heading projects="122" members="22" customers="12" />
+          <Heading
+            projects="122"
+            members="22"
+            customers="12"
+            isOpen={ProjectStore.isOpen}
+            openModal={ProjectStore.openModal}
+          />
           <Filters />
           <Projrcts Data={ProjectStore.Data} />
         </div>

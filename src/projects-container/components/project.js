@@ -3,11 +3,6 @@ import css from './ProjectsContainer.css';
 
 const Project = props => (
   <div className={css.project}>
-    <img
-      className={css.projectImg}
-      src="http://www.netroxtech.com/video/wp-content/uploads/2016/05/netrox-css.jpg"
-      alt=""
-    />
     <div className={css.projectDetails}>
       <div className={css.projectName}>{props.projectName}</div>
       <div className={css.projectView}>

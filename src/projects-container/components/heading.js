@@ -2,32 +2,30 @@
 
 import React from 'react';
 import Modal from 'react-modal';
-
+import ProjectModal from './createProjectForm';
 import css from './ProjectsContainer.css';
 import iconAdd from '../../assets/icon_add.svg';
 
-const Heading = (props: object) => {
+const Heading = props => {
   return (
     <div className={css.heading}>
       <div className={css.headingTitle}>Heading</div>
-      <div className={css.headingButton}>
+      <div className={css.headingButton} onClick={props.openModal}>
         <img src={iconAdd} alt="icon add" />
-        <span>&nbsp;NEW PROJECT</span>
+        <span>NEW PROJECT</span>
       </div>
       <div className={css.headingDetails}>
         <span className={css.headingDetailNumber}>
-          {' '}
-          {props.projects}{' '}
+          {props.projects}
         </span>projects by
         <span className={css.headingDetailNumber}> {props.members} </span>member
         for
         <span className={css.headingDetailNumber}>
-          {' '}
-          {props.customers}{' '}
+          {props.customers}
         </span>customers
       </div>
-      <Modal isOpen={false}>
-        <h1>hi</h1>
+      <Modal className={css.Modal} isOpen={props.isOpen} ariaHideApp={false}>
+        <ProjectModal modalName="Create Project" />
       </Modal>
     </div>
   );
