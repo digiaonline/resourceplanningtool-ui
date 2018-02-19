@@ -9,7 +9,7 @@ class ProjectsStore {
 
   @action
   openModal = () => {
-    this.isOpen = true;
+    this.isOpen = !this.isOpen;
   };
 }
 

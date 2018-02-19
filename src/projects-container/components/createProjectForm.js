@@ -1,10 +1,18 @@
 import React, {Component} from 'react';
 import css from './ProjectsContainer.css';
+import close from '../../assets/icon_close.svg';
 
 class ProjectModal extends Component {
   render() {
+    console.log(this.props.closeModal);
     return (
       <div>
+        <img
+          className={css.modalClose}
+          src={close}
+          alt="close"
+          onClick={this.props.closeModal}
+        />
         <div className={css.modalTitle}>{this.props.modalName}</div>
         <form>
           <div className={css.section}>
@@ -70,6 +78,35 @@ class ProjectModal extends Component {
               <InputText label="Bose ID" inputName="" placeholder="" name="" />
             </div>
           </div>
+          <div className={css.formDvider}>Project description</div>
+          <div className={css.section}>
+            <div className={css.cell1}>
+              <Textarea
+                label="One-sentence project description"
+                inputName=""
+                placeholder=""
+                name=""
+              />
+            </div>
+            <div className={css.verticalLine} />
+            <div className={css.cell2}>
+              <Textarea
+                label="Larger description"
+                inputName=""
+                placeholder=""
+                name=""
+              />
+            </div>
+          </div>
+          <div className={css.formDvider}>Core technologies</div>
+          <div className={css.cell1}>
+            <InputText
+              label="Project name"
+              inputName=""
+              placeholder=""
+              name=""
+            />
+          </div>
         </form>
       </div>
     );
@@ -100,5 +137,18 @@ const InputCheckbox = props => (
       <div className={css.squire} />
       <span>Done</span>
     </label>
+  </div>
+);
+
+const Textarea = props => (
+  <div className={css.inputSection}>
+    <label htmlFor={props.inputID} className={css.label}>
+      {props.label}
+    </label>
+    <textarea
+      placeholder={props.placeholder}
+      value={props.value}
+      id={props.inputID}
+    />
   </div>
 );

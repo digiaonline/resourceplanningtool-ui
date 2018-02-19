@@ -25,7 +25,7 @@ const Heading = props => {
         </span>customers
       </div>
       <Modal className={css.Modal} isOpen={props.isOpen} ariaHideApp={false}>
-        <ProjectModal modalName="Create Project" />
+        <ProjectModal closeModal={props.openModal} modalName="Create Project" />
       </Modal>
     </div>
   );
