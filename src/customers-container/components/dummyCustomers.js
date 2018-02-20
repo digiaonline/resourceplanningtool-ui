@@ -3,37 +3,44 @@
 // sorry clients, you are not actually dumb
 const dummyCustomers = [
   {
-    name: 'Dummy Customer',
+    id: 1,
+    name: 'Dummy Customer 1',
     website: 'http://dummy.site.fi',
     industry: 'Industrialized Stupidity',
   },
   {
-    name: 'Dummy Customer',
+    id: 2,
+    name: 'Dummy Customer 2',
     website: 'http://dummy.site.fi',
     industry: 'Industrialized Stupidity',
   },
   {
-    name: 'Dummy Customer',
+    id: 3,
+    name: 'Dummy Customer 3',
     website: 'http://dummy.site.fi',
     industry: 'Industrialized Stupidity',
   },
   {
-    name: 'Dummy Customer',
+    id: 4,
+    name: 'Dummy Customer 4',
     website: 'http://dummy.site.fi',
     industry: 'Industrialized Stupidity',
   },
   {
-    name: 'Dummy Customer',
+    id: 5,
+    name: 'Dummy Customer 5',
     website: 'http://dummy.site.fi',
     industry: 'Industrialized Stupidity',
   },
   {
-    name: 'Dummy Customer',
+    id: 6,
+    name: 'Dummy Customer 6',
     website: 'http://dummy.site.fi',
     industry: 'Industrialized Stupidity',
   },
   {
-    name: 'Dummy Customer',
+    id: 7,
+    name: 'Dummy Customer 7',
     website: 'http://dummy.site.fi',
     industry: 'Industrialized Stupidity',
   },

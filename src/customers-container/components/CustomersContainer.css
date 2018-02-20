@@ -61,3 +61,28 @@
   table-layout: fixed;
   border-collapse: collapse;
 }
+
+.row {
+  text-align: left;
+  border-bottom: var(--border);
+  height: 45px;
+  line-height: 10px;
+  letter-spacing: var(--letter-spacing);
+  composes: element--hover;
+}
+
+.row__name {
+  width: 40%;
+  composes: row;
+}
+
+.row__website {
+  width: 30%;
+  composes: row;
+  overflow: hidden;
+}
+
+.row__industry {
+  width: 30%;
+  composes: row;
+}

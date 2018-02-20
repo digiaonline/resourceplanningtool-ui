@@ -20,6 +20,9 @@ class CustomersContainer extends Component {
       formData: customer,
     });
   };
+  toCustomer = (id: Number) => {
+    this.props.history.push(`/customers/${id}`);
+  };
   render() {
     return (
       <div className={css.container}>
@@ -52,6 +55,7 @@ class CustomersContainer extends Component {
           <tbody>
             {this.state.customers.map((id, index) => (
               <CustomerRow
+                toCustomer={this.toCustomer}
                 key={index}
                 customerInfo={this.state.customers[index]}
               />
