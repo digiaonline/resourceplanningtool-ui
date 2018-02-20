@@ -51,6 +51,10 @@
   margin: 0;
 }
 
+.field__label {
+  font-weight: bold;
+}
+
 .field__input {
   height: 45px;
   padding: 16px 10px;

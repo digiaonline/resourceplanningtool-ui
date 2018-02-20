@@ -1,6 +1,7 @@
 // @flow
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import css from './CustomerForm.css';
 
@@ -28,7 +29,9 @@ class CustomerForm extends Component {
           <form className={css.form}>
             <div className={css.form__inputs}>
               <div className={css.form__field}>
-                <label htmlFor="name">Customer</label>
+                <label htmlFor="name" className={css.field__label}>
+                  Customer
+                </label>
                 <input
                   className={css.field__input}
                   id="name"
@@ -38,7 +41,9 @@ class CustomerForm extends Component {
                 />
               </div>
               <div className={css.form__field}>
-                <label htmlFor="website">Website</label>
+                <label htmlFor="website" className={css.field__label}>
+                  Website
+                </label>
                 <input
                   className={css.field__input}
                   id="website"
@@ -48,7 +53,9 @@ class CustomerForm extends Component {
                 />
               </div>
               <div className={css.form__lastField}>
-                <label htmlFor="industry">Industry</label>
+                <label htmlFor="industry" className={css.field__label}>
+                  Industry
+                </label>
                 <input
                   className={css.field__input}
                   id="industry"
@@ -83,6 +90,17 @@ class CustomerForm extends Component {
   }
 }
 
+// type checking props passed to CustomerForm
+CustomerForm.propTypes = {
+  customerInfo: PropTypes.shape({
+    name: PropTypes.string,
+    website: PropTypes.string,
+    industry: PropTypes.string,
+  }),
+  toggleForm: PropTypes.func.isRequired,
+};
+
+// custom style for the modal
 const modalStyle = {
   overlay: {
     backgroundColor: 'rgba(0, 0, 0, 0.8)',
@@ -91,7 +109,7 @@ const modalStyle = {
     padding: 0,
     maxHeight: '506px',
     maxWidth: '1220px',
-    margin: '150px 18% auto',
+    margin: '150px auto auto',
   },
 };
 

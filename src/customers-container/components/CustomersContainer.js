@@ -18,7 +18,6 @@ class CustomersContainer extends Component {
     this.state = {
       formIsOpened: false,
       customers: dummyCustomers,
-      formData: {},
     };
   }
   toggleForm = (customer: ?Customer) => {
@@ -42,7 +41,7 @@ class CustomersContainer extends Component {
           <CustomerForm
             isOpened={this.state.formIsOpened}
             toggleForm={this.toggleForm}
-            customerInfo={this.state.formData}
+            customerInfo={{}}
           />
         </div>
         <table className={css.container__table}>
@@ -61,7 +60,6 @@ class CustomersContainer extends Component {
               <CustomerRow
                 key={index}
                 customerInfo={this.state.customers[index]}
-                toggleForm={this.toggleForm}
               />
             ))}
           </tbody>
