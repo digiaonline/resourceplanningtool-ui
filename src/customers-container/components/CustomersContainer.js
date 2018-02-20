@@ -6,19 +6,12 @@ import CustomerForm from './CustomerForm';
 import CustomerRow from './CustomerRow';
 import dummyCustomers from './dummyCustomers';
 
-type Customer = {
-  name: string,
-  website: string,
-  industry: string
-};
-
 class CustomersContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
       formIsOpened: false,
       customers: dummyCustomers,
-      formData: {},
     };
   }
   toggleForm = (customer: ?Customer) => {
@@ -42,7 +35,7 @@ class CustomersContainer extends Component {
           <CustomerForm
             isOpened={this.state.formIsOpened}
             toggleForm={this.toggleForm}
-            customerInfo={this.state.formData}
+            customerInfo={{}}
           />
         </div>
         <table className={css.container__table}>
@@ -61,7 +54,6 @@ class CustomersContainer extends Component {
               <CustomerRow
                 key={index}
                 customerInfo={this.state.customers[index]}
-                toggleForm={this.toggleForm}
               />
             ))}
           </tbody>

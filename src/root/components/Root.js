@@ -7,6 +7,7 @@ import Header from '../../header/components/Header';
 import ProjectsContainer from '../../projects-container/components/ProjectsContainer';
 import CustomersContainer from '../../customers-container/components/CustomersContainer';
 import PeopleContainer from '../../people-container/components/PeopleContainer';
+import CustomerView from '../../customer-view/components/CustomerView';
 import NotFound from '../../not-found/components/NotFound';
 import css from './Root.css';
 
@@ -17,10 +18,11 @@ const Root = () => (
       <div className={css.routes}>
         <Switch>
           <Route exact path="/" component={Hello} />
-          <Route path='/projects' component={ProjectsContainer} />
-          <Route path='/customers' component={CustomersContainer} />
-          <Route path='/people' component={PeopleContainer} />
-          <Route path='*' component={NotFound} />
+          <Route path="/projects" component={ProjectsContainer} />
+          <Route path="/customers" component={CustomersContainer} />
+          <Route path="/customers/:id" component={CustomerView} />
+          <Route path="/people" component={PeopleContainer} />
+          <Route path="*" component={NotFound} />
         </Switch>
       </div>
     </Router>

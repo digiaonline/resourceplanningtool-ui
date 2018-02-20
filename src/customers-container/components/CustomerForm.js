@@ -91,7 +91,7 @@ const modalStyle = {
     padding: 0,
     maxHeight: '506px',
     maxWidth: '1220px',
-    margin: '150px 18% auto',
+    margin: '150px auto auto',
   },
 };
 
