@@ -171,6 +171,12 @@
   justify-content: space-between;
 }
 
+.section2 {
+  display: flex;
+  width: 65%;
+  justify-content: space-between;
+}
+
 .cell {
   width: 30%;
   min-height: 270px;
@@ -181,7 +187,6 @@
 
 .cell1 {
   width: 30%;
-  min-height: 170px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -189,10 +194,24 @@
 
 .cell2 {
   width: 65%;
-  min-height: 170px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.cell3 {
+  width: 46%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cell4 {
+  width: 46%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 38px;
 }
 
 .verticalLine {
@@ -218,6 +237,7 @@
   padding: 15px 10px;
   border: none;
   margin-top: 5px;
+  border: 1px solid lightgray;
 }
 
 input:focus {
@@ -273,5 +293,77 @@ input[type="checkbox"]:checked +.squire {
   height: 148px;
   background-color: #eee;
   margin-top: 5px;
+  padding: 12px 9px;
+  resize: none;
+  font-size: 17px;
+  color: #363636;
+  border: 1px solid lightgray;
 }
 
+.personTable {
+  margin-top: 20px;
+  width: 100%;
+  border-bottom: 1px solid lightgray;
+  display: flex;
+  justify-content: space-between;
+}
+
+.personTableTitle {
+  font-size: 16px;
+  font-weight: bold;
+  height: 45px;
+  width: 275px;
+  line-height: 45px;
+}
+
+.formIcon {
+  float: right;
+  margin: 10.5px 0;
+}
+
+.personItem {
+  font-size: 16px;
+  font-weight: normal;
+  height: 45px;
+  line-height: 45px;
+  border-bottom: 1px solid lightgray;
+}
+
+.selectedTech {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.selectedTech div {
+  margin-left: 5px;
+  font-size: 17px;
+  line-height: 35px;
+  padding: 0 8px;
+  border: none;
+  background-color: lightgray;
+}
+
+.removeTech {
+  position: relative;
+  top: 5.5px;
+  margin-left: 24px;
+}
+
+.formButton {
+  margin-top: 58px;
+  display: flex;
+  flex-direction: row-reverse;
+  font-size: 16px;
+}
+
+.formButton div {
+  padding: 20px 32px;
+  border: 1px solid lightgray;
+  cursor: pointer;
+}
+
+.formButton span {
+  padding: 20px 32px;
+  cursor: pointer;
+}

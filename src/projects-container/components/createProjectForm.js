@@ -1,15 +1,16 @@
 import React, {Component} from 'react';
 import css from './ProjectsContainer.css';
-import close from '../../assets/icon_close.svg';
+import closeIcon from '../../assets/icon_close.svg';
+import sortIcon from '../../assets/icon_arrow_up.svg';
+import deleteIcon from '../../assets/icon_delete.svg';
 
 class ProjectModal extends Component {
   render() {
-    console.log(this.props.closeModal);
     return (
       <div>
         <img
           className={css.modalClose}
-          src={close}
+          src={closeIcon}
           alt="close"
           onClick={this.props.closeModal}
         />
@@ -17,13 +18,13 @@ class ProjectModal extends Component {
         <form>
           <div className={css.section}>
             <div className={css.cell}>
-              <InputText
+              <Input
                 label="Customer name"
                 inputId="custemerName"
                 placeholder=""
                 value=""
               />
-              <InputText
+              <Input
                 label="Customer email"
                 inputName=""
                 placeholder=""
@@ -36,26 +37,18 @@ class ProjectModal extends Component {
             </div>
             <div className={css.verticalLine} />
             <div className={css.cell}>
-              <InputText
-                label="Project name"
-                inputName=""
-                placeholder=""
-                name=""
-              />
-              <InputText
-                label="Sub-project"
-                inputName=""
-                placeholder=""
-                name=""
-              />
+              <Input label="Project name" inputName="" placeholder="" name="" />
+              <Input label="Sub-project" inputName="" placeholder="" name="" />
               <div className={css.inputGroup}>
-                <InputText
+                <Input
+                  type="month"
                   label="Start time (apprx)"
                   inputName=""
                   placeholder=""
                   name=""
                 />
-                <InputText
+                <Input
+                  type="month"
                   label="End time (apprx)"
                   inputName=""
                   placeholder=""
@@ -69,13 +62,13 @@ class ProjectModal extends Component {
                 <InputCheckbox label="Project on-going" />
                 <InputCheckbox label="project retro" />
               </div>
-              <InputText
+              <Input
                 label="Bose project manager"
                 inputName=""
                 placeholder=""
                 name=""
               />
-              <InputText label="Bose ID" inputName="" placeholder="" name="" />
+              <Input label="Bose ID" inputName="" placeholder="" name="" />
             </div>
           </div>
           <div className={css.formDvider}>Project description</div>
@@ -98,14 +91,59 @@ class ProjectModal extends Component {
               />
             </div>
           </div>
+          <div className={css.formDvider}>People in project</div>
+          <div className={css.cell1}>
+            <Input label="Person" inputName="" placeholder="" name="" />
+          </div>
+          <div className={css.personTable}>
+            <div className={css.personTableTitle}>
+              PERSON
+              <img className={css.formIcon} src={sortIcon} alt="sort" />
+            </div>
+            <img className={css.formIcon} src={deleteIcon} alt="delete" />
+          </div>
+          <div className={css.personItem}>
+            <span>12345</span>
+            <img className={css.formIcon} src={deleteIcon} alt="delete" />
+          </div>
           <div className={css.formDvider}>Core technologies</div>
           <div className={css.cell1}>
-            <InputText
-              label="Project name"
-              inputName=""
-              placeholder=""
-              name=""
-            />
+            <Input label="Technologies" inputName="" placeholder="" name="" />
+          </div>
+          <div className={css.selectedTech}>
+            <div>
+              {' '}
+              Node<img className={css.removeTech} src={closeIcon} alt="close" />
+            </div>
+            <div>
+              Python<img
+                className={css.removeTech}
+                src={closeIcon}
+                alt="close"
+              />
+            </div>
+          </div>
+          <div className={css.formDvider}>Links</div>
+          <div className={css.section2}>
+            <div className={css.cell3}>
+              <Input label="Live at" inputName="" placeholder="" name="" />
+            </div>
+            <div className={css.verticalLine} />
+            <div className={css.cell3}>
+              <Input label="Github" inputName="" placeholder="" name="" />
+            </div>
+          </div>
+          <div className={css.personTable}>
+            <div className={css.personTableTitle}>
+              IN THE NEWS
+              <img className={css.formIcon} src={sortIcon} alt="sort" />
+            </div>
+            <img className={css.formIcon} src={deleteIcon} alt="delete" />
+          </div>
+          <div className={css.personItem} />
+          <div className={css.formButton}>
+            <div>SAVE</div>
+            <span onClick={this.props.closeModal}>Cancel</span>
           </div>
         </form>
       </div>
@@ -115,13 +153,13 @@ class ProjectModal extends Component {
 
 export default ProjectModal;
 
-const InputText = props => (
+const Input = props => (
   <div className={css.inputSection}>
     <label htmlFor={props.inputID} className={css.label}>
       {props.label}
     </label>
     <input
-      type="text"
+      type={props.type}
       placeholder={props.placeholder}
       value={props.value}
       id={props.inputID}
