@@ -1,0 +1,234 @@
+.projectsApp {
+  position: relative;
+  background: #f2f2f2;
+  width: 100%;
+  font-family: Calibri, sans-serif;
+}
+
+.backgroundImg {
+  position: absolute;
+  background-image: url('https://tyoelama-duunitori.imgix.net/wp-content/uploads/2017/12/rekrykuva10_digia.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 800px;
+  width: 100%;
+  z-index: 0;
+}
+
+.contanier {
+  width: 1460px;
+  margin: 0 auto;
+  padding: 86px 0;
+}
+
+.heading {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.headingTitle {
+  color: #fff;
+  font-size: 72px;
+  line-height: 62px;
+}
+
+.headingButton {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  font-size: 16px;
+  max-height: 50px;
+  padding: 20px 30px;
+  border: 1px solid white;
+  cursor: pointer;
+}
+
+.headingDetails {
+  min-width: 100%;
+  color: #fff;
+  font-size: 30px;
+  margin: 20px 0;
+}
+
+.headingDetailNumber {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.filters {
+  position: relative;
+  display: flex;
+  margin-top: 40px;
+}
+
+.filter {
+  display: flex;
+  flex-direction: column;
+  margin-right: 61px;
+  width: 446px;
+  color: #fff;
+  font-size: 17px;
+}
+
+.filter select {
+  height: 45px;
+}
+
+.projects {
+  position: relative;
+  column-count: 3;
+  column-gap: 60px;
+  margin: 20px 0;
+  color: #363636;
+}
+
+.project {
+  width: 446px;
+  background-color: #fff;
+  margin-bottom: 25px;
+  display: inline-block;
+  box-shadow: 1px 1px #e2e2e2;
+}
+
+.projectDetails {
+  padding: 65px;
+}
+
+.projectName {
+  font-size: 34px;
+  line-height: 28px;
+  color: #c30000;
+  text-transform: capitalize;
+  padding-bottom: 20px;
+}
+
+.projectView {
+  font-size: 16;
+  font-weight: bold;
+  color: #000;
+  line-height: 1.2;
+  padding-bottom: 24px;
+}
+
+.projectView a {
+  color: #14688f;
+  font-size: 17px;
+  font-weight: normal;
+  text-decoration: none;
+  padding: 0 4px;
+}
+
+.projectDesciption {
+  font-size: 17px;
+  line-height: 1.29;
+  padding-bottom: 20px;
+}
+
+.technologies span {
+  background: #363636;
+  color: white;
+  font-size: 17px;
+  padding: 11px;
+  line-height: 40px;
+  margin-right: 4px;
+}
+
+.Modal {
+  position: absolute;
+  top: 10%;
+  left: 0;
+  right: 0;
+  bottom: 10%;
+  font-family: Calibri, sans-serif;
+  margin: 0 auto;
+  background-color: #fff;
+  outline: none;
+  border-radius: 4px;
+  padding: 45px 40px;
+  color: #363636;
+  width: 1220px;
+}
+
+.modalTitle {
+  font-size: 34px;
+  margin-bottom: 80px;
+}
+
+.section {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.cell {
+  width: 30%;
+  min-height: 270px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.verticalLine {
+  width: 2px;
+  background: lightgray;
+}
+
+.inputSection {
+  display: flex;
+  flex-direction: column;
+  min-height: 74px;
+}
+
+.label {
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.inputSection input {
+  font-size: 17px;
+  color: #363636;
+  background-color: #eee;
+  padding: 15px 10px;
+  border: none;
+  margin-top: 5px;
+}
+
+input:focus {
+  outline: none;
+}
+
+.inputGroup {
+  display: flex;
+  justify-content: space-between;
+}
+
+.checkboxLabel {
+  font-size: 17px;
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.inputSection input[type="checkbox"] {
+  visibility: hidden;
+  position: absolute;
+}
+
+.squire {
+  height: 25px;
+  width: 25px;
+  border: 2px solid lightgray;
+  display: inline-block;
+  margin: 0 7px 0 0;
+}
+
+input[type="checkbox"]:checked +.squire {
+  background: url('../../assets/done.svg');
+}
+
+.inputGroup .inputSection {
+  width: 48%;
+} 

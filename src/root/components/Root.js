@@ -13,9 +13,9 @@ import css from './Root.css';
 
 const Root = () => (
   <div className={css.component}>
-    <Header />
     <Router>
       <div className={css.routes}>
+        <Header />
         <Switch>
           <Route exact path="/" component={Hello} />
           <Route path="/projects" component={ProjectsContainer} />
