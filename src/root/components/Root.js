@@ -19,7 +19,11 @@ const Root = () => (
         <Switch>
           <Route exact path="/" component={Hello} />
           <Route path="/projects" component={ProjectsContainer} />
-          <Route path="/customers" component={CustomersContainer} />
+          <Route
+            path="/customers"
+            exact={true}
+            component={CustomersContainer}
+          />
           <Route path="/customers/:id" component={CustomerView} />
           <Route path="/people" component={PeopleContainer} />
           <Route path="*" component={NotFound} />
