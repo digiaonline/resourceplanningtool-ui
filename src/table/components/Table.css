@@ -1,9 +1,3 @@
-:root {
-  --border: 2px solid rgb(220, 220, 220);
-  --color: rgb(54, 54, 54);
-  --letter-spacing: 0.4px;
-}
-
 * {
   box-sizing: border-box;
 }
@@ -12,13 +6,23 @@
   cursor: pointer;
 }
 
+.container__table {
+  margin: 7% 0 auto;
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
 .row {
+  padding-right: 10px;
   text-align: left;
   border-bottom: var(--border);
   height: 45px;
   line-height: 10px;
   letter-spacing: var(--letter-spacing);
   composes: element--hover;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .row__name {
@@ -29,7 +33,6 @@
 .row__website {
   width: 30%;
   composes: row;
-  overflow: hidden;
 }
 
 .row__industry {

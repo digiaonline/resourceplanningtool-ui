@@ -3,7 +3,7 @@
 import React, {Component} from 'react';
 import css from './CustomersContainer.css';
 import CustomerForm from './CustomerForm';
-import CustomerRow from './CustomerRow';
+import Table from '../../table/components/Table';
 import dummyCustomers from './dummyCustomers';
 
 class CustomersContainer extends Component {
@@ -41,27 +41,11 @@ class CustomersContainer extends Component {
             customerInfo={{}}
           />
         </div>
-        <table className={css.container__table}>
-          <thead>
-            <tr>
-              <th className={css.row__name}>
-                {' '}
-                CUSTOMER <span id="sort" />{' '}
-              </th>
-              <th className={css.row__website}> WEBSITE </th>
-              <th className={css.row__industry}> INDUSTRY </th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.customers.map((id, index) => (
-              <CustomerRow
-                toCustomer={this.toCustomer}
-                key={index}
-                customerInfo={this.state.customers[index]}
-              />
-            ))}
-          </tbody>
-        </table>
+        <Table
+          columnHeaders={['CUSTOMER', 'WEBSITE', 'INDUSTRY']}
+          rowsValue={this.state.customers}
+          displayedFields={['name', 'website', 'industry']}
+        />
       </div>
     );
   }
