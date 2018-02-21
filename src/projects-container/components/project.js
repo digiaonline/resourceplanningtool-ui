@@ -11,7 +11,7 @@ const Project = props => (
       <div className={css.projectView}>
         VIEW ON:
         <a href={props.live}>Live</a>|
-        <a href={props.githup}>Github</a>
+        <a href={props.github}>Github</a>
       </div>
       <div className={css.projectDesciption}>{props.description}</div>
       <div className={css.technologies}>
