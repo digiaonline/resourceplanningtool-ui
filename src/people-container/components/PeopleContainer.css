@@ -58,10 +58,3 @@
   width: 21px;
   height: 21px;
 }
-
-.container__table {
-  margin: 7% 0 auto;
-  width: 100%;
-  table-layout: fixed;
-  border-collapse: collapse;
-}
