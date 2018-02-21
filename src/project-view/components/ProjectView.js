@@ -2,6 +2,9 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import css from './ProjectView.css';
 import DATA from '../../MOCK_DATA.json';
+import backIcon from '../../assets/icon_arrow_back.svg';
+import deleteIcon from '../../assets/icon_delete.svg';
+import editIcon from '../../assets/icon_edit.svg';
 
 const ProjectView = props => {
   const Data = DATA[props.match.params.id - 1];
@@ -9,13 +12,20 @@ const ProjectView = props => {
   return (
     <div className={css.project__view}>
       <Link className={css.back__button} to="/projects">
-        Back
+        <img src={backIcon} alt="back" />
+        <span>Back</span>
       </Link>
       <div className={css.project__heading}>
         <div className={css.project__title}>{Data.name}</div>
         <div className={css.project__buttons}>
-          <span>DELETE</span>
-          <span>EDIT</span>
+          <div>
+            <img src={deleteIcon} alt="delete" />
+            <span>DELETE</span>
+          </div>
+          <div>
+            <img src={editIcon} alt="EDIT" />
+            <span>EDIT</span>
+          </div>
         </div>
       </div>
       <div className={css.general__details}>
