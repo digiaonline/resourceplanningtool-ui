@@ -19,8 +19,8 @@ const Root = () => (
         <Header />
         <Switch>
           <Route exact path="/" component={Hello} />
-          <Route path="/projects" component={ProjectsContainer} />
-          <Route path="/project/:id" component={ProjectView} />
+          <Route exact path="/projects" component={ProjectsContainer} />
+          <Route path="/projects/:id" component={ProjectView} />
           <Route
             path="/customers"
             exact={true}

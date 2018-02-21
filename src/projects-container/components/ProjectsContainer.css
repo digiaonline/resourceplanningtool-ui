@@ -103,6 +103,8 @@
   color: #c30000;
   text-transform: capitalize;
   padding-bottom: 20px;
+  display: block;
+  text-decoration: none;
 }
 
 .projectView {
