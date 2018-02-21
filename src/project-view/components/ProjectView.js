@@ -29,7 +29,8 @@ const ProjectView = props => {
             {Data.customerEmail}
           </div>
           <div className={css.detail__row}>
-            <span>Start time</span>/{Data.startTime}
+            <span>Start time</span>
+            {Data.startTime}
           </div>
           <div className={css.detail__row}>
             <span>End time</span>
