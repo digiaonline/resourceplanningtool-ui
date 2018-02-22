@@ -103,6 +103,8 @@
   color: #c30000;
   text-transform: capitalize;
   padding-bottom: 20px;
+  display: block;
+  text-decoration: none;
 }
 
 .projectView {
@@ -150,85 +152,18 @@
   padding: 45px 40px;
   color: #363636;
   width: 1220px;
+  overflow: auto;
 }
 
-.modalTitle {
-  font-size: 34px;
-  margin-bottom: 80px;
+@media (max-width: 1200px) {
+  .Modal {
+    width: 80%;
+  }
 }
 
-.section {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
+@media (max-width: 1000px) {
+  .Modal {
+    width: 95%;
+    padding: 25px 20px;
+  }
 }
-
-.cell {
-  width: 30%;
-  min-height: 270px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.verticalLine {
-  width: 2px;
-  background: lightgray;
-}
-
-.inputSection {
-  display: flex;
-  flex-direction: column;
-  min-height: 74px;
-}
-
-.label {
-  font-size: 17px;
-  font-weight: bold;
-}
-
-.inputSection input {
-  font-size: 17px;
-  color: #363636;
-  background-color: #eee;
-  padding: 15px 10px;
-  border: none;
-  margin-top: 5px;
-}
-
-input:focus {
-  outline: none;
-}
-
-.inputGroup {
-  display: flex;
-  justify-content: space-between;
-}
-
-.checkboxLabel {
-  font-size: 17px;
-  margin-top: 16px;
-  display: flex;
-  align-items: center;
-}
-
-.inputSection input[type="checkbox"] {
-  visibility: hidden;
-  position: absolute;
-}
-
-.squire {
-  height: 25px;
-  width: 25px;
-  border: 2px solid lightgray;
-  display: inline-block;
-  margin: 0 7px 0 0;
-}
-
-input[type="checkbox"]:checked +.squire {
-  background: url('../../assets/done.svg');
-}
-
-.inputGroup .inputSection {
-  width: 48%;
-} 

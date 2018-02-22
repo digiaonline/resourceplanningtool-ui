@@ -5,6 +5,7 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Hello from '../../hello/components/Hello';
 import Header from '../../header/components/Header';
 import ProjectsContainer from '../../projects-container/components/ProjectsContainer';
+import ProjectView from '../../project-view/components/ProjectView';
 import CustomersContainer from '../../customers-container/components/CustomersContainer';
 import PeopleContainer from '../../people-container/components/PeopleContainer';
 import CustomerView from '../../customer-view/components/CustomerView';
@@ -19,7 +20,8 @@ const Root = () => (
         <Header />
         <Switch>
           <Route exact path="/" component={Hello} />
-          <Route path="/projects" component={ProjectsContainer} />
+          <Route exact path="/projects" component={ProjectsContainer} />
+          <Route path="/projects/:id" component={ProjectView} />
           <Route
             path="/customers"
             exact={true}

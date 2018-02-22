@@ -7,6 +7,7 @@ const Projects = props => {
     return (
       <Project
         key={item.id}
+        id={item.id}
         projectName={item.name}
         live={item.linkLive}
         github={item.linkGithub}
