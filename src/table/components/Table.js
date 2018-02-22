@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import css from './Table.css';
 
 const Table = props => (
@@ -17,14 +18,23 @@ const Table = props => (
     </thead>
     <tbody>
       {props.rowsValue.map((row, index) => (
-        <Row key={index} values={row} displayedFields={props.displayedFields} />
+        <Row
+          key={index}
+          values={row}
+          displayedFields={props.displayedFields}
+          navigate={props.navigate}
+        />
       ))}
     </tbody>
   </table>
 );
 
 export const Row = props => (
-  <tr>
+  <tr
+    onClick={() => {
+      props.navigate(props.values.id);
+    }}
+  >
     <td className={css.row__name}>
       {' '}
       {props.values[props.displayedFields[0]]}{' '}
@@ -39,14 +49,14 @@ export const Row = props => (
 );
 
 Table.propTypes = {
-  columnHeaders: [String], // should have 3 values
-  rowsValue: [],
-  displayedFields: [String], // should have 3 values
+  columnHeaders: PropTypes.arrayOf(PropTypes.string).isRequired, // should have 3 values
+  rowsValue: PropTypes.arrayOf(PropTypes.object).isRequired,
+  displayedFields: PropTypes.arrayOf(PropTypes.string).isRequired, // should have 3 values
 };
 
 Row.propTypes = {
-  values: Object,
-  displayedFields: [String],
+  values: PropTypes.object.isRequired,
+  displayedFields: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default Table;
