@@ -1,288 +1,169 @@
-.modalTitle {
-  font-size: 34px;
-  margin-bottom: 80px;
-}
-
-.modalClose {
-  position: absolute;
-  right: 0;
-  top: 5px;
-  cursor: pointer;
-}
-
-.section {
-  display: flex;
+.projectsApp {
+  position: relative;
+  background: #f2f2f2;
   width: 100%;
-  justify-content: space-between;
+  font-family: Calibri, sans-serif;
 }
 
-.section2 {
-  display: flex;
-  width: 65%;
-  justify-content: space-between;
+.backgroundImg {
+  position: absolute;
+  background-image: url('https://tyoelama-duunitori.imgix.net/wp-content/uploads/2017/12/rekrykuva10_digia.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 800px;
+  width: 100%;
+  z-index: 0;
 }
 
-.cell {
-  width: 46%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+.contanier {
+  width: 1460px;
+  margin: 0 auto;
+  padding: 86px 0;
 }
 
-.cell1 {
-  width: 30%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.cell2 {
-  width: 65%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.verticalLine {
-  margin-top: 20px;
-  width: 2px;
-  background: lightgray;
-}
-
-.inputSection {
-  display: flex;
-  flex-direction: column;
-  min-height: 95px;
-}
-
-.label {
-  font-size: 17px;
-  font-weight: bold;
-  margin-top: 20px;
-}
-
-.inputSection input {
-  font-size: 17px;
-  color: #363636;
-  background-color: #eee;
-  padding: 15px 10px;
-  border: none;
-  margin-top: 5px;
-  border: 1px solid lightgray;
-}
-
-input:focus {
-  outline: none;
-}
-
-.inputGroup {
+.heading {
+  position: relative;
   display: flex;
   justify-content: space-between;
-  max-height: 95px;
-}
-
-.inputGroup input {
-  font-size: 14px;
-  font-weight: bold;
-}
-
-.checkboxLabel {
-  font-size: 17px;
-  margin-top: 16px;
-  display: flex;
   align-items: center;
-}
-
-.inputSection input[type="checkbox"] {
-  visibility: hidden;
-  position: absolute;
-}
-
-.squire {
-  height: 25px;
-  width: 25px;
-  border: 2px solid lightgray;
-  display: inline-block;
-  margin: 0 7px 0 0;
-}
-
-input[type="checkbox"]:checked +.squire {
-  background: url('../../assets/done.svg');
-}
-
-.inputGroup .inputSection {
-  width: 48%;
-}
-
-.formDvider {
-  width: 100%;
-  height: 45px;
-  margin-top: 50px;
-  padding-left: 12px;
-  color: #fff;
-  background-color: #363636;
-  font-size: 24px;
-  line-height: 45px;
-}
-
-.inputSection textarea {
-  height: 148px;
-  background-color: #eee;
-  margin-top: 5px;
-  padding: 12px 9px;
-  resize: none;
-  font-size: 17px;
-  color: #363636;
-  border: 1px solid lightgray;
-}
-
-.tableHeader {
-  margin-top: 20px;
-  width: 100%;
-  border-bottom: 1px solid lightgray;
-  display: flex;
-  justify-content: space-between;
-}
-
-.tableHeaderTitle {
-  font-size: 16px;
-  font-weight: bold;
-  height: 45px;
-  width: 275px;
-  line-height: 45px;
-}
-
-.formIcon {
-  float: right;
-  margin: 10.5px 0;
-}
-
-.tableItem {
-  font-size: 16px;
-  font-weight: normal;
-  height: 45px;
-  line-height: 43px;
-  border-bottom: 1px solid lightgray;
-}
-
-.selectedTech {
-  margin-top: 20px;
-  display: flex;
   flex-wrap: wrap;
 }
 
-.selectedTech div {
-  margin-left: 5px;
-  font-size: 17px;
-  line-height: 35px;
-  padding: 0 8px;
-  border: none;
-  background-color: lightgray;
+.headingTitle {
+  color: #fff;
+  font-size: 72px;
+  line-height: 62px;
 }
 
-.removeTech {
-  position: relative;
-  top: 5.5px;
-  margin-left: 24px;
-}
-
-.formButton {
-  margin-top: 58px;
+.headingButton {
   display: flex;
-  flex-direction: row-reverse;
+  align-items: center;
+  color: #fff;
   font-size: 16px;
+  max-height: 50px;
+  padding: 20px 30px;
+  border: 1px solid white;
+  cursor: pointer;
 }
 
-.formButton div {
-  padding: 20px 32px;
-  border: 1px solid lightgray;
-  cursor: pointer;
+.headingDetails {
+  min-width: 100%;
+  color: #fff;
+  font-size: 30px;
+  margin: 20px 0;
+}
+
+.headingDetailNumber {
+  font-size: 40px;
   font-weight: bold;
 }
 
-.formButton span {
-  padding: 20px 32px;
-  cursor: pointer;
-}
-
-.news__url {
+.filters {
+  position: relative;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  margin-top: 40px;
 }
 
-.news__url .inputSection {
-  min-height: unset;
-  width: 46%;
-}
-
-.news__url .label {
-  margin-top: 0;
-}
-
-.news__url input {
-  margin-top: 0;
-  padding: 7.5px 10px;
-}
-
-.news__url__button {
+.filter {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  margin-right: 61px;
+  width: 446px;
+  color: #fff;
   font-size: 17px;
+}
+
+.filter select {
+  height: 45px;
+}
+
+.projects {
+  position: relative;
+  column-count: 3;
+  column-gap: 60px;
+  margin: 20px 0;
+  color: #363636;
+}
+
+.project {
+  width: 446px;
+  background-color: #fff;
+  margin-bottom: 25px;
+  display: inline-block;
+  box-shadow: 1px 1px #e2e2e2;
+}
+
+.projectDetails {
+  padding: 65px;
+}
+
+.projectName {
+  font-size: 34px;
+  line-height: 28px;
+  color: #c30000;
+  text-transform: capitalize;
+  padding-bottom: 20px;
+  display: block;
+  text-decoration: none;
+}
+
+.projectView {
+  font-size: 16;
   font-weight: bold;
-  width: 60px;
-  justify-content: space-between;
-  cursor: pointer;
+  color: #000;
+  line-height: 1.2;
+  padding-bottom: 24px;
+}
+
+.projectView a {
+  color: #14688f;
+  font-size: 17px;
+  font-weight: normal;
+  text-decoration: none;
+  padding: 0 4px;
+}
+
+.projectDesciption {
+  font-size: 17px;
+  line-height: 1.29;
+  padding-bottom: 20px;
+}
+
+.technologies span {
+  background: #363636;
+  color: white;
+  font-size: 17px;
+  padding: 11px;
+  line-height: 40px;
+  margin-right: 4px;
+}
+
+.Modal {
+  position: absolute;
+  top: 10%;
+  left: 0;
+  right: 0;
+  bottom: 10%;
+  font-family: Calibri, sans-serif;
+  margin: 0 auto;
+  background-color: #fff;
+  outline: none;
+  border-radius: 4px;
+  padding: 45px 40px;
+  color: #363636;
+  width: 1220px;
+  overflow: auto;
+}
+
+@media (max-width: 1200px) {
+  .Modal {
+    width: 80%;
+  }
 }
 
 @media (max-width: 1000px) {
-  .cell1 {
-    width: 35%;
-  }
-
-  .cell2 {
-    width: 60%;
-  }
-
-  .inputSection input {
-    padding: 12px 8px;
-  }
-
-  .inputGroup input {
-    padding: 12px 0;
-  }
-}
-
-@media (max-width: 800px) {
-  .modalTitle {
-    margin-bottom: 20px;
-  }
-
-  .verticalLine {
-    display: none;
-  }
-
-  .section {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .cell,
-  .cell1,
-  .cell2 {
-    width: 100%;
-    margin: 0 auto;
-  }
-
-  .formDvider {
-    width: 100%;
-    margin: 50px auto 0;
-  }
-
-  .tableHeader,
-  .tableItem,
-  .selectedTech {
-    width: 100%;
-    margin: 0 auto;
+  .Modal {
+    width: 95%;
+    padding: 25px 20px;
   }
 }
