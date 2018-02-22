@@ -155,15 +155,121 @@
   overflow: auto;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1550px) {
+  .contanier {
+    width: 1150px;
+  }
+
+  .projects {
+    column-gap: 35px;
+  }
+
+  .filter {
+    width: 360px;
+    margin-right: 35px;
+  }
+
+  .project {
+    width: 360px;
+  }
+
+  .projectDetails {
+    padding: 60px;
+  }
+}
+
+@media (max-width: 1250px) {
+  .contanier {
+    width: 900px;
+  }
+
+  .projects {
+    column-gap: 25px;
+  }
+
+  .filter {
+    width: 275px;
+    margin-right: 25px;
+  }
+
+  .project {
+    width: 275px;
+  }
+
+  .projectDetails {
+    padding: 40px 45px;
+  }
+
   .Modal {
-    width: 80%;
+    width: 85%;
   }
 }
 
 @media (max-width: 1000px) {
+  .contanier {
+    width: 640px;
+  }
+
+  .projects {
+    column-count: 2;
+    column-gap: 30px;
+  }
+
+  .filters {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .filter {
+    width: 300px;
+    margin-right: unset;
+  }
+
+  .project {
+    width: 300px;
+  }
+
+  .projectDetails {
+    padding: 40px 45px;
+  }
+
   .Modal {
     width: 95%;
     padding: 25px 20px;
+  }
+}
+
+@media (max-width: 750px) {
+  .contanier {
+    width: 80%;
+  }
+
+  .heading {
+    flex-direction: column;
+    min-height: 250px;
+    align-items: flex-start;
+  }
+
+  .headingButton {
+    order: 1;
+  }
+
+  .filters {
+    flex-direction: column;
+  }
+
+  .filter {
+    width: 100%;
+  }
+
+  .projects {
+    column-count: unset;
+    column-gap: unset;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project {
+    width: 100%;
   }
 }
