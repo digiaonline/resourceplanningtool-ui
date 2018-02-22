@@ -47,7 +47,7 @@ class CustomerForm extends Component {
                   value={this.props.customerInfo.website}
                 />
               </div>
-              <div className={css.form__lastField}>
+              <div className={css.form__field}>
                 <label htmlFor="industry">Industry</label>
                 <input
                   className={css.field__input}
