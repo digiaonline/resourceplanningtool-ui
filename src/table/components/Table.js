@@ -36,14 +36,13 @@ export const Row = props => (
     }}
   >
     <td className={css.row__name}>
-      {' '}
-      {props.values[props.displayedFields[0]]}{' '}
+      <span>{props.values[props.displayedFields[0]]}</span>
     </td>
     <td className={css.row__website}>
-      {props.values[props.displayedFields[1]]}
+      <span>{props.values[props.displayedFields[1]]}</span>
     </td>
     <td className={css.row__industry}>
-      {props.values[props.displayedFields[2]]}
+      <span>{props.values[props.displayedFields[2]]}</span>
     </td>
   </tr>
 );

@@ -13,7 +13,7 @@
 }
 
 .container {
-  margin: 85px 18% auto;
+  margin: 85px 20% auto;
   font-family: Calibri, sans-serif;
   font-weight: normal;
   letter-spacing: normal;
@@ -39,7 +39,6 @@
 .header__button {
   border: var(--border);
   background-color: inherit;
-  width: 202px;
   height: 50px;
   letter-spacing: var(--letter-spacing);
   color: var(--color);
@@ -47,6 +46,7 @@
   padding: 15px 30px;
   text-align: left;
   font-size: 16px;
+  font-family: Calibri, sans-serif;
   composes: element--hover;
 }
 

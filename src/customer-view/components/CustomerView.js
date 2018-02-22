@@ -29,19 +29,17 @@ class CustomerView extends Component {
         <div className={css.container__customer}>
           <div>
             <h3 className={css.customer__name}> {this.state.customer.name} </h3>
-            <div className={css.customer__details}>
-              <span className={css.details__field}>
-                <b>Industry</b>
-              </span>
-              {this.state.customer.industry}
-            </div>
-            <div className={css.customer__details}>
-              <span className={css.details__field}>
-                <b>Website</b>
-              </span>
-              <a href={this.state.customer.website}>
-                {this.state.customer.website}
-              </a>
+            <div className={css.customer__rows}>
+              <div className={css.column__row}>
+                <span className={css.row__tag}>Industry</span>
+                <span>{this.state.customer.industry}</span>
+              </div>
+              <div className={css.column__row}>
+                <span className={css.row__tag}>Website</span>
+                <a href={this.state.customer.website}>
+                  {this.state.customer.website}
+                </a>
+              </div>
             </div>
           </div>
           <div className={css.customer__buttons}>
