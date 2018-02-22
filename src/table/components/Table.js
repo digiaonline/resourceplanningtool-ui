@@ -8,12 +8,12 @@ const Table = props => (
   <table className={css.container__table}>
     <thead>
       <tr>
-        <th className={css.row__name}>
+        <th className={css.row__firstField}>
           {props.columnHeaders[0]}
           <span id="sort" />{' '}
         </th>
-        <th className={css.row__website}>{props.columnHeaders[1]}</th>
-        <th className={css.row__industry}>{props.columnHeaders[2]}</th>
+        <th className={css.row__secondField}>{props.columnHeaders[1]}</th>
+        <th className={css.row__lastField}>{props.columnHeaders[2]}</th>
       </tr>
     </thead>
     <tbody>
@@ -35,13 +35,22 @@ export const Row = props => (
       props.navigate(props.values.id);
     }}
   >
-    <td className={css.row__name}>
+    <td className={css.row__firstField}>
       <span>{props.values[props.displayedFields[0]]}</span>
     </td>
-    <td className={css.row__website}>
-      <span>{props.values[props.displayedFields[1]]}</span>
+    <td className={css.row__secondField}>
+      {// if the table cell contains a link, we wrap it in <a> tag
+        props.displayedFields[1] === 'website' ? (
+          <span>
+            <a href={props.values[props.displayedFields[1]]}>
+              {props.values[props.displayedFields[1]]}
+            </a>
+          </span>
+        ) : (
+          <span>{props.values[props.displayedFields[1]]}</span>
+        )}
     </td>
-    <td className={css.row__industry}>
+    <td className={css.row__lastField}>
       <span>{props.values[props.displayedFields[2]]}</span>
     </td>
   </tr>

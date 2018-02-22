@@ -58,3 +58,15 @@
   width: 21px;
   height: 21px;
 }
+
+@media (max-width: 700px) {
+  .container {
+    margin: 80px 15% auto;
+  }
+}
+
+@media (max-width: 400px) {
+  .container {
+    margin: 50px 10% auto;
+  }
+}

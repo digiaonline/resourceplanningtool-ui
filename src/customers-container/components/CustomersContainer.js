@@ -34,7 +34,7 @@ class CustomersContainer extends Component {
             className={css.header__button}
             onClick={this.toggleForm}
           >
-            <i id="icon" /> NEW CUSTOMER
+            <span className={css.button__plusIcon} /> NEW CUSTOMER
           </button>
           <CustomerForm
             isOpened={this.state.formIsOpened}

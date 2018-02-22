@@ -14,30 +14,29 @@
 }
 
 .row {
-  max-width: 100px;
-  margin-right: 10px;
   text-align: left;
   border-bottom: var(--border);
   height: 45px;
   line-height: 10px;
   letter-spacing: var(--letter-spacing);
   composes: element--hover;
-  text-overflow: ellipsis;
+  overflow: hidden;
   white-space: nowrap;
-  padding-right: 30px;
 }
 
-.row__name {
+.row__firstField {
   width: 40%;
   composes: row;
 }
 
-.row__website {
+.row__secondField {
   width: 30%;
+  padding-left: 10px;
   composes: row;
 }
 
-.row__industry {
+.row__lastField {
   width: 30%;
+  padding-left: 10px;
   composes: row;
 }
