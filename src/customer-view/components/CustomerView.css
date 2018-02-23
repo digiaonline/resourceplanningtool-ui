@@ -41,6 +41,7 @@
 .container__customer {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap-reverse;
 }
 
 .customer__buttons {
@@ -51,7 +52,7 @@
 
 .customer__name {
   font-size: 34px;
-  margin: 0 auto 125px;
+  margin: 0 auto 80px;
   font-weight: normal;
 }
 
@@ -62,7 +63,7 @@
 
 .column__row {
   display: flex;
-  flex-direction: row;
+  flex-flow: row wrap;
   margin-bottom: 30px;
 }
 
@@ -79,4 +80,10 @@
   align-items: center;
   margin: 0 0 30px 30px;
   border: var(--blurred-border);
+}
+
+@media (max-width: 963px) {
+  .buttonsGroup__button {
+    margin: 0 30px 30px 0;
+  }
 }
