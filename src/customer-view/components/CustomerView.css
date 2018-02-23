@@ -16,6 +16,7 @@
   height: 50px;
   background-color: inherit;
   font-weight: bold;
+  display: inline-flex;
   font-size: 16px;
   margin: auto auto 20px;
   font-family: Calibri, sans-serif;
@@ -40,6 +41,12 @@
 .container__customer {
   display: flex;
   justify-content: space-between;
+}
+
+.customer__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: start;
 }
 
 .customer__name {
@@ -67,6 +74,9 @@
 .buttonsGroup__button {
   composes: button;
   composes: element--hover;
-  margin-left: 30px;
+  padding: 20px auto;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0 30px 30px;
   border: var(--blurred-border);
 }

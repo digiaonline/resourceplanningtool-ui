@@ -3,6 +3,7 @@
 import React, {Component} from 'react';
 import Modal from 'react-modal';
 import css from './CustomerForm.css';
+import closeIcon from '../../assets/icon_close.svg';
 
 class CustomerForm extends Component {
   componentWillMount() {
@@ -17,9 +18,12 @@ class CustomerForm extends Component {
     return (
       <Modal isOpen={this.props.isOpened} style={modalStyle}>
         <div className={css.buttonContainer}>
-          <span className={css.modal__close} onClick={this.props.toggleForm}>
-            X
-          </span>
+          <img
+            alt=""
+            src={closeIcon}
+            className={css.modal__close}
+            onClick={this.props.toggleForm}
+          />
         </div>
         <div className={css.formContainer}>
           <h3 className={css.formContainer__h3}>
@@ -28,7 +32,9 @@ class CustomerForm extends Component {
           <form className={css.container__form}>
             <div className={css.form__inputs}>
               <div className={css.form__field}>
-                <label htmlFor="name">Customer</label>
+                <label htmlFor="name">
+                  <b>Customer</b>
+                </label>
                 <input
                   className={css.field__input}
                   id="name"
@@ -38,7 +44,9 @@ class CustomerForm extends Component {
                 />
               </div>
               <div className={css.form__field}>
-                <label htmlFor="website">Website</label>
+                <label htmlFor="website">
+                  <b>Website</b>
+                </label>
                 <input
                   className={css.field__input}
                   id="website"
@@ -48,7 +56,9 @@ class CustomerForm extends Component {
                 />
               </div>
               <div className={css.form__field}>
-                <label htmlFor="industry">Industry</label>
+                <label htmlFor="industry">
+                  <b>Industry</b>
+                </label>
                 <input
                   className={css.field__input}
                   id="industry"

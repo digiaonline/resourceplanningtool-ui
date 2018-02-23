@@ -4,6 +4,9 @@ import React, {Component} from 'react';
 import CustomerForm from '../../customers-container/components/CustomerForm';
 import css from './CustomerView.css';
 import dummyCustomers from '../../customers-container/components/dummyCustomers';
+import deleteIcon from '../../assets/icon_delete.svg';
+import editIcon from '../../assets/icon_edit.svg';
+import backIcon from '../../assets/icon_arrow_back.svg';
 
 class CustomerView extends Component {
   constructor(props) {
@@ -24,7 +27,7 @@ class CustomerView extends Component {
     return (
       <div className={css.container}>
         <button type="button" className={css.container__backButton}>
-          <span id="back-icon" /> BACK
+          <img src={backIcon} alt="" /> <span>&nbsp; BACK </span>
         </button>
         <div className={css.container__customer}>
           <div>
@@ -44,14 +47,16 @@ class CustomerView extends Component {
           </div>
           <div className={css.customer__buttons}>
             <button type="button" className={css.buttonsGroup__button}>
-              <span id="delete-icon" /> DELETE
+              <img alt="" src={deleteIcon} />
+              <span>&nbsp; DELETE</span>
             </button>
             <button
               type="button"
               className={css.buttonsGroup__button}
               onClick={this.toggleForm}
             >
-              <span id="edit-icon" /> EDIT
+              <img alt="" src={editIcon} />
+              <span>&nbsp; EDIT</span>
             </button>
           </div>
         </div>

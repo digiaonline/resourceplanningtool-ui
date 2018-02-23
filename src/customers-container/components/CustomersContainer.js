@@ -6,6 +6,7 @@ import CustomerForm from './CustomerForm';
 import Table from '../../table/components/Table';
 import dummyCustomers from './dummyCustomers';
 import {withNavigation} from '../../table/components/withNavigation';
+import addIcon from '../../assets/icon_add_b.svg';
 
 class CustomersContainer extends Component {
   constructor(props) {
@@ -34,7 +35,8 @@ class CustomersContainer extends Component {
             className={css.header__button}
             onClick={this.toggleForm}
           >
-            <span className={css.button__plusIcon} /> NEW CUSTOMER
+            <img src={addIcon} alt="" />
+            <span>&nbsp; NEW CUSTOMER</span>
           </button>
           <CustomerForm
             isOpened={this.state.formIsOpened}

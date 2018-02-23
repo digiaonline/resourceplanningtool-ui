@@ -39,21 +39,18 @@
 .header__button {
   border: var(--border);
   background-color: inherit;
+  justify-content: center;
   height: 50px;
+  text-align: center;
   letter-spacing: var(--letter-spacing);
   color: var(--color);
   font-weight: bold;
-  padding: 15px 30px;
-  text-align: left;
+  display: inline-flex;
+  align-items: center;
   font-size: 16px;
   font-family: Calibri, sans-serif;
   composes: element--hover;
-}
-
-.button__plusIcon {
-  background: url('../../assets/icon_add_b.svg');
-  display: block;
-  background-size: 21px 21px;
+  padding: 0 20px;
 }
 
 @media (max-width: 700px) {
