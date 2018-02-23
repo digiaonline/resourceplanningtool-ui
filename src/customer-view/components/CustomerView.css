@@ -17,6 +17,8 @@
   background-color: inherit;
   font-weight: bold;
   font-size: 16px;
+  margin: auto auto 20px;
+  font-family: Calibri, sans-serif;
 }
 
 .element--hover:hover {
@@ -30,7 +32,6 @@
 
 .container__backButton {
   composes: button;
-  margin: auto auto 20px;
   border: 0 solid rgba(255, 255, 255, 0);
   padding: 0;
   text-align: left;
@@ -47,18 +48,25 @@
   font-weight: normal;
 }
 
-.customer__details {
+.customer__rows {
+  display: flex;
+  flex-direction: column;
+}
+
+.column__row {
+  display: flex;
+  flex-direction: row;
   margin-bottom: 30px;
 }
 
-.details__field {
-  margin-right: 29px;
+.row__tag {
+  font-weight: bold;
+  margin-right: 40px;
 }
 
 .buttonsGroup__button {
   composes: button;
   composes: element--hover;
-  padding: 16px 24px;
-  margin-left: 18px;
+  margin-left: 30px;
   border: var(--blurred-border);
 }

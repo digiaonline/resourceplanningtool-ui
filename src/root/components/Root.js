@@ -9,6 +9,7 @@ import ProjectView from '../../project-view/components/ProjectView';
 import CustomersContainer from '../../customers-container/components/CustomersContainer';
 import PeopleContainer from '../../people-container/components/PeopleContainer';
 import CustomerView from '../../customer-view/components/CustomerView';
+import PersonView from '../../person-view/components/PersonView';
 import NotFound from '../../not-found/components/NotFound';
 import css from './Root.css';
 
@@ -27,7 +28,8 @@ const Root = () => (
             component={CustomersContainer}
           />
           <Route path="/customers/:id" component={CustomerView} />
-          <Route path="/people" component={PeopleContainer} />
+          <Route path="/people" exact={true} component={PeopleContainer} />
+          <Route path="/people/:id" component={PersonView} />
           <Route path="*" component={NotFound} />
         </Switch>
       </div>

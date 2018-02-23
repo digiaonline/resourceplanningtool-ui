@@ -5,6 +5,7 @@ import css from './CustomersContainer.css';
 import CustomerForm from './CustomerForm';
 import Table from '../../table/components/Table';
 import dummyCustomers from './dummyCustomers';
+import {withNavigation} from '../../table/components/withNavigation';
 
 class CustomersContainer extends Component {
   constructor(props) {
@@ -33,7 +34,7 @@ class CustomersContainer extends Component {
             className={css.header__button}
             onClick={this.toggleForm}
           >
-            <i id="icon" /> NEW CUSTOMER
+            <span className={css.button__plusIcon} /> NEW CUSTOMER
           </button>
           <CustomerForm
             isOpened={this.state.formIsOpened}
@@ -41,7 +42,8 @@ class CustomersContainer extends Component {
             customerInfo={{}}
           />
         </div>
-        <Table
+        <TableWithNavigation
+          {...this.props}
           columnHeaders={['CUSTOMER', 'WEBSITE', 'INDUSTRY']}
           rowsValue={this.state.customers}
           displayedFields={['name', 'website', 'industry']}
@@ -50,5 +52,7 @@ class CustomersContainer extends Component {
     );
   }
 }
+
+const TableWithNavigation = withNavigation(Table, '/customers');
 
 export default CustomersContainer;

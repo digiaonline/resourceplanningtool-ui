@@ -25,7 +25,7 @@ class CustomerForm extends Component {
           <h3 className={css.formContainer__h3}>
             {this.props.customerInfo.name ? 'Edit customer' : 'Add customer'}
           </h3>
-          <form className={css.form}>
+          <form className={css.container__form}>
             <div className={css.form__inputs}>
               <div className={css.form__field}>
                 <label htmlFor="name">Customer</label>
@@ -89,9 +89,9 @@ const modalStyle = {
   },
   content: {
     padding: 0,
-    maxHeight: '506px',
+    maxHeight: '600px',
     maxWidth: '1220px',
-    margin: '150px auto auto',
+    margin: '100px auto auto',
   },
 };
 

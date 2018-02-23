@@ -43,7 +43,6 @@
 .header__button {
   border: var(--border);
   background-color: inherit;
-  width: 202px;
   height: 50px;
   letter-spacing: var(--letter-spacing);
   color: var(--color);
@@ -51,10 +50,23 @@
   padding: 15px 30px;
   text-align: left;
   font-size: 16px;
+  font-family: Calibri, sans-serif;
   composes: element--hover;
 }
 
 .button__plusIcon {
   width: 21px;
   height: 21px;
+}
+
+@media (max-width: 700px) {
+  .container {
+    margin: 80px 15% auto;
+  }
+}
+
+@media (max-width: 400px) {
+  .container {
+    margin: 50px 10% auto;
+  }
 }

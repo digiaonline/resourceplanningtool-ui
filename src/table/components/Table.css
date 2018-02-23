@@ -14,7 +14,6 @@
 }
 
 .row {
-  padding-right: 10px;
   text-align: left;
   border-bottom: var(--border);
   height: 45px;
@@ -25,17 +24,19 @@
   white-space: nowrap;
 }
 
-.row__name {
+.row__firstField {
   width: 40%;
   composes: row;
 }
 
-.row__website {
+.row__secondField {
   width: 30%;
+  padding-left: 10px;
   composes: row;
 }
 
-.row__industry {
+.row__lastField {
   width: 30%;
+  padding-left: 10px;
   composes: row;
 }
