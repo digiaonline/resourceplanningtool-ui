@@ -16,7 +16,7 @@ const fields = [
     label: 'Customer email',
     placeholder: 'Customer email',
     type: 'text',
-    rules: 'required|email|between:5,25',
+    rules: 'required|email',
   },
   {
     name: 'projectName',
@@ -48,7 +48,7 @@ const fields = [
     name: 'isOnGoing',
     label: 'Project on-going',
     type: 'checkbox',
-    rules: 'required|boolean',
+    rules: 'boolean',
   },
   {
     name: 'shortDescription',
@@ -92,9 +92,9 @@ const fields = [
   },
   {
     name: 'otherLinks',
-    label: 'IN THE NEWS',
+    label: '',
     placeholder: 'URL',
-    rules: 'required|url',
+    rules: 'url',
   },
 ];
 

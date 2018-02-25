@@ -1,40 +1,34 @@
 import React from 'react';
 import css from './projectModal.css';
+import {observer} from 'mobx-react';
 
-export const Input = props => (
+export const Input = observer(({field}) => (
   <div className={css.inputSection}>
-    <label htmlFor={props.inputID} className={css.label}>
-      {props.label}
+    <label htmlFor={field.id} className={css.label}>
+      {field.label}
     </label>
-    <input
-      type={props.type}
-      placeholder={props.placeholder}
-      value={props.value}
-      id={props.inputID}
-    />
+    <input {...field.bind()} />
+    <small>{field.error}</small>
   </div>
-);
+));
 
-export const InputCheckbox = props => (
+export const InputCheckbox = observer(({field}) => (
   <div className={css.inputSection}>
-    <div className={css.label}>{props.label}</div>
+    <div className={css.label}>{field.label}</div>
     <label className={css.checkboxLabel}>
-      <input type="checkbox" />
+      <input {...field.bind()} type="checkbox" />
       <div className={css.squire} />
       <span>Done</span>
     </label>
   </div>
-);
+));
 
-export const Textarea = props => (
+export const Textarea = observer(({field}) => (
   <div className={css.inputSection}>
-    <label htmlFor={props.inputID} className={css.label}>
-      {props.label}
+    <label htmlFor={field.id} className={css.label}>
+      {field.label}
     </label>
-    <textarea
-      placeholder={props.placeholder}
-      value={props.value}
-      id={props.inputID}
-    />
+    <textarea {...field.bind()} />
+    <small>{field.error}</small>
   </div>
-);
+));

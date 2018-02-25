@@ -3,6 +3,7 @@
 import React from 'react';
 import Modal from 'react-modal';
 import ProjectModal from './projectModal';
+import form from './form';
 import css from './ProjectsContainer.css';
 import iconAdd from '../../assets/icon_add.svg';
 
@@ -27,7 +28,11 @@ const Heading = props => {
         </span>customers
       </div>
       <Modal className={css.Modal} isOpen={props.isOpen} ariaHideApp={false}>
-        <ProjectModal closeModal={props.openModal} modalName="Create Project" />
+        <ProjectModal
+          form={form}
+          closeModal={props.openModal}
+          modalName="Create Project"
+        />
       </Modal>
     </div>
   );
