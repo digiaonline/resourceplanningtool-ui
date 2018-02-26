@@ -10,6 +10,9 @@ import css from './ProjectsContainer.css';
 
 @observer
 class ProjectsContainer extends Component {
+  componentWillMount() {
+    ProjectStore.fetchProjects();
+  }
   render() {
     return (
       <div className={css.projectsApp}>

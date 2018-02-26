@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import css from './ProjectView.css';
 import DATA from '../../MOCK_DATA.json';
@@ -6,82 +6,83 @@ import backIcon from '../../assets/icon_arrow_back.svg';
 import deleteIcon from '../../assets/icon_delete.svg';
 import editIcon from '../../assets/icon_edit.svg';
 
-const ProjectView = props => {
-  const Data = DATA[props.match.params.id - 1];
-  console.log(Data);
-  return (
-    <div className={css.project__view}>
-      <Link className={css.back__button} to="/projects">
-        <img src={backIcon} alt="back" />
-        <span>Back</span>
-      </Link>
-      <div className={css.project__heading}>
-        <div className={css.project__title}>{Data.name}</div>
-        <div className={css.project__buttons}>
+class ProjectView extends Component {
+  render() {
+    const Data = DATA[this.props.match.params.id - 1];
+    return (
+      <div className={css.project__view}>
+        <Link className={css.back__button} to="/projects">
+          <img src={backIcon} alt="back" />
+          <span>Back</span>
+        </Link>
+        <div className={css.project__heading}>
+          <div className={css.project__title}>{Data.name}</div>
+          <div className={css.project__buttons}>
+            <div>
+              <img src={deleteIcon} alt="delete" />
+              <span>DELETE</span>
+            </div>
+            <div>
+              <img src={editIcon} alt="EDIT" />
+              <span>EDIT</span>
+            </div>
+          </div>
+        </div>
+        <div className={css.general__details}>
+          <div className={css.details}>
+            <div className={css.detail__row}>
+              <span>Sub-project</span>
+              {Data.subProjectName}
+            </div>
+            <div className={css.detail__row}>
+              <span>Customer email</span>
+              {Data.customerEmail}
+            </div>
+            <div className={css.detail__row}>
+              <span>Start time</span>
+              {Data.startTime}
+            </div>
+            <div className={css.detail__row}>
+              <span>End time</span>
+              {Data.endTime}
+            </div>
+            <div className={css.detail__row}>
+              <span>Project on-going</span>
+              {Data.IsOnGoing ? 'Yes' : 'No'}
+            </div>
+          </div>
           <div>
-            <img src={deleteIcon} alt="delete" />
-            <span>DELETE</span>
-          </div>
-          <div>
-            <img src={editIcon} alt="EDIT" />
-            <span>EDIT</span>
+            <div className={css.detail__title}>Description</div>
+            <p>{Data.longDescription}</p>
           </div>
         </div>
-      </div>
-      <div className={css.general__details}>
-        <div className={css.details}>
-          <div className={css.detail__row}>
-            <span>Sub-project</span>
-            {Data.subProjectName}
-          </div>
-          <div className={css.detail__row}>
-            <span>Customer email</span>
-            {Data.customerEmail}
-          </div>
-          <div className={css.detail__row}>
-            <span>Start time</span>
-            {Data.startTime}
-          </div>
-          <div className={css.detail__row}>
-            <span>End time</span>
-            {Data.endTime}
-          </div>
-          <div className={css.detail__row}>
-            <span>Project on-going</span>
-            {Data.IsOnGoing ? 'Yes' : 'No'}
-          </div>
+        <div className={css.detail}>
+          <div className={css.detail__title}>People in project</div>
+          <p> people</p>
         </div>
-        <div>
-          <div className={css.detail__title}>Description</div>
-          <p>{Data.longDescription}</p>
+        <div className={css.detail}>
+          <div className={css.detail__title}>Core technologies</div>
+          <p> technologies</p>
+        </div>
+        <div className={css.detail}>
+          <div className={css.detail__title}>Live at</div>
+          <p>
+            <a href={Data.linkLive}>{Data.linkLive}</a>
+          </p>
+        </div>
+        <div className={css.detail}>
+          <div className={css.detail__title}>Github</div>
+          <p>
+            <a href={Data.linkGithub}>{Data.linkGithub}</a>
+          </p>
+        </div>
+        <div className={css.detail}>
+          <div className={css.detail__title}>In the news</div>
+          <p> News</p>
         </div>
       </div>
-      <div className={css.detail}>
-        <div className={css.detail__title}>People in project</div>
-        <p> people</p>
-      </div>
-      <div className={css.detail}>
-        <div className={css.detail__title}>Core technologies</div>
-        <p> technologies</p>
-      </div>
-      <div className={css.detail}>
-        <div className={css.detail__title}>Live at</div>
-        <p>
-          <a href={Data.linkLive}>{Data.linkLive}</a>
-        </p>
-      </div>
-      <div className={css.detail}>
-        <div className={css.detail__title}>Github</div>
-        <p>
-          <a href={Data.linkGithub}>{Data.linkGithub}</a>
-        </p>
-      </div>
-      <div className={css.detail}>
-        <div className={css.detail__title}>In the news</div>
-        <p> News</p>
-      </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 export default ProjectView;

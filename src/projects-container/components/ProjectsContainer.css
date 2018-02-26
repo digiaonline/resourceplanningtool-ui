@@ -129,13 +129,19 @@
   padding-bottom: 20px;
 }
 
+.technologies {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .technologies span {
   background: #363636;
   color: white;
   font-size: 17px;
-  padding: 11px;
+  padding: 0 11px;
+  height: 40px;
   line-height: 40px;
-  margin-right: 4px;
+  margin: 0 0 4px 4px;
 }
 
 .Modal {
