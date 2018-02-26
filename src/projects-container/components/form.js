@@ -67,16 +67,24 @@ const fields = [
   {
     name: 'members',
     label: 'person',
-    placeholder: 'person',
-    type: 'text',
-    rules: 'required|string|between:2,25',
+    options: [
+      {value: 'option1', label: 'option1'},
+      {value: 'option2', label: 'option2'},
+      {value: 'option3', label: 'option3'},
+    ],
+    rules: 'required',
+    value: [],
   },
   {
     name: 'usedTechnologies',
     label: 'Technologies',
-    placeholder: 'Technologies',
-    type: 'text',
-    rules: 'required|string|between:2,25',
+    options: [
+      {value: 'option1', label: 'option1'},
+      {value: 'option2', label: 'option2'},
+      {value: 'option3', label: 'option3'},
+    ],
+    rules: 'required',
+    value: [],
   },
   {
     name: 'linkLive',

@@ -78,10 +78,9 @@ input:focus {
 .inputGroup {
   display: flex;
   justify-content: space-between;
-  max-height: 95px;
 }
 
-.inputGroup input{
+.inputGroup input {
   font-size: 14px;
   font-weight: bold;
 }
@@ -205,24 +204,24 @@ input[type="checkbox"]:checked +.squire {
   cursor: pointer;
 }
 
-.news__url{
+.news__url {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.news__url .inputSection{
+.news__url .inputSection {
   min-height: unset;
   width: 46%;
 }
 
-.news__url .label{
-  margin-top: 0;
+.news__url .label {
+  display: none;
 }
 
-.news__url input{
-  margin-top: 0px;
-  padding: 7.5px 10px
+.news__url input {
+  margin-top: 0;
+  padding: 7.5px 10px;
 }
 
 .news__url__button {
@@ -235,27 +234,34 @@ input[type="checkbox"]:checked +.squire {
   cursor: pointer;
 }
 
-@media (max-width: 1000px){
-  .cell1{
+.helper {
+  color: red;
+}
+
+@media (max-width: 1000px) {
+  .cell1 {
     width: 35%;
   }
+
   .cell2 {
     width: 60%;
   }
+
   .inputSection input {
     padding: 12px 8px;
   }
-  .inputGroup input{
+
+  .inputGroup input {
     padding: 12px 0;
   }
 }
 
-@media (max-width: 800px){
-  .modalTitle{
+@media (max-width: 800px) {
+  .modalTitle {
     margin-bottom: 20px;
   }
 
-  .verticalLine{
+  .verticalLine {
     display: none;
   }
 
@@ -264,16 +270,21 @@ input[type="checkbox"]:checked +.squire {
     align-items: center;
   }
 
-  .cell, .cell1, .cell2{
+  .cell,
+  .cell1,
+  .cell2 {
     width: 100%;
     margin: 0 auto;
   }
-  .formDvider{
+
+  .formDvider {
     width: 100%;
-    margin: 50px auto 0 auto;
+    margin: 50px auto 0;
   }
 
-  .tableHeader, .tableItem, .selectedTech{
+  .tableHeader,
+  .tableItem,
+  .selectedTech {
     width: 100%;
     margin: 0 auto;
   }

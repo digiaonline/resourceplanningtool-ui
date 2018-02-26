@@ -1,6 +1,6 @@
 import React from 'react';
 import {observer} from 'mobx-react';
-import {Input, InputCheckbox, Textarea} from './inputs';
+import {Input, InputCheckbox, Textarea, SELECT} from './inputs';
 import css from './projectModal.css';
 import closeIcon from '../../assets/icon_close.svg';
 import sortIcon from '../../assets/icon_arrow_up.svg';
@@ -45,7 +45,7 @@ const ProjectModal = observer(({form, closeModal, modalName}) => (
       </div>
       <div className={css.formDvider}>People in project</div>
       <div className={css.cell}>
-        <Input field={form.$('members')} />
+        <SELECT field={form.$('members')} />
       </div>
       <div className={css.tableHeader}>
         <div className={css.tableHeaderTitle}>
@@ -60,7 +60,7 @@ const ProjectModal = observer(({form, closeModal, modalName}) => (
       </div>
       <div className={css.formDvider}>Core technologies</div>
       <div className={css.cell}>
-        <Input field={form.$('usedTechnologies')} />
+        <SELECT field={form.$('usedTechnologies')} />
       </div>
       <div className={css.selectedTech}>
         <div>
