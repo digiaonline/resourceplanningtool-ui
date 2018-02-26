@@ -32,7 +32,7 @@ const Table = props => (
 export const Row = props => (
   <tr
     onClick={() => {
-      props.navigate(props.values.id);
+      props.navigate(props.values.id - 1);
     }}
   >
     <td className={css.row__firstField}>
@@ -40,7 +40,7 @@ export const Row = props => (
     </td>
     <td className={css.row__secondField}>
       {// if the table cell contains a link, we wrap it in <a> tag
-        props.displayedFields[1] === 'website' ? (
+        props.displayedFields[1] === 'url' ? (
           <span>
             <a href={props.values[props.displayedFields[1]]}>
               {props.values[props.displayedFields[1]]}

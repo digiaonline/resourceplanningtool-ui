@@ -52,7 +52,7 @@ class CustomerForm extends Component {
                   id="website"
                   type="text"
                   placeholder="website here"
-                  value={this.props.customerInfo.website}
+                  value={this.props.customerInfo.url}
                 />
               </div>
               <div className={css.form__field}>

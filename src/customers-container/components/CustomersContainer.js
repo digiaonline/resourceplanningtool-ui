@@ -1,26 +1,21 @@
 // @flow
 
 import React, {Component} from 'react';
+import {observer} from 'mobx-react';
+import {observable} from 'mobx';
 import css from './CustomersContainer.css';
 import CustomerForm from './CustomerForm';
 import Table from '../../table/components/Table';
-import dummyCustomers from './dummyCustomers';
 import {withNavigation} from '../../table/components/withNavigation';
 import addIcon from '../../assets/icon_add_b.svg';
+import customersStore from '../customers-store';
 
+@observer
 class CustomersContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      formIsOpened: false,
-      customers: dummyCustomers,
-    };
-  }
+  @observable formIsOpened = false;
+
   toggleForm = (customer: ?Customer) => {
-    this.setState({
-      formIsOpened: !this.state.formIsOpened,
-      formData: customer,
-    });
+    this.formIsOpened = !this.formIsOpened;
   };
   toCustomer = (id: Number) => {
     this.props.history.push(`/customers/${id}`);
@@ -39,7 +34,7 @@ class CustomersContainer extends Component {
             <span>&nbsp; NEW CUSTOMER</span>
           </button>
           <CustomerForm
-            isOpened={this.state.formIsOpened}
+            isOpened={this.formIsOpened}
             toggleForm={this.toggleForm}
             customerInfo={{}}
           />
@@ -47,8 +42,8 @@ class CustomersContainer extends Component {
         <TableWithNavigation
           {...this.props}
           columnHeaders={['CUSTOMER', 'WEBSITE', 'INDUSTRY']}
-          rowsValue={this.state.customers}
-          displayedFields={['name', 'website', 'industry']}
+          rowsValue={customersStore.customers}
+          displayedFields={['name', 'url', 'industry']}
         />
       </div>
     );

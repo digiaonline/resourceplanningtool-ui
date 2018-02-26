@@ -1,18 +1,19 @@
 // @flow
 
 import React, {Component} from 'react';
+import {observer} from 'mobx-react';
 import CustomerForm from '../../customers-container/components/CustomerForm';
 import css from './CustomerView.css';
-import dummyCustomers from '../../customers-container/components/dummyCustomers';
 import deleteIcon from '../../assets/icon_delete.svg';
 import editIcon from '../../assets/icon_edit.svg';
 import backIcon from '../../assets/icon_arrow_back.svg';
+import customersStore from '../../customers-container/customers-store';
 
+@observer
 class CustomerView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      customer: dummyCustomers[this.props.match.params.id],
       formIsOpened: false,
     };
   }
@@ -24,6 +25,7 @@ class CustomerView extends Component {
   };
 
   render() {
+    console.log(customersStore.customers);
     return (
       <div className={css.container}>
         <button type="button" className={css.container__backButton}>
@@ -31,16 +33,28 @@ class CustomerView extends Component {
         </button>
         <div className={css.container__customer}>
           <div>
-            <h3 className={css.customer__name}> {this.state.customer.name} </h3>
+            <h3 className={css.customer__name}>
+              {' '}
+              {customersStore.customers[this.props.match.params.id].name}{' '}
+            </h3>
             <div className={css.customer__rows}>
               <div className={css.column__row}>
                 <span className={css.row__tag}>Industry</span>
-                <span>{this.state.customer.industry}</span>
+                <span>
+                  {
+                    customersStore.customers[this.props.match.params.id]
+                      .industry
+                  }
+                </span>
               </div>
               <div className={css.column__row}>
                 <span className={css.row__tag}>Website</span>
-                <a href={this.state.customer.website}>
-                  {this.state.customer.website}
+                <a
+                  href={
+                    customersStore.customers[this.props.match.params.id].url
+                  }
+                >
+                  {customersStore.customers[this.props.match.params.id].url}
                 </a>
               </div>
             </div>
@@ -63,7 +77,7 @@ class CustomerView extends Component {
         <CustomerForm
           isOpened={this.state.formIsOpened}
           toggleForm={this.toggleForm}
-          customerInfo={this.state.customer}
+          customerInfo={customersStore.customers[this.props.match.params.id]}
         />
       </div>
     );
