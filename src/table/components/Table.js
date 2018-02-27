@@ -2,6 +2,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import {PropTypes as MobxPropTypes} from 'mobx-react';
 import css from './Table.css';
 
 const Table = props => (
@@ -58,7 +59,10 @@ export const Row = props => (
 
 Table.propTypes = {
   columnHeaders: PropTypes.arrayOf(PropTypes.string).isRequired, // should have 3 values
-  rowsValue: PropTypes.arrayOf(PropTypes.object).isRequired,
+  rowsValue: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.object).isRequired,
+    MobxPropTypes.observableArray.isRequired,
+  ]),
   displayedFields: PropTypes.arrayOf(PropTypes.string).isRequired, // should have 3 values
 };
 
