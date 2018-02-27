@@ -1,14 +1,25 @@
 import React, {Component} from 'react';
+import {observer} from 'mobx-react';
 import {Link} from 'react-router-dom';
 import css from './ProjectView.css';
 import DATA from '../../MOCK_DATA.json';
+import ProjectStore from '../../projects-container/store';
 import backIcon from '../../assets/icon_arrow_back.svg';
 import deleteIcon from '../../assets/icon_delete.svg';
 import editIcon from '../../assets/icon_edit.svg';
 
+@observer
 class ProjectView extends Component {
+  componentWillMount() {
+    ProjectStore.fetchProject(this.props.match.params.id);
+    console.log(ProjectStore.projectData);
+  }
+
   render() {
-    const Data = DATA[this.props.match.params.id - 1];
+    if (!ProjectStore.projectData.name) {
+      return <h1>loading...</h1>;
+    }
+    const Data = ProjectStore.projectData;
     return (
       <div className={css.project__view}>
         <Link className={css.back__button} to="/projects">
@@ -32,28 +43,28 @@ class ProjectView extends Component {
           <div className={css.details}>
             <div className={css.detail__row}>
               <span>Sub-project</span>
-              {Data.subProjectName}
+              subProject name
             </div>
             <div className={css.detail__row}>
               <span>Customer email</span>
-              {Data.customerEmail}
+              {Data.contactemail}
             </div>
             <div className={css.detail__row}>
               <span>Start time</span>
-              {Data.startTime}
+              {Data.starttime}
             </div>
             <div className={css.detail__row}>
               <span>End time</span>
-              {Data.endTime}
+              {Data.endtime}
             </div>
             <div className={css.detail__row}>
               <span>Project on-going</span>
-              {Data.IsOnGoing ? 'Yes' : 'No'}
+              {Data.ongoing ? 'Yes' : 'No'}
             </div>
           </div>
           <div>
             <div className={css.detail__title}>Description</div>
-            <p>{Data.longDescription}</p>
+            <p>{Data.description}</p>
           </div>
         </div>
         <div className={css.detail}>
@@ -67,13 +78,13 @@ class ProjectView extends Component {
         <div className={css.detail}>
           <div className={css.detail__title}>Live at</div>
           <p>
-            <a href={Data.linkLive}>{Data.linkLive}</a>
+            <a href={Data.liveat}>{Data.liveat}</a>
           </p>
         </div>
         <div className={css.detail}>
           <div className={css.detail__title}>Github</div>
           <p>
-            <a href={Data.linkGithub}>{Data.linkGithub}</a>
+            <a href={Data.githuburl}>{Data.githuburl}</a>
           </p>
         </div>
         <div className={css.detail}>

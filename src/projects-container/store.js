@@ -6,20 +6,38 @@ import axios from 'axios';
 class ProjectsStore {
   @observable Data = [];
   @observable isOpen: Boolean = false;
+  @observable projectId = null;
+  @observable projectData = [];
+
+  @action
+  fetchProject = async id => {
+    this.projectId = id;
+    const query = ` query {
+    	project (id: "${this.projectId}") ${this.projectQuery}`;
+    const URL = 'http://10.5.0.177:3002/skillz';
+    try {
+      console.log(query);
+      const response = await axios.post(URL, query, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      this.projectData = response.data.data.project;
+    } catch (error) {
+      console.log('error', error);
+      return [];
+    }
+  };
 
   @action
   fetchProjects = async () => {
+    const URL = 'http://10.5.0.177:3002/skillz';
     try {
-      const response = await axios.post(
-        'http://10.5.0.177:3002/skillz',
-        this.projectsQuery,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-      console.log(response.data.data.listProjects);
+      const response = await axios.post(URL, this.projectsQuery, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
       this.Data = response.data.data.listProjects;
     } catch (error) {
       return [];
@@ -37,6 +55,19 @@ class ProjectsStore {
       name
     }
   }
+}`;
+
+  projectQuery = `{
+		name
+    starttime
+    endtime
+    ongoing
+    liveat
+    githuburl
+    shortdescription
+    description
+    contactemail
+	}
 }`;
 
   @action
