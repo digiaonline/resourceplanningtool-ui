@@ -37,6 +37,7 @@ class CustomersContainer extends Component {
             isOpened={this.formIsOpened}
             toggleForm={this.toggleForm}
             customerInfo={{}}
+            mode={'new'}
           />
         </div>
         <TableWithNavigation

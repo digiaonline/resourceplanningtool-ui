@@ -24,8 +24,12 @@ class CustomerView extends Component {
     });
   };
 
+  componentWillMount() {
+    customersStore.fetchCustomers();
+    console.log('customer view mounted');
+  }
+
   render() {
-    console.log(customersStore.customers);
     return (
       <div className={css.container}>
         <button type="button" className={css.container__backButton}>
