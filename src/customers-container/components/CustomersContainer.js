@@ -20,6 +20,9 @@ class CustomersContainer extends Component {
   toCustomer = (id: Number) => {
     this.props.history.push(`/customers/${id}`);
   };
+  componentWillMount() {
+    customersStore.fetchCustomers();
+  }
   render() {
     return (
       <div className={css.container}>

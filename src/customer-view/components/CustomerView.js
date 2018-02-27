@@ -25,11 +25,15 @@ class CustomerView extends Component {
   };
 
   componentWillMount() {
-    customersStore.fetchCustomers();
-    console.log('customer view mounted');
+    if (!customersStore.customers[this.props.match.params.id]) {
+      customersStore.fetchCustomers();
+    }
   }
 
   render() {
+    if (!customersStore.customers[this.props.match.params.id]) {
+      return <Loading />;
+    }
     return (
       <div className={css.container}>
         <button type="button" className={css.container__backButton}>
@@ -82,10 +86,13 @@ class CustomerView extends Component {
           isOpened={this.state.formIsOpened}
           toggleForm={this.toggleForm}
           customerInfo={customersStore.customers[this.props.match.params.id]}
+          mode={'edit'}
         />
       </div>
     );
   }
 }
+
+const Loading = props => <div>Loading ...</div>;
 
 export default CustomerView;

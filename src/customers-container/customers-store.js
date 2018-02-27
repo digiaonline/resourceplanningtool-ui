@@ -15,10 +15,6 @@ class CustomersStore {
     }
   ] = [];
 
-  constructor() {
-    this.fetchCustomers();
-  }
-
   @action
   fetchCustomers = async () => {
     try {

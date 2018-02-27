@@ -26,7 +26,7 @@ class CustomerForm extends Component {
         </div>
         <div className={css.formContainer}>
           <h3 className={css.formContainer__h3}>
-            {this.props.customerInfo.name ? 'Edit customer' : 'Add customer'}
+            {this.props.mode === 'edit' ? 'Edit customer' : 'Add customer'}
           </h3>
           <form className={css.container__form} onSubmit={form.onSubmit}>
             <div className={css.form__inputs}>
