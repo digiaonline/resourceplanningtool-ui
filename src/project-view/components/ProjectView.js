@@ -1,18 +1,37 @@
 import React, {Component} from 'react';
 import {observer} from 'mobx-react';
 import {Link} from 'react-router-dom';
-import css from './ProjectView.css';
-import DATA from '../../MOCK_DATA.json';
+import Modal from 'react-modal';
 import ProjectStore from '../../projects-container/store';
+import form from '../../projects-container/components/form';
+import ProjectModal from '../../projects-container/components/projectModal';
+import css from './ProjectView.css';
 import backIcon from '../../assets/icon_arrow_back.svg';
 import deleteIcon from '../../assets/icon_delete.svg';
 import editIcon from '../../assets/icon_edit.svg';
 
 @observer
 class ProjectView extends Component {
+  state = {
+    isOpen: false,
+  };
   componentWillMount() {
     ProjectStore.fetchProject(this.props.match.params.id);
-    console.log(ProjectStore.projectData);
+  }
+
+  openModal = () => {
+    this.setState({isOpen: true});
+  };
+
+  closeModal = () => {
+    this.setState({isOpen: false});
+  };
+
+  convertDate(date) {
+    const time = new Date(date);
+    const month = time.getMonth() + 1;
+    const year = time.getFullYear();
+    return `${month}-${year}`;
   }
 
   render() {
@@ -33,7 +52,7 @@ class ProjectView extends Component {
               <img src={deleteIcon} alt="delete" />
               <span>DELETE</span>
             </div>
-            <div>
+            <div onClick={this.openModal}>
               <img src={editIcon} alt="EDIT" />
               <span>EDIT</span>
             </div>
@@ -51,11 +70,11 @@ class ProjectView extends Component {
             </div>
             <div className={css.detail__row}>
               <span>Start time</span>
-              {Data.starttime}
+              {this.convertDate(Data.starttime)}
             </div>
             <div className={css.detail__row}>
               <span>End time</span>
-              {Data.endtime}
+              {this.convertDate(Data.endtime)}
             </div>
             <div className={css.detail__row}>
               <span>Project on-going</span>
@@ -91,6 +110,18 @@ class ProjectView extends Component {
           <div className={css.detail__title}>In the news</div>
           <p> News</p>
         </div>
+        <Modal
+          className={css.Modal}
+          isOpen={this.state.isOpen}
+          ariaHideApp={false}
+        >
+          <ProjectModal
+            form={form}
+            closeModal={this.closeModal}
+            modalName="Edit Project"
+            values={Data}
+          />
+        </Modal>
       </div>
     );
   }

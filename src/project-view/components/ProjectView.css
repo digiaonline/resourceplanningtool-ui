@@ -1,70 +1,295 @@
-.project__view {
-    width: 75%;
-    margin: 100px auto;
-    color: #363636;
+.modalTitle {
+  font-size: 34px;
+  margin-bottom: 80px;
 }
 
-.back__button {
-    font-size: 16px;
-    font-weight: bold;
-    color: #363636;
-    text-decoration: none;
-    display: flex;
+.modalClose {
+  position: absolute;
+  right: 0;
+  top: 5px;
+  cursor: pointer;
+}
+
+.section {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.section2 {
+  display: flex;
+  width: 65%;
+  justify-content: space-between;
+}
+
+.cell {
+  width: 46%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cell1 {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cell2 {
+  width: 65%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.verticalLine {
+  margin-top: 20px;
+  width: 2px;
+  background: lightgray;
+}
+
+.inputSection {
+  display: flex;
+  flex-direction: column;
+  min-height: 95px;
+}
+
+.label {
+  font-size: 17px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.inputSection input {
+  font-size: 17px;
+  color: #363636;
+  background-color: #eee;
+  padding: 15px 10px;
+  border: none;
+  margin-top: 5px;
+  border: 1px solid lightgray;
+}
+
+input:focus {
+  outline: none;
+}
+
+.inputGroup {
+  display: flex;
+  justify-content: space-between;
+}
+
+.inputGroup input {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.checkboxLabel {
+  font-size: 17px;
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.inputSection input[type="checkbox"] {
+  visibility: hidden;
+  position: absolute;
+}
+
+.squire {
+  height: 25px;
+  width: 25px;
+  border: 2px solid lightgray;
+  display: inline-block;
+  margin: 0 7px 0 0;
+}
+
+input[type="checkbox"]:checked +.squire {
+  background: url('../../assets/done.svg');
+}
+
+.inputGroup .inputSection {
+  width: 48%;
+}
+
+.formDvider {
+  width: 100%;
+  height: 45px;
+  margin-top: 50px;
+  padding-left: 12px;
+  color: #fff;
+  background-color: #363636;
+  font-size: 24px;
+  line-height: 45px;
+}
+
+.inputSection textarea {
+  height: 148px;
+  background-color: #eee;
+  margin-top: 5px;
+  padding: 12px 9px;
+  resize: none;
+  font-size: 17px;
+  color: #363636;
+  border: 1px solid lightgray;
+}
+
+.tableHeader {
+  margin-top: 20px;
+  width: 100%;
+  border-bottom: 1px solid lightgray;
+  display: flex;
+  justify-content: space-between;
+}
+
+.tableHeaderTitle {
+  font-size: 16px;
+  font-weight: bold;
+  height: 45px;
+  width: 275px;
+  line-height: 45px;
+}
+
+.formIcon {
+  float: right;
+  margin: 10.5px 0;
+}
+
+.tableItem {
+  font-size: 16px;
+  font-weight: normal;
+  height: 45px;
+  line-height: 43px;
+  border-bottom: 1px solid lightgray;
+}
+
+.selectedTech {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.selectedTech div {
+  margin-left: 5px;
+  font-size: 17px;
+  line-height: 35px;
+  padding: 0 8px;
+  border: none;
+  background-color: lightgray;
+}
+
+.removeTech {
+  position: relative;
+  top: 5.5px;
+  margin-left: 24px;
+}
+
+.formButton {
+  margin-top: 58px;
+  display: flex;
+  flex-direction: row-reverse;
+  font-size: 16px;
+}
+
+.formButton div {
+  padding: 20px 32px;
+  border: 1px solid lightgray;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.formButton span {
+  padding: 20px 32px;
+  cursor: pointer;
+}
+
+.news__url {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.news__url .inputSection {
+  min-height: unset;
+  width: 46%;
+}
+
+.news__url .label {
+  display: none;
+}
+
+.news__url input {
+  margin-top: 0;
+  padding: 7.5px 10px;
+}
+
+.news__url__button {
+  display: flex;
+  align-items: center;
+  font-size: 17px;
+  font-weight: bold;
+  width: 60px;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.helper {
+  color: red;
+}
+
+@media (max-width: 1000px) {
+  .cell1 {
+    width: 35%;
+  }
+
+  .cell2 {
+    width: 60%;
+  }
+
+  .inputSection input {
+    padding: 12px 8px;
+  }
+
+  .inputGroup input {
+    padding: 12px 0 12px 4px;
+  }
+}
+
+@media (max-width: 800px) {
+  .modalTitle {
+    margin-bottom: 20px;
+  }
+
+  .verticalLine {
+    display: none;
+  }
+
+  .section {
+    flex-direction: column;
     align-items: center;
-    }
+  }
 
-.project__heading {
-    margin-top: 38px;
-    display: flex;
-    justify-content: space-between;
-}
+  .cell,
+  .cell1,
+  .cell2 {
+    width: 100%;
+    margin: 0 auto;
+  }
 
-.project__title {
-    font-size: 34px;
-}
+  .formDvider {
+    width: 100%;
+    margin: 50px auto 0;
+  }
 
-.project__buttons{
-    display: flex;
-}
-.project__buttons div {
-    font-size: 16px;
-    font-weight: bold;
-    height: 50px;
-    width: 122px;
-    border: 1px solid lightgray;
-    cursor: pointer;
-    margin-left: 18px;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-}
+  .tableHeader,
+  .tableItem,
+  .selectedTech {
+    width: 100%;
+    margin: 0 auto;
+  }
 
-.general__details {
-    margin-top: 125px;
-    display: flex;
+  .inputGroup input {
+    padding: 12px 0px 12px 8px;
+  }
 }
-
-.details {
-    width: 50%;
-    font-size: 17px;
-}
-
-.detail {
-    margin-top: 40px;
-}
-
-.detail__row {
-    margin-bottom: 17px;
-}
-
-.detail__title {
-    font-size: 17px;
-    font-weight: bold;
-}
-
-.detail__row span {
-    font-weight: bold;
-    display: inline-block;
-    width: 155px;
-}
-

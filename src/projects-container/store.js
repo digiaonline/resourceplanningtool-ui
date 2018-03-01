@@ -12,11 +12,10 @@ class ProjectsStore {
   @action
   fetchProject = async id => {
     this.projectId = id;
-    const query = ` query {
-    	project (id: "${this.projectId}") ${this.projectQuery}`;
+    const query = ` query { project (id: ${this.projectId}) ${this
+      .projectQuery}`;
     const URL = 'http://10.5.0.177:3002/skillz';
     try {
-      console.log(query);
       const response = await axios.post(URL, query, {
         headers: {
           'Content-Type': 'application/json',
@@ -67,6 +66,7 @@ class ProjectsStore {
     shortdescription
     description
     contactemail
+    customer { name }
 	}
 }`;
 

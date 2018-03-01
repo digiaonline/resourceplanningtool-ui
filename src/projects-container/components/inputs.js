@@ -3,33 +3,33 @@ import {observer} from 'mobx-react';
 import css from './projectModal.css';
 import Select from 'react-select';
 
-export const Input = observer(({field}) => (
+export const Input = observer(({field, value}) => (
   <div className={css.inputSection}>
     <label htmlFor={field.id} className={css.label}>
       {field.label}
     </label>
-    <input {...field.bind()} />
+    <input {...field.bind({value})} />
     <small className={css.helper}>{field.error}</small>
   </div>
 ));
 
-export const InputCheckbox = observer(({field}) => (
+export const InputCheckbox = observer(({field, checked}) => (
   <div className={css.inputSection}>
     <div className={css.label}>{field.label}</div>
     <label className={css.checkboxLabel}>
-      <input {...field.bind()} />
+      <input {...field.bind({checked})} />
       <div className={css.squire} />
       <span>Done</span>
     </label>
   </div>
 ));
 
-export const Textarea = observer(({field}) => (
+export const Textarea = observer(({field, value}) => (
   <div className={css.inputSection}>
     <label htmlFor={field.id} className={css.label}>
       {field.label}
     </label>
-    <textarea {...field.bind()} />
+    <textarea {...field.bind({value})} />
     <small className={css.helper}>{field.error}</small>
   </div>
 ));

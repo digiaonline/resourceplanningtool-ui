@@ -1,6 +1,9 @@
 import MobxReactForm from 'mobx-react-form';
 import validatorjs from 'validatorjs';
+import ProjectStore from '../store';
 
+const DATA = ProjectStore.projectData;
+console.log(DATA);
 const plugins = {dvr: validatorjs};
 
 const fields = [
@@ -73,7 +76,6 @@ const fields = [
       {value: 'option3', label: 'option3'},
     ],
     rules: 'required',
-    value: [],
   },
   {
     name: 'usedTechnologies',
