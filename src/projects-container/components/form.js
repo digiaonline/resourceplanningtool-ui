@@ -76,6 +76,7 @@ const fields = [
       {value: 'option3', label: 'option3'},
     ],
     rules: 'required',
+    value: [],
   },
   {
     name: 'usedTechnologies',

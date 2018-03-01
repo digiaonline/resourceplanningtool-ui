@@ -96,18 +96,23 @@ const ProjectModal = observer(({form, closeModal, modalName, values}) => {
           </div>
           <img className={css.formIcon} src={deleteIcon} alt="delete" />
         </div>
-        <div className={css.tableItem}>
-          <span>12345</span>
-          <img className={css.formIcon} src={deleteIcon} alt="delete" />
-        </div>
+        {form.$('members').value.map(({label, value}) => (
+          <div key={label} className={css.tableItem}>
+            <span>{value}</span>
+            <img className={css.formIcon} src={deleteIcon} alt="delete" />
+          </div>
+        ))}
         <div className={css.formDvider}>Core technologies</div>
         <div className={css.cell}>
           <SELECT field={form.$('usedTechnologies')} />
         </div>
         <div className={css.selectedTech}>
-          <div>
-            Node<img className={css.removeTech} src={closeIcon} alt="close" />
-          </div>
+          {form.$('usedTechnologies').value.map(({label, value}) => (
+            <div key={label}>
+              {value}
+              <img className={css.removeTech} src={closeIcon} alt="close" />
+            </div>
+          ))}
         </div>
         <div className={css.formDvider}>Links</div>
         <div className={css.section}>
