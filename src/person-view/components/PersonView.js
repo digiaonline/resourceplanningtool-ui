@@ -75,19 +75,9 @@ const PersonDetails = props => (
           {props.personDetails.location}
         </span>
         <span className={css.minorInfo__rowLinks}>
-          <a
-            href={props.personDetails.linkedinLink}
-            className={css.minorInfo__link}
-          >
-            LinkedIn
-          </a>
+          <a href={props.personDetails.linkedinLink}>LinkedIn</a>
           <div className={css.links__separateLine} />
-          <a
-            href={props.personDetails.githubLink}
-            className={css.minorInfo__link}
-          >
-            Github
-          </a>
+          <a href={props.personDetails.githubLink}>Github</a>
         </span>
       </div>
     </div>
