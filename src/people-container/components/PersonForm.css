@@ -12,6 +12,7 @@
 /* general style */
 * {
   box-sizing: border-box;
+  font-size: 16px;
   font-family: Calibri, sans-serif;
 }
 
@@ -43,6 +44,20 @@
   margin-bottom: 70px;
   font-size: 34px;
   font-weight: normal;
+}
+
+.form__imageContainer {
+  margin: 30px auto;
+  padding: 0;
+}
+
+.form__image {
+  width: 150px;
+  height: 150px;
+  background: rgb(200, 200, 200);
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
 }
 
 .container__form {

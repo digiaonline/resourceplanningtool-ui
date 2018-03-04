@@ -23,8 +23,12 @@ class PersonForm extends Component {
         </div>
         <div className={css.formContainer}>
           <h3 className={css.formContainer__h3}>Edit person</h3>
-          {/* image will go here */}
-          <img alt="" />
+          <div className={css.form__imageContainer}>
+            <div className={css.form__image}>
+              {/* image will go here */}
+              Load image
+            </div>
+          </div>
           <form>
             <div className={css.form__inputs}>
               <div className={css.inputs__column}>
@@ -174,7 +178,6 @@ class PersonForm extends Component {
                     alt=""
                     src={closeIcon}
                     className={css.technology__remove}
-                    onClick={this.props.toggleForm}
                   />
                 </div>
                 <div className={css.list__technology}>
@@ -183,7 +186,6 @@ class PersonForm extends Component {
                     alt=""
                     src={closeIcon}
                     className={css.technology__remove}
-                    onClick={this.props.toggleForm}
                   />
                 </div>
                 <div className={css.list__technology}>
@@ -192,7 +194,6 @@ class PersonForm extends Component {
                     alt=""
                     src={closeIcon}
                     className={css.technology__remove}
-                    onClick={this.props.toggleForm}
                   />
                 </div>
                 <div className={css.list__technology}>
@@ -201,7 +202,6 @@ class PersonForm extends Component {
                     alt=""
                     src={closeIcon}
                     className={css.technology__remove}
-                    onClick={this.props.toggleForm}
                   />
                 </div>
                 <div className={css.list__technology}>
@@ -210,7 +210,6 @@ class PersonForm extends Component {
                     alt=""
                     src={closeIcon}
                     className={css.technology__remove}
-                    onClick={this.props.toggleForm}
                   />
                 </div>
               </div>
