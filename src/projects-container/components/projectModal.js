@@ -1,8 +1,6 @@
 import React from 'react';
 import {observer} from 'mobx-react';
-import MobxReactForm from 'mobx-react-form';
 import Modal from 'react-modal';
-import ProjectStore from '../store';
 import {Input, InputCheckbox, Textarea, SELECT} from './inputs';
 import css from './projectModal.css';
 import closeIcon from '../../assets/icon_close.svg';
@@ -16,12 +14,12 @@ const ProjectModal = observer(
       <Modal isOpen={isOpen} className={css.Modal} ariaHideApp={false}>
         <div>
           <img
-            className={css.modalClose}
+            className={css.modal__close}
             src={closeIcon}
             alt="close"
             onClick={closeModal}
           />
-          <div className={css.modalTitle}>{modalName}</div>
+          <div className={css.modal__title}>{modalName}</div>
           <form>
             <div className={css.section}>
               <div className={css.cell}>
@@ -33,13 +31,13 @@ const ProjectModal = observer(
               <div className={css.cell}>
                 <Input field={form.$('name')} />
                 <Input field={form.$('subProject')} />
-                <div className={css.inputGroup}>
+                <div className={css.input__group}>
                   <Input field={form.$('starttime')} />
                   <Input field={form.$('endtime')} />
                 </div>
               </div>
             </div>
-            <div className={css.formDvider}>Project description</div>
+            <div className={css.form__dvider}>Project description</div>
             <div className={css.section}>
               <div className={css.cell1}>
                 <Textarea field={form.$('shortdescription')} />
@@ -49,36 +47,40 @@ const ProjectModal = observer(
                 <Textarea field={form.$('description')} />
               </div>
             </div>
-            <div className={css.formDvider}>People in project</div>
+            <div className={css.form__dvider}>People in project</div>
             <div className={css.cell}>
               <SELECT field={form.$('members')} />
             </div>
-            <div className={css.tableHeader}>
-              <div className={css.tableHeaderTitle}>
+            <div className={css.table__header}>
+              <div className={css.table__title}>
                 PERSON
-                <img className={css.formIcon} src={sortIcon} alt="sort" />
+                <img className={css.form__icon} src={sortIcon} alt="sort" />
               </div>
-              <img className={css.formIcon} src={deleteIcon} alt="delete" />
+              <img className={css.form__icon} src={deleteIcon} alt="delete" />
             </div>
             {form.$('members').value.map(({label, value}) => (
-              <div key={label} className={css.tableItem}>
+              <div key={label} className={css.table__item}>
                 <span>{value}</span>
-                <img className={css.formIcon} src={deleteIcon} alt="delete" />
+                <img className={css.form__icon} src={deleteIcon} alt="delete" />
               </div>
             ))}
-            <div className={css.formDvider}>Core technologies</div>
+            <div className={css.form__dvider}>Core technologies</div>
             <div className={css.cell}>
               <SELECT field={form.$('usedTechnologies')} />
             </div>
-            <div className={css.selectedTech}>
+            <div className={css.selected__tech__container}>
               {form.$('usedTechnologies').value.map(({label, value}) => (
-                <div key={label}>
+                <div key={label} className={css.selected__tech}>
                   {value}
-                  <img className={css.removeTech} src={closeIcon} alt="close" />
+                  <img
+                    className={css.remove__tech}
+                    src={closeIcon}
+                    alt="close"
+                  />
                 </div>
               ))}
             </div>
-            <div className={css.formDvider}>Links</div>
+            <div className={css.form__dvider}>Links</div>
             <div className={css.section}>
               <div className={css.cell}>
                 <Input field={form.$('liveat')} />
@@ -88,14 +90,14 @@ const ProjectModal = observer(
                 <Input field={form.$('githuburl')} />
               </div>
             </div>
-            <div className={css.tableHeader}>
-              <div className={css.tableHeaderTitle}>
+            <div className={css.table__header}>
+              <div className={css.table__title}>
                 IN THE NEWS
-                <img className={css.formIcon} src={sortIcon} alt="sort" />
+                <img className={css.form__icon} src={sortIcon} alt="sort" />
               </div>
-              <img className={css.formIcon} src={deleteIcon} alt="delete" />
+              <img className={css.form__icon} src={deleteIcon} alt="delete" />
             </div>
-            <div className={css.tableItem}>
+            <div className={css.table__item}>
               <div className={css.news__url}>
                 <Input field={form.$('otherLinks')} />
                 <div className={css.news__url__button}>
@@ -103,9 +105,13 @@ const ProjectModal = observer(
                 </div>
               </div>
             </div>
-            <div className={css.formButton}>
-              <div onClick={form.onSubmit}>SAVE</div>
-              <span onClick={closeModal}>Cancel</span>
+            <div className={css.form__button}>
+              <div onClick={form.onSubmit} className={css.form__button__sava}>
+                SAVE
+              </div>
+              <span onClick={closeModal} className={css.form__button__close}>
+                Cancel
+              </span>
             </div>
           </form>
         </div>

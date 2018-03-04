@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {observer} from 'mobx-react';
 import {Link} from 'react-router-dom';
-import Modal from 'react-modal';
 import ProjectStore from '../../projects-container/store';
 import form from '../../projects-container/form';
 import ProjectModal from '../../projects-container/components/projectModal';

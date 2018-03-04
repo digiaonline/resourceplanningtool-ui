@@ -10,6 +10,11 @@ class ProjectsStore {
   @observable projectData = [];
 
   @action
+  modalToggle = () => {
+    this.isOpen = !this.isOpen;
+  };
+
+  @action
   fetchProject = async id => {
     this.projectId = id;
     const query = ` query { project (id: ${this.projectId}) ${this
@@ -69,11 +74,6 @@ class ProjectsStore {
     customer { name }
 	}
 }`;
-
-  @action
-  modalToggle = () => {
-    this.isOpen = !this.isOpen;
-  };
 }
 
 export default new ProjectsStore();

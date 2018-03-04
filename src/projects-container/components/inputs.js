@@ -4,20 +4,20 @@ import css from './projectModal.css';
 import Select from 'react-select';
 
 export const Input = observer(({field}) => (
-  <div className={css.inputSection}>
+  <div className={css.input__section}>
     <label htmlFor={field.id} className={css.label}>
       {field.label}
     </label>
-    <input {...field.bind()} />
+    <input className={css.input} {...field.bind()} />
     <small className={css.helper}>{field.error}</small>
   </div>
 ));
 
 export const InputCheckbox = observer(({field}) => (
-  <div className={css.inputSection}>
+  <div className={css.input__section}>
     <div className={css.label}>{field.label}</div>
-    <label className={css.checkboxLabel}>
-      <input {...field.bind()} />
+    <label className={css.checkbox__label}>
+      <input className={css.input__checkbox} {...field.bind()} />
       <div className={css.squire} />
       <span>Done</span>
     </label>
@@ -25,17 +25,17 @@ export const InputCheckbox = observer(({field}) => (
 ));
 
 export const Textarea = observer(({field}) => (
-  <div className={css.inputSection}>
+  <div className={css.input__section}>
     <label htmlFor={field.id} className={css.label}>
       {field.label}
     </label>
-    <textarea {...field.bind()} />
+    <textarea className={css.textarea} {...field.bind()} />
     <small className={css.helper}>{field.error}</small>
   </div>
 ));
 
 export const SELECT = observer(({field}) => (
-  <div className={css.inputSection}>
+  <div className={css.input__section}>
     <label htmlFor={field.id} className={css.label}>
       {field.label}
     </label>
