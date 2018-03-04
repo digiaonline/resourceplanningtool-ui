@@ -17,7 +17,7 @@ class PeopleContainer extends Component {
   }
   toggleForm = () => {
     this.setState({
-      formIsOpened: !this.formIsOpened,
+      formIsOpened: !this.state.formIsOpened,
     });
   };
   render() {
