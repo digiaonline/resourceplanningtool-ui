@@ -49,7 +49,7 @@ class CustomersStore {
   makeHttpRequest = async (queryString: String) => {
     try {
       const response = await axios.post(
-        'http://10.5.0.177:3002/skillz',
+        'http://10.5.0.176:3002/skillz',
         queryString,
         {
           headers: {
