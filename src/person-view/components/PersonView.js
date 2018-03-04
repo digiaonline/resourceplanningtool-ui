@@ -3,6 +3,10 @@
 import React, {Component} from 'react';
 import css from './PersonView.css';
 import dummyPeople from '../../people-container/dummyPeople';
+import deleteIcon from '../../assets/icon_delete.svg';
+import editIcon from '../../assets/icon_edit.svg';
+import backIcon from '../../assets/icon_arrow_back.svg';
+import {Link} from 'react-router-dom';
 
 class PersonView extends Component {
   constructor(props) {
@@ -15,18 +19,18 @@ class PersonView extends Component {
   render() {
     return (
       <div className={css.container}>
-        <button type="button" className={css.container__backButton}>
-          <span id="back" />BACK
-        </button>
+        <Link className={css.container__backButton} to="/people">
+          <img src={backIcon} alt="back" /> <span>&nbsp;BACK </span>
+        </Link>
         <div className={css.container__buttonsGroup}>
-          <div>
-            <button type="button" className={css.buttonsGroup__button}>
-              <span id="delete" />DELETE
-            </button>
-            <button type="button" className={css.buttonsGroup__button}>
-              <span id="edit" />EDIT
-            </button>
-          </div>
+          <button type="button" className={css.buttonsGroup__button}>
+            <img alt="" src={editIcon} />
+            <span>&nbsp;EDIT</span>
+          </button>
+          <button type="button" className={css.buttonsGroup__button}>
+            <img alt="" src={deleteIcon} />
+            <span>&nbsp;DELETE</span>
+          </button>
         </div>
         <PersonDetails personDetails={this.state.person} />
       </div>

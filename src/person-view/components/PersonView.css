@@ -36,13 +36,14 @@
 .container__backButton {
   composes: button;
   border: 0 solid rgba(255, 255, 255, 0);
-  padding: 0;
+  padding: 15px 0;
+  text-decoration: none;
   text-align: left;
+  display: inline-flex;
 }
 
 .container__buttonsGroup {
   display: flex;
-  justify-content: space-between;
   flex-direction: row-reverse;
 }
 
@@ -52,6 +53,9 @@
   padding: auto 24px;
   margin-left: 18px;
   border: var(--blurred-border);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .container__personDetails {
