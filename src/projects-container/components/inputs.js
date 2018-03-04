@@ -1,7 +1,7 @@
 import React from 'react';
 import {observer} from 'mobx-react';
 import css from './projectModal.css';
-import Select from 'react-select';
+import Select from 'react-styled-select';
 
 export const Input = observer(({field}) => (
   <div className={css.input__section}>
@@ -34,16 +34,21 @@ export const Textarea = observer(({field}) => (
   </div>
 ));
 
-export const SELECT = observer(({field}) => (
+export const SELECT = observer(({field, addTo}) => (
   <div className={css.input__section}>
     <label htmlFor={field.id} className={css.label}>
       {field.label}
     </label>
-    <Select.Creatable
+    <Select
       {...field.bind()}
-      className={css.x}
-      multi={true}
+      multi={false}
+      className={css.select}
+      onValueClick={addTo}
       options={field.options}
+      classes={{
+        selectInputField: css.select__input,
+        selectValue: css.select__value,
+      }}
     />
     <small className={css.helper}>{field.error}</small>
   </div>

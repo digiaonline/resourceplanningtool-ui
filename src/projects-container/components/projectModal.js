@@ -10,6 +10,36 @@ import addIcon from '../../assets/icon_add_b.svg';
 
 const ProjectModal = observer(
   ({form, isOpen, closeModal, modalName, values}) => {
+    const addToMembers = select => {
+      if (!form.$('members').value.includes(select)) {
+        const values = form.$('members').value.concat(select);
+        form.$('members').set('value', values);
+      }
+    };
+
+    const removeAllMembers = () => {
+      form.$('members').set('value', []);
+    };
+
+    const removeMember = member => {
+      const Selected = form.$('members').value.filter(item => item !== member);
+      form.$('members').set('value', Selected);
+    };
+
+    const addToTechnologies = select => {
+      if (!form.$('technologies').value.includes(select)) {
+        const values = form.$('technologies').value.concat(select);
+        form.$('technologies').set('value', values);
+      }
+    };
+
+    const removeTechnologie = member => {
+      const Selected = form
+        .$('technologies')
+        .value.filter(item => item !== member);
+      form.$('technologies').set('value', Selected);
+    };
+
     return (
       <Modal isOpen={isOpen} className={css.Modal} ariaHideApp={false}>
         <div>
@@ -49,31 +79,45 @@ const ProjectModal = observer(
             </div>
             <div className={css.form__dvider}>People in project</div>
             <div className={css.cell}>
-              <SELECT field={form.$('members')} />
+              <SELECT field={form.$('member')} addTo={addToMembers} />
             </div>
             <div className={css.table__header}>
               <div className={css.table__title}>
                 PERSON
                 <img className={css.form__icon} src={sortIcon} alt="sort" />
               </div>
-              <img className={css.form__icon} src={deleteIcon} alt="delete" />
+              <img
+                className={css.form__icon}
+                src={deleteIcon}
+                alt="delete"
+                onClick={removeAllMembers}
+              />
             </div>
-            {form.$('members').value.map(({label, value}) => (
-              <div key={label} className={css.table__item}>
-                <span>{value}</span>
-                <img className={css.form__icon} src={deleteIcon} alt="delete" />
+            {form.$('members').value.map((item, i) => (
+              <div key={i} className={css.table__item}>
+                <span>{item}</span>
+                <img
+                  className={css.form__icon}
+                  src={deleteIcon}
+                  alt="delete"
+                  onClick={() => removeMember(item)}
+                />
               </div>
             ))}
             <div className={css.form__dvider}>Core technologies</div>
             <div className={css.cell}>
-              <SELECT field={form.$('usedTechnologies')} />
+              <SELECT
+                field={form.$('usedTechnologies')}
+                addTo={addToTechnologies}
+              />
             </div>
             <div className={css.selected__tech__container}>
-              {form.$('usedTechnologies').value.map(({label, value}) => (
-                <div key={label} className={css.selected__tech}>
-                  {value}
+              {form.$('technologies').value.map((item, i) => (
+                <div key={i} className={css.selected__tech}>
+                  {item}
                   <img
                     className={css.remove__tech}
+                    onClick={() => removeTechnologie(item)}
                     src={closeIcon}
                     alt="close"
                   />

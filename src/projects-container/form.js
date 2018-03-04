@@ -65,7 +65,7 @@ export const fields = [
     rules: 'string',
   },
   {
-    name: 'members',
+    name: 'member',
     label: 'person',
     options: [
       {value: 'option1', label: 'option1'},
@@ -73,6 +73,9 @@ export const fields = [
       {value: 'option3', label: 'option3'},
     ],
     rules: 'required',
+  },
+  {
+    name: 'members',
     value: [],
   },
   {
@@ -84,6 +87,9 @@ export const fields = [
       {value: 'option3', label: 'option3'},
     ],
     rules: 'required',
+  },
+  {
+    name: 'technologies',
     value: [],
   },
   {
