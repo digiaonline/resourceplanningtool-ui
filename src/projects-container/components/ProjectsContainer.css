@@ -1,323 +1,255 @@
-.modalTitle {
-  font-size: 34px;
-  margin-bottom: 80px;
+.projectsApp {
+  position: relative;
+  background: #f2f2f2;
+  width: 100%;
+  font-family: Calibri, sans-serif;
 }
 
-.modalClose {
+.backgroundImg {
   position: absolute;
-  right: 0;
-  top: 5px;
+  background-image: url('https://tyoelama-duunitori.imgix.net/wp-content/uploads/2017/12/rekrykuva10_digia.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 800px;
+  width: 100%;
+  z-index: 0;
+}
+
+.contanier {
+  width: 1460px;
+  margin: 0 auto;
+  padding: 86px 0;
+}
+
+.heading {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.headingTitle {
+  color: #fff;
+  font-size: 72px;
+  line-height: 62px;
+}
+
+.headingButton {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  font-size: 16px;
+  max-height: 50px;
+  padding: 20px 30px;
+  border: 1px solid white;
   cursor: pointer;
 }
 
-.section {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-}
-
-.section2 {
-  display: flex;
-  width: 65%;
-  justify-content: space-between;
-}
-
-.cell {
-  width: 46%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.cell1 {
-  width: 30%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.cell2 {
-  width: 65%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.verticalLine {
-  margin-top: 20px;
-  width: 2px;
-  background: lightgray;
-}
-
-.inputSection {
-  display: flex;
-  flex-direction: column;
-  min-height: 95px;
-}
-
-.label {
-  font-size: 17px;
-  font-weight: bold;
-  margin-top: 20px;
-}
-
-.inputSection input {
-  font-size: 17px;
-  color: #363636;
-  background-color: #eee;
-  padding: 15px 10px;
-  border: none;
-  margin-top: 5px;
-  border: 1px solid lightgray;
-}
-
-input:focus {
-  outline: none;
-}
-
-.inputGroup {
-  display: flex;
-  justify-content: space-between;
-}
-
-.inputGroup input {
-  font-size: 14px;
-  font-weight: bold;
-}
-
-.checkboxLabel {
-  font-size: 17px;
-  margin-top: 16px;
-  display: flex;
-  align-items: center;
-}
-
-.inputSection input[type="checkbox"] {
-  visibility: hidden;
-  position: absolute;
-}
-
-.squire {
-  height: 25px;
-  width: 25px;
-  border: 2px solid lightgray;
-  display: inline-block;
-  margin: 0 7px 0 0;
-}
-
-input[type="checkbox"]:checked +.squire {
-  background: url('../../assets/done.svg');
-}
-
-.inputGroup .inputSection {
-  width: 48%;
-}
-
-.formDvider {
-  width: 100%;
-  height: 45px;
-  margin-top: 50px;
-  padding-left: 12px;
+.headingDetails {
+  min-width: 100%;
   color: #fff;
-  background-color: #363636;
-  font-size: 24px;
-  line-height: 45px;
+  font-size: 30px;
+  margin: 20px 0;
 }
 
-.inputSection textarea {
-  height: 148px;
-  background-color: #eee;
-  margin-top: 5px;
-  padding: 12px 9px;
-  resize: none;
-  font-size: 17px;
-  color: #363636;
-  border: 1px solid lightgray;
-}
-
-.tableHeader {
-  margin-top: 20px;
-  width: 100%;
-  border-bottom: 1px solid lightgray;
-  display: flex;
-  justify-content: space-between;
-}
-
-.tableHeaderTitle {
-  font-size: 16px;
+.headingDetailNumber {
+  font-size: 40px;
   font-weight: bold;
+}
+
+.filters {
+  position: relative;
+  display: flex;
+  margin-top: 40px;
+}
+
+.filter {
+  display: flex;
+  flex-direction: column;
+  margin-right: 61px;
+  width: 446px;
+  color: #fff;
+  font-size: 17px;
+}
+
+.filter select {
   height: 45px;
-  width: 275px;
-  line-height: 45px;
 }
 
-.formIcon {
-  float: right;
-  margin: 10.5px 0;
+.projects {
+  position: relative;
+  column-count: 3;
+  column-gap: 60px;
+  margin: 20px 0;
+  color: #363636;
 }
 
-.tableItem {
-  font-size: 16px;
+.project {
+  width: 446px;
+  background-color: #fff;
+  margin-bottom: 25px;
+  display: inline-block;
+  box-shadow: 1px 1px #e2e2e2;
+}
+
+.projectDetails {
+  padding: 65px;
+}
+
+.projectName {
+  font-size: 34px;
+  line-height: 28px;
+  color: #c30000;
+  text-transform: capitalize;
+  padding-bottom: 20px;
+  display: block;
+  text-decoration: none;
+}
+
+.projectView {
+  font-size: 16;
+  font-weight: bold;
+  color: #000;
+  line-height: 1.2;
+  padding-bottom: 24px;
+}
+
+.projectView a {
+  color: #14688f;
+  font-size: 17px;
   font-weight: normal;
-  height: 45px;
-  line-height: 43px;
-  border-bottom: 1px solid lightgray;
+  text-decoration: none;
+  padding: 0 4px;
 }
 
-.selectedTech {
-  margin-top: 20px;
+.projectDesciption {
+  font-size: 17px;
+  line-height: 1.29;
+  padding-bottom: 20px;
+}
+
+.technologies {
   display: flex;
   flex-wrap: wrap;
 }
 
-.selectedTech div {
-  margin-left: 5px;
+.technologies span {
+  background: #363636;
+  color: white;
   font-size: 17px;
-  line-height: 35px;
-  padding: 0 8px;
-  border: none;
-  background-color: lightgray;
+  padding: 0 11px;
+  height: 40px;
+  line-height: 40px;
+  margin: 0 0 4px 4px;
 }
 
-.removeTech {
-  position: relative;
-  top: 5.5px;
-  margin-left: 24px;
-}
+@media (max-width: 1550px) {
+  .contanier {
+    width: 1150px;
+  }
 
-.formButton {
-  margin-top: 58px;
-  display: flex;
-  flex-direction: row-reverse;
-  font-size: 16px;
-}
+  .projects {
+    column-gap: 35px;
+  }
 
-.formButton div {
-  padding: 20px 32px;
-  border: 1px solid lightgray;
-  cursor: pointer;
-  font-weight: bold;
-}
+  .filter {
+    width: 360px;
+    margin-right: 35px;
+  }
 
-.formButton span {
-  padding: 20px 32px;
-  cursor: pointer;
-}
+  .project {
+    width: 360px;
+  }
 
-.news__url {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.news__url .inputSection {
-  min-height: unset;
-  width: 46%;
-}
-
-.news__url .label {
-  display: none;
-}
-
-.news__url input {
-  margin-top: 0;
-  padding: 7.5px 10px;
-}
-
-.news__url__button {
-  display: flex;
-  align-items: center;
-  font-size: 17px;
-  font-weight: bold;
-  width: 60px;
-  justify-content: space-between;
-  cursor: pointer;
-}
-
-.helper {
-  color: red;
-}
-
-.Modal {
-  position: absolute;
-  top: 10%;
-  left: 0;
-  right: 0;
-  bottom: 10%;
-  font-family: Calibri, sans-serif;
-  margin: 0 auto;
-  background-color: #fff;
-  outline: none;
-  border-radius: 4px;
-  padding: 45px 40px;
-  color: #363636;
-  width: 1220px;
-  overflow: auto;
+  .projectDetails {
+    padding: 60px;
+  }
 }
 
 @media (max-width: 1250px) {
-  .Modal {
-    width: 85%;
+  .contanier {
+    width: 900px;
+  }
+
+  .projects {
+    column-gap: 25px;
+  }
+
+  .filter {
+    width: 275px;
+    margin-right: 25px;
+  }
+
+  .project {
+    width: 275px;
+  }
+
+  .projectDetails {
+    padding: 40px 45px;
   }
 }
 
-@media (max-width: 1050px) {
-  .cell1 {
-    width: 35%;
+@media (max-width: 1000px) {
+  .contanier {
+    width: 640px;
   }
 
-  .cell2 {
-    width: 60%;
+  .projects {
+    column-count: 2;
+    column-gap: 30px;
   }
 
-  .inputSection input {
-    padding: 12px 8px;
+  .filters {
+    justify-content: space-between;
+    width: 100%;
   }
 
-  .inputGroup input {
-    padding: 12px 0 12px 4px;
+  .filter {
+    width: 300px;
+    margin-right: unset;
   }
 
-  .Modal {
-    width: 95%;
-    padding: 25px 20px;
+  .project {
+    width: 300px;
+  }
+
+  .projectDetails {
+    padding: 40px 45px;
   }
 }
 
-@media (max-width: 800px) {
-  .modalTitle {
-    margin-bottom: 20px;
+@media (max-width: 750px) {
+  .contanier {
+    width: 80%;
   }
 
-  .verticalLine {
-    display: none;
-  }
-
-  .section {
+  .heading {
     flex-direction: column;
-    align-items: center;
+    min-height: 250px;
+    align-items: flex-start;
   }
 
-  .cell,
-  .cell1,
-  .cell2 {
+  .headingButton {
+    order: 1;
+  }
+
+  .filters {
+    flex-direction: column;
+  }
+
+  .filter {
     width: 100%;
-    margin: 0 auto;
   }
 
-  .formDvider {
+  .projects {
+    column-count: unset;
+    column-gap: unset;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project {
     width: 100%;
-    margin: 50px auto 0;
-  }
-
-  .tableHeader,
-  .tableItem,
-  .selectedTech {
-    width: 100%;
-    margin: 0 auto;
-  }
-
-  .inputGroup input {
-    padding: 12px 0px 12px 8px;
   }
 }
