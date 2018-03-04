@@ -1,28 +1,25 @@
 import MobxReactForm from 'mobx-react-form';
 import validatorjs from 'validatorjs';
-import ProjectStore from '../store';
 
-const DATA = ProjectStore.projectData;
-console.log(DATA);
-const plugins = {dvr: validatorjs};
+export const plugins = {dvr: validatorjs};
 
-const fields = [
+export const fields = [
   {
-    name: 'customerName',
+    name: 'customer',
     label: 'Customer name',
     placeholder: 'Customer name',
     type: 'text',
     rules: 'required|string|between:2,25',
   },
   {
-    name: 'customerEmail',
+    name: 'customeremail',
     label: 'Customer email',
     placeholder: 'Customer email',
     type: 'text',
     rules: 'required|email',
   },
   {
-    name: 'projectName',
+    name: 'name',
     label: 'Project name',
     placeholder: 'projectName',
     type: 'text',
@@ -36,32 +33,32 @@ const fields = [
     rules: 'required|string|between:2,25',
   },
   {
-    name: 'startTime',
+    name: 'starttime',
     label: 'Start time (apprx)',
     type: 'month',
     rules: 'required|date',
   },
   {
-    name: 'endTime',
+    name: 'endtime',
     label: 'End time (apprx)',
     type: 'month',
     rules: 'required|date',
   },
   {
-    name: 'isOnGoing',
+    name: 'ongoing',
     label: 'Project on-going',
     type: 'checkbox',
     rules: 'boolean',
   },
   {
-    name: 'shortDescription',
+    name: 'shortdescription',
     label: 'One-sentence project description',
     placeholder: 'One-sentence project description',
     type: 'text',
     rules: 'required|string',
   },
   {
-    name: 'largDescription',
+    name: 'description',
     label: 'Larger description',
     placeholder: 'Larger description',
     type: 'text',
@@ -90,13 +87,13 @@ const fields = [
     value: [],
   },
   {
-    name: 'linkLive',
+    name: 'liveat',
     label: 'Live at',
     placeholder: 'URL',
     rules: 'required|url',
   },
   {
-    name: 'linkGithub',
+    name: 'githuburl',
     label: 'Github',
     placeholder: 'URL',
     rules: 'required|url',
@@ -109,7 +106,7 @@ const fields = [
   },
 ];
 
-const hooks = {
+export const hooks = {
   onSuccess(form) {
     console.log('Form Values!', form.values());
   },

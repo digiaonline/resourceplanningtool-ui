@@ -3,7 +3,7 @@ import {observer} from 'mobx-react';
 import {Link} from 'react-router-dom';
 import Modal from 'react-modal';
 import ProjectStore from '../../projects-container/store';
-import form from '../../projects-container/components/form';
+import form from '../../projects-container/form';
 import ProjectModal from '../../projects-container/components/projectModal';
 import css from './ProjectView.css';
 import backIcon from '../../assets/icon_arrow_back.svg';
@@ -12,20 +12,9 @@ import editIcon from '../../assets/icon_edit.svg';
 
 @observer
 class ProjectView extends Component {
-  state = {
-    isOpen: false,
-  };
   componentWillMount() {
     ProjectStore.fetchProject(this.props.match.params.id);
   }
-
-  openModal = () => {
-    this.setState({isOpen: true});
-  };
-
-  closeModal = () => {
-    this.setState({isOpen: false});
-  };
 
   convertDate(date) {
     const time = new Date(date);
@@ -110,18 +99,13 @@ class ProjectView extends Component {
           <div className={css.detail__title}>In the news</div>
           <p> News</p>
         </div>
-        <Modal
-          className={css.Modal}
-          isOpen={this.state.isOpen}
-          ariaHideApp={false}
-        >
-          <ProjectModal
-            form={form}
-            closeModal={this.closeModal}
-            modalName="Edit Project"
-            values={Data}
-          />
-        </Modal>
+        <ProjectModal
+          form={form}
+          closeModal={ProjectStore.modalToggle}
+          modalName="Edit Project"
+          values={Data}
+          isOpen={ProjectStore.isOpen}
+        />
       </div>
     );
   }
