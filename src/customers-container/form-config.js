@@ -1,8 +1,7 @@
 // @flow
 
 import validatorjs from 'validatorjs';
-import MobxReactForm from 'mobx-react-form';
-
+import Form from 'mobx-react-form';
 import customersStore from './customers-store';
 
 const plugins = {
@@ -18,7 +17,7 @@ const fields = [
     rules: 'required|string|between:1,25',
   },
   {
-    name: 'website',
+    name: 'url',
     label: 'Website',
     type: 'text',
     placeholder: 'website here',
@@ -37,8 +36,27 @@ const hooks = {
   onSuccess(form: Object) {
     customersStore.createCustomer(form.values());
   },
+  onChange(field) {
+    console.log(field);
+  },
 };
 
-const form = new MobxReactForm({fields}, {plugins, hooks});
+const getForm = (values: Object) => {
+  if (values.toString() !== '{}') {
+    const fields = updateFieldsWithValues(values);
+    return new Form({fields}, {plugins, hooks});
+  } else {
+    return new Form({fields}, {plugins, hooks});
+  }
+};
 
-export default form;
+const updateFieldsWithValues = (values: Object) => {
+  let fieldsWithValues = fields.map(field => {
+    return Object.assign({}, field, {
+      value: values[field.name],
+    });
+  });
+  return fieldsWithValues;
+};
+
+export default getForm;

@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import css from './CustomerForm.css';
 import closeIcon from '../../assets/icon_close.svg';
-import form from '../form-config';
+import getForm from '../form-config';
 
 @observer
 class CustomerForm extends Component {
@@ -14,6 +14,7 @@ class CustomerForm extends Component {
     Modal.setAppElement(document.body);
   }
   render() {
+    const form = getForm(this.props.customerInfo);
     return (
       <Modal isOpen={this.props.isOpened} style={modalStyle}>
         <div className={css.buttonContainer}>
@@ -36,30 +37,24 @@ class CustomerForm extends Component {
                 </label>
                 <input
                   {...form.$('name').bind()}
+                  onChange={form.onChange}
                   className={css.field__input}
-                  id="name"
-                  type="text"
-                  placeholder="name here"
-                  value={this.props.customerInfo.name}
                 />
                 <p>
                   <i>{form.$('name').error}</i>
                 </p>
               </div>
               <div className={css.form__field}>
-                <label htmlFor={form.$('website').id}>
-                  <b>{form.$('website').label}</b>
+                <label htmlFor={form.$('url').id}>
+                  <b>{form.$('url').label}</b>
                 </label>
                 <input
-                  {...form.$('website').bind()}
+                  {...form.$('url').bind()}
+                  onChange={form.onChange}
                   className={css.field__input}
-                  id="website"
-                  type="text"
-                  placeholder="website here"
-                  value={this.props.customerInfo.url}
                 />
                 <p>
-                  <i>{form.$('website').error}</i>
+                  <i>{form.$('url').error}</i>
                 </p>
               </div>
               <div className={css.form__field}>
@@ -68,11 +63,8 @@ class CustomerForm extends Component {
                 </label>
                 <input
                   {...form.$('industry').bind()}
+                  onChange={form.onChange}
                   className={css.field__input}
-                  id="industry"
-                  type="text"
-                  placeholder="industry here"
-                  value={this.props.customerInfo.industry}
                 />
                 <p>
                   <i>{form.$('industry').error}</i>

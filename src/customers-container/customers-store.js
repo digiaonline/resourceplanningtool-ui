@@ -1,7 +1,8 @@
 // @flow
 
-import {observable, action, computed} from 'mobx';
+import {observable, action} from 'mobx';
 import axios from 'axios';
+import dummyCustomers from './components/dummyCustomers';
 
 class CustomersStore {
   @observable
@@ -49,7 +50,7 @@ class CustomersStore {
   makeHttpRequest = async (queryString: String) => {
     try {
       const response = await axios.post(
-        'http://10.5.0.176:3002/skillz',
+        'http://10.5.0.177:3002/skillz',
         queryString,
         {
           headers: {
