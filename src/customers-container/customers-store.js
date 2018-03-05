@@ -2,7 +2,6 @@
 
 import {observable, action} from 'mobx';
 import axios from 'axios';
-import dummyCustomers from './components/dummyCustomers';
 
 class CustomersStore {
   @observable

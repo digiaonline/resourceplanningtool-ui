@@ -1,70 +1,100 @@
 .project__view {
-    width: 75%;
-    margin: 100px auto;
-    color: #363636;
+  width: 75%;
+  margin: 100px auto;
+  color: #363636;
 }
 
 .back__button {
-    font-size: 16px;
-    font-weight: bold;
-    color: #363636;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    }
+  font-size: 16px;
+  font-weight: bold;
+  color: #363636;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
 
 .project__heading {
-    margin-top: 38px;
-    display: flex;
-    justify-content: space-between;
+  margin-top: 38px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .project__title {
-    font-size: 34px;
+  font-size: 34px;
 }
 
-.project__buttons{
-    display: flex;
+.project__buttons {
+  display: flex;
 }
+
 .project__buttons div {
-    font-size: 16px;
-    font-weight: bold;
-    height: 50px;
-    width: 122px;
-    border: 1px solid lightgray;
-    cursor: pointer;
-    margin-left: 18px;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
+  font-size: 16px;
+  font-weight: bold;
+  height: 50px;
+  width: 122px;
+  border: 1px solid lightgray;
+  cursor: pointer;
+  margin-left: 18px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .general__details {
-    margin-top: 125px;
-    display: flex;
+  margin-top: 125px;
+  display: flex;
 }
 
 .details {
-    width: 50%;
-    font-size: 17px;
+  width: 50%;
+  font-size: 17px;
 }
 
 .detail {
-    margin-top: 40px;
+  margin-top: 40px;
 }
 
 .detail__row {
-    margin-bottom: 17px;
+  margin-bottom: 17px;
 }
 
 .detail__title {
-    font-size: 17px;
-    font-weight: bold;
+  font-size: 17px;
+  font-weight: bold;
 }
 
 .detail__row span {
-    font-weight: bold;
-    display: inline-block;
-    width: 155px;
+  font-weight: bold;
+  display: inline-block;
+  width: 155px;
 }
 
+.Modal {
+  position: absolute;
+  top: 10%;
+  left: 0;
+  right: 0;
+  bottom: 10%;
+  font-family: Calibri, sans-serif;
+  margin: 0 auto;
+  background-color: #fff;
+  outline: none;
+  border-radius: 4px;
+  padding: 45px 40px;
+  color: #363636;
+  width: 1220px;
+  overflow: auto;
+}
+
+@media (max-width: 1250px) {
+  .Modal {
+    width: 85%;
+  }
+}
+
+@media (max-width: 1000px) {
+  .Modal {
+    width: 95%;
+    padding: 25px 20px;
+  }
+}

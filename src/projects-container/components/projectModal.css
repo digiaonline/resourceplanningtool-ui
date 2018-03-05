@@ -1,9 +1,9 @@
-.modalTitle {
+.modal__title {
   font-size: 34px;
   margin-bottom: 80px;
 }
 
-.modalClose {
+.modal__close {
   position: absolute;
   right: 0;
   top: 5px;
@@ -49,7 +49,7 @@
   background: lightgray;
 }
 
-.inputSection {
+.input__section {
   display: flex;
   flex-direction: column;
   min-height: 95px;
@@ -61,7 +61,7 @@
   margin-top: 20px;
 }
 
-.inputSection input {
+.input {
   font-size: 17px;
   color: #363636;
   background-color: #eee;
@@ -71,29 +71,24 @@
   border: 1px solid lightgray;
 }
 
-input:focus {
-  outline: none;
-}
-
-.inputGroup {
+.input__group {
   display: flex;
   justify-content: space-between;
-  max-height: 95px;
 }
 
-.inputGroup input{
+.input__group .input {
   font-size: 14px;
   font-weight: bold;
 }
 
-.checkboxLabel {
+.checkbox__label {
   font-size: 17px;
   margin-top: 16px;
   display: flex;
   align-items: center;
 }
 
-.inputSection input[type="checkbox"] {
+.input__section .input__checkbox {
   visibility: hidden;
   position: absolute;
 }
@@ -106,15 +101,15 @@ input:focus {
   margin: 0 7px 0 0;
 }
 
-input[type="checkbox"]:checked +.squire {
+.input__checkbox:checked + .squire {
   background: url('../../assets/done.svg');
 }
 
-.inputGroup .inputSection {
+.input__group .input__section {
   width: 48%;
 }
 
-.formDvider {
+.form__dvider {
   width: 100%;
   height: 45px;
   margin-top: 50px;
@@ -125,7 +120,7 @@ input[type="checkbox"]:checked +.squire {
   line-height: 45px;
 }
 
-.inputSection textarea {
+.input__section .textarea {
   height: 148px;
   background-color: #eee;
   margin-top: 5px;
@@ -136,7 +131,7 @@ input[type="checkbox"]:checked +.squire {
   border: 1px solid lightgray;
 }
 
-.tableHeader {
+.table__header {
   margin-top: 20px;
   width: 100%;
   border-bottom: 1px solid lightgray;
@@ -144,7 +139,7 @@ input[type="checkbox"]:checked +.squire {
   justify-content: space-between;
 }
 
-.tableHeaderTitle {
+.table__title {
   font-size: 16px;
   font-weight: bold;
   height: 45px;
@@ -152,12 +147,13 @@ input[type="checkbox"]:checked +.squire {
   line-height: 45px;
 }
 
-.formIcon {
+.form__icon {
   float: right;
   margin: 10.5px 0;
+  cursor: pointer;
 }
 
-.tableItem {
+.table__item {
   font-size: 16px;
   font-weight: normal;
   height: 45px;
@@ -165,13 +161,13 @@ input[type="checkbox"]:checked +.squire {
   border-bottom: 1px solid lightgray;
 }
 
-.selectedTech {
+.selected__tech__container {
   margin-top: 20px;
   display: flex;
   flex-wrap: wrap;
 }
 
-.selectedTech div {
+.selected__tech {
   margin-left: 5px;
   font-size: 17px;
   line-height: 35px;
@@ -180,49 +176,50 @@ input[type="checkbox"]:checked +.squire {
   background-color: lightgray;
 }
 
-.removeTech {
+.remove__tech {
   position: relative;
   top: 5.5px;
   margin-left: 24px;
+  cursor: pointer;
 }
 
-.formButton {
+.form__button {
   margin-top: 58px;
   display: flex;
   flex-direction: row-reverse;
   font-size: 16px;
 }
 
-.formButton div {
+.form__button__sava {
   padding: 20px 32px;
   border: 1px solid lightgray;
   cursor: pointer;
   font-weight: bold;
 }
 
-.formButton span {
+.form__button__close {
   padding: 20px 32px;
   cursor: pointer;
 }
 
-.news__url{
+.news__url {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.news__url .inputSection{
+.news__url .input__section {
   min-height: unset;
   width: 46%;
 }
 
-.news__url .label{
-  margin-top: 0;
+.news__url .label {
+  display: none;
 }
 
-.news__url input{
-  margin-top: 0px;
-  padding: 7.5px 10px
+.news__url .input {
+  margin-top: 0;
+  padding: 7.5px 10px;
 }
 
 .news__url__button {
@@ -235,27 +232,76 @@ input[type="checkbox"]:checked +.squire {
   cursor: pointer;
 }
 
-@media (max-width: 1000px){
-  .cell1{
-    width: 35%;
-  }
-  .cell2 {
-    width: 60%;
-  }
-  .inputSection input {
-    padding: 12px 8px;
-  }
-  .inputGroup input{
-    padding: 12px 0;
+.helper {
+  color: red;
+}
+
+.select {
+  --styled-select__background-color: #eee;
+  --styled-select__border-color: lightgray;
+  margin-top: 4px;
+}
+
+.select__value {
+  display: none !important;
+}
+
+.select__input {
+  min-height: 44px;
+}
+
+.Modal {
+  position: absolute;
+  top: 10%;
+  left: 0;
+  right: 0;
+  bottom: 10%;
+  font-family: Calibri, sans-serif;
+  margin: 0 auto;
+  background-color: #fff;
+  outline: none;
+  border-radius: 4px;
+  padding: 45px 40px;
+  color: #363636;
+  width: 1220px;
+  overflow: auto;
+}
+
+@media (max-width: 1250px) {
+  .Modal {
+    width: 85%;
   }
 }
 
-@media (max-width: 800px){
-  .modalTitle{
+@media (max-width: 1050px) {
+  .cell1 {
+    width: 35%;
+  }
+
+  .cell2 {
+    width: 60%;
+  }
+
+  .input__section .input {
+    padding: 12px 8px;
+  }
+
+  .input__group .input {
+    padding: 12px 0 12px 4px;
+  }
+
+  .Modal {
+    width: 95%;
+    padding: 25px 20px;
+  }
+}
+
+@media (max-width: 800px) {
+  .modal__title {
     margin-bottom: 20px;
   }
 
-  .verticalLine{
+  .verticalLine {
     display: none;
   }
 
@@ -264,17 +310,26 @@ input[type="checkbox"]:checked +.squire {
     align-items: center;
   }
 
-  .cell, .cell1, .cell2{
+  .cell,
+  .cell1,
+  .cell2 {
     width: 100%;
     margin: 0 auto;
-  }
-  .formDvider{
-    width: 100%;
-    margin: 50px auto 0 auto;
   }
 
-  .tableHeader, .tableItem, .selectedTech{
+  .form__dvider {
+    width: 100%;
+    margin: 50px auto 0;
+  }
+
+  .table__header,
+  .table__item,
+  .selected__tech__containerech {
     width: 100%;
     margin: 0 auto;
+  }
+
+  .inputGroup .input {
+    padding: 12px 0px 12px 8px;
   }
 }

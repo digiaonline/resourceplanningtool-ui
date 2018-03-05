@@ -129,30 +129,19 @@
   padding-bottom: 20px;
 }
 
+.technologies {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .technologies span {
   background: #363636;
   color: white;
   font-size: 17px;
-  padding: 11px;
+  padding: 0 11px;
+  height: 40px;
   line-height: 40px;
-  margin-right: 4px;
-}
-
-.Modal {
-  position: absolute;
-  top: 10%;
-  left: 0;
-  right: 0;
-  bottom: 10%;
-  font-family: Calibri, sans-serif;
-  margin: 0 auto;
-  background-color: #fff;
-  outline: none;
-  border-radius: 4px;
-  padding: 45px 40px;
-  color: #363636;
-  width: 1220px;
-  overflow: auto;
+  margin: 0 0 4px 4px;
 }
 
 @media (max-width: 1550px) {
@@ -199,10 +188,6 @@
   .projectDetails {
     padding: 40px 45px;
   }
-
-  .Modal {
-    width: 85%;
-  }
 }
 
 @media (max-width: 1000px) {
@@ -231,11 +216,6 @@
 
   .projectDetails {
     padding: 40px 45px;
-  }
-
-  .Modal {
-    width: 95%;
-    padding: 25px 20px;
   }
 }
 

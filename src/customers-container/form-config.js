@@ -36,8 +36,8 @@ const hooks = {
   onSuccess(form: Object) {
     customersStore.createCustomer(form.values());
   },
-  onChange(field) {
-    console.log(field);
+  onChange(e) {
+    console.log('triggered', e);
   },
 };
 
