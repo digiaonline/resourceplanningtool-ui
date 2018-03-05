@@ -37,7 +37,6 @@ class CustomerForm extends Component {
                 </label>
                 <input
                   {...form.$('name').bind()}
-                  onChange={form.onChange}
                   className={css.field__input}
                 />
                 <p>
@@ -48,11 +47,7 @@ class CustomerForm extends Component {
                 <label htmlFor={form.$('url').id}>
                   <b>{form.$('url').label}</b>
                 </label>
-                <input
-                  {...form.$('url').bind()}
-                  onChange={form.onChange}
-                  className={css.field__input}
-                />
+                <input {...form.$('url').bind()} className={css.field__input} />
                 <p>
                   <i>{form.$('url').error}</i>
                 </p>
@@ -63,7 +58,6 @@ class CustomerForm extends Component {
                 </label>
                 <input
                   {...form.$('industry').bind()}
-                  onChange={form.onChange}
                   className={css.field__input}
                 />
                 <p>

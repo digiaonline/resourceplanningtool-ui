@@ -43,7 +43,7 @@ const hooks = {
 
 const getForm = (values: Object) => {
   if (values.toString() !== '{}') {
-    const fields = updateFieldsWithValues(values);
+    // const fields = updateFieldsWithValues(values);
     return new Form({fields}, {plugins, hooks});
   } else {
     return new Form({fields}, {plugins, hooks});
