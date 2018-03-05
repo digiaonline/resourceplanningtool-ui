@@ -46,8 +46,8 @@ export const SELECT = observer(({field, addTo}) => (
       onValueClick={addTo}
       options={field.options}
       classes={{
-        selectInputField: css.select__input,
         selectValue: css.select__value,
+        selectInput: css.select__input,
       }}
     />
     <small className={css.helper}>{field.error}</small>

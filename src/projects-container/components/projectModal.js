@@ -60,7 +60,6 @@ const ProjectModal = observer(
               <div className={css.verticalLine} />
               <div className={css.cell}>
                 <Input field={form.$('name')} />
-                <Input field={form.$('subProject')} />
                 <div className={css.input__group}>
                   <Input field={form.$('starttime')} />
                   <Input field={form.$('endtime')} />

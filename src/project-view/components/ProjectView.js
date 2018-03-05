@@ -40,7 +40,7 @@ class ProjectView extends Component {
               <img src={deleteIcon} alt="delete" />
               <span>DELETE</span>
             </div>
-            <div onClick={this.openModal}>
+            <div onClick={ProjectStore.modalToggle}>
               <img src={editIcon} alt="EDIT" />
               <span>EDIT</span>
             </div>

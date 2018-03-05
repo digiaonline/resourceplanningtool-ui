@@ -26,13 +26,6 @@ export const fields = [
     rules: 'required|string|between:2,25',
   },
   {
-    name: 'subProject',
-    label: 'Sub-project',
-    placeholder: 'Project name',
-    type: 'text',
-    rules: 'required|string|between:2,25',
-  },
-  {
     name: 'starttime',
     label: 'Start time (apprx)',
     type: 'month',
