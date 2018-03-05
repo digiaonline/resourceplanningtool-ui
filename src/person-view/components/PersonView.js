@@ -7,6 +7,7 @@ import deleteIcon from '../../assets/icon_delete.svg';
 import editIcon from '../../assets/icon_edit.svg';
 import backIcon from '../../assets/icon_arrow_back.svg';
 import {Link} from 'react-router-dom';
+import PersonForm from '../../people-container/components/PersonForm';
 
 class PersonView extends Component {
   constructor(props) {
@@ -16,6 +17,11 @@ class PersonView extends Component {
       formIsOpened: false,
     };
   }
+  toggleForm = () => {
+    this.setState({
+      formIsOpened: !this.state.formIsOpened,
+    });
+  };
   render() {
     return (
       <div className={css.container}>
@@ -23,7 +29,11 @@ class PersonView extends Component {
           <img src={backIcon} alt="back" /> <span>&nbsp;BACK </span>
         </Link>
         <div className={css.container__buttonsGroup}>
-          <button type="button" className={css.buttonsGroup__button}>
+          <button
+            type="button"
+            className={css.buttonsGroup__button}
+            onClick={this.toggleForm}
+          >
             <img alt="" src={editIcon} />
             <span>&nbsp;EDIT</span>
           </button>
@@ -33,6 +43,11 @@ class PersonView extends Component {
           </button>
         </div>
         <PersonDetails personDetails={this.state.person} />
+        <PersonForm
+          isOpened={this.state.formIsOpened}
+          toggleForm={this.toggleForm}
+          mode={'edit'}
+        />
       </div>
     );
   }

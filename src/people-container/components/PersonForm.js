@@ -5,6 +5,7 @@ import Modal from 'react-modal';
 import css from './PersonForm.css';
 import closeIcon from '../../assets/icon_close.svg';
 import addIcon from '../../assets/icon_add_b.svg';
+import {PropTypes} from 'prop-types';
 
 class PersonForm extends Component {
   componentWillMount() {
@@ -22,7 +23,9 @@ class PersonForm extends Component {
           />
         </div>
         <div className={css.formContainer}>
-          <h3 className={css.formContainer__h3}>Edit person</h3>
+          <h3 className={css.formContainer__h3}>
+            {this.props.mode === 'edit' ? 'Edit Person' : 'Create Person'}
+          </h3>
           <div className={css.form__imageContainer}>
             <div className={css.form__image}>
               {/* image will go here */}
@@ -230,6 +233,12 @@ class PersonForm extends Component {
     );
   }
 }
+
+PersonForm.propTypes = {
+  isOpened: PropTypes.bool.isRequired,
+  toggleForm: PropTypes.func.isRequired,
+  mode: PropTypes.string,
+};
 
 const modalStyle = {
   overlay: {
