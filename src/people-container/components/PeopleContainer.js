@@ -2,11 +2,16 @@
 
 import React, {Component} from 'react';
 import css from './PeopleContainer.css';
-import dummyPeople from '../dummyPeople';
 import Table from '../../table/components/Table';
 import {withNavigation} from '../../table/components/withNavigation';
+import {observer} from 'mobx-react';
+import peopleStore from '../people-store';
 
+@observer
 class PeopleContainer extends Component {
+  componentWillMount() {
+    peopleStore.fetchPeople();
+  }
   render() {
     return (
       <div className={css.container}>
@@ -19,7 +24,7 @@ class PeopleContainer extends Component {
         <TableWithNavigation
           {...this.props}
           columnHeaders={['PERSON', 'TITLE', 'TECHNOLOGIES']}
-          rowsValue={dummyPeople}
+          rowsValue={peopleStore.people}
           displayedFields={['name', 'title', 'location']}
         />
       </div>
