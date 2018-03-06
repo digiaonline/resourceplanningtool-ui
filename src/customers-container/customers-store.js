@@ -2,6 +2,7 @@
 
 import {observable, action} from 'mobx';
 import axios from 'axios';
+import dummyCustomers from './components/dummyCustomers';
 
 class CustomersStore {
   @observable
@@ -13,7 +14,7 @@ class CustomersStore {
       logo: String,
       industry: String
     }
-  ] = [];
+  ] = dummyCustomers;
 
   @action
   fetchCustomers = async () => {

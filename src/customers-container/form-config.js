@@ -1,14 +1,13 @@
 // @flow
 
 import validatorjs from 'validatorjs';
-import Form from 'mobx-react-form';
 import customersStore from './customers-store';
 
-const plugins = {
+export const plugins = {
   dvr: validatorjs,
 };
 
-const fields = [
+export const fields = [
   {
     name: 'name',
     label: 'Name',
@@ -32,35 +31,8 @@ const fields = [
   },
 ];
 
-const hooks = {
+export const hooks = {
   onSuccess(form: Object) {
     customersStore.createCustomer(form.values());
   },
 };
-
-const getForm = (values: Object) => {
-  if (!isEmpty(values)) {
-    const fields = updateFieldsWithValues(values);
-    return new Form({fields}, {plugins, hooks});
-  } else {
-    return new Form({fields}, {plugins, hooks});
-  }
-};
-
-const updateFieldsWithValues = (values: Object) => {
-  let fieldsWithValues = fields.map(field => {
-    return Object.assign({}, field, {
-      value: values[field.name],
-    });
-  });
-  return fieldsWithValues;
-};
-
-const isEmpty = object => {
-  for (var key in object) {
-    if (object.hasOwnProperty(key)) return false;
-  }
-  return true;
-};
-
-export default getForm;
