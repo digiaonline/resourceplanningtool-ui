@@ -30,7 +30,7 @@ class PeopleStore {
   fetchPeople = async () => {
     try {
       const responseData = await this.makeHttpRequest(FETCH_PEOPLE_QUERY);
-      this.customers = responseData.listPersons;
+      this.people = responseData.listPersons;
     } catch (error) {
       console.log('cant fetch people', error);
     }
