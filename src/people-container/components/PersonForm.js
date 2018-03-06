@@ -17,6 +17,26 @@ class PersonForm extends Component {
     const {form} = this.props;
     form.$('new-skill-level').set('value', event.target.value);
   };
+  addNewSkill = () => {
+    const {form} = this.props;
+    if (form.$('new-skill-name').value && form.$('new-skill-level').value) {
+      const skillsList = form.$('skills').value;
+      form.$('skills').set('value', [
+        ...skillsList,
+        {
+          level: +form.$('new-skill-level').value,
+          name: form.$('new-skill-name').value,
+        },
+      ]);
+    }
+  };
+  removeSkill = (index: Number) => {
+    const {form} = this.props;
+    // filter the array of skills and remove the skill with provided index
+    form
+      .$('skills')
+      .set('value', form.$('skills').value.filter((skill, i) => i !== index));
+  };
   render() {
     const {form} = this.props;
     return (
@@ -53,7 +73,7 @@ class PersonForm extends Component {
                     {...form.$('name').bind()}
                     className={css.form__input}
                   />
-                  <p>
+                  <p className={css.input__warning}>
                     <i>{form.$('name').error}</i>
                   </p>
                 </div>
@@ -68,7 +88,7 @@ class PersonForm extends Component {
                     {...form.$('title').bind()}
                     className={css.form__input}
                   />
-                  <p>
+                  <p className={css.input__warning}>
                     <i>{form.$('title').error}</i>
                   </p>
                 </div>
@@ -83,7 +103,7 @@ class PersonForm extends Component {
                     {...form.$('startdate').bind()}
                     className={css.form__input}
                   />
-                  <p>
+                  <p className={css.input__warning}>
                     <i>{form.$('startdate').error}</i>
                   </p>
                 </div>
@@ -101,7 +121,7 @@ class PersonForm extends Component {
                     {...form.$('location').bind()}
                     className={css.form__input}
                   />
-                  <p>
+                  <p className={css.input__warning}>
                     <i>{form.$('location').error}</i>
                   </p>
                 </div>
@@ -116,7 +136,7 @@ class PersonForm extends Component {
                     {...form.$('githuburl').bind()}
                     className={css.form__input}
                   />
-                  <p>
+                  <p className={css.input__warning}>
                     <i>{form.$('githuburl').error}</i>
                   </p>
                 </div>
@@ -131,7 +151,7 @@ class PersonForm extends Component {
                     {...form.$('linkedinurl').bind()}
                     className={css.form__input}
                   />
-                  <p>
+                  <p className={css.input__warning}>
                     <i>{form.$('linkedinurl').error}</i>
                   </p>
                 </div>
@@ -150,7 +170,7 @@ class PersonForm extends Component {
                     rows="4"
                     className={css.form__textarea}
                   />
-                  <p>
+                  <p className={css.input__warning}>
                     <i>{form.$('description').error}</i>
                   </p>
                 </div>
@@ -170,7 +190,7 @@ class PersonForm extends Component {
                     {...form.$('new-skill-name').bind()}
                     className={css.form__input}
                   />
-                  <p>
+                  <p className={css.input__warning}>
                     <i>{form.$('new-skill-name').error}</i>
                   </p>
                 </div>
@@ -234,7 +254,11 @@ class PersonForm extends Component {
                 </div>
                 <div className={css.technologies__input}>
                   <span className={css.input__label}>&nbsp;</span>
-                  <button type="button" className={css.technology__create}>
+                  <button
+                    type="button"
+                    className={css.technology__create}
+                    onClick={this.addNewSkill}
+                  >
                     <img src={addIcon} alt="" />
                     <span>&nbsp;NEW TECHNOLOGY</span>
                   </button>
@@ -248,13 +272,20 @@ class PersonForm extends Component {
                       alt=""
                       src={closeIcon}
                       className={css.technology__remove}
+                      onClick={() => {
+                        this.removeSkill(index);
+                      }}
                     />
                   </div>
                 ))}
               </div>
             </div>
             <div className={css.form__actions}>
-              <button className={css.actions__buttonSubmit} type="submit">
+              <button
+                className={css.actions__buttonSubmit}
+                type="submit"
+                onClick={form.onSubmit}
+              >
                 {' '}
                 Save{' '}
               </button>

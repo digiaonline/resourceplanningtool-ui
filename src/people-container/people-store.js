@@ -19,7 +19,6 @@ class PeopleStore {
       startdate: Number,
       title: String,
       skills: {
-        id: String,
         level: Number,
         name: String
       }

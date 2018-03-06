@@ -101,6 +101,13 @@
   margin-bottom: 5px;
 }
 
+.input__warning {
+  color: red;
+  margin: 5px 0 0;
+  font-size: 14px;
+  height: 20px;
+}
+
 .form__field__first {
   composes: form__field;
   margin: 0;

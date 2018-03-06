@@ -10,10 +10,13 @@ export const plugins = {
 export const hooks = {
   onSuccess(form: Object) {
     // submit the form here
-    console.log('form submitted (i lied)');
+    console.log('form submitted (i lied)', form.values());
   },
   onChange(field: Object) {
     console.log('onchange is running');
+  },
+  updateRadioInput(argument) {
+    console.log(argument);
   },
 };
 
