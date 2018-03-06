@@ -36,14 +36,11 @@ const hooks = {
   onSuccess(form: Object) {
     customersStore.createCustomer(form.values());
   },
-  onChange(e) {
-    console.log('triggered', e);
-  },
 };
 
 const getForm = (values: Object) => {
-  if (values.toString() !== '{}') {
-    // const fields = updateFieldsWithValues(values);
+  if (!isEmpty(values)) {
+    const fields = updateFieldsWithValues(values);
     return new Form({fields}, {plugins, hooks});
   } else {
     return new Form({fields}, {plugins, hooks});
@@ -57,6 +54,13 @@ const updateFieldsWithValues = (values: Object) => {
     });
   });
   return fieldsWithValues;
+};
+
+const isEmpty = object => {
+  for (var key in object) {
+    if (object.hasOwnProperty(key)) return false;
+  }
+  return true;
 };
 
 export default getForm;

@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import css from './CustomerForm.css';
 import closeIcon from '../../assets/icon_close.svg';
-import getForm from '../form-config';
 
 @observer
 class CustomerForm extends Component {
@@ -14,7 +13,7 @@ class CustomerForm extends Component {
     Modal.setAppElement(document.body);
   }
   render() {
-    const form = getForm(this.props.customerInfo);
+    const {form} = this.props;
     return (
       <Modal isOpen={this.props.isOpened} style={modalStyle}>
         <div className={css.buttonContainer}>
@@ -93,8 +92,8 @@ class CustomerForm extends Component {
 CustomerForm.propTypes = {
   isOpened: PropTypes.bool.isRequired,
   toggleForm: PropTypes.func.isRequired,
-  customerInfo: PropTypes.object,
   mode: PropTypes.string,
+  form: PropTypes.object.isRequired,
 };
 
 const modalStyle = {
