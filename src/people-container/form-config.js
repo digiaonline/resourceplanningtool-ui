@@ -12,6 +12,9 @@ export const hooks = {
     // submit the form here
     console.log('form submitted (i lied)');
   },
+  onChange(field: Object) {
+    console.log('onchange is running');
+  },
 };
 
 export const fields = [
@@ -74,11 +77,12 @@ export const fields = [
   {
     name: 'new-skill-level',
     label: 'Skill level',
-    type: 'radio',
+    type: 'number',
     rules: 'integer',
   },
   {
     name: 'skills',
     label: 'Skill list',
+    value: [],
   },
 ];

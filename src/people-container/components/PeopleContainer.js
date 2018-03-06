@@ -41,9 +41,9 @@ class PeopleContainer extends Component {
             <span>&nbsp; NEW PERSON</span>
           </button>
           <PersonForm
-            form={getForm(fields, plugins, hooks, {})}
             isOpened={this.state.formIsOpened}
             toggleForm={this.toggleForm}
+            form={getForm(fields, plugins, hooks, {})}
           />
         </div>
         <TableWithNavigation

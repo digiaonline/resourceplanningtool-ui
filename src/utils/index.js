@@ -22,7 +22,6 @@ export function updateFieldsWithValues(fields: [Object], values: Object) {
     let value = values[field.name];
     if (field.type === 'month') {
       value = parseDateTime(value);
-      console.log(value);
     }
     return Object.assign({}, field, {
       value: value,
@@ -41,7 +40,6 @@ export function getForm(
   if (!isEmpty(values)) {
     const fieldsWithValues = updateFieldsWithValues(fields, values);
     const form = new Form({fields: fieldsWithValues}, {plugins, hooks});
-    console.log(form);
     return form;
   } else {
     return new Form({fields}, {plugins, hooks});

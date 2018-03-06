@@ -3,7 +3,6 @@
 import {observable, action} from 'mobx';
 import axios from 'axios';
 import {FETCH_PEOPLE_QUERY} from './queries';
-import dummyPeople from './dummyPeople';
 
 class PeopleStore {
   // typechecking and initial value for list of people
@@ -25,7 +24,7 @@ class PeopleStore {
         name: String
       }
     }
-  ] = dummyPeople;
+  ] = [];
 
   @action
   fetchPeople = async () => {

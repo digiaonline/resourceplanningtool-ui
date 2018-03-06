@@ -6,11 +6,17 @@ import css from './PersonForm.css';
 import closeIcon from '../../assets/icon_close.svg';
 import addIcon from '../../assets/icon_add_b.svg';
 import {PropTypes} from 'prop-types';
+import {observer} from 'mobx-react';
 
+@observer
 class PersonForm extends Component {
   componentWillMount() {
     Modal.setAppElement(document.body);
   }
+  updateRadioInput = (event: Event) => {
+    const {form} = this.props;
+    form.$('new-skill-level').set('value', event.target.value);
+  };
   render() {
     const {form} = this.props;
     return (
@@ -59,7 +65,7 @@ class PersonForm extends Component {
                     <b>{form.$('title').label}</b>
                   </label>
                   <input
-                    {...form.$('name').bind()}
+                    {...form.$('title').bind()}
                     className={css.form__input}
                   />
                   <p>
@@ -164,9 +170,9 @@ class PersonForm extends Component {
                     {...form.$('new-skill-name').bind()}
                     className={css.form__input}
                   />
-                  {/* <p>
+                  <p>
                     <i>{form.$('new-skill-name').error}</i>
-                  </p> */}
+                  </p>
                 </div>
                 <div className={css.technologies__input}>
                   <span className={css.input__label}>
@@ -178,8 +184,10 @@ class PersonForm extends Component {
                         name="level"
                         type="radio"
                         id="tech-level-1"
-                        value="1"
+                        value={1}
                         className={css.radio__option}
+                        onClick={this.updateRadioInput}
+                        checked={form.$('new-skill-level').value === '1'}
                       />
                       <label
                         htmlFor="tech-level-1"
@@ -193,8 +201,10 @@ class PersonForm extends Component {
                         name="level"
                         type="radio"
                         id="tech-level"
-                        value="2"
+                        value={2}
                         className={css.radio__option}
+                        onClick={this.updateRadioInput}
+                        checked={form.$('new-skill-level').value === '2'}
                       />
                       <label
                         htmlFor="tech-level-2"
@@ -208,8 +218,10 @@ class PersonForm extends Component {
                         name="level"
                         type="radio"
                         id="tech-level"
-                        value="3"
+                        value={3}
                         className={css.radio__option}
+                        onClick={this.updateRadioInput}
+                        checked={form.$('new-skill-level').value === '3'}
                       />
                       <label
                         htmlFor="tech-level-3"
@@ -222,11 +234,7 @@ class PersonForm extends Component {
                 </div>
                 <div className={css.technologies__input}>
                   <span className={css.input__label}>&nbsp;</span>
-                  <button
-                    type="button"
-                    className={css.technology__create}
-                    onClick={this.props.toggleForm}
-                  >
+                  <button type="button" className={css.technology__create}>
                     <img src={addIcon} alt="" />
                     <span>&nbsp;NEW TECHNOLOGY</span>
                   </button>
@@ -250,7 +258,11 @@ class PersonForm extends Component {
                 {' '}
                 Save{' '}
               </button>
-              <button className={css.actions__buttonReset} type="reset">
+              <button
+                className={css.actions__buttonReset}
+                type="reset"
+                onClick={this.props.toggleForm}
+              >
                 {' '}
                 Cancel{' '}
               </button>

@@ -124,8 +124,9 @@
 }
 
 .technologies__input {
-  width: auto;
-  margin: auto 30px 20px 0;
+  margin: 0 30px 20px 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .radio {
@@ -205,5 +206,11 @@
   .inputs__column {
     width: 100%;
     margin: auto auto 20px;
+  }
+}
+
+@media (max-width: 530px) {
+  .technologies__input {
+    margin: 0 0 20px;
   }
 }
