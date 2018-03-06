@@ -1,7 +1,6 @@
 // @flow
 
 import validatorjs from 'validatorjs';
-import Form from 'mobx-react-form';
 import peopleStore from './people-store';
 
 export const plugins = {
@@ -54,7 +53,7 @@ export const fields = [
   {
     name: 'startdate',
     label: 'Started in Digia',
-    type: 'date',
+    type: 'month',
     placeholder: 'link to LinkedIn here',
     rules: 'required|date',
   },
@@ -77,5 +76,9 @@ export const fields = [
     label: 'Skill level',
     type: 'radio',
     rules: 'integer',
+  },
+  {
+    name: 'skills',
+    label: 'Skill list',
   },
 ];

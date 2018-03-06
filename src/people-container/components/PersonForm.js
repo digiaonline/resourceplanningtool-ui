@@ -12,6 +12,7 @@ class PersonForm extends Component {
     Modal.setAppElement(document.body);
   }
   render() {
+    const {form} = this.props;
     return (
       <Modal isOpen={this.props.isOpened} style={modalStyle}>
         <div className={css.buttonContainer}>
@@ -36,64 +37,116 @@ class PersonForm extends Component {
             <div className={css.form__inputs}>
               <div className={css.inputs__column}>
                 <div className={css.form__field__first}>
-                  <label htmlFor="name" className={css.input__label}>
-                    <b>Name</b>
-                  </label>
-                  <input type="text" id="name" className={css.form__input} />
-                </div>
-                <div className={css.form__field}>
-                  <label htmlFor="title" className={css.input__label}>
-                    <b>Title</b>
-                  </label>
-                  <input type="text" id="title" className={css.form__input} />
-                </div>
-                <div className={css.form__field}>
-                  <label htmlFor="start-time" className={css.input__label}>
-                    <b>Started in Digia</b>
+                  <label
+                    htmlFor={form.$('name').id}
+                    className={css.input__label}
+                  >
+                    <b>{form.$('name').label}</b>
                   </label>
                   <input
-                    type="month"
-                    id="start-time"
+                    {...form.$('name').bind()}
                     className={css.form__input}
                   />
+                  <p>
+                    <i>{form.$('name').error}</i>
+                  </p>
+                </div>
+                <div className={css.form__field}>
+                  <label
+                    htmlFor={form.$('title').id}
+                    className={css.input__label}
+                  >
+                    <b>{form.$('title').label}</b>
+                  </label>
+                  <input
+                    {...form.$('name').bind()}
+                    className={css.form__input}
+                  />
+                  <p>
+                    <i>{form.$('title').error}</i>
+                  </p>
+                </div>
+                <div className={css.form__field}>
+                  <label
+                    htmlFor={form.$('startdate').id}
+                    className={css.input__label}
+                  >
+                    <b>{form.$('startdate').label}</b>
+                  </label>
+                  <input
+                    {...form.$('startdate').bind()}
+                    className={css.form__input}
+                  />
+                  <p>
+                    <i>{form.$('startdate').error}</i>
+                  </p>
                 </div>
               </div>
               <div className={css.columns__divider} />
               <div className={css.inputs__column}>
                 <div className={css.form__field__first}>
-                  <label htmlFor="location" className={css.input__label}>
-                    <b>Location</b>
+                  <label
+                    htmlFor={form.$('location').id}
+                    className={css.input__label}
+                  >
+                    <b>{form.$('location').label}</b>
                   </label>
                   <input
-                    type="text"
-                    id="location"
+                    {...form.$('location').bind()}
                     className={css.form__input}
                   />
+                  <p>
+                    <i>{form.$('location').error}</i>
+                  </p>
                 </div>
                 <div className={css.form__field}>
-                  <label htmlFor="github" className={css.input__label}>
-                    <b>Github</b>
+                  <label
+                    htmlFor={form.$('githuburl').id}
+                    className={css.input__label}
+                  >
+                    <b>{form.$('githuburl').label}</b>
                   </label>
-                  <input type="url" id="github" className={css.form__input} />
+                  <input
+                    {...form.$('githuburl').bind()}
+                    className={css.form__input}
+                  />
+                  <p>
+                    <i>{form.$('githuburl').error}</i>
+                  </p>
                 </div>
                 <div className={css.form__field}>
-                  <label htmlFor="linkedin" className={css.input__label}>
-                    <b>LinkedIn</b>
+                  <label
+                    htmlFor={form.$('linkedinurl').id}
+                    className={css.input__label}
+                  >
+                    <b>{form.$('linkedinurl').label}</b>
                   </label>
-                  <input type="url" id="linkedin" className={css.form__input} />
+                  <input
+                    {...form.$('linkedinurl').bind()}
+                    className={css.form__input}
+                  />
+                  <p>
+                    <i>{form.$('linkedinurl').error}</i>
+                  </p>
                 </div>
               </div>
               <div className={css.columns__divider} />
               <div className={css.inputs__column}>
                 <div className={css.form__field__first}>
-                  <label htmlFor="description" className={css.input__label}>
-                    <b>Description</b>
+                  <label
+                    htmlFor={form.$('description').id}
+                    className={css.input__label}
+                  >
+                    <b>{form.$('description').label}</b>
                   </label>
                   <textarea
-                    id="description"
+                    {...form.$('description').bind()}
                     rows="4"
                     className={css.form__textarea}
                   />
+                  <p>
+                    <i>{form.$('description').error}</i>
+                  </p>
                 </div>
               </div>
             </div>
@@ -101,18 +154,23 @@ class PersonForm extends Component {
               <h4 className={css.technologies__h4}>Technology</h4>
               <div className={css.technologies__fields}>
                 <div className={css.technologies__input}>
-                  <label htmlFor="tech-name" className={css.input__label}>
-                    <b>Technology</b>
+                  <label
+                    htmlFor={form.$('new-skill-name').id}
+                    className={css.input__label}
+                  >
+                    <b>{form.$('new-skill-name').label}</b>
                   </label>
                   <input
-                    type="text"
-                    id="tech-name"
+                    {...form.$('new-skill-name').bind()}
                     className={css.form__input}
                   />
+                  {/* <p>
+                    <i>{form.$('new-skill-name').error}</i>
+                  </p> */}
                 </div>
                 <div className={css.technologies__input}>
                   <span className={css.input__label}>
-                    <b>Skill level</b>
+                    <b>{form.$('new-skill-level').label}</b>
                   </span>
                   <div className={css.radio}>
                     <div className={css.radio__optionFields}>
@@ -175,46 +233,16 @@ class PersonForm extends Component {
                 </div>
               </div>
               <div className={css.technologies__list}>
-                <div className={css.list__technology}>
-                  Lumen (3)
-                  <img
-                    alt=""
-                    src={closeIcon}
-                    className={css.technology__remove}
-                  />
-                </div>
-                <div className={css.list__technology}>
-                  Lumen (3)
-                  <img
-                    alt=""
-                    src={closeIcon}
-                    className={css.technology__remove}
-                  />
-                </div>
-                <div className={css.list__technology}>
-                  Lumen (3)
-                  <img
-                    alt=""
-                    src={closeIcon}
-                    className={css.technology__remove}
-                  />
-                </div>
-                <div className={css.list__technology}>
-                  Lumen (3)
-                  <img
-                    alt=""
-                    src={closeIcon}
-                    className={css.technology__remove}
-                  />
-                </div>
-                <div className={css.list__technology}>
-                  Lumen (3)
-                  <img
-                    alt=""
-                    src={closeIcon}
-                    className={css.technology__remove}
-                  />
-                </div>
+                {form.$('skills').value.map((skill, index) => (
+                  <div className={css.list__technology} key={index}>
+                    {skill.name} ({skill.level})
+                    <img
+                      alt=""
+                      src={closeIcon}
+                      className={css.technology__remove}
+                    />
+                  </div>
+                ))}
               </div>
             </div>
             <div className={css.form__actions}>

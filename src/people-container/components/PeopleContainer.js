@@ -8,6 +8,8 @@ import {withNavigation} from '../../table/components/withNavigation';
 import {observer} from 'mobx-react';
 import peopleStore from '../people-store';
 import addIcon from '../../assets/icon_add_b.svg';
+import {fields, plugins, hooks} from '../form-config';
+import {getForm} from '../../utils';
 
 @observer
 class PeopleContainer extends Component {
@@ -39,6 +41,7 @@ class PeopleContainer extends Component {
             <span>&nbsp; NEW PERSON</span>
           </button>
           <PersonForm
+            form={getForm(fields, plugins, hooks, {})}
             isOpened={this.state.formIsOpened}
             toggleForm={this.toggleForm}
           />

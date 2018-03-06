@@ -10,6 +10,8 @@ import PersonForm from '../../people-container/components/PersonForm';
 import peopleStore from '../../people-container/people-store';
 import {observer} from 'mobx-react';
 import {parseDateTime} from '../../utils';
+import {fields, plugins, hooks} from '../../people-container/form-config';
+import {getForm} from '../../utils';
 
 @observer
 class PersonView extends Component {
@@ -56,6 +58,12 @@ class PersonView extends Component {
           personDetails={peopleStore.people[this.props.match.params.id]}
         />
         <PersonForm
+          form={getForm(
+            fields,
+            plugins,
+            hooks,
+            peopleStore.people[this.props.match.params.id]
+          )}
           isOpened={this.state.formIsOpened}
           toggleForm={this.toggleForm}
           mode={'edit'}

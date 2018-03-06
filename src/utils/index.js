@@ -5,7 +5,7 @@ export function parseDateTime(timeNumber: Number) {
   const date: Date = new Date(timeNumber);
   const month: Number = date.getMonth() + 1;
   const year: Number = date.getFullYear();
-  return `${month >= 10 ? `${month}` : `0${month}`}/${year}`;
+  return `${year}-${month >= 10 ? `${month}` : `0${month}`}`;
 }
 
 export function isEmpty(object: Object) {
@@ -19,8 +19,13 @@ export function isEmpty(object: Object) {
 // update predefined input fields with corresponding intial values
 export function updateFieldsWithValues(fields: [Object], values: Object) {
   let fieldsWithValues = fields.map(field => {
+    let value = values[field.name];
+    if (field.type === 'month') {
+      value = parseDateTime(value);
+      console.log(value);
+    }
     return Object.assign({}, field, {
-      value: values[field.name],
+      value: value,
     });
   });
   return fieldsWithValues;
