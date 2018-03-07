@@ -34,22 +34,29 @@ export const Textarea = observer(({field}) => (
   </div>
 ));
 
-export const SELECT = observer(({field, addTo}) => (
-  <div className={css.input__section}>
-    <label htmlFor={field.id} className={css.label}>
-      {field.label}
-    </label>
-    <Select
-      {...field.bind()}
-      multi={false}
-      className={css.select}
-      onValueClick={addTo}
-      options={field.options}
-      classes={{
-        selectValue: css.select__value,
-        selectInput: css.select__input,
-      }}
-    />
-    <small className={css.helper}>{field.error}</small>
-  </div>
-));
+export const SELECT = observer(({field, addTo, option}) => {
+  const options = option
+    ? option.map(item => {
+      return {value: item.name, label: item.name};
+    })
+    : [];
+  return (
+    <div className={css.input__section}>
+      <label htmlFor={field.id} className={css.label}>
+        {field.label}
+      </label>
+      <Select
+        {...field.bind()}
+        multi={false}
+        className={css.select}
+        onValueClick={addTo}
+        options={options}
+        classes={{
+          selectValue: css.select__value,
+          selectInput: css.select__input,
+        }}
+      />
+      <small className={css.helper}>{field.error}</small>
+    </div>
+  );
+});

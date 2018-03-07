@@ -12,7 +12,7 @@ export const fields = [
     rules: 'required|string|between:2,25',
   },
   {
-    name: 'customeremail',
+    name: 'contactemail',
     label: 'Customer email',
     placeholder: 'Customer email',
     type: 'text',
@@ -60,11 +60,6 @@ export const fields = [
   {
     name: 'member',
     label: 'person',
-    options: [
-      {value: 'option1', label: 'option1'},
-      {value: 'option2', label: 'option2'},
-      {value: 'option3', label: 'option3'},
-    ],
     rules: 'required',
   },
   {
@@ -74,11 +69,6 @@ export const fields = [
   {
     name: 'usedTechnologies',
     label: 'Technologies',
-    options: [
-      {value: 'option1', label: 'option1'},
-      {value: 'option2', label: 'option2'},
-      {value: 'option3', label: 'option3'},
-    ],
     rules: 'required',
   },
   {

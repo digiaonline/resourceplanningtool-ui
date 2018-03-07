@@ -15,6 +15,20 @@ class ProjectView extends Component {
     ProjectStore.fetchProject(this.props.match.params.id);
   }
 
+  componentDidMount() {}
+
+  openModalAndPassData() {
+    ProjectStore.modalToggle();
+    const Data = ProjectStore.projectData;
+    console.log(Data.persons);
+    form.$('name').set('value', Data.name);
+    form.$('contactemail').set('value', Data.contactemail);
+    form.$('customer').set('value', 'fix it');
+    form.$('starttime').set('value', Data.starttime);
+    form.$('endtime').set('value', Data.endtime);
+    form.$('technologies').set('value', Data.technologies);
+  }
+
   convertDate(date) {
     const time = new Date(date);
     const month = time.getMonth() + 1;
@@ -40,7 +54,7 @@ class ProjectView extends Component {
               <img src={deleteIcon} alt="delete" />
               <span>DELETE</span>
             </div>
-            <div onClick={ProjectStore.modalToggle}>
+            <div onClick={this.openModalAndPassData}>
               <img src={editIcon} alt="EDIT" />
               <span>EDIT</span>
             </div>
@@ -102,7 +116,6 @@ class ProjectView extends Component {
           form={form}
           closeModal={ProjectStore.modalToggle}
           modalName="Edit Project"
-          values={Data}
           isOpen={ProjectStore.isOpen}
         />
       </div>
