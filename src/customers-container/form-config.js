@@ -30,6 +30,10 @@ const fields = [
     placeholder: 'industry here',
     rules: 'string|required',
   },
+  {
+    name: 'id',
+    label: 'id',
+  },
 ];
 
 const hooks = {

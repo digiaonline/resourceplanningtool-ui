@@ -2,6 +2,12 @@
 
 import {observable, action} from 'mobx';
 import axios from 'axios';
+import {
+  FETCH_CUSTOMERS_QUERY,
+  getCreateCustomerQuery,
+  getDeleteCustomerQuery,
+  getUpdateCustomerQuery,
+} from './queries';
 
 class CustomersStore {
   @observable
@@ -18,7 +24,7 @@ class CustomersStore {
   @action
   fetchCustomers = async () => {
     try {
-      const responseData = await this.makeHttpRequest(this.queryString);
+      const responseData = await this.makeHttpRequest(FETCH_CUSTOMERS_QUERY);
       this.customers = responseData.listCustomers;
     } catch (error) {
       console.log('cant fetch customers', error);
@@ -28,20 +34,45 @@ class CustomersStore {
   @action
   createCustomer = async (customerInfo: Object) => {
     try {
-      const mutationString = `mutation {
-	      createCustomer(name: "${customerInfo.name}", url: "${customerInfo.website}", industry: "${customerInfo.industry}", logo:"shiet logo") {
-          id
-   		    name
-          logo
-          industry
-          url
-	      }
-      }`;
-      const response = await this.makeHttpRequest(mutationString);
+      const CREATE_CUSTOMER_QUERY = getCreateCustomerQuery(
+        customerInfo.name,
+        customerInfo.url,
+        customerInfo.industry,
+        customerInfo.logo
+      );
+      await this.makeHttpRequest(CREATE_CUSTOMER_QUERY);
       alert('create customer successfully');
-      this.customers.push(response.createCustomer);
+      this.fetchCustomers();
     } catch (error) {
       console.log('cant create new customer');
+    }
+  };
+
+  @action
+  deleteCustomer = async (index: Number) => {
+    try {
+      const DELETE_CUSTOMER_QUERY = getDeleteCustomerQuery(
+        this.customers[index].id
+      );
+      const response = await this.makeHttpRequest(DELETE_CUSTOMER_QUERY);
+      if (response.removeCustomer) {
+        this.fetchCustomers();
+      }
+    } catch (error) {
+      console.log('cant delete customer');
+    }
+  };
+
+  @action
+  updateCustomer = async (index: Number) => {
+    try {
+      const UPDATE_CUSTOMER_QUERY = getUpdateCustomerQuery(
+        this.customers[index].id
+      );
+      await this.makeHttpRequest(UPDATE_CUSTOMER_QUERY);
+      this.fetchCustomers();
+    } catch (error) {
+      console.log('cant save customer');
     }
   };
 
@@ -62,16 +93,6 @@ class CustomersStore {
       return [];
     }
   };
-
-  queryString = `query {
-    listCustomers {
-       id
-		   name
-       logo
-       industry
-       url
-     }
-  }`;
 }
 
 export default new CustomersStore();
