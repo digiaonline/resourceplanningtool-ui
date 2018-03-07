@@ -24,6 +24,7 @@ const Table = props => (
           values={row}
           displayedFields={props.displayedFields}
           navigate={props.navigate}
+          index={index}
         />
       ))}
     </tbody>
@@ -33,7 +34,7 @@ const Table = props => (
 export const Row = props => (
   <tr
     onClick={() => {
-      props.navigate(props.values.id - 1);
+      props.navigate(props.index);
     }}
   >
     <td className={css.row__firstField}>
