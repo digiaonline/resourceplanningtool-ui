@@ -37,6 +37,12 @@ export const fields = [
 
 export const hooks = {
   onSuccess(form: Object) {
-    customersStore.createCustomer(form.values());
+    // get initial values of the form, to see if we are creating or updating modalStyle
+    const initialsValue = form.initials();
+    if (initialsValue.name && initialsValue.url && initialsValue.industry) {
+      customersStore.createCustomer(form.values());
+    } else {
+      customersStore.updateCustomer(form.values());
+    }
   },
 };

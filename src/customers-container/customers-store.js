@@ -64,10 +64,14 @@ class CustomersStore {
   };
 
   @action
-  updateCustomer = async (index: Number) => {
+  updateCustomer = async (customerInfo: Object) => {
     try {
       const UPDATE_CUSTOMER_QUERY = getUpdateCustomerQuery(
-        this.customers[index].id
+        customerInfo.id,
+        customerInfo.name,
+        customerInfo.industry,
+        customerInfo.url,
+        ''
       );
       await this.makeHttpRequest(UPDATE_CUSTOMER_QUERY);
       this.fetchCustomers();
