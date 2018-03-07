@@ -65,6 +65,7 @@ class ProjectsStore {
 }`;
 
   projectQuery = `{
+    id
 		name
     starttime
     endtime
@@ -75,6 +76,8 @@ class ProjectsStore {
     description
     contactemail
     customer { name }
+    technologies { name }
+    persons { name }
 	}
 }`;
 }
