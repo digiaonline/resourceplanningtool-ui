@@ -1,30 +1,34 @@
 const dummyPerson = {
   id: 0,
-  imageUrl:
+  picture:
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpKwTLaDvE1Rk4SBVI9vfs0ODtWGEpoj-ws4B1AL7op_TB637zMw',
   name: 'Erik Kieslowski',
   title: 'Manager',
-  startTimeInDigia: Date.now(), // mm/yy
+  startdate: Date.now(), // mm/yy
   location: 'October Revolution',
-  githubLink: 'https://en.wikipedia.org/wiki/String_theory',
-  linkedinLink: 'https://en.wikipedia.org/wiki/String_theory',
+  githuburl: 'https://en.wikipedia.org/wiki/String_theory',
+  linkedinurl: 'https://en.wikipedia.org/wiki/String_theory',
   description:
     'Harry Potter movies are better than books version, damn you Erik. Better than Lord Of The Rings also. Triggered ?.',
-  technologies: [
+  skills: [
     {
       id: 1,
+      name: 'Go',
       level: 3, // [1-3]
     },
     {
       id: 2,
+      name: 'PHP',
       level: 1, // [1-3]
     },
     {
       id: 3,
+      name: 'DevOps',
       level: 2, // [1-3]
     },
     {
       id: 3,
+      name: 'Tensorflow',
       level: 2, // [1-3]
     },
   ],

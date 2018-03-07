@@ -2,33 +2,72 @@
 
 import React, {Component} from 'react';
 import css from './PersonView.css';
-import dummyPeople from '../../people-container/dummyPeople';
+import deleteIcon from '../../assets/icon_delete.svg';
+import editIcon from '../../assets/icon_edit.svg';
+import backIcon from '../../assets/icon_arrow_back.svg';
+import {Link} from 'react-router-dom';
+import PersonForm from '../../people-container/components/PersonForm';
+import peopleStore from '../../people-container/people-store';
+import {observer} from 'mobx-react';
+import {parseDateTime} from '../../utils';
+import {fields, plugins, hooks} from '../../people-container/form-config';
+import {getForm} from '../../utils';
 
+@observer
 class PersonView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      person: dummyPeople[this.props.match.params.id],
       formIsOpened: false,
     };
   }
+  toggleForm = () => {
+    this.setState({
+      formIsOpened: !this.state.formIsOpened,
+    });
+  };
+  componentWillMount() {
+    if (!peopleStore.people[this.props.match.params.id]) {
+      peopleStore.fetchPeople();
+    }
+  }
   render() {
+    if (!peopleStore.people[this.props.match.params.id]) {
+      return <Loading />;
+    }
     return (
       <div className={css.container}>
-        <button type="button" className={css.container__backButton}>
-          <span id="back" />BACK
-        </button>
+        <Link className={css.container__backButton} to="/people">
+          <img src={backIcon} alt="back" /> <span>&nbsp;BACK </span>
+        </Link>
         <div className={css.container__buttonsGroup}>
-          <div>
-            <button type="button" className={css.buttonsGroup__button}>
-              <span id="delete" />DELETE
-            </button>
-            <button type="button" className={css.buttonsGroup__button}>
-              <span id="edit" />EDIT
-            </button>
-          </div>
+          <button
+            type="button"
+            className={css.buttonsGroup__button}
+            onClick={this.toggleForm}
+          >
+            <img alt="" src={editIcon} />
+            <span>&nbsp;EDIT</span>
+          </button>
+          <button type="button" className={css.buttonsGroup__button}>
+            <img alt="" src={deleteIcon} />
+            <span>&nbsp;DELETE</span>
+          </button>
         </div>
-        <PersonDetails personDetails={this.state.person} />
+        <PersonDetails
+          personDetails={peopleStore.people[this.props.match.params.id]}
+        />
+        <PersonForm
+          form={getForm(
+            fields,
+            plugins,
+            hooks,
+            peopleStore.people[this.props.match.params.id]
+          )}
+          isOpened={this.state.formIsOpened}
+          toggleForm={this.toggleForm}
+          mode={'edit'}
+        />
       </div>
     );
   }
@@ -37,7 +76,7 @@ class PersonView extends Component {
 const PersonDetails = props => (
   <div className={css.container__personDetails}>
     <div className={css.personDetails__image}>
-      <img src={props.personDetails.imageUrl} alt={props.personDetails.name} />
+      <img src={props.personDetails.picture} alt={props.personDetails.name} />
     </div>
     <div className={css.personDetails__mainInfo}>
       <h4 className={css.mainInfo__name}>{props.personDetails.name}</h4>
@@ -45,10 +84,10 @@ const PersonDetails = props => (
         {props.personDetails.description}
       </p>
       <div className={css.mainInfo__technologies}>
-        {props.personDetails.technologies.map((technology, index) => (
+        {props.personDetails.skills.map((skill, index) => (
           // hardcoded technology
           <span key={index} className={css.mainInfo__technology}>
-            Window
+            {`${skill.name} (${skill.level})`}
           </span>
         ))}
       </div>
@@ -69,29 +108,21 @@ const PersonDetails = props => (
       <div className={css.minorInfo__column}>
         <h5 className={css.minorInfo__title}>{props.personDetails.title}</h5>
         <span className={css.minorInfo__row}>
-          {props.personDetails.startTimeInDigia}
+          {parseDateTime(props.personDetails.startdate)}
         </span>
         <span className={css.minorInfo__row}>
           {props.personDetails.location}
         </span>
         <span className={css.minorInfo__rowLinks}>
-          <a
-            href={props.personDetails.linkedinLink}
-            className={css.minorInfo__link}
-          >
-            LinkedIn
-          </a>
+          <a href={props.personDetails.linkedinurl}>LinkedIn</a>
           <div className={css.links__separateLine} />
-          <a
-            href={props.personDetails.githubLink}
-            className={css.minorInfo__link}
-          >
-            Github
-          </a>
+          <a href={props.personDetails.githuburl}>Github</a>
         </span>
       </div>
     </div>
   </div>
 );
+
+const Loading = props => <div>Loading ...</div>;
 
 export default PersonView;

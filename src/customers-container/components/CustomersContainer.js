@@ -9,7 +9,8 @@ import Table from '../../table/components/Table';
 import {withNavigation} from '../../table/components/withNavigation';
 import addIcon from '../../assets/icon_add_b.svg';
 import customersStore from '../customers-store';
-import getForm from '../form-config';
+import {fields, plugins, hooks} from '../form-config';
+import {getForm} from '../../utils';
 
 @observer
 class CustomersContainer extends Component {
@@ -37,7 +38,7 @@ class CustomersContainer extends Component {
           <CustomerForm
             isOpened={this.formIsOpened}
             toggleForm={this.toggleForm}
-            form={getForm({})}
+            form={getForm(fields, plugins, hooks, {})}
             mode={'new'}
           />
         </div>

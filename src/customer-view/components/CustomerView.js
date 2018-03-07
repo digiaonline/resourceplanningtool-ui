@@ -8,7 +8,8 @@ import deleteIcon from '../../assets/icon_delete.svg';
 import editIcon from '../../assets/icon_edit.svg';
 import backIcon from '../../assets/icon_arrow_back.svg';
 import customersStore from '../../customers-container/customers-store';
-import getForm from '../../customers-container/form-config';
+import {getForm} from '../../utils';
+import {fields, plugins, hooks} from '../../customers-container/form-config';
 
 @observer
 class CustomerView extends Component {
@@ -35,7 +36,6 @@ class CustomerView extends Component {
       customersStore.fetchCustomers();
     }
   }
-
   render() {
     if (!customersStore.customers[this.props.match.params.id]) {
       return <Loading />;
@@ -93,7 +93,12 @@ class CustomerView extends Component {
           </div>
         </div>
         <CustomerForm
-          form={getForm(customersStore.customers[this.props.match.params.id])}
+          form={getForm(
+            fields,
+            plugins,
+            hooks,
+            customersStore.customers[this.props.match.params.id]
+          )}
           isOpened={this.state.formIsOpened}
           toggleForm={this.toggleForm}
           mode={'edit'}

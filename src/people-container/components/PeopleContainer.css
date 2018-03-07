@@ -47,9 +47,11 @@
   letter-spacing: var(--letter-spacing);
   color: var(--color);
   font-weight: bold;
-  padding: 15px 30px;
+  padding: 0 20px;
+  line-height: 24px;
   text-align: left;
   font-size: 16px;
+  display: inline-flex;
   font-family: Calibri, sans-serif;
   composes: element--hover;
 }
