@@ -156,7 +156,6 @@
 .table__item {
   font-size: 16px;
   font-weight: normal;
-  height: 45px;
   line-height: 43px;
   border-bottom: 1px solid lightgray;
 }
@@ -331,5 +330,14 @@
 
   .inputGroup .input {
     padding: 12px 0px 12px 8px;
+  }
+
+  .news__url {
+    flex-direction: column;
+  }
+
+  .news__url .input__section {
+    width: 100%;
+    margin-top: 8px;
   }
 }

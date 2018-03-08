@@ -93,6 +93,12 @@ export const fields = [
     placeholder: 'URL',
     rules: 'url',
   },
+  {
+    name: 'newsDescription',
+    label: '',
+    placeholder: 'Description',
+    rules: 'string',
+  },
 ];
 
 export const hooks = {
