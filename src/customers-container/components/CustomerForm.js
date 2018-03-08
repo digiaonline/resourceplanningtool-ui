@@ -14,6 +14,7 @@ class CustomerForm extends Component {
   }
   render() {
     const {form} = this.props;
+    console.log(form.initials());
     return (
       <Modal isOpen={this.props.isOpened} style={modalStyle}>
         <div className={css.buttonContainer}>
