@@ -13,7 +13,7 @@ export const fields = [
   },
   {
     name: 'contactemail',
-    label: 'Customer email',
+    label: 'Contact email',
     placeholder: 'Customer email',
     type: 'text',
     rules: 'required|email',

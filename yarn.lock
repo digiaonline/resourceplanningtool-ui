@@ -24,9 +24,9 @@
     follow-redirects "^1.2.5"
     is-buffer "^1.1.5"
 
-"@webcomponents/shadydom@1.0.12":
-  version "1.0.12"
-  resolved "https://registry.yarnpkg.com/@webcomponents/shadydom/-/shadydom-1.0.12.tgz#c52bfded1b03fb336b165224482bb0a049bcfbbb"
+"@webcomponents/shadydom@^1.0.3":
+  version "1.0.14"
+  resolved "https://registry.yarnpkg.com/@webcomponents/shadydom/-/shadydom-1.0.14.tgz#fcfeacf7470ec11483e1f08c590ce1491527db1a"
 
 JSONStream@^0.8.4:
   version "0.8.4"
@@ -3108,7 +3108,7 @@ fb-watchman@^2.0.0:
   dependencies:
     bser "^2.0.0"
 
-fbjs@^0.8.1, fbjs@^0.8.16, fbjs@^0.8.5:
+fbjs@^0.8.1, fbjs@^0.8.5:
   version "0.8.16"
   resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.16.tgz#5e67432f550dc41b572bf55847b8aca64e5337db"
   dependencies:
@@ -3731,13 +3731,13 @@ hoist-non-react-statics@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-1.2.0.tgz#aa448cf0986d55cc40773b17174b7dd066cb7cfb"
 
-hoist-non-react-statics@^2.1.1, hoist-non-react-statics@^2.3.1:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.5.0.tgz#d2ca2dfc19c5a91c5a6615ce8e564ef0347e2a40"
-
 hoist-non-react-statics@^2.3.0:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.3.1.tgz#343db84c6018c650778898240135a1420ee22ce0"
+
+hoist-non-react-statics@^2.3.1:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.5.0.tgz#d2ca2dfc19c5a91c5a6615ce8e564ef0347e2a40"
 
 home-or-tmp@^2.0.0:
   version "2.0.0"
@@ -6461,9 +6461,9 @@ react-autocomplete@^1.8.1:
     dom-scroll-into-view "1.0.1"
     prop-types "^15.5.10"
 
-react-click-outside@3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/react-click-outside/-/react-click-outside-3.0.1.tgz#6e77e84d2f17afaaac26dbad743cbbf909f5e24c"
+react-click-outside@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/react-click-outside/-/react-click-outside-2.3.1.tgz#318737ebdf081a4a3bcd46825663674cbe9836eb"
   dependencies:
     hoist-non-react-statics "^1.2.0"
 
@@ -6589,15 +6589,15 @@ react-styled-select@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/react-styled-select/-/react-styled-select-1.0.0.tgz#970b4f7aefd22f7c5fece7c7336c647e215d92f1"
   dependencies:
-    "@webcomponents/shadydom" "^1.0.3"
+    "@webcomponents/shadydom" "1.0.12"
+    "@webcomponents/webcomponentsjs" "1.1.0"
+    babel-polyfill "^6.26.0"
     babel-runtime "^6.6.1"
-    prop-types "^15.5.10"
-    react-click-outside "^2.3.1"
-    react-shadow "^2.0.2"
-    sinon "^2.3.5"
+    prop-types "15.6.1"
+    react-click-outside "3.0.1"
+    react-shadow "16.2.0"
     styled-components "2.1.1"
     uuid "^3.1.0"
-    webcomponents.js "^0.7.24"
 
 react-test-renderer@^15.6.1:
   version "15.6.1"
