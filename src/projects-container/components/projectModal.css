@@ -238,6 +238,8 @@
 .select {
   --styled-select__background-color: #eee;
   --styled-select__border-color: lightgray;
+  --styled-select-placeholder__padding: 7px 10px;
+  --styled-select-input__padding: 8px;
   margin-top: 4px;
 }
 

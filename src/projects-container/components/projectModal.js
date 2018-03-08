@@ -24,17 +24,15 @@ const ProjectModal = observer(({form, isOpen, closeModal, modalName}) => {
         <form>
           <div className={css.section}>
             <div className={css.cell}>
-              <Input field={form.$('customer')} />
+              <SELECT field={form.$('customer')} />
               <Input field={form.$('contactemail')} />
               <InputCheckbox field={form.$('ongoing')} />
             </div>
             <div className={css.verticalLine} />
             <div className={css.cell}>
               <Input field={form.$('name')} />
-              <div className={css.input__group}>
-                <Input field={form.$('starttime')} />
-                <Input field={form.$('endtime')} />
-              </div>
+              <Input field={form.$('starttime')} />
+              <Input field={form.$('endtime')} />
             </div>
           </div>
           <div className={css.form__dvider}>Project description</div>

@@ -17,7 +17,7 @@ class ProjectView extends Component {
     ProjectStore.fetchPersons();
   }
 
-  openModalAndPassData() {
+  openModalAndPassData = () => {
     ProjectStore.modalToggle();
     const Data = ProjectStore.projectData;
     const technologies = Data.technologies.map(item => {
@@ -29,17 +29,28 @@ class ProjectView extends Component {
     form.$('name').set('value', Data.name);
     form.$('contactemail').set('value', Data.contactemail);
     form.$('customer').set('value', 'fix it');
-    form.$('starttime').set('value', Data.starttime);
-    form.$('endtime').set('value', Data.endtime);
+    form.$('starttime').set('value', this.convertDate(Data.starttime));
+    form.$('endtime').set('value', this.convertDate(Data.endtime));
+    form.$('ongoing').set('value', Data.ongoing);
+    form.$('description').set('value', Data.description);
+    form.$('shortdescription').set('value', Data.shortdescription);
     form.$('technologies').set('value', technologies);
     form.$('members').set('value', members);
-  }
+    form.$('liveat').set('value', Data.liveat);
+    form.$('githuburl').set('value', Data.githuburl);
+  };
 
   convertDate(date) {
-    const time = new Date(date);
-    const month = time.getMonth() + 1;
-    const year = time.getFullYear();
-    return `${month}-${year}`;
+    if (date) {
+      const time = new Date(date);
+      const month =
+        time.getMonth() + 1 > 9
+          ? time.getMonth() + 1
+          : '' + time.getMonth() + 1;
+      const year = time.getFullYear();
+      return `${year}-${month}`;
+    }
+    return '';
   }
 
   render() {
