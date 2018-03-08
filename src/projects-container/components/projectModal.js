@@ -10,36 +10,6 @@ import deleteIcon from '../../assets/icon_delete.svg';
 import addIcon from '../../assets/icon_add_b.svg';
 
 const ProjectModal = observer(({form, isOpen, closeModal, modalName}) => {
-  const addToMembers = select => {
-    if (!form.$('members').value.includes(select)) {
-      const values = form.$('members').value.concat(select);
-      form.$('members').set('value', values);
-    }
-  };
-
-  const removeAllMembers = () => {
-    form.$('members').set('value', []);
-  };
-
-  const removeMember = member => {
-    const Selected = form.$('members').value.filter(item => item !== member);
-    form.$('members').set('value', Selected);
-  };
-
-  const addToTechnologies = select => {
-    if (!form.$('technologies').value.includes(select)) {
-      const values = form.$('technologies').value.concat({name: select});
-      form.$('technologies').set('value', values);
-    }
-  };
-
-  const removeTechnologie = tech => {
-    const Selected = form
-      .$('technologies')
-      .value.filter(item => item.name !== tech);
-    form.$('technologies').set('value', Selected);
-  };
-
   return (
     <Modal isOpen={isOpen} className={css.Modal} ariaHideApp={false}>
       <div>
@@ -80,7 +50,7 @@ const ProjectModal = observer(({form, isOpen, closeModal, modalName}) => {
           <div className={css.cell}>
             <SELECT
               field={form.$('member')}
-              addTo={addToMembers}
+              addTo={ProjectStore.addToMembers}
               option={ProjectStore.projectData.persons}
             />
           </div>
@@ -93,7 +63,7 @@ const ProjectModal = observer(({form, isOpen, closeModal, modalName}) => {
               className={css.form__icon}
               src={deleteIcon}
               alt="delete"
-              onClick={removeAllMembers}
+              onClick={ProjectStore.removeAllMembers}
             />
           </div>
           {form.$('members').value.map((item, i) => (
@@ -103,7 +73,7 @@ const ProjectModal = observer(({form, isOpen, closeModal, modalName}) => {
                 className={css.form__icon}
                 src={deleteIcon}
                 alt="delete"
-                onClick={() => removeMember(item)}
+                onClick={() => ProjectStore.removeMember(item)}
               />
             </div>
           ))}
@@ -111,18 +81,23 @@ const ProjectModal = observer(({form, isOpen, closeModal, modalName}) => {
           <div className={css.cell}>
             <SELECT
               field={form.$('usedTechnologies')}
-              addTo={addToTechnologies}
-              option={ProjectStore.projectData.technologies}
+              addTo={ProjectStore.addToTechnologies}
+              option={ProjectStore.technologiesList}
             />
           </div>
           <div className={css.selected__tech__container}>
             {form.$('technologies').value.map((tech, i) => {
+              const techName = ProjectStore.technologiesList.filter(
+                ({id, name}) => {
+                  return id === tech.name;
+                }
+              );
               return (
                 <div key={i} className={css.selected__tech}>
-                  {tech.name}
+                  {techName[0].name}
                   <img
                     className={css.remove__tech}
-                    onClick={() => removeTechnologie(tech.name)}
+                    onClick={() => ProjectStore.removeTechnologie(tech.name)}
                     src={closeIcon}
                     alt="close"
                   />

@@ -13,20 +13,22 @@ import editIcon from '../../assets/icon_edit.svg';
 class ProjectView extends Component {
   componentWillMount() {
     ProjectStore.fetchProject(this.props.match.params.id);
+    ProjectStore.fetchTechnologies();
   }
-
-  componentDidMount() {}
 
   openModalAndPassData() {
     ProjectStore.modalToggle();
     const Data = ProjectStore.projectData;
-    console.log(Data.persons);
+    const technologies = Data.technologies.map(item => {
+      return {name: item.id};
+    });
+    console.log(technologies);
     form.$('name').set('value', Data.name);
     form.$('contactemail').set('value', Data.contactemail);
     form.$('customer').set('value', 'fix it');
     form.$('starttime').set('value', Data.starttime);
     form.$('endtime').set('value', Data.endtime);
-    form.$('technologies').set('value', Data.technologies);
+    form.$('technologies').set('value', technologies);
   }
 
   convertDate(date) {

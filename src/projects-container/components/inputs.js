@@ -37,7 +37,8 @@ export const Textarea = observer(({field}) => (
 export const SELECT = observer(({field, addTo, option}) => {
   const options = option
     ? option.map(item => {
-      return {value: item.name, label: item.name};
+      const id = item.id ? item.id : Math.random();
+      return {value: id, label: item.name};
     })
     : [];
   return (

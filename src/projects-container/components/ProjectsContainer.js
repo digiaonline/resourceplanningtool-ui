@@ -12,6 +12,7 @@ import css from './ProjectsContainer.css';
 class ProjectsContainer extends Component {
   componentWillMount() {
     ProjectStore.fetchProjects();
+    ProjectStore.fetchTechnologies();
   }
   render() {
     return (
