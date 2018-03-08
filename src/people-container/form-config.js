@@ -9,14 +9,8 @@ export const plugins = {
 
 export const hooks = {
   onSuccess(form: Object) {
-    // submit the form here
-    console.log('form submitted (i lied)', form.values());
-  },
-  onChange(field: Object) {
-    console.log('onchange is running');
-  },
-  updateRadioInput(argument) {
-    console.log(argument);
+    console.log(form.values());
+    peopleStore.createPeople(form.values());
   },
 };
 
@@ -60,15 +54,22 @@ export const fields = [
     name: 'startdate',
     label: 'Started in Digia',
     type: 'month',
-    placeholder: 'link to LinkedIn here',
+    placeholder: 'startdate here',
     rules: 'required|date',
   },
   {
     name: 'description',
     label: 'Description',
     type: 'text',
-    placeholder: 'link to LinkedIn here',
+    placeholder: 'description here',
     rules: 'required|string',
+  },
+  {
+    name: 'email',
+    label: 'Email',
+    type: 'text',
+    placeholder: 'email here',
+    rules: 'required|email',
   },
   {
     name: 'new-skill-name',
