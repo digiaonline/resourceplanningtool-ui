@@ -160,6 +160,21 @@ class PersonForm extends Component {
               <div className={css.inputs__column}>
                 <div className={css.form__field__first}>
                   <label
+                    htmlFor={form.$('email').id}
+                    className={css.input__label}
+                  >
+                    <b>{form.$('email').label}</b>
+                  </label>
+                  <input
+                    {...form.$('email').bind()}
+                    className={css.form__input}
+                  />
+                  <p className={css.input__warning}>
+                    <i>{form.$('email').error}</i>
+                  </p>
+                </div>
+                <div className={css.form__field}>
+                  <label
                     htmlFor={form.$('description').id}
                     className={css.input__label}
                   >
