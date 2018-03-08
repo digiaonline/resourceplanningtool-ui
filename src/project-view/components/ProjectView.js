@@ -14,6 +14,7 @@ class ProjectView extends Component {
   componentWillMount() {
     ProjectStore.fetchProject(this.props.match.params.id);
     ProjectStore.fetchTechnologies();
+    ProjectStore.fetchPersons();
   }
 
   openModalAndPassData() {
@@ -22,13 +23,16 @@ class ProjectView extends Component {
     const technologies = Data.technologies.map(item => {
       return {name: item.id};
     });
-    console.log(technologies);
+    const members = Data.persons.map(item => {
+      return {name: item.id};
+    });
     form.$('name').set('value', Data.name);
     form.$('contactemail').set('value', Data.contactemail);
     form.$('customer').set('value', 'fix it');
     form.$('starttime').set('value', Data.starttime);
     form.$('endtime').set('value', Data.endtime);
     form.$('technologies').set('value', technologies);
+    form.$('members').set('value', members);
   }
 
   convertDate(date) {
@@ -65,10 +69,6 @@ class ProjectView extends Component {
         <div className={css.general__details}>
           <div className={css.details}>
             <div className={css.detail__row}>
-              <span>Sub-project</span>
-              subProject name
-            </div>
-            <div className={css.detail__row}>
               <span>Customer email</span>
               {Data.contactemail}
             </div>
@@ -82,7 +82,7 @@ class ProjectView extends Component {
             </div>
             <div className={css.detail__row}>
               <span>Project on-going</span>
-              {Data.ongoing ? 'Yes' : 'No'}
+              {Data.ongoing ? 'Yes' : 'Finished'}
             </div>
           </div>
           <div>

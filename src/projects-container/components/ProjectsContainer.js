@@ -11,8 +11,9 @@ import css from './ProjectsContainer.css';
 @observer
 class ProjectsContainer extends Component {
   componentWillMount() {
-    ProjectStore.fetchProjects();
+    ProjectStore.fetchAllProject();
     ProjectStore.fetchTechnologies();
+    ProjectStore.fetchPersons();
   }
   render() {
     return (

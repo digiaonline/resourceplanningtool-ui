@@ -10,6 +10,7 @@ class ProjectsStore {
   @observable projectId = null;
   @observable projectData = [];
   @observable technologiesList = [];
+  @observable personsList = [];
 
   @action
   modalToggle = () => {
@@ -36,10 +37,10 @@ class ProjectsStore {
   };
 
   @action
-  fetchProjects = async () => {
+  fetchAllProject = async () => {
     const URL = 'http://10.5.0.177:3002/skillz';
     try {
-      const response = await axios.post(URL, this.projectsQuery, {
+      const response = await axios.post(URL, this.allProjectQuery, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -64,10 +65,25 @@ class ProjectsStore {
     }
   };
 
+  fetchPersons = async () => {
+    const URL = 'http://10.5.0.177:3002/skillz';
+    try {
+      const response = await axios.post(URL, this.personsQuery, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      this.personsList = response.data.data.listPersons;
+    } catch (error) {
+      return [];
+    }
+  };
+
   @action
   addToMembers = select => {
-    if (!form.$('members').value.includes(select)) {
-      const values = form.$('members').value.concat(select);
+    const allMembers = form.$('members').value.map(item => item.name);
+    if (!allMembers.includes(select)) {
+      const values = form.$('members').value.concat({name: select});
       form.$('members').set('value', values);
     }
   };
@@ -79,14 +95,15 @@ class ProjectsStore {
 
   @action
   removeMember = member => {
-    const Selected = form.$('members').value.filter(item => item !== member);
+    const Selected = form
+      .$('members')
+      .value.filter(item => item.name !== member);
     form.$('members').set('value', Selected);
   };
 
   @action
   addToTechnologies = select => {
     const allTechnologies = form.$('technologies').value.map(item => item.name);
-    console.log(allTechnologies);
     if (!allTechnologies.includes(select)) {
       const values = form.$('technologies').value.concat({name: select});
       form.$('technologies').set('value', values);
@@ -101,43 +118,50 @@ class ProjectsStore {
     form.$('technologies').set('value', Selected);
   };
 
-  projectsQuery = `query {
-listProjects {
-  id
-  name
-  description
-  githuburl
-  liveat
-  technologies {
-    id
-    name
-  }
-}
-}`;
+  allProjectQuery = `query {
+    listProjects {
+      id
+      name
+      description
+      githuburl
+      liveat
+      technologies {
+        id
+        name
+      }
+    }
+  }`;
 
   projectQuery = `{
-  id
-  name
-  starttime
-  endtime
-  ongoing
-  liveat
-  githuburl
-  shortdescription
-  description
-  contactemail
-  customer { name }
-  technologies {id, name}
-  persons { name }
-}
-}`;
+      id
+      name
+      starttime
+      endtime
+      ongoing
+      liveat
+      githuburl
+      shortdescription
+      description
+      contactemail
+      customer { name }
+      technologies {id}
+      persons {id}
+    }
+  }`;
 
   technologiesQuery = `query {
-listTechnologies {
-id
-name
-}
-}`;
+    listTechnologies {
+      id
+      name
+    }
+  }`;
+
+  personsQuery = `query {
+    listPersons {
+      id
+      name
+    }
+  }`;
 }
 
 export default new ProjectsStore();

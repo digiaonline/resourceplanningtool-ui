@@ -10,6 +10,7 @@ import deleteIcon from '../../assets/icon_delete.svg';
 import addIcon from '../../assets/icon_add_b.svg';
 
 const ProjectModal = observer(({form, isOpen, closeModal, modalName}) => {
+  console.log(ProjectStore.personsList);
   return (
     <Modal isOpen={isOpen} className={css.Modal} ariaHideApp={false}>
       <div>
@@ -51,7 +52,7 @@ const ProjectModal = observer(({form, isOpen, closeModal, modalName}) => {
             <SELECT
               field={form.$('member')}
               addTo={ProjectStore.addToMembers}
-              option={ProjectStore.projectData.persons}
+              option={ProjectStore.personsList}
             />
           </div>
           <div className={css.table__header}>
@@ -66,17 +67,22 @@ const ProjectModal = observer(({form, isOpen, closeModal, modalName}) => {
               onClick={ProjectStore.removeAllMembers}
             />
           </div>
-          {form.$('members').value.map((item, i) => (
-            <div key={i} className={css.table__item}>
-              <span>{item}</span>
-              <img
-                className={css.form__icon}
-                src={deleteIcon}
-                alt="delete"
-                onClick={() => ProjectStore.removeMember(item)}
-              />
-            </div>
-          ))}
+          {form.$('members').value.map((item, i) => {
+            const personName = ProjectStore.personsList.filter(({id, name}) => {
+              return id === item.name;
+            });
+            return (
+              <div key={i} className={css.table__item}>
+                <span>{personName[0].name}</span>
+                <img
+                  className={css.form__icon}
+                  src={deleteIcon}
+                  alt="delete"
+                  onClick={() => ProjectStore.removeMember(item.name)}
+                />
+              </div>
+            );
+          })}
           <div className={css.form__dvider}>Core technologies</div>
           <div className={css.cell}>
             <SELECT
