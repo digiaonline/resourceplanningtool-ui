@@ -131,6 +131,7 @@ const ProjectModal = observer(({form, isOpen, closeModal, modalName}) => {
           <div className={css.table__item}>
             <div className={css.news__url}>
               <Input field={form.$('otherLinks')} />
+              <Input field={form.$('newsDescription')} />
               <div className={css.news__url__button}>
                 <img src={addIcon} alt="add" /> <span>ADD</span>
               </div>
