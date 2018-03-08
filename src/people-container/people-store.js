@@ -7,6 +7,7 @@ import {
   getCreatePersonQuery,
   getCreateSkillsQuery,
   getUpdatePersonQuery,
+  getDeletePersonQuery,
   getAddSkillsForPersonQuery,
 } from './queries';
 
@@ -57,9 +58,11 @@ class PeopleStore {
         personInfo.linkedinurl
       );
       const CREATE_SKILLS_QUERY = getCreateSkillsQuery(personInfo.skills);
+      // wait to finish creating a person
       const createPersonResponse = await this.makeHttpRequest(
         CREATE_PERSON_QUERY
       );
+      // wait to finish creating skills
       const createSkillsResponse = await this.makeHttpRequest(
         CREATE_SKILLS_QUERY
       );
@@ -69,15 +72,30 @@ class PeopleStore {
           skillResponse => +skillResponse.id
         )
       );
+      // wait to finish adding skills created previously to created person
       const addSkillsResponse = await this.makeHttpRequest(
         ADD_SKILLS_FOR_PERSON_QUERY
       );
+      // check if operation for adding skill to new person is successful
       if (Object.values(addSkillsResponse).find(response => response)) {
         alert('create person successfully');
         this.fetchPeople();
       }
     } catch (error) {
       console.log('cant create person', error);
+    }
+  };
+
+  @action
+  deletePerson = async (index: Number) => {
+    try {
+      const DELETE_PERSON_QUERY = getDeletePersonQuery(this.people[index].id);
+      const response = await this.makeHttpRequest(DELETE_PERSON_QUERY);
+      if (response.removePerson) {
+        this.fetchPeople();
+      }
+    } catch (error) {
+      console.log('cant delete person');
     }
   };
 

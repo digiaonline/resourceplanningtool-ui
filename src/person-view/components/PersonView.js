@@ -26,6 +26,10 @@ class PersonView extends Component {
       formIsOpened: !this.state.formIsOpened,
     });
   };
+  onDelete = () => {
+    peopleStore.deletePerson(this.props.match.params.id);
+    this.props.history.push('/people');
+  };
   componentWillMount() {
     if (!peopleStore.people[this.props.match.params.id]) {
       peopleStore.fetchPeople();
@@ -49,7 +53,11 @@ class PersonView extends Component {
             <img alt="" src={editIcon} />
             <span>&nbsp;EDIT</span>
           </button>
-          <button type="button" className={css.buttonsGroup__button}>
+          <button
+            type="button"
+            className={css.buttonsGroup__button}
+            onClick={this.onDelete}
+          >
             <img alt="" src={deleteIcon} />
             <span>&nbsp;DELETE</span>
           </button>

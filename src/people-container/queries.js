@@ -94,3 +94,9 @@ export const getAddSkillsForPersonQuery = (
   )}
 	}`;
 };
+
+export const getDeletePersonQuery = (id: String) => {
+  return `mutation {
+	    removePerson(id: "${id}")
+	  }`;
+};
