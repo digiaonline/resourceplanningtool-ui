@@ -2,7 +2,13 @@
 
 import {observable, action} from 'mobx';
 import axios from 'axios';
-import {FETCH_PEOPLE_QUERY, getCreatePersonQuery} from './queries';
+import {
+  FETCH_PEOPLE_QUERY,
+  getCreatePersonQuery,
+  getCreateSkillsQuery,
+  getUpdatePersonQuery,
+  getAddSkillsForPersonQuery,
+} from './queries';
 
 class PeopleStore {
   // typechecking and initial value for list of people
@@ -35,6 +41,7 @@ class PeopleStore {
     }
   };
 
+  // pardon me this messy part, refactor later
   @action
   createPeople = async (personInfo: Object) => {
     try {
@@ -49,9 +56,26 @@ class PeopleStore {
         personInfo.githuburl,
         personInfo.linkedinurl
       );
-      await this.makeHttpRequest(CREATE_PERSON_QUERY);
-      alert('create person successfully');
-      this.fetchPeople();
+      const CREATE_SKILLS_QUERY = getCreateSkillsQuery(personInfo.skills);
+      const createPersonResponse = await this.makeHttpRequest(
+        CREATE_PERSON_QUERY
+      );
+      const createSkillsResponse = await this.makeHttpRequest(
+        CREATE_SKILLS_QUERY
+      );
+      const ADD_SKILLS_FOR_PERSON_QUERY = getAddSkillsForPersonQuery(
+        createPersonResponse.createPerson.id,
+        Object.values(createSkillsResponse).map(
+          skillResponse => +skillResponse.id
+        )
+      );
+      const addSkillsResponse = await this.makeHttpRequest(
+        ADD_SKILLS_FOR_PERSON_QUERY
+      );
+      if (Object.values(addSkillsResponse).find(response => response)) {
+        alert('create person successfully');
+        this.fetchPeople();
+      }
     } catch (error) {
       console.log('cant create person', error);
     }
@@ -71,7 +95,7 @@ class PeopleStore {
       );
       return response.data.data;
     } catch (error) {
-      return [];
+      console.log(error);
     }
   };
 }
