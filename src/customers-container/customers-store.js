@@ -73,8 +73,11 @@ class CustomersStore {
         customerInfo.url,
         ''
       );
-      await this.makeHttpRequest(UPDATE_CUSTOMER_QUERY);
-      this.fetchCustomers();
+      const response = await this.makeHttpRequest(UPDATE_CUSTOMER_QUERY);
+      if (response.updateCustomer) {
+        alert('update customer successfully');
+        this.fetchCustomers();
+      }
     } catch (error) {
       console.log('cant save customer');
     }
@@ -94,7 +97,7 @@ class CustomersStore {
       );
       return response.data.data;
     } catch (error) {
-      return [];
+      console.log(error);
     }
   };
 }
