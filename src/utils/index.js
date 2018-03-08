@@ -2,7 +2,8 @@
 import Form from 'mobx-react-form';
 
 export function parseDateTime(timeNumber: Number) {
-  const date: Date = new Date(timeNumber);
+  // convert epoch timestamp to miliseconds
+  const date: Date = new Date(timeNumber * 1000);
   const month: Number = date.getMonth() + 1;
   const year: Number = date.getFullYear();
   return `${year}-${month >= 10 ? `${month}` : `0${month}`}`;
