@@ -53,7 +53,15 @@ export const Row = props => (
         )}
     </td>
     <td className={css.row__lastField}>
-      <span>{props.values[props.displayedFields[2]]}</span>
+      {props.displayedFields[2] !== 'skills' ? (
+        <span>{props.values[props.displayedFields[2]]}</span>
+      ) : (
+        <span>
+          {props.values[props.displayedFields[2]].map(
+            skill => `${skill.name}(${skill.level}), `
+          )}
+        </span>
+      )}
     </td>
   </tr>
 );
