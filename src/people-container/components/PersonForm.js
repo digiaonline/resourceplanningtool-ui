@@ -8,11 +8,15 @@ import closeIcon from '../../assets/icon_close.svg';
 import addIcon from '../../assets/icon_add_b.svg';
 import {PropTypes} from 'prop-types';
 import {observer} from 'mobx-react';
+import skillsStore from '../skills-store';
 
 @observer
 class PersonForm extends Component {
   componentWillMount() {
     Modal.setAppElement(document.body);
+    if (skillsStore.skills.length === 0) {
+      skillsStore.fetchSkills();
+    }
   }
   updateRadioInput = (event: Event) => {
     const {form} = this.props;
@@ -218,7 +222,7 @@ class PersonForm extends Component {
                     {...form.$('new-skill-name').bind()}
                     shouldItemRender={(item, value) =>
                       item.toLowerCase().indexOf(value.toLowerCase()) > -1}
-                    items={['Go', 'PHP', 'C++']}
+                    items={skillsStore.skills.map(skill => skill.name)}
                     getItemValue={item => item}
                     onChange={this.onChangeSkillName}
                     onSelect={this.onSelectSkillName}
