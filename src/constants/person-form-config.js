@@ -10,7 +10,6 @@ export const plugins = {
 
 export const hooks = {
   onSuccess(form: Object) {
-    console.log(form.values());
     const initialsValue = form.initials();
     const skillsChanged = filterArray(
       initialsValue.skills,
@@ -20,6 +19,7 @@ export const hooks = {
       removedSkills: skillsChanged.removedItems,
       addedSkills: skillsChanged.addedItems,
     });
+    console.log(filteredValues);
     if (initialsValue.name === '') {
       peopleStore.createPerson(filteredValues);
     } else {
