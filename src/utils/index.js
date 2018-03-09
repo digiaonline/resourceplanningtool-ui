@@ -48,7 +48,7 @@ export function getForm(
 }
 
 // function to identify what item was added, and what item was removed from an initial array
-// after operations
+// after operations, for updating a list of skills of a person
 export function filterArray(
   initialArray: [any],
   comparedArray: [any]
@@ -56,8 +56,13 @@ export function filterArray(
   removedItems: [any],
   addedItems: [any]
 } {
+  const remainedItems = comparedArray
+    .filter(item => item.id)
+    .map(item => item.id);
   return {
-    addedItems: comparedArray.map(item => initialArray.indexOf(item) === -1),
-    removedItems: initialArray.map(item => comparedArray.indexOf(item) === -1),
+    addedItems: comparedArray.filter(item => !item.id),
+    removedItems: initialArray.filter(
+      item => remainedItems.indexOf(item.id) === -1
+    ),
   };
 }

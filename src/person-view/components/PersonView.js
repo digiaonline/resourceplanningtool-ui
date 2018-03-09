@@ -36,6 +36,7 @@ class PersonView extends Component {
     }
   }
   render() {
+    console.log(peopleStore.people[1]);
     if (!peopleStore.people[this.props.match.params.id]) {
       return <Loading />;
     }

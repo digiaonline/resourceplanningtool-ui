@@ -9,6 +9,7 @@ export const FETCH_PEOPLE_QUERY = `query {
         linkedinurl
         location
         name
+				email
         picture
         skills {
         	id
@@ -17,6 +18,14 @@ export const FETCH_PEOPLE_QUERY = `query {
         }
         startdate
     }
+}`;
+
+export const FETCH_SKILLS_QUERY = `query {
+	listSkills {
+		id
+		name
+		level
+	}
 }`;
 
 export const getCreatePersonQuery = (
@@ -57,8 +66,8 @@ export const getUpdatePersonQuery = (
   return `mutation {
 		updatePerson(
 			name: "${name}", description: "${description}", picture: "${picture}",
-			startdate: "${new Date(startdate).getTime() /
-        1000}", email: "${email}", title: "${title}", id: ${id},
+			startdate: ${new Date(startdate).getTime() /
+        1000}, email: "${email}", title: "${title}", id: ${id},
 			location: "${location}", githuburl: "${githuburl}", linkedinurl: "${linkedinurl}"
 		)
 	}`;
@@ -108,4 +117,20 @@ export const getDeletePersonQuery = (id: String) => {
   return `mutation {
 	    removePerson(id: "${id}")
 	  }`;
+};
+
+export const getUpdateSkillsForPersonQuery = (
+  personId: Number,
+  removedItemIds: [Number],
+  addedItemIds: [Number]
+) => {
+  return `mutation {
+		${removedItemIds.map(
+    (id, index) => `remove${index}: removeSkillForPerson(id: ${id})`
+  )}
+		${addedItemIds.map(
+    (id, index) =>
+      `add${index}: addSkillForPerson(person_id: ${personId}, skill_id: ${id})`
+  )}
+	}`;
 };
