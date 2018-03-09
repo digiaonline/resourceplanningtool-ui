@@ -2,6 +2,7 @@
 
 import React, {Component} from 'react';
 import Modal from 'react-modal';
+import Autocomplete from 'react-autocomplete';
 import css from './PersonForm.css';
 import closeIcon from '../../assets/icon_close.svg';
 import addIcon from '../../assets/icon_add_b.svg';
@@ -205,6 +206,20 @@ class PersonForm extends Component {
                     {...form.$('new-skill-name').bind()}
                     className={css.form__input}
                   />
+                  {/* possibly comment out this part to replace new technology name input textarea
+                    with autocomplete component (for technology suggestion) 
+                  <Autocomplete
+                    inputProps={{
+                      className: css.form__input,
+                    }}
+                    items={['Go', 'PHP', 'C++']}
+                    getItemValue={item => item}
+                    renderItem={(item, isHighlighted) => (
+                      <div style={{background: isHighlighted ? 'lightgray' : 'white'}}>
+                        {item}
+                      </div>
+                    )}
+                  /> */}
                   <p className={css.input__warning}>
                     <i>{form.$('new-skill-name').error}</i>
                   </p>
