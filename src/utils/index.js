@@ -46,3 +46,18 @@ export function getForm(
     return new Form({fields}, {plugins, hooks});
   }
 }
+
+// function to identify what item was added, and what item was removed from an initial array
+// after operations
+export function filterArray(
+  initialArray: [any],
+  comparedArray: [any]
+): {
+  removedItems: [any],
+  addedItems: [any]
+} {
+  return {
+    addedItems: comparedArray.map(item => initialArray.indexOf(item) === -1),
+    removedItems: initialArray.map(item => comparedArray.indexOf(item) === -1),
+  };
+}

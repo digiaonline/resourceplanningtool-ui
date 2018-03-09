@@ -51,13 +51,14 @@ export const getUpdatePersonQuery = (
   title: String,
   location: String,
   githuburl: String,
-  linkedinurl: String
+  linkedinurl: String,
+  id: Number
 ) => {
   return `mutation {
 		updatePerson(
 			name: "${name}", description: "${description}", picture: "${picture}",
 			startdate: "${new Date(startdate).getTime() /
-        1000}", email: "${email}", title: "${title}",
+        1000}", email: "${email}", title: "${title}", id: ${id},
 			location: "${location}", githuburl: "${githuburl}", linkedinurl: "${linkedinurl}"
 		)
 	}`;
@@ -91,6 +92,14 @@ export const getAddSkillsForPersonQuery = (
 		${skillsId.map(
     (skillId, index) =>
       `addSkill${index}: addSkillForPerson(person_id: ${personId}, skill_id: ${skillId})`
+  )}
+	}`;
+};
+
+export const getRemoveSkillsForPersonQuery = (idsList: [Number]) => {
+  return `mutation {
+		${idsList.map(
+    (id, index) => `remove${index}: removeSkillForPerson(id: ${id})`
   )}
 	}`;
 };

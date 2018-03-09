@@ -2,6 +2,7 @@
 
 import validatorjs from 'validatorjs';
 import peopleStore from '../people-container/people-store';
+import {filterArray} from '../utils';
 
 export const plugins = {
   dvr: validatorjs,
@@ -10,7 +11,20 @@ export const plugins = {
 export const hooks = {
   onSuccess(form: Object) {
     console.log(form.values());
-    peopleStore.createPeople(form.values());
+    const initialsValue = form.initials();
+    const skillsChanged = filterArray(
+      initialsValue.skills,
+      form.values().skills
+    );
+    const filteredValues = Object.assign({}, form.values(), {
+      removedSkills: skillsChanged.removedItems,
+      addedSkills: skillsChanged.addedItems,
+    });
+    if (initialsValue.name === '') {
+      peopleStore.createPerson(filteredValues);
+    } else {
+      peopleStore.updatePerson(filteredValues);
+    }
   },
 };
 
@@ -88,5 +102,9 @@ export const fields = [
     name: 'skills',
     label: 'Skill list',
     value: [],
+  },
+  {
+    name: 'id',
+    label: 'id',
   },
 ];
