@@ -3,6 +3,7 @@
 import {observable, action} from 'mobx';
 import axios from 'axios';
 import skillsStore from './skills-store';
+import {isEmpty} from '../utils';
 import {
   FETCH_PEOPLE_QUERY,
   getCreatePersonQuery,
@@ -113,7 +114,8 @@ class PeopleStore {
         personInfo.linkedinurl,
         personInfo.id
       );
-      let createSkillsResponse, updateSkillsResponse;
+      let createSkillsResponse = {};
+      let updateSkillsResponse;
       const updatePersonResponse = await this.makeHttpRequest(
         GET_UPDATE_PERSON_QUERY
       );
@@ -123,8 +125,8 @@ class PeopleStore {
         );
       }
       if (
-        personInfo.removedSkills.length > 0 &&
-        Object.values(createSkillsResponse).length > 0
+        personInfo.removedSkills.length > 0 ||
+        !isEmpty(createSkillsResponse)
       ) {
         updateSkillsResponse = await skillsStore.updateSkillsForPerson(
           personInfo.id,

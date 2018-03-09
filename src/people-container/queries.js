@@ -126,7 +126,8 @@ export const getUpdateSkillsForPersonQuery = (
 ) => {
   return `mutation {
 		${removedItemIds.map(
-    (id, index) => `remove${index}: removeSkillForPerson(id: ${id})`
+    (id, index) =>
+      `remove${index}: removeSkillForPerson(skill_id: ${id}, person_id: ${personId})`
   )}
 		${addedItemIds.map(
     (id, index) =>
