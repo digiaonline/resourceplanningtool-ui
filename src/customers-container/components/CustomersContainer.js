@@ -19,9 +19,6 @@ class CustomersContainer extends Component {
   toggleForm = (customer: ?Customer) => {
     this.formIsOpened = !this.formIsOpened;
   };
-  toCustomer = (id: Number) => {
-    this.props.history.push(`/customers/${id}`);
-  };
   componentWillMount() {
     customersStore.fetchCustomers();
   }

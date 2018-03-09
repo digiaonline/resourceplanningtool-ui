@@ -26,6 +26,11 @@ class CustomerView extends Component {
     });
   };
 
+  onDelete = () => {
+    customersStore.deleteCustomer(this.props.match.params.id);
+    this.props.history.push('/customers');
+  };
+
   componentWillMount() {
     if (!customersStore.customers[this.props.match.params.id]) {
       customersStore.fetchCustomers();
@@ -69,7 +74,11 @@ class CustomerView extends Component {
             </div>
           </div>
           <div className={css.customer__buttons}>
-            <button type="button" className={css.buttonsGroup__button}>
+            <button
+              type="button"
+              className={css.buttonsGroup__button}
+              onClick={this.onDelete}
+            >
               <img alt="" src={deleteIcon} />
               <span>&nbsp; DELETE</span>
             </button>
