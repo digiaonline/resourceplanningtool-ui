@@ -2,6 +2,7 @@ import React from 'react';
 import {observer} from 'mobx-react';
 import Modal from 'react-modal';
 import ProjectStore from '../../projects-container/store';
+import PeopleStore from '../../people-container/people-store';
 import {Input, InputCheckbox, Textarea, SELECT} from './inputs';
 import css from './projectModal.css';
 import closeIcon from '../../assets/icon_close.svg';
@@ -10,7 +11,6 @@ import deleteIcon from '../../assets/icon_delete.svg';
 import addIcon from '../../assets/icon_add_b.svg';
 
 const ProjectModal = observer(({form, isOpen, closeModal, modalName}) => {
-  console.log(ProjectStore.personsList);
   return (
     <Modal isOpen={isOpen} className={css.Modal} ariaHideApp={false}>
       <div>
@@ -50,7 +50,7 @@ const ProjectModal = observer(({form, isOpen, closeModal, modalName}) => {
             <SELECT
               field={form.$('member')}
               addTo={ProjectStore.addToMembers}
-              option={ProjectStore.personsList}
+              option={PeopleStore.people}
             />
           </div>
           <div className={css.table__header}>
@@ -66,7 +66,7 @@ const ProjectModal = observer(({form, isOpen, closeModal, modalName}) => {
             />
           </div>
           {form.$('members').value.map((item, i) => {
-            const personName = ProjectStore.personsList.filter(({id, name}) => {
+            const personName = PeopleStore.people.filter(({id, name}) => {
               return id === item.name;
             });
             return (
