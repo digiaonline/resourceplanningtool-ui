@@ -2,6 +2,7 @@ import React from 'react';
 import {observer} from 'mobx-react';
 import Modal from 'react-modal';
 import ProjectStore from '../../projects-container/store';
+import PeopleStore from '../../people-container/people-store';
 import {Input, InputCheckbox, Textarea, SELECT} from './inputs';
 import css from './projectModal.css';
 import closeIcon from '../../assets/icon_close.svg';
@@ -49,7 +50,7 @@ const ProjectModal = observer(({form, isOpen, closeModal, modalName}) => {
             <SELECT
               field={form.$('member')}
               addTo={ProjectStore.addToMembers}
-              option={ProjectStore.projectData.persons}
+              option={PeopleStore.people}
             />
           </div>
           <div className={css.table__header}>
@@ -64,17 +65,22 @@ const ProjectModal = observer(({form, isOpen, closeModal, modalName}) => {
               onClick={ProjectStore.removeAllMembers}
             />
           </div>
-          {form.$('members').value.map((item, i) => (
-            <div key={i} className={css.table__item}>
-              <span>{item}</span>
-              <img
-                className={css.form__icon}
-                src={deleteIcon}
-                alt="delete"
-                onClick={() => ProjectStore.removeMember(item)}
-              />
-            </div>
-          ))}
+          {form.$('members').value.map((item, i) => {
+            const personName = PeopleStore.people.filter(({id, name}) => {
+              return id === item.name;
+            });
+            return (
+              <div key={i} className={css.table__item}>
+                <span>{personName[0].name}</span>
+                <img
+                  className={css.form__icon}
+                  src={deleteIcon}
+                  alt="delete"
+                  onClick={() => ProjectStore.removeMember(item.name)}
+                />
+              </div>
+            );
+          })}
           <div className={css.form__dvider}>Core technologies</div>
           <div className={css.cell}>
             <SELECT

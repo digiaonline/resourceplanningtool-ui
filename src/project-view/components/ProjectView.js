@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {observer} from 'mobx-react';
 import {Link} from 'react-router-dom';
 import ProjectStore from '../../projects-container/store';
+import PeopleStore from '../../people-container/people-store';
+import CustomersStore from '../../customers-container/customers-store';
 import form from '../../projects-container/form';
 import ProjectModal from '../../projects-container/components/projectModal';
 import css from './ProjectView.css';
@@ -12,43 +14,14 @@ import editIcon from '../../assets/icon_edit.svg';
 @observer
 class ProjectView extends Component {
   componentWillMount() {
-    ProjectStore.fetchProject(this.props.match.params.id);
-    ProjectStore.fetchTechnologies();
+    PeopleStore.fetchPeople();
+    CustomersStore.fetchCustomers();
   }
 
   openModalAndPassData = () => {
     ProjectStore.modalToggle();
-    const Data = ProjectStore.projectData;
-    const technologies = Data.technologies.map(item => {
-      return {name: item.id};
-    });
-    console.log(technologies);
-    form.$('name').set('value', Data.name);
-    form.$('contactemail').set('value', Data.contactemail);
-    form.$('customer').set('value', 'fix it');
-    form.$('starttime').set('value', this.convertDate(Data.starttime));
-    form.$('endtime').set('value', this.convertDate(Data.endtime));
-    form.$('ongoing').set('value', Data.ongoing);
-    form.$('description').set('value', Data.description);
-    form.$('shortdescription').set('value', Data.shortdescription);
-    form.$('technologies').set('value', technologies);
-    form.$('members').set('value', members);
-    form.$('liveat').set('value', Data.liveat);
-    form.$('githuburl').set('value', Data.githuburl);
+    ProjectStore.updateForm();
   };
-
-  convertDate(date) {
-    if (date) {
-      const time = new Date(date);
-      const month =
-        time.getMonth() + 1 > 9
-          ? time.getMonth() + 1
-          : '' + time.getMonth() + 1;
-      const year = time.getFullYear();
-      return `${year}-${month}`;
-    }
-    return '';
-  }
 
   render() {
     if (!ProjectStore.projectData.name) {
@@ -86,11 +59,11 @@ class ProjectView extends Component {
             </div>
             <div className={css.detail__row}>
               <span>Start time</span>
-              {this.convertDate(Data.starttime)}
+              {ProjectStore.convertDate(Data.starttime)}
             </div>
             <div className={css.detail__row}>
               <span>End time</span>
-              {this.convertDate(Data.endtime)}
+              {ProjectStore.convertDate(Data.endtime)}
             </div>
             <div className={css.detail__row}>
               <span>Project on-going</span>

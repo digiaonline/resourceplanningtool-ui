@@ -35,7 +35,7 @@ export const fields = [
     name: 'endtime',
     label: 'End time (apprx)',
     type: 'month',
-    rules: 'required|date',
+    rules: 'required|date|after:starttime',
   },
   {
     name: 'ongoing',

@@ -1,6 +1,7 @@
 //@flow
 
 import {observable, action} from 'mobx';
+import CustomersStore from '../customers-container/customers-store';
 import axios from 'axios';
 import form from './form';
 
@@ -104,19 +105,71 @@ class ProjectsStore {
     form.$('technologies').set('value', Selected);
   };
 
-  projectsQuery = `query {
-listProjects {
-  id
-  name
-  description
-  githuburl
-  liveat
-  technologies {
-    id
-    name
+  @action
+  resetForm = () => {
+    form.$('name').set('value', '');
+    form.$('contactemail').set('value', '');
+    form.$('customer').set('value', '');
+    form.$('starttime').set('value', '');
+    form.$('endtime').set('value', '');
+    form.$('ongoing').set('value', false);
+    form.$('description').set('value', '');
+    form.$('shortdescription').set('value', '');
+    form.$('technologies').set('value', []);
+    form.$('members').set('value', []);
+    form.$('liveat').set('value', '');
+    form.$('githuburl').set('value', '');
+  };
+
+  @action
+  updateForm = () => {
+    const Data = this.projectData;
+    const technologies = Data.technologies.map(item => {
+      return {name: item.id};
+    });
+    const members = Data.persons.map(item => {
+      return {name: item.id};
+    });
+    form.$('name').set('value', Data.name);
+    form.$('contactemail').set('value', Data.contactemail);
+    form.$('customer').set('value', 'fix it');
+    form.$('starttime').set('value', this.convertDate(Data.starttime));
+    form.$('endtime').set('value', this.convertDate(Data.endtime));
+    form.$('ongoing').set('value', Data.ongoing);
+    form.$('description').set('value', Data.description);
+    form.$('shortdescription').set('value', Data.shortdescription);
+    form.$('technologies').set('value', technologies);
+    form.$('members').set('value', members);
+    form.$('liveat').set('value', Data.liveat);
+    form.$('githuburl').set('value', Data.githuburl);
+  };
+
+  convertDate(date) {
+    if (date) {
+      const time = new Date(date);
+      const month =
+        time.getMonth() + 1 > 9
+          ? time.getMonth() + 1
+          : '' + time.getMonth() + 1;
+      const year = time.getFullYear();
+      return `${year}-${month}`;
+    }
+    return '';
   }
-}
-}`;
+
+  allProjectQuery = `query {
+    listProjects {
+      id
+      name
+      description
+      githuburl
+      liveat
+      technologies {
+        id
+        name
+      }
+    }
+  }`;
 
   projectQuery = `{
   id

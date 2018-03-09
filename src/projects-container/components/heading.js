@@ -8,7 +8,7 @@ import form from '../form';
 import css from './ProjectsContainer.css';
 import iconAdd from '../../assets/icon_add.svg';
 
-const Heading = observer(props => {
+const Heading = observer(({projects, members, customers}) => {
   return (
     <div className={css.heading}>
       <div className={css.headingTitle}>Heading</div>
@@ -18,14 +18,13 @@ const Heading = observer(props => {
       </div>
       <div className={css.headingDetails}>
         <span className={css.headingDetailNumber}>
-          {' '}
-          {props.projects}{' '}
+          {projects}&nbsp;
         </span>projects by
-        <span className={css.headingDetailNumber}> {props.members} </span>member
-        for
         <span className={css.headingDetailNumber}>
-          {' '}
-          {props.customers}{' '}
+          &nbsp;{members}&nbsp;
+        </span>member
+        <span className={css.headingDetailNumber}>
+          &nbsp;{customers}&nbsp;
         </span>customers
       </div>
       <ProjectModal
