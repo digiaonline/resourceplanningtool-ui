@@ -60,7 +60,7 @@ export function filterArray(
     .filter(item => item.id)
     .map(item => item.id);
   return {
-    addedItems: comparedArray.filter(item => !item.id),
+    addedItems: comparedArray.filter(item => !item.hasOwnProperty('id')),
     removedItems: initialArray.filter(
       item => remainedItems.indexOf(item.id) === -1
     ),

@@ -34,7 +34,7 @@ const Table = props => (
 export const Row = props => (
   <tr
     onClick={() => {
-      props.navigate(props.index);
+      props.navigate(props.values.id);
     }}
   >
     <td className={css.row__firstField}>
@@ -78,6 +78,7 @@ Table.propTypes = {
 Row.propTypes = {
   values: PropTypes.object.isRequired,
   displayedFields: PropTypes.arrayOf(PropTypes.string).isRequired,
+  navigate: PropTypes.func.isRequired,
 };
 
 export default Table;
