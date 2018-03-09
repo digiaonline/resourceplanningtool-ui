@@ -44,7 +44,7 @@ class PeopleStore {
 
   // pardon me this messy part, refactor later
   @action
-  createPeople = async (personInfo: Object) => {
+  createPerson = async (personInfo: Object) => {
     try {
       const CREATE_PERSON_QUERY = getCreatePersonQuery(
         personInfo.name,
@@ -100,6 +100,29 @@ class PeopleStore {
   };
 
   @action
+  updatePerson = async (personInfo: Object) => {
+    try {
+      const GET_UPDATE_PERSON_QUERY = getUpdatePersonQuery(
+        personInfo.name,
+        personInfo.description,
+        personInfo.picture,
+        personInfo.startdate,
+        personInfo.email,
+        personInfo.title,
+        personInfo.id,
+        personInfo.location,
+        personInfo.githuburl,
+        personInfo.linkedinurl
+      );
+      const updatePersonResponse = await this.makeHttpRequest(
+        GET_UPDATE_PERSON_QUERY
+      );
+    } catch (error) {
+      console.log('cant update person', error);
+    }
+  };
+
+  @action
   makeHttpRequest = async (queryString: String) => {
     try {
       const response = await axios.post(
@@ -107,7 +130,7 @@ class PeopleStore {
         queryString,
         {
           headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/graphql',
           },
         }
       );
