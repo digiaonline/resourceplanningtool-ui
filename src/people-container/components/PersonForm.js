@@ -38,6 +38,14 @@ class PersonForm extends Component {
       .$('skills')
       .set('value', form.$('skills').value.filter((skill, i) => i !== index));
   };
+  onChangeSkillName = (event: Event) => {
+    const {form} = this.props;
+    form.$('new-skill-name').set('value', event.target.value);
+  };
+  onSelectSkillName = (value: String) => {
+    const {form} = this.props;
+    form.$('new-skill-name').set('value', value);
+  };
   render() {
     const {form} = this.props;
     return (
@@ -202,24 +210,28 @@ class PersonForm extends Component {
                   >
                     <b>{form.$('new-skill-name').label}</b>
                   </label>
-                  <input
-                    {...form.$('new-skill-name').bind()}
-                    className={css.form__input}
-                  />
-                  {/* possibly comment out this part to replace new technology name input textarea
-                    with autocomplete component (for technology suggestion) 
+                  {/* autocomplete component here */}
                   <Autocomplete
                     inputProps={{
                       className: css.form__input,
                     }}
+                    {...form.$('new-skill-name').bind()}
+                    shouldItemRender={(item, value) =>
+                      item.toLowerCase().indexOf(value.toLowerCase()) > -1}
                     items={['Go', 'PHP', 'C++']}
                     getItemValue={item => item}
+                    onChange={this.onChangeSkillName}
+                    onSelect={this.onSelectSkillName}
                     renderItem={(item, isHighlighted) => (
-                      <div style={{background: isHighlighted ? 'lightgray' : 'white'}}>
+                      <div
+                        style={{
+                          background: isHighlighted ? 'lightgray' : 'white',
+                        }}
+                      >
                         {item}
                       </div>
                     )}
-                  /> */}
+                  />
                   <p className={css.input__warning}>
                     <i>{form.$('new-skill-name').error}</i>
                   </p>
