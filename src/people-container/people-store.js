@@ -2,13 +2,12 @@
 
 import {observable, action} from 'mobx';
 import axios from 'axios';
+import skillsStore from './skills-store';
 import {
   FETCH_PEOPLE_QUERY,
   getCreatePersonQuery,
-  getCreateSkillsQuery,
   getUpdatePersonQuery,
   getDeletePersonQuery,
-  getAddSkillsForPersonQuery,
 } from './queries';
 
 class PeopleStore {
@@ -21,6 +20,7 @@ class PeopleStore {
       id: String,
       githuburl: String,
       linkedinurl: String,
+      email: String,
       picture: String,
       location: String,
       startdate: Number,
@@ -57,27 +57,25 @@ class PeopleStore {
         personInfo.githuburl,
         personInfo.linkedinurl
       );
-      const CREATE_SKILLS_QUERY = getCreateSkillsQuery(personInfo.skills);
+      let createSkillsResponse, addSkillsResponse;
       // wait to finish creating a person
       const createPersonResponse = await this.makeHttpRequest(
         CREATE_PERSON_QUERY
       );
-      // wait to finish creating skills
-      const createSkillsResponse = await this.makeHttpRequest(
-        CREATE_SKILLS_QUERY
-      );
-      const ADD_SKILLS_FOR_PERSON_QUERY = getAddSkillsForPersonQuery(
-        createPersonResponse.createPerson.id,
-        Object.values(createSkillsResponse).map(
-          skillResponse => +skillResponse.id
-        )
-      );
-      // wait to finish adding skills created previously to created person
-      const addSkillsResponse = await this.makeHttpRequest(
-        ADD_SKILLS_FOR_PERSON_QUERY
-      );
-      // check if operation for adding skill to new person is successful
-      if (Object.values(addSkillsResponse).find(response => response)) {
+      if (personInfo.skills.length > 0) {
+        // wait to finish creating skills
+        createSkillsResponse = await skillsStore.createSkills(
+          personInfo.skills
+        );
+        // wait to finish adding created skills to created person
+        addSkillsResponse = await skillsStore.addSkillsForPerson(
+          createPersonResponse.createPerson.id,
+          Object.values(createSkillsResponse).map(
+            skillResponse => +skillResponse.id
+          )
+        );
+      }
+      if (createPersonResponse.createPerson) {
         alert('create person successfully');
         this.fetchPeople();
       }
@@ -92,6 +90,7 @@ class PeopleStore {
       const DELETE_PERSON_QUERY = getDeletePersonQuery(this.people[index].id);
       const response = await this.makeHttpRequest(DELETE_PERSON_QUERY);
       if (response.removePerson) {
+        alert('delete person successfully');
         this.fetchPeople();
       }
     } catch (error) {
@@ -109,14 +108,36 @@ class PeopleStore {
         personInfo.startdate,
         personInfo.email,
         personInfo.title,
-        personInfo.id,
         personInfo.location,
         personInfo.githuburl,
-        personInfo.linkedinurl
+        personInfo.linkedinurl,
+        personInfo.id
       );
+      let createSkillsResponse, updateSkillsResponse;
       const updatePersonResponse = await this.makeHttpRequest(
         GET_UPDATE_PERSON_QUERY
       );
+      if (personInfo.addedSkills.length > 0) {
+        createSkillsResponse = await skillsStore.createSkills(
+          personInfo.addedSkills
+        );
+      }
+      if (
+        personInfo.removedSkills.length > 0 &&
+        Object.values(createSkillsResponse).length > 0
+      ) {
+        updateSkillsResponse = await skillsStore.updateSkillsForPerson(
+          personInfo.id,
+          personInfo.removedSkills.map(skill => skill.id),
+          Object.values(createSkillsResponse).map(
+            skillResponse => +skillResponse.id
+          )
+        );
+      }
+      if (updatePersonResponse.updatePerson) {
+        this.fetchPeople();
+        alert('update person successful');
+      }
     } catch (error) {
       console.log('cant update person', error);
     }
