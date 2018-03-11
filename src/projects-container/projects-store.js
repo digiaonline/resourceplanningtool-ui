@@ -1,9 +1,8 @@
 //@flow
 
 import {observable, action} from 'mobx';
-import CustomersStore from '../customers-container/customers-store';
 import axios from 'axios';
-import form from './form';
+import form from './form-config';
 
 class ProjectsStore {
   @observable Data = [];
@@ -26,7 +25,7 @@ class ProjectsStore {
     try {
       const response = await axios.post(URL, query, {
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/graphql',
         },
       });
       this.projectData = response.data.data.project;
@@ -43,7 +42,7 @@ class ProjectsStore {
     try {
       const response = await axios.post(URL, this.projectsQuery, {
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/graphql',
         },
       });
       this.Data = response.data.data.listProjects;
@@ -59,7 +58,7 @@ class ProjectsStore {
     try {
       const response = await axios.post(URL, this.technologiesQuery, {
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/graphql',
         },
       });
       this.technologiesList = response.data.data.listTechnologies;
