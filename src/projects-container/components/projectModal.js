@@ -1,7 +1,7 @@
 import React from 'react';
 import {observer} from 'mobx-react';
 import Modal from 'react-modal';
-import ProjectStore from '../../projects-container/store';
+import ProjectStore from '../../projects-container/projects-store';
 import PeopleStore from '../../people-container/people-store';
 import {Input, InputCheckbox, Textarea, SELECT} from './inputs';
 import css from './projectModal.css';

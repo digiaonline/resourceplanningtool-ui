@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {observer} from 'mobx-react';
 import {Link} from 'react-router-dom';
-import ProjectStore from '../../projects-container/store';
+import ProjectStore from '../../projects-container/projects-store';
 import PeopleStore from '../../people-container/people-store';
 import CustomersStore from '../../customers-container/customers-store';
-import form from '../../projects-container/form';
+import form from '../../projects-container/form-config';
 import ProjectModal from '../../projects-container/components/projectModal';
 import css from './ProjectView.css';
 import backIcon from '../../assets/icon_arrow_back.svg';
