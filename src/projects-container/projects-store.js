@@ -29,6 +29,7 @@ class ProjectsStore {
         },
       });
       this.projectData = response.data.data.project;
+      console.log(response.data.data.project);
     } catch (error) {
       console.log('error', error);
       return [];
@@ -180,7 +181,7 @@ class ProjectsStore {
       shortdescription
       description
       contactemail
-      customer { name }
+      customer {name}
       technologies {id}
       persons {id}
     }

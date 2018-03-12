@@ -2,7 +2,6 @@
 
 import React, {Component} from 'react';
 import {observer} from 'mobx-react';
-import form from '../form-config';
 import ProjectsStore from '../projects-store';
 import PeopleStore from '../../people-container/people-store';
 import CustomersStore from '../../customers-container/customers-store';
