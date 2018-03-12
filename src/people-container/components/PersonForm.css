@@ -1,223 +1,42 @@
-:root {
-  --border: 2px solid rgb(220, 220, 220);
-  --color: rgb(54, 54, 54);
-  --letter-spacing: 0.4px;
+* {
+  box-sizing: border-box;
 }
 
-/* base styles to compose other elements */
 .element--hover:hover {
   cursor: pointer;
 }
 
-/* general style */
-* {
-  box-sizing: border-box;
-  font-size: 16px;
-  font-family: Calibri, sans-serif;
-}
-
-.input--background {
-  background-color: rgba(220, 220, 220, 0.64);
-  border: 1px solid rgba(200, 200, 200, 0.6);
-  padding: 16px 10px;
-}
-
-/* specific style */
-.buttonContainer {
-  display: flex;
-  flex-flow: row-reverse;
-}
-
-.modal__close {
-  composes: element--hover;
-  width: 16px;
-  height: 16px;
-  text-align: right;
-  margin: 16px 16px auto auto;
-}
-
-.formContainer {
-  margin: auto 40px 40px;
-}
-
-.formContainer__h3 {
-  margin-bottom: 70px;
-  font-size: 34px;
-  font-weight: normal;
-}
-
-.form__imageContainer {
-  margin: 30px auto;
-  padding: 0;
-}
-
-.form__image {
-  width: 150px;
-  height: 150px;
-  background: rgb(200, 200, 200);
-  display: table-cell;
-  text-align: center;
-  vertical-align: middle;
-}
-
-.container__form {
-  height: auto;
-}
-
-.form__inputs {
-  display: flex;
-  justify-content: space-between;
-  column-count: 5;
-  flex-wrap: wrap;
-}
-
-.inputs__column {
-  display: flex;
-  flex-direction: column;
-  width: 30%;
-  justify-content: space-between;
-}
-
-.columns__divider {
-  background-color: rgb(200, 200, 200);
-  height: auto;
-  width: 1px;
-  margin: 0 16px;
-}
-
-.form__field {
-  display: flex;
-  flex-direction: column;
-  margin: 30px 0 0;
-}
-
-.form__input {
-  height: 45px;
+.container__table {
+  margin: 7% 0 auto;
   width: 100%;
-  composes: input--background;
+  table-layout: fixed;
+  border-collapse: collapse;
 }
 
-.input__label {
-  margin-bottom: 5px;
-}
-
-.input__warning {
-  color: red;
-  margin: 5px 0 0;
-  font-size: 14px;
-  height: 20px;
-}
-
-.form__field__first {
-  composes: form__field;
-  margin: 0;
-}
-
-.form__textarea {
-  composes: input--background;
-}
-
-.technologies__h4 {
-  font-size: 24px;
-  font-weight: normal;
-  color: white;
-  background-color: rgb(100, 100, 100);
-  padding: 10px;
-}
-
-.technologies__fields {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.technologies__input {
-  margin: 0 30px 20px 0;
-  display: flex;
-  flex-direction: column;
-}
-
-.radio {
-  padding: 10px 0;
-  display: flex;
-}
-
-.radio__optionFields {
-  margin-right: 20px;
-  display: inline-flex;
-}
-
-.radio__option {
-  width: 25px;
-  height: 25px;
-  background-color: white;
-}
-
-.option__label {
-  margin: auto 0 5px 7px;
-}
-
-.technology__create {
-  border: var(--border);
+.row {
+  text-align: left;
+  border-bottom: var(--border);
   height: 45px;
-  background-color: white;
+  line-height: 10px;
   letter-spacing: var(--letter-spacing);
-  font-weight: bold;
-  padding: 5px 15px;
-  line-height: 24px;
   composes: element--hover;
-  display: inline-flex;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
-.technologies__list {
-  display: flex;
-  flex-wrap: wrap;
+.row__firstField {
+  width: 25%;
+  composes: row;
 }
 
-.list__technology {
-  background-color: rgba(220, 220, 220, 0.8);
-  padding: 10px;
-  display: inline-flex;
-  margin: auto 5px 5px 0;
+.row__secondField {
+  width: 30%;
+  padding-left: 10px;
+  composes: row;
 }
 
-.technology__remove {
-  composes: modal__close;
-  margin: 2px 0 0 15px;
-}
-
-.form__actions {
-  display: flex;
-  flex-direction: row-reverse;
-  margin-top: 30px;
-}
-
-.actions__button {
-  composes: element--hover;
-  width: 102px;
-  height: 50px;
-  text-align: center;
-  background: inherit;
-}
-
-.actions__buttonSubmit {
-  composes: actions__button;
-  border: 2px solid rgba(200, 200, 200, 0.8);
-}
-
-.actions__buttonReset {
-  composes: actions__button;
-  border: 0 solid rgba(0, 0, 0, 0);
-}
-
-@media (max-width: 824px) {
-  .inputs__column {
-    width: 100%;
-    margin: auto auto 20px;
-  }
-}
-
-@media (max-width: 530px) {
-  .technologies__input {
-    margin: 0 0 20px;
-  }
+.row__lastField {
+  width: 45%;
+  padding-left: 10px;
+  composes: row;
 }
