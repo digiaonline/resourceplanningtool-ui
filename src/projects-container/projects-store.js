@@ -3,7 +3,11 @@
 import {observable, action} from 'mobx';
 import axios from 'axios';
 import form from './form-config';
-import {getDeleteProjectQuery, getCreateProjectQuery} from './queries';
+import {
+  getDeleteProjectQuery,
+  getCreateProjectQuery,
+  getAddPersonToProject,
+} from './queries';
 
 class ProjectsStore {
   @observable Data = [];
@@ -94,7 +98,22 @@ class ProjectsStore {
       console.log('Create Project');
     } catch (error) {
       console.log('error', error);
-      return [];
+    }
+  };
+
+  @action
+  addPersonToProject = async (projectId, personID) => {
+    const URL = 'http://10.5.0.177:3002/skillz';
+    const query = getAddPersonToProject(projectId, personID);
+    try {
+      const response = await axios.post(URL, query, {
+        headers: {
+          'Content-Type': 'application/graphql',
+        },
+      });
+      console.log('Added person to this project');
+    } catch (error) {
+      console.log('error', error);
     }
   };
 
@@ -112,7 +131,6 @@ class ProjectsStore {
       console.log('Deleting Complete');
     } catch (error) {
       console.log('error', error);
-      return [];
     }
   };
 

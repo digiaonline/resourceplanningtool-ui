@@ -25,3 +25,12 @@ export const getCreateProjectQuery = (
     }
   }`;
 };
+
+export const getAddPersonToProject = (projectId: String, personId: String) => {
+  return `mutation {
+    addPersonToProject(
+      project_id: "${projectId}",
+      project_id: "${personId}"
+    ){project_id}
+  }`;
+};

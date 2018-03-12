@@ -105,6 +105,11 @@ export const fields = [
 export const hooks = {
   onSuccess(form) {
     ProjectsStore.createProject(form.values());
+    form
+      .values()
+      .members.map(id =>
+        ProjectsStore.addPersonToProject(ProjectsStore.newProjectId, id)
+      );
   },
   onError(form) {
     console.log('All form errors', form.errors());
