@@ -43,18 +43,18 @@ class ProjectView extends Component {
         <div className={css.project__heading}>
           <div className={css.project__title}>{Data.name}</div>
           <div className={css.project__buttons}>
-            <div>
-              <img src={deleteIcon} alt="delete" />
-              <Confirm
-                onConfirm={this.onConfirm}
-                body="Are you sure you want to delete this?"
-                confirmBSStyle="danger"
-                confirmText="Confirm Delete"
-                title="Delete project"
-              >
+            <Confirm
+              onConfirm={this.onConfirm}
+              body="Are you sure you want to delete this?"
+              confirmBSStyle="danger"
+              confirmText="Confirm Delete"
+              title="Delete project"
+            >
+              <div>
+                <img src={deleteIcon} alt="delete" />
                 <span>Delete</span>
-              </Confirm>
-            </div>
+              </div>
+            </Confirm>
             <div onClick={this.openModalAndPassData}>
               <img src={editIcon} alt="EDIT" />
               <span>EDIT</span>
