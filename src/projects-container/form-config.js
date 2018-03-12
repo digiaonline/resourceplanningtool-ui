@@ -1,4 +1,5 @@
 import MobxReactForm from 'mobx-react-form';
+import ProjectsStore from './projects-store';
 import validatorjs from 'validatorjs';
 
 export const plugins = {dvr: validatorjs};
@@ -103,7 +104,7 @@ export const fields = [
 
 export const hooks = {
   onSuccess(form) {
-    console.log('Form Values!', form.values());
+    ProjectsStore.createProject(form.values());
   },
   onError(form) {
     console.log('All form errors', form.errors());

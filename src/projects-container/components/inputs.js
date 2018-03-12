@@ -34,7 +34,7 @@ export const Textarea = observer(({field}) => (
   </div>
 ));
 
-export const SELECT = observer(({field, addTo, option}) => {
+export const SELECT = observer(({field, addTo, option, showValue}) => {
   const options = option
     ? option.map(item => {
       const id = item.id ? item.id : Math.random();
@@ -53,7 +53,7 @@ export const SELECT = observer(({field, addTo, option}) => {
         onValueClick={addTo}
         options={options}
         classes={{
-          selectValue: css.select__value,
+          selectValue: !showValue ? css.select__value : '',
           selectInput: css.select__input,
         }}
       />

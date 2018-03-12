@@ -3,6 +3,7 @@ import {observer} from 'mobx-react';
 import Modal from 'react-modal';
 import ProjectStore from '../../projects-container/projects-store';
 import PeopleStore from '../../people-container/people-store';
+import CustomersStore from '../../customers-container/customers-store';
 import {Input, InputCheckbox, Textarea, SELECT} from './inputs';
 import css from './projectModal.css';
 import closeIcon from '../../assets/icon_close.svg';
@@ -11,6 +12,11 @@ import deleteIcon from '../../assets/icon_delete.svg';
 import addIcon from '../../assets/icon_add_b.svg';
 
 const ProjectModal = observer(({form, isOpen, closeModal, modalName}) => {
+  const onsubmit = e => {
+    form.onSubmit(e);
+    ProjectStore.fetchAllProject();
+    closeModal();
+  };
   return (
     <Modal isOpen={isOpen} className={css.Modal} ariaHideApp={false}>
       <div>
@@ -24,7 +30,11 @@ const ProjectModal = observer(({form, isOpen, closeModal, modalName}) => {
         <form>
           <div className={css.section}>
             <div className={css.cell}>
-              <SELECT field={form.$('customer')} />
+              <SELECT
+                field={form.$('customer')}
+                option={CustomersStore.customers}
+                showValue={true}
+              />
               <Input field={form.$('contactemail')} />
               <InputCheckbox field={form.$('ongoing')} />
             </div>
@@ -51,6 +61,7 @@ const ProjectModal = observer(({form, isOpen, closeModal, modalName}) => {
               field={form.$('member')}
               addTo={ProjectStore.addToMembers}
               option={PeopleStore.people}
+              showValue={false}
             />
           </div>
           <div className={css.table__header}>
@@ -87,6 +98,7 @@ const ProjectModal = observer(({form, isOpen, closeModal, modalName}) => {
               field={form.$('usedTechnologies')}
               addTo={ProjectStore.addToTechnologies}
               option={ProjectStore.technologiesList}
+              showValue={false}
             />
           </div>
           <div className={css.selected__tech__container}>
@@ -136,7 +148,7 @@ const ProjectModal = observer(({form, isOpen, closeModal, modalName}) => {
             </div>
           </div>
           <div className={css.form__button}>
-            <div onClick={form.onSubmit} className={css.form__button__sava}>
+            <div onClick={onsubmit} className={css.form__button__sava}>
               SAVE
             </div>
             <span onClick={closeModal} className={css.form__button__close}>

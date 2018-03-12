@@ -3,12 +3,13 @@
 import {observable, action} from 'mobx';
 import axios from 'axios';
 import form from './form-config';
-import {getDeleteProjectQuery} from './queries';
+import {getDeleteProjectQuery, getCreateProjectQuery} from './queries';
 
 class ProjectsStore {
   @observable Data = [];
   @observable isOpen: Boolean = false;
   @observable projectId = null;
+  @observable newProjectId = null;
   @observable projectData = [];
   @observable technologiesList = [];
 
@@ -51,6 +52,51 @@ class ProjectsStore {
     }
   };
 
+  fetchTechnologies = async () => {
+    const URL = 'http://10.5.0.177:3002/skillz';
+    try {
+      const response = await axios.post(URL, this.technologiesQuery, {
+        headers: {
+          'Content-Type': 'application/graphql',
+        },
+      });
+      this.technologiesList = response.data.data.listTechnologies;
+    } catch (error) {
+      return [];
+    }
+  };
+
+  @action
+  createProject = async (progectInfo: object) => {
+    const URL = 'http://10.5.0.177:3002/skillz';
+
+    const query = getCreateProjectQuery(
+      '',
+      new Date(progectInfo.starttime).getTime() / 1000.0,
+      new Date(progectInfo.endtime).getTime() / 1000.0,
+      progectInfo.ongoing,
+      progectInfo.liveat,
+      progectInfo.githuburl,
+      progectInfo.name,
+      progectInfo.shortdescription,
+      progectInfo.description,
+      progectInfo.contactemail
+    );
+    try {
+      const response = await axios.post(URL, query, {
+        headers: {
+          'Content-Type': 'application/graphql',
+        },
+      });
+      this.fetchAllProject;
+      this.newProjectId = response.data.data.createProject.id;
+      console.log('Create Project');
+    } catch (error) {
+      console.log('error', error);
+      return [];
+    }
+  };
+
   @action
   deleteProject = async id => {
     const URL = 'http://10.5.0.177:3002/skillz';
@@ -65,20 +111,6 @@ class ProjectsStore {
       console.log('Deleting Complete');
     } catch (error) {
       console.log('error', error);
-      return [];
-    }
-  };
-
-  fetchTechnologies = async () => {
-    const URL = 'http://10.5.0.177:3002/skillz';
-    try {
-      const response = await axios.post(URL, this.technologiesQuery, {
-        headers: {
-          'Content-Type': 'application/graphql',
-        },
-      });
-      this.technologiesList = response.data.data.listTechnologies;
-    } catch (error) {
       return [];
     }
   };
@@ -163,11 +195,12 @@ class ProjectsStore {
 
   convertDate(date) {
     if (date) {
-      const time = new Date(date);
+      const time = new Date(date * 1000);
+      console.log(time);
       const month =
         time.getMonth() + 1 > 9
           ? time.getMonth() + 1
-          : '' + time.getMonth() + 1;
+          : `0${time.getMonth() + 1}`;
       const year = time.getFullYear();
       return `${year}-${month}`;
     }
