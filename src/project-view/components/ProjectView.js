@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {observer} from 'mobx-react';
 import {Link} from 'react-router-dom';
+import Confirm from 'react-confirm-bootstrap';
 import ProjectStore from '../../projects-container/projects-store';
 import PeopleStore from '../../people-container/people-store';
 import CustomersStore from '../../customers-container/customers-store';
@@ -25,6 +26,11 @@ class ProjectView extends Component {
     ProjectStore.updateForm();
   };
 
+  onConfirm = () => {
+    ProjectStore.deleteProject(this.props.match.params.id);
+    this.props.history.push('/projects');
+  };
+
   render() {
     if (!ProjectStore.projectData.name) {
       return <h1>loading...</h1>;
@@ -41,7 +47,15 @@ class ProjectView extends Component {
           <div className={css.project__buttons}>
             <div>
               <img src={deleteIcon} alt="delete" />
-              <span>DELETE</span>
+              <Confirm
+                onConfirm={this.onConfirm}
+                body="Are you sure you want to delete this?"
+                confirmBSStyle="danger"
+                confirmText="Confirm Delete"
+                title="Delete project"
+              >
+                <span>Delete</span>
+              </Confirm>
             </div>
             <div onClick={this.openModalAndPassData}>
               <img src={editIcon} alt="EDIT" />

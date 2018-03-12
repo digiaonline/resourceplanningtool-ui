@@ -3,6 +3,7 @@
 import {observable, action} from 'mobx';
 import axios from 'axios';
 import form from './form-config';
+import {getDeleteProjectQuery} from './queries';
 
 class ProjectsStore {
   @observable Data = [];
@@ -14,6 +15,21 @@ class ProjectsStore {
   @action
   modalToggle = () => {
     this.isOpen = !this.isOpen;
+  };
+
+  @action
+  fetchAllProject = async () => {
+    const URL = 'http://10.5.0.177:3002/skillz';
+    try {
+      const response = await axios.post(URL, this.allProjectQuery, {
+        headers: {
+          'Content-Type': 'application/graphql',
+        },
+      });
+      this.Data = response.data.data.listProjects;
+    } catch (error) {
+      return [];
+    }
   };
 
   @action
@@ -29,7 +45,6 @@ class ProjectsStore {
         },
       });
       this.projectData = response.data.data.project;
-      console.log(response.data.data.project);
     } catch (error) {
       console.log('error', error);
       return [];
@@ -37,16 +52,19 @@ class ProjectsStore {
   };
 
   @action
-  fetchAllProject = async () => {
+  deleteProject = async id => {
     const URL = 'http://10.5.0.177:3002/skillz';
+    const query = getDeleteProjectQuery(id);
     try {
-      const response = await axios.post(URL, this.allProjectQuery, {
+      const response = await axios.post(URL, query, {
         headers: {
           'Content-Type': 'application/graphql',
         },
       });
-      this.Data = response.data.data.listProjects;
+      this.fetchAllProject;
+      console.log('Deleting Complete');
     } catch (error) {
+      console.log('error', error);
       return [];
     }
   };
