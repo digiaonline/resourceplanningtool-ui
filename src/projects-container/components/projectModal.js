@@ -4,6 +4,7 @@ import Modal from 'react-modal';
 import ProjectStore from '../../projects-container/projects-store';
 import PeopleStore from '../../people-container/people-store';
 import CustomersStore from '../../customers-container/customers-store';
+import form from '../form-config';
 import {Input, InputCheckbox, Textarea, SELECT} from './inputs';
 import css from './projectModal.css';
 import closeIcon from '../../assets/icon_close.svg';
@@ -11,12 +12,12 @@ import sortIcon from '../../assets/icon_arrow_up.svg';
 import deleteIcon from '../../assets/icon_delete.svg';
 import addIcon from '../../assets/icon_add_b.svg';
 
-const ProjectModal = observer(({form, isOpen, closeModal, modalName}) => {
+const ProjectModal = observer(({form, isOpen, closeModal}) => {
   const onsubmit = e => {
     form.onSubmit(e);
     ProjectStore.fetchAllProject();
-    closeModal();
   };
+
   return (
     <Modal isOpen={isOpen} className={css.Modal} ariaHideApp={false}>
       <div>
@@ -26,7 +27,7 @@ const ProjectModal = observer(({form, isOpen, closeModal, modalName}) => {
           alt="close"
           onClick={closeModal}
         />
-        <div className={css.modal__title}>{modalName}</div>
+        <div className={css.modal__title}>{ProjectStore.formName}</div>
         <form>
           <div className={css.section}>
             <div className={css.cell}>

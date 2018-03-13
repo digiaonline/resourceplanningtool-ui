@@ -19,6 +19,7 @@ class ProjectView extends Component {
     ProjectStore.fetchTechnologies();
     PeopleStore.fetchPeople();
     CustomersStore.fetchCustomers();
+    ProjectStore.form_name('Edit project');
   }
 
   openModalAndPassData = () => {
@@ -115,7 +116,6 @@ class ProjectView extends Component {
         <ProjectModal
           form={form}
           closeModal={ProjectStore.modalToggle}
-          modalName="Edit Project"
           isOpen={ProjectStore.isOpen}
         />
       </div>

@@ -106,28 +106,29 @@ export const hooks = {
   async onSuccess(form) {
     const initialsValue = form.initials();
     if (initialsValue.name === '') {
-      await ProjectsStore.createProject(form.values());
-      console.log('id', ProjectsStore.newProjectId);
-      form
-        .values()
-        .members.map(member =>
-          ProjectsStore.addPersonToProject(
-            ProjectsStore.newProjectId,
-            member.name
-          )
-        );
-      form
-        .values()
-        .technologies.map(tech =>
-          ProjectsStore.addTechnologiesToProject(
-            ProjectsStore.newProjectId,
-            tech.name
-          )
-        );
-      ProjectsStore.addProjectToCustomer(
-        ProjectsStore.newProjectId,
-        form.values().customer
-      );
+      console.log('create', initialsValue);
+      // await ProjectsStore.createProject(form.values());
+      // console.log('id', ProjectsStore.newProjectId);
+      // form
+      //   .values()
+      //   .members.map(member =>
+      //     ProjectsStore.addPersonToProject(
+      //       ProjectsStore.newProjectId,
+      //       member.name
+      //     )
+      //   );
+      // form
+      //   .values()
+      //   .technologies.map(tech =>
+      //     ProjectsStore.addTechnologiesToProject(
+      //       ProjectsStore.newProjectId,
+      //       tech.name
+      //     )
+      //   );
+      // ProjectsStore.addProjectToCustomer(
+      //   ProjectsStore.newProjectId,
+      //   form.values().customer
+      // );
     } else {
       console.log('edit');
     }
