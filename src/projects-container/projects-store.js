@@ -7,6 +7,8 @@ import {
   getDeleteProjectQuery,
   getCreateProjectQuery,
   getAddPersonToProject,
+  getAddTechnologiesToProject,
+  getAddProjectToCustomer,
 } from './queries';
 
 class ProjectsStore {
@@ -73,8 +75,6 @@ class ProjectsStore {
 
   @action
   createProject = async (progectInfo: object) => {
-    const URL = 'http://10.5.0.177:3002/skillz';
-
     const query = getCreateProjectQuery(
       '',
       new Date(progectInfo.starttime).getTime() / 1000.0,
@@ -88,30 +88,39 @@ class ProjectsStore {
       progectInfo.contactemail
     );
     try {
-      const response = await axios.post(URL, query, {
-        headers: {
-          'Content-Type': 'application/graphql',
-        },
-      });
-      this.fetchAllProject;
-      this.newProjectId = response.data.data.createProject.id;
-      console.log('Create Project');
+      const response = await this.makeHttpRequest(query);
+      this.newProjectId = response.createProject.id;
+    } catch (error) {
+      console.log('cant create person', error);
+    }
+  };
+
+  @action
+  addPersonToProject = async (projectId, personId) => {
+    const query = getAddPersonToProject(projectId, personId);
+    try {
+      const response = await this.makeHttpRequest(query);
     } catch (error) {
       console.log('error', error);
     }
   };
 
   @action
-  addPersonToProject = async (projectId, personID) => {
-    const URL = 'http://10.5.0.177:3002/skillz';
-    const query = getAddPersonToProject(projectId, personID);
+  addTechnologiesToProject = async (projectId, technologyid) => {
+    const query = getAddTechnologiesToProject(projectId, technologyid);
     try {
-      const response = await axios.post(URL, query, {
-        headers: {
-          'Content-Type': 'application/graphql',
-        },
-      });
-      console.log('Added person to this project');
+      const response = await this.makeHttpRequest(query);
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
+
+  @action
+  addProjectToCustomer = async (projectId, customerId) => {
+    console.log('projectId', projectId, 'customer', customerId);
+    const query = getAddProjectToCustomer(projectId, customerId);
+    try {
+      const response = await this.makeHttpRequest(query);
     } catch (error) {
       console.log('error', error);
     }
@@ -122,15 +131,28 @@ class ProjectsStore {
     const URL = 'http://10.5.0.177:3002/skillz';
     const query = getDeleteProjectQuery(id);
     try {
-      const response = await axios.post(URL, query, {
-        headers: {
-          'Content-Type': 'application/graphql',
-        },
-      });
-      this.fetchAllProject;
+      const response = await this.makeHttpRequest(query);
       console.log('Deleting Complete');
     } catch (error) {
       console.log('error', error);
+    }
+  };
+
+  @action
+  makeHttpRequest = async (queryString: String) => {
+    try {
+      const response = await axios.post(
+        'http://10.5.0.177:3002/skillz',
+        queryString,
+        {
+          headers: {
+            'Content-Type': 'application/graphql',
+          },
+        }
+      );
+      return response.data.data;
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -198,7 +220,7 @@ class ProjectsStore {
     });
     form.$('name').set('value', Data.name);
     form.$('contactemail').set('value', Data.contactemail);
-    form.$('customer').set('value', 'fix it');
+    form.$('customer').set('value', Data.customer.id);
     form.$('starttime').set('value', this.convertDate(Data.starttime));
     form.$('endtime').set('value', this.convertDate(Data.endtime));
     form.$('ongoing').set('value', Data.ongoing);
@@ -213,7 +235,6 @@ class ProjectsStore {
   convertDate(date) {
     if (date) {
       const time = new Date(date * 1000);
-      console.log(time);
       const month =
         time.getMonth() + 1 > 9
           ? time.getMonth() + 1
@@ -239,21 +260,21 @@ class ProjectsStore {
   }`;
 
   projectQuery = `{
-  id
-  name
-  starttime
-  endtime
-  ongoing
-  liveat
-  githuburl
-  shortdescription
-  description
-  contactemail
-  customer { name }
-  technologies {id, name}
-  persons { name }
-}
-}`;
+      id
+      name
+      starttime
+      endtime
+      ongoing
+      liveat
+      githuburl
+      shortdescription
+      description
+      contactemail
+      customer {id}
+      technologies {id}
+      persons {id}
+    }
+  }`;
 
   technologiesQuery = `query {
 listTechnologies {

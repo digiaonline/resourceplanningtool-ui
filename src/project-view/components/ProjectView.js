@@ -34,6 +34,7 @@ class ProjectView extends Component {
       return <h1>loading...</h1>;
     }
     const Data = ProjectStore.projectData;
+    console.log(Data);
     return (
       <div className={css.project__view}>
         <Link className={css.back__button} to="/projects">

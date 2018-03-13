@@ -103,13 +103,34 @@ export const fields = [
 ];
 
 export const hooks = {
-  onSuccess(form) {
-    ProjectsStore.createProject(form.values());
-    form
-      .values()
-      .members.map(id =>
-        ProjectsStore.addPersonToProject(ProjectsStore.newProjectId, id)
+  async onSuccess(form) {
+    const initialsValue = form.initials();
+    if (initialsValue.name === '') {
+      await ProjectsStore.createProject(form.values());
+      console.log('id', ProjectsStore.newProjectId);
+      form
+        .values()
+        .members.map(member =>
+          ProjectsStore.addPersonToProject(
+            ProjectsStore.newProjectId,
+            member.name
+          )
+        );
+      form
+        .values()
+        .technologies.map(tech =>
+          ProjectsStore.addTechnologiesToProject(
+            ProjectsStore.newProjectId,
+            tech.name
+          )
+        );
+      ProjectsStore.addProjectToCustomer(
+        ProjectsStore.newProjectId,
+        form.values().customer
       );
+    } else {
+      console.log('edit');
+    }
   },
   onError(form) {
     console.log('All form errors', form.errors());
