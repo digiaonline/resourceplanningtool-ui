@@ -19,6 +19,7 @@ class ProjectsContainer extends Component {
     ProjectsStore.resetForm();
     CustomersStore.fetchCustomers();
     PeopleStore.fetchPeople();
+    ProjectsStore.form_name('Create project');
   }
   render() {
     return (

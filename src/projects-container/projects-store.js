@@ -16,6 +16,8 @@ class ProjectsStore {
   @observable isOpen: Boolean = false;
   @observable projectId = null;
   @observable newProjectId = null;
+  @observable newProjectId = null;
+  @observable formName = null;
   @observable projectData = [];
   @observable technologiesList = [];
 
@@ -244,6 +246,11 @@ class ProjectsStore {
     }
     return '';
   }
+
+  @action
+  form_name = name => {
+    this.formName = name;
+  };
 
   allProjectQuery = `query {
     listProjects {
