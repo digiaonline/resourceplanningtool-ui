@@ -17,6 +17,7 @@ import {
   ALL_PROJECTS_QUERY,
   PROJECT_QUERY,
   TECHNOLOGIES_QUERY,
+  ALL_NEWS_QUERY,
 } from './queries';
 
 class ProjectsStore {
@@ -25,6 +26,7 @@ class ProjectsStore {
   @observable projectId = null;
   @observable newProjectId = null;
   @observable newsID = null;
+  @observable allNews = [];
   @observable formName = null;
   @observable projectData = [];
   @observable technologiesList = [];
@@ -88,7 +90,7 @@ class ProjectsStore {
       this.newProjectId = response.createProject.id;
       this.fetchAllProject();
     } catch (error) {
-      console.log('cant create person', error);
+      console.log(error);
     }
   };
 
@@ -109,8 +111,9 @@ class ProjectsStore {
     );
     try {
       await this.makeHttpRequest(query);
+      this.fetchProject(this.projectId);
     } catch (error) {
-      console.log('cant create person', error);
+      console.log(error);
     }
   };
 
@@ -182,7 +185,8 @@ class ProjectsStore {
     const query = getCreateNewsQuery(url, description);
     try {
       const response = await this.makeHttpRequest(query);
-      this.newsID = response.id;
+      this.newsID = response.createNews.id;
+      this.fetchNews();
     } catch (error) {
       console.log('error', error);
     }
@@ -199,6 +203,15 @@ class ProjectsStore {
     }
   };
 
+  @action
+  fetchNews = async () => {
+    try {
+      const response = await this.makeHttpRequest(ALL_NEWS_QUERY);
+      this.allNews = response.listNews;
+    } catch (error) {
+      console.log(error);
+    }
+  };
   @action
   makeHttpRequest = async (queryString: String) => {
     try {
@@ -232,11 +245,22 @@ class ProjectsStore {
   };
 
   @action
+  removeAllNews = () => {
+    form.$('newNews').set('value', []);
+  };
+
+  @action
   removeMember = member => {
     const Selected = form
       .$('members')
       .value.filter(item => item.name !== member);
     form.$('members').set('value', Selected);
+  };
+
+  @action
+  removeNews = news => {
+    const Selected = form.$('newNews').value.filter(item => item !== news);
+    form.$('newNews').set('value', Selected);
   };
 
   @action

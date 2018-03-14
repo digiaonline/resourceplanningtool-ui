@@ -16,6 +16,7 @@ class ProjectsContainer extends Component {
     ProjectsStore.fetchAllProject();
     ProjectsStore.fetchTechnologies();
     ProjectsStore.resetForm();
+    ProjectsStore.fetchNews();
     CustomersStore.fetchCustomers();
     PeopleStore.fetchPeople();
     ProjectsStore.form_name('Create project');

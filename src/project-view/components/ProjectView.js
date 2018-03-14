@@ -17,6 +17,7 @@ class ProjectView extends Component {
   componentWillMount() {
     ProjectStore.fetchProject(this.props.match.params.id);
     ProjectStore.fetchTechnologies();
+    ProjectStore.fetchNews();
     PeopleStore.fetchPeople();
     CustomersStore.fetchCustomers();
     ProjectStore.form_name('Edit project');
@@ -37,7 +38,6 @@ class ProjectView extends Component {
       return <h1>loading...</h1>;
     }
     const Data = ProjectStore.projectData;
-    console.log(Data);
     return (
       <div className={css.project__view}>
         <Link className={css.back__button} to="/projects">
@@ -91,12 +91,18 @@ class ProjectView extends Component {
         </div>
         <div className={css.detail}>
           <div className={css.detail__title}>People in project</div>
-          {Data.persons.map(item => <span key={item.id}>{item.name}</span>)}
+          {Data.persons.map(item => (
+            <span key={item.id} className={css.members__view}>
+              {item.name}
+            </span>
+          ))}
         </div>
         <div className={css.detail}>
           <div className={css.detail__title}>Core technologies</div>
           {Data.technologies.map(item => (
-            <span key={item.id}>{item.name}</span>
+            <span key={item.id} className={css.technologies__view}>
+              {item.name}
+            </span>
           ))}
         </div>
         <div className={css.detail}>
