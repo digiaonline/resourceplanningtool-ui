@@ -6,16 +6,22 @@ import form from './form-config';
 import {
   getDeleteProjectQuery,
   getCreateProjectQuery,
-  getAddPersonToProject,
-  getAddTechnologiesToProject,
-  getAddProjectToCustomer,
+  getAddPersonToProjectQuery,
+  getAddTechnologiesToProjectQuery,
+  getAddProjectToCustomerQuery,
+  getUpdateProjectQuery,
+  getRemovePersonfromProjectQuery,
+  getRemoveTechnologiesFromProjectQuery,
+  getRemoveProjectFromCustomerQuery,
+  ALL_PROJECTS_QUERY,
+  PROJECT_QUERY,
+  TECHNOLOGIES_QUERY,
 } from './queries';
 
 class ProjectsStore {
   @observable Data = [];
   @observable isOpen: Boolean = false;
   @observable projectId = null;
-  @observable newProjectId = null;
   @observable newProjectId = null;
   @observable formName = null;
   @observable projectData = [];
@@ -28,14 +34,11 @@ class ProjectsStore {
 
   @action
   fetchAllProject = async () => {
-    const URL = 'http://10.5.0.177:3002/skillz';
+    const query = ALL_PROJECTS_QUERY;
     try {
-      const response = await axios.post(URL, this.allProjectQuery, {
-        headers: {
-          'Content-Type': 'application/graphql',
-        },
-      });
-      this.Data = response.data.data.listProjects;
+      const response = await this.makeHttpRequest(query);
+      console.log(response);
+      this.Data = response.listProjects;
     } catch (error) {
       return [];
     }
@@ -43,17 +46,11 @@ class ProjectsStore {
 
   @action
   fetchProject = async id => {
-    const URL = 'http://10.5.0.177:3002/skillz';
     this.projectId = id;
-    const query = ` query { project (id: ${this.projectId}) ${this
-      .projectQuery}`;
+    const query = ` query { project (id: ${this.projectId}) ${PROJECT_QUERY}`;
     try {
-      const response = await axios.post(URL, query, {
-        headers: {
-          'Content-Type': 'application/graphql',
-        },
-      });
-      this.projectData = response.data.data.project;
+      const response = await this.makeHttpRequest(query);
+      this.projectData = response.project;
     } catch (error) {
       console.log('error', error);
       return [];
@@ -61,14 +58,10 @@ class ProjectsStore {
   };
 
   fetchTechnologies = async () => {
-    const URL = 'http://10.5.0.177:3002/skillz';
+    const query = TECHNOLOGIES_QUERY;
     try {
-      const response = await axios.post(URL, this.technologiesQuery, {
-        headers: {
-          'Content-Type': 'application/graphql',
-        },
-      });
-      this.technologiesList = response.data.data.listTechnologies;
+      const response = await this.makeHttpRequest(query);
+      this.technologiesList = response.listTechnologies;
     } catch (error) {
       return [];
     }
@@ -97,8 +90,41 @@ class ProjectsStore {
   };
 
   @action
+  updateProject = async (progectInfo: object) => {
+    const query = getUpdateProjectQuery(
+      this.projectId,
+      '',
+      new Date(progectInfo.starttime).getTime() / 1000.0,
+      new Date(progectInfo.endtime).getTime() / 1000.0,
+      progectInfo.ongoing,
+      progectInfo.liveat,
+      progectInfo.githuburl,
+      progectInfo.name,
+      progectInfo.shortdescription,
+      progectInfo.description,
+      progectInfo.contactemail
+    );
+    try {
+      const response = await this.makeHttpRequest(query);
+      console.log(response);
+    } catch (error) {
+      console.log('cant create person', error);
+    }
+  };
+
+  @action
   addPersonToProject = async (projectId, personId) => {
-    const query = getAddPersonToProject(projectId, personId);
+    const query = getAddPersonToProjectQuery(projectId, personId);
+    try {
+      const response = await this.makeHttpRequest(query);
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
+
+  @action
+  removePersonFromProject = async (projectId, personId) => {
+    const query = getRemovePersonfromProjectQuery(projectId, personId);
     try {
       const response = await this.makeHttpRequest(query);
     } catch (error) {
@@ -108,7 +134,20 @@ class ProjectsStore {
 
   @action
   addTechnologiesToProject = async (projectId, technologyid) => {
-    const query = getAddTechnologiesToProject(projectId, technologyid);
+    const query = getAddTechnologiesToProjectQuery(projectId, technologyid);
+    try {
+      const response = await this.makeHttpRequest(query);
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
+
+  @action
+  removeTechnologyFromProject = async (projectId, technologyid) => {
+    const query = getRemoveTechnologiesFromProjectQuery(
+      projectId,
+      technologyid
+    );
     try {
       const response = await this.makeHttpRequest(query);
     } catch (error) {
@@ -119,7 +158,18 @@ class ProjectsStore {
   @action
   addProjectToCustomer = async (projectId, customerId) => {
     console.log('projectId', projectId, 'customer', customerId);
-    const query = getAddProjectToCustomer(projectId, customerId);
+    const query = getAddProjectToCustomerQuery(projectId, customerId);
+    try {
+      const response = await this.makeHttpRequest(query);
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
+
+  @action
+  removeProjectFromCustomer = async (projectId, customerId) => {
+    console.log('projectId', projectId, 'customer', customerId);
+    const query = getRemoveProjectFromCustomerQuery(projectId, customerId);
     try {
       const response = await this.makeHttpRequest(query);
     } catch (error) {
@@ -252,51 +302,6 @@ class ProjectsStore {
   form_name = name => {
     this.formName = name;
   };
-
-  allProjectQuery = `query {
-    listProjects {
-      id
-      name
-      description
-      githuburl
-      liveat
-      technologies {
-        id
-        name
-      }
-    }
-  }`;
-
-  projectQuery = `{
-      id
-      name
-      starttime
-      endtime
-      ongoing
-      liveat
-      githuburl
-      shortdescription
-      description
-      contactemail
-      customer {id}
-      technologies {id}
-      persons {id}
-    }
-  }`;
-
-  technologiesQuery = `query {
-    listTechnologies {
-      id
-      name
-    }
-  }`;
-
-  personsQuery = `query {
-    listPersons {
-      id
-      name
-    }
-  }`;
 }
 
 export default new ProjectsStore();

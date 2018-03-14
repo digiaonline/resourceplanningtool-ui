@@ -105,32 +105,54 @@ export const fields = [
 export const hooks = {
   async onSuccess(form) {
     const initialsValue = form.initials();
-    if (initialsValue.name === '') {
-      console.log('create', initialsValue);
-      // await ProjectsStore.createProject(form.values());
-      // console.log('id', ProjectsStore.newProjectId);
-      // form
-      //   .values()
-      //   .members.map(member =>
-      //     ProjectsStore.addPersonToProject(
-      //       ProjectsStore.newProjectId,
-      //       member.name
-      //     )
-      //   );
-      // form
-      //   .values()
-      //   .technologies.map(tech =>
-      //     ProjectsStore.addTechnologiesToProject(
-      //       ProjectsStore.newProjectId,
-      //       tech.name
-      //     )
-      //   );
-      // ProjectsStore.addProjectToCustomer(
-      //   ProjectsStore.newProjectId,
-      //   form.values().customer
-      // );
+    if (ProjectsStore.formName === 'Create project') {
+      await ProjectsStore.createProject(form.values());
+      console.log('id', ProjectsStore.newProjectId);
+      form
+        .values()
+        .members.map(member =>
+          ProjectsStore.addPersonToProject(
+            ProjectsStore.newProjectId,
+            member.name
+          )
+        );
+      form
+        .values()
+        .technologies.map(tech =>
+          ProjectsStore.addTechnologiesToProject(
+            ProjectsStore.newProjectId,
+            tech.name
+          )
+        );
+      ProjectsStore.addProjectToCustomer(
+        ProjectsStore.newProjectId,
+        form.values().customer
+      );
     } else {
-      console.log('edit');
+      const id = ProjectsStore.projectId;
+      const Data = ProjectsStore.projectData;
+      ProjectsStore.updateProject(form.values());
+      //remove old data
+      Data.persons.map(person =>
+        ProjectsStore.removePersonFromProject(id, person.id)
+      );
+      Data.technologies.map(tech => {
+        console.log(tech.id);
+        ProjectsStore.removeTechnologyFromProject(id, tech.id);
+      });
+      ProjectsStore.removeProjectFromCustomer(id, Data.customer.id);
+      //add new data
+      form
+        .values()
+        .members.map(member =>
+          ProjectsStore.addPersonToProject(id, member.name)
+        );
+      form
+        .values()
+        .technologies.map(tech =>
+          ProjectsStore.addTechnologiesToProject(id, tech.name)
+        );
+      ProjectsStore.addProjectToCustomer(id, form.values().customer);
     }
   },
   onError(form) {

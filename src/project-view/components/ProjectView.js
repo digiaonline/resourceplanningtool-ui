@@ -91,11 +91,13 @@ class ProjectView extends Component {
         </div>
         <div className={css.detail}>
           <div className={css.detail__title}>People in project</div>
-          <p> people</p>
+          {Data.persons.map(item => <span key={item.id}>{item.name}</span>)}
         </div>
         <div className={css.detail}>
           <div className={css.detail__title}>Core technologies</div>
-          <p> technologies</p>
+          {Data.technologies.map(item => (
+            <span key={item.id}>{item.name}</span>
+          ))}
         </div>
         <div className={css.detail}>
           <div className={css.detail__title}>Live at</div>

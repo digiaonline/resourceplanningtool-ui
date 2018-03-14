@@ -17,7 +17,6 @@ const ProjectModal = observer(({form, isOpen, closeModal}) => {
     form.onSubmit(e);
     ProjectStore.fetchAllProject();
   };
-
   return (
     <Modal isOpen={isOpen} className={css.Modal} ariaHideApp={false}>
       <div>
