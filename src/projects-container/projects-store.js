@@ -13,6 +13,7 @@ import {
   getRemovePersonfromProjectQuery,
   getRemoveTechnologiesFromProjectQuery,
   getRemoveProjectFromCustomerQuery,
+  getCreateNewsQuery,
   ALL_PROJECTS_QUERY,
   PROJECT_QUERY,
   TECHNOLOGIES_QUERY,
@@ -23,6 +24,7 @@ class ProjectsStore {
   @observable isOpen: Boolean = false;
   @observable projectId = null;
   @observable newProjectId = null;
+  @observable newsID = null;
   @observable formName = null;
   @observable projectData = [];
   @observable technologiesList = [];
@@ -84,6 +86,7 @@ class ProjectsStore {
     try {
       const response = await this.makeHttpRequest(query);
       this.newProjectId = response.createProject.id;
+      this.fetchAllProject();
     } catch (error) {
       console.log('cant create person', error);
     }
@@ -105,8 +108,7 @@ class ProjectsStore {
       progectInfo.contactemail
     );
     try {
-      const response = await this.makeHttpRequest(query);
-      console.log(response);
+      await this.makeHttpRequest(query);
     } catch (error) {
       console.log('cant create person', error);
     }
@@ -116,7 +118,7 @@ class ProjectsStore {
   addPersonToProject = async (projectId, personId) => {
     const query = getAddPersonToProjectQuery(projectId, personId);
     try {
-      const response = await this.makeHttpRequest(query);
+      await this.makeHttpRequest(query);
     } catch (error) {
       console.log('error', error);
     }
@@ -126,7 +128,7 @@ class ProjectsStore {
   removePersonFromProject = async (projectId, personId) => {
     const query = getRemovePersonfromProjectQuery(projectId, personId);
     try {
-      const response = await this.makeHttpRequest(query);
+      await this.makeHttpRequest(query);
     } catch (error) {
       console.log('error', error);
     }
@@ -136,7 +138,7 @@ class ProjectsStore {
   addTechnologiesToProject = async (projectId, technologyid) => {
     const query = getAddTechnologiesToProjectQuery(projectId, technologyid);
     try {
-      const response = await this.makeHttpRequest(query);
+      await this.makeHttpRequest(query);
     } catch (error) {
       console.log('error', error);
     }
@@ -149,7 +151,7 @@ class ProjectsStore {
       technologyid
     );
     try {
-      const response = await this.makeHttpRequest(query);
+      await this.makeHttpRequest(query);
     } catch (error) {
       console.log('error', error);
     }
@@ -157,10 +159,9 @@ class ProjectsStore {
 
   @action
   addProjectToCustomer = async (projectId, customerId) => {
-    console.log('projectId', projectId, 'customer', customerId);
     const query = getAddProjectToCustomerQuery(projectId, customerId);
     try {
-      const response = await this.makeHttpRequest(query);
+      await this.makeHttpRequest(query);
     } catch (error) {
       console.log('error', error);
     }
@@ -168,10 +169,20 @@ class ProjectsStore {
 
   @action
   removeProjectFromCustomer = async (projectId, customerId) => {
-    console.log('projectId', projectId, 'customer', customerId);
     const query = getRemoveProjectFromCustomerQuery(projectId, customerId);
     try {
+      await this.makeHttpRequest(query);
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
+
+  @action
+  createNews = async (url, description) => {
+    const query = getCreateNewsQuery(url, description);
+    try {
       const response = await this.makeHttpRequest(query);
+      this.newsID = response.id;
     } catch (error) {
       console.log('error', error);
     }
@@ -179,10 +190,9 @@ class ProjectsStore {
 
   @action
   deleteProject = async id => {
-    const URL = 'http://10.5.0.177:3002/skillz';
     const query = getDeleteProjectQuery(id);
     try {
-      const response = await this.makeHttpRequest(query);
+      this.makeHttpRequest(query);
       console.log('Deleting Complete');
     } catch (error) {
       console.log('error', error);

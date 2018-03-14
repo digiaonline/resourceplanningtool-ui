@@ -1,11 +1,13 @@
+//@flow
+
 import React from 'react';
 import {observer} from 'mobx-react';
 import Modal from 'react-modal';
 import ProjectStore from '../../projects-container/projects-store';
 import PeopleStore from '../../people-container/people-store';
 import CustomersStore from '../../customers-container/customers-store';
-import form from '../form-config';
 import {Input, InputCheckbox, Textarea, SELECT} from './inputs';
+import NewsForm from './newsForm';
 import css from './projectModal.css';
 import closeIcon from '../../assets/icon_close.svg';
 import sortIcon from '../../assets/icon_arrow_up.svg';
@@ -77,6 +79,7 @@ const ProjectModal = observer(({form, isOpen, closeModal}) => {
             />
           </div>
           {form.$('members').value.map((item, i) => {
+            // get name from the id in store
             const personName = PeopleStore.people.filter(({id, name}) => {
               return id === item.name;
             });
@@ -103,6 +106,7 @@ const ProjectModal = observer(({form, isOpen, closeModal}) => {
           </div>
           <div className={css.selected__tech__container}>
             {form.$('technologies').value.map((tech, i) => {
+              // get name from the id in store
               const techName = ProjectStore.technologiesList.filter(
                 ({id, name}) => {
                   return id === tech.name;
@@ -139,13 +143,7 @@ const ProjectModal = observer(({form, isOpen, closeModal}) => {
             <img className={css.form__icon} src={deleteIcon} alt="delete" />
           </div>
           <div className={css.table__item}>
-            <div className={css.news__url}>
-              <Input field={form.$('otherLinks')} />
-              <Input field={form.$('newsDescription')} />
-              <div className={css.news__url__button}>
-                <img src={addIcon} alt="add" /> <span>ADD</span>
-              </div>
-            </div>
+            <NewsForm />
           </div>
           <div className={css.form__button}>
             <div onClick={onsubmit} className={css.form__button__sava}>

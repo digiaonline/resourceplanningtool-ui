@@ -229,6 +229,8 @@
   width: 60px;
   justify-content: space-between;
   cursor: pointer;
+  background: white;
+  border: none;
 }
 
 .helper {

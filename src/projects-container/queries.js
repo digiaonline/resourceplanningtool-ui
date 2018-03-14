@@ -117,6 +117,17 @@ export const getRemoveProjectFromCustomerQuery = (
   }`;
 };
 
+export const getCreateNewsQuery = (url: String, description: String) => {
+  return `mutation {
+    createNews(
+      url: "${url}",
+      description: "${description}"
+    ) {
+      id
+    }
+  }`;
+};
+
 export const ALL_PROJECTS_QUERY = `query {
   listProjects {
     id
