@@ -89,7 +89,7 @@ export const fields = [
     rules: 'required|url',
   },
   {
-    name: 'otherLinks',
+    name: 'newsLink',
     label: '',
     placeholder: 'URL',
     rules: 'url',
@@ -99,35 +99,30 @@ export const fields = [
     label: '',
     placeholder: 'Description',
     rules: 'string',
+    value: '',
+  },
+  {
+    name: 'newNews',
+    value: [],
   },
 ];
 
 export const hooks = {
   async onSuccess(form) {
-    const initialsValue = form.initials();
     if (ProjectsStore.formName === 'Create project') {
       await ProjectsStore.createProject(form.values());
-      console.log('id', ProjectsStore.newProjectId);
+      const id = ProjectsStore.newProjectId;
       form
         .values()
         .members.map(member =>
-          ProjectsStore.addPersonToProject(
-            ProjectsStore.newProjectId,
-            member.name
-          )
+          ProjectsStore.addPersonToProject(id, member.name)
         );
       form
         .values()
         .technologies.map(tech =>
-          ProjectsStore.addTechnologiesToProject(
-            ProjectsStore.newProjectId,
-            tech.name
-          )
+          ProjectsStore.addTechnologiesToProject(id, tech.name)
         );
-      ProjectsStore.addProjectToCustomer(
-        ProjectsStore.newProjectId,
-        form.values().customer
-      );
+      ProjectsStore.addProjectToCustomer(id, form.values().customer);
     } else {
       const id = ProjectsStore.projectId;
       const Data = ProjectsStore.projectData;
@@ -136,10 +131,9 @@ export const hooks = {
       Data.persons.map(person =>
         ProjectsStore.removePersonFromProject(id, person.id)
       );
-      Data.technologies.map(tech => {
-        console.log(tech.id);
-        ProjectsStore.removeTechnologyFromProject(id, tech.id);
-      });
+      Data.technologies.map(tech =>
+        ProjectsStore.removeTechnologyFromProject(id, tech.id)
+      );
       ProjectsStore.removeProjectFromCustomer(id, Data.customer.id);
       //add new data
       form
