@@ -2,16 +2,21 @@
 
 import React, {Component} from 'react';
 import Modal from 'react-modal';
+import Autocomplete from 'react-autocomplete';
 import css from './PersonForm.css';
 import closeIcon from '../../assets/icon_close.svg';
 import addIcon from '../../assets/icon_add_b.svg';
 import {PropTypes} from 'prop-types';
 import {observer} from 'mobx-react';
+import skillsStore from '../skills-store';
 
 @observer
 class PersonForm extends Component {
   componentWillMount() {
     Modal.setAppElement(document.body);
+    if (skillsStore.skills.length === 0) {
+      skillsStore.fetchSkills();
+    }
   }
   updateRadioInput = (event: Event) => {
     const {form} = this.props;
@@ -36,6 +41,14 @@ class PersonForm extends Component {
     form
       .$('skills')
       .set('value', form.$('skills').value.filter((skill, i) => i !== index));
+  };
+  onChangeSkillName = (event: Event) => {
+    const {form} = this.props;
+    form.$('new-skill-name').set('value', event.target.value);
+  };
+  onSelectSkillName = (value: String) => {
+    const {form} = this.props;
+    form.$('new-skill-name').set('value', value);
   };
   render() {
     const {form} = this.props;
@@ -160,6 +173,21 @@ class PersonForm extends Component {
               <div className={css.inputs__column}>
                 <div className={css.form__field__first}>
                   <label
+                    htmlFor={form.$('email').id}
+                    className={css.input__label}
+                  >
+                    <b>{form.$('email').label}</b>
+                  </label>
+                  <input
+                    {...form.$('email').bind()}
+                    className={css.form__input}
+                  />
+                  <p className={css.input__warning}>
+                    <i>{form.$('email').error}</i>
+                  </p>
+                </div>
+                <div className={css.form__field}>
+                  <label
                     htmlFor={form.$('description').id}
                     className={css.input__label}
                   >
@@ -186,9 +214,27 @@ class PersonForm extends Component {
                   >
                     <b>{form.$('new-skill-name').label}</b>
                   </label>
-                  <input
+                  {/* autocomplete component here */}
+                  <Autocomplete
+                    inputProps={{
+                      className: css.form__input,
+                    }}
                     {...form.$('new-skill-name').bind()}
-                    className={css.form__input}
+                    shouldItemRender={(item, value) =>
+                      item.toLowerCase().indexOf(value.toLowerCase()) > -1}
+                    items={skillsStore.skills.map(skill => skill.name)}
+                    getItemValue={item => item}
+                    onChange={this.onChangeSkillName}
+                    onSelect={this.onSelectSkillName}
+                    renderItem={(item, isHighlighted) => (
+                      <div
+                        style={{
+                          background: isHighlighted ? 'lightgray' : 'white',
+                        }}
+                      >
+                        {item}
+                      </div>
+                    )}
                   />
                   <p className={css.input__warning}>
                     <i>{form.$('new-skill-name').error}</i>
