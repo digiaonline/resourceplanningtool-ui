@@ -140,7 +140,12 @@ const ProjectModal = observer(({form, isOpen, closeModal}) => {
               IN THE NEWS
               <img className={css.form__icon} src={sortIcon} alt="sort" />
             </div>
-            <img className={css.form__icon} src={deleteIcon} alt="delete" />
+            <img
+              className={css.form__icon}
+              src={deleteIcon}
+              alt="delete"
+              onClick={ProjectStore.removeAllNews}
+            />
           </div>
           <div className={css.table__item}>
             <NewsForm />

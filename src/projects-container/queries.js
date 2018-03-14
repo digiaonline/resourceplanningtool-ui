@@ -165,3 +165,11 @@ export const TECHNOLOGIES_QUERY = `query {
     name
   }
 }`;
+
+export const ALL_NEWS_QUERY = `query {
+  listNews {
+    id
+    url
+    description
+  }
+}`;
