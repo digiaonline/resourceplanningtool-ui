@@ -88,7 +88,7 @@ class CustomersStore {
         queryString,
         {
           headers: {
-            'Content-Type': 'application/graphql',
+            'Content-Type': 'application/json',
           },
         }
       );

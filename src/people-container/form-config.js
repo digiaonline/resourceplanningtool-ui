@@ -2,7 +2,6 @@
 
 import validatorjs from 'validatorjs';
 import peopleStore from './people-store';
-import {filterArray} from '../utils';
 
 export const plugins = {
   dvr: validatorjs,
@@ -10,21 +9,14 @@ export const plugins = {
 
 export const hooks = {
   onSuccess(form: Object) {
-    const initialsValue = form.initials();
-    const skillsChanged = filterArray(
-      initialsValue.skills,
-      form.values().skills
-    );
-    const filteredValues = Object.assign({}, form.values(), {
-      removedSkills: skillsChanged.removedItems,
-      addedSkills: skillsChanged.addedItems,
-    });
-    console.log(filteredValues);
-    if (initialsValue.name === '') {
-      peopleStore.createPerson(filteredValues);
-    } else {
-      peopleStore.updatePerson(filteredValues);
-    }
+    // submit the form here
+    console.log('form submitted (i lied)', form.values());
+  },
+  onChange(field: Object) {
+    console.log('onchange is running');
+  },
+  updateRadioInput(argument) {
+    console.log(argument);
   },
 };
 
@@ -68,22 +60,15 @@ export const fields = [
     name: 'startdate',
     label: 'Started in Digia',
     type: 'month',
-    placeholder: 'startdate here',
+    placeholder: 'link to LinkedIn here',
     rules: 'required|date',
   },
   {
     name: 'description',
     label: 'Description',
     type: 'text',
-    placeholder: 'description here',
+    placeholder: 'link to LinkedIn here',
     rules: 'required|string',
-  },
-  {
-    name: 'email',
-    label: 'Email',
-    type: 'text',
-    placeholder: 'email here',
-    rules: 'required|email',
   },
   {
     name: 'new-skill-name',
@@ -102,9 +87,5 @@ export const fields = [
     name: 'skills',
     label: 'Skill list',
     value: [],
-  },
-  {
-    name: 'id',
-    label: 'id',
   },
 ];

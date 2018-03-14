@@ -2,8 +2,7 @@
 import Form from 'mobx-react-form';
 
 export function parseDateTime(timeNumber: Number) {
-  // convert epoch timestamp to miliseconds
-  const date: Date = new Date(timeNumber * 1000);
+  const date: Date = new Date(timeNumber);
   const month: Number = date.getMonth() + 1;
   const year: Number = date.getFullYear();
   return `${year}-${month >= 10 ? `${month}` : `0${month}`}`;
@@ -45,24 +44,4 @@ export function getForm(
   } else {
     return new Form({fields}, {plugins, hooks});
   }
-}
-
-// function to identify what item was added, and what item was removed from an initial array
-// after operations, for updating a list of skills of a person
-export function filterArray(
-  initialArray: [any],
-  comparedArray: [any]
-): {
-  removedItems: [any],
-  addedItems: [any]
-} {
-  const remainedItems = comparedArray
-    .filter(item => item.id)
-    .map(item => item.id);
-  return {
-    addedItems: comparedArray.filter(item => !item.hasOwnProperty('id')),
-    removedItems: initialArray.filter(
-      item => remainedItems.indexOf(item.id) === -1
-    ),
-  };
 }

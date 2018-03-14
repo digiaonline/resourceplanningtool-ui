@@ -26,21 +26,13 @@ class PersonView extends Component {
       formIsOpened: !this.state.formIsOpened,
     });
   };
-  onDelete = () => {
-    peopleStore.deletePerson(this.props.match.params.id);
-    this.props.history.push('/people');
-  };
   componentWillMount() {
     if (!peopleStore.people[this.props.match.params.id]) {
       peopleStore.fetchPeople();
     }
   }
   render() {
-    // find the person with specific id from the store
-    const person = peopleStore.people.find(
-      person => person.id === this.props.match.params.id
-    );
-    if (!person) {
+    if (!peopleStore.people[this.props.match.params.id]) {
       return <Loading />;
     }
     return (
@@ -57,18 +49,21 @@ class PersonView extends Component {
             <img alt="" src={editIcon} />
             <span>&nbsp;EDIT</span>
           </button>
-          <button
-            type="button"
-            className={css.buttonsGroup__button}
-            onClick={this.onDelete}
-          >
+          <button type="button" className={css.buttonsGroup__button}>
             <img alt="" src={deleteIcon} />
             <span>&nbsp;DELETE</span>
           </button>
         </div>
-        <PersonDetails personDetails={person} />
+        <PersonDetails
+          personDetails={peopleStore.people[this.props.match.params.id]}
+        />
         <PersonForm
-          form={getForm(fields, plugins, hooks, person)}
+          form={getForm(
+            fields,
+            plugins,
+            hooks,
+            peopleStore.people[this.props.match.params.id]
+          )}
           isOpened={this.state.formIsOpened}
           toggleForm={this.toggleForm}
           mode={'edit'}

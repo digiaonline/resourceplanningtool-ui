@@ -34,7 +34,7 @@ const Table = props => (
 export const Row = props => (
   <tr
     onClick={() => {
-      props.navigate(props.values.id);
+      props.navigate(props.index);
     }}
   >
     <td className={css.row__firstField}>
@@ -53,15 +53,7 @@ export const Row = props => (
         )}
     </td>
     <td className={css.row__lastField}>
-      {props.displayedFields[2] !== 'skills' ? (
-        <span>{props.values[props.displayedFields[2]]}</span>
-      ) : (
-        <span>
-          {props.values[props.displayedFields[2]].map(
-            skill => `${skill.name}(${skill.level}), `
-          )}
-        </span>
-      )}
+      <span>{props.values[props.displayedFields[2]]}</span>
     </td>
   </tr>
 );
@@ -78,7 +70,6 @@ Table.propTypes = {
 Row.propTypes = {
   values: PropTypes.object.isRequired,
   displayedFields: PropTypes.arrayOf(PropTypes.string).isRequired,
-  navigate: PropTypes.func.isRequired,
 };
 
 export default Table;

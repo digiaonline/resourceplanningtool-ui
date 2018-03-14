@@ -37,11 +37,7 @@ class CustomerView extends Component {
     }
   }
   render() {
-    // find the customer with specific id from the store
-    const customer = customersStore.customers.find(
-      customer => customer.id === this.props.match.params.id
-    );
-    if (!customer) {
+    if (!customersStore.customers[this.props.match.params.id]) {
       return <Loading />;
     }
     return (
@@ -51,15 +47,29 @@ class CustomerView extends Component {
         </button>
         <div className={css.container__customer}>
           <div>
-            <h3 className={css.customer__name}> {customer.name} </h3>
+            <h3 className={css.customer__name}>
+              {' '}
+              {customersStore.customers[this.props.match.params.id].name}{' '}
+            </h3>
             <div className={css.customer__rows}>
               <div className={css.column__row}>
                 <span className={css.row__tag}>Industry</span>
-                <span>{customer.industry}</span>
+                <span>
+                  {
+                    customersStore.customers[this.props.match.params.id]
+                      .industry
+                  }
+                </span>
               </div>
               <div className={css.column__row}>
                 <span className={css.row__tag}>Website</span>
-                <a href={customer.url}>{customer.url}</a>
+                <a
+                  href={
+                    customersStore.customers[this.props.match.params.id].url
+                  }
+                >
+                  {customersStore.customers[this.props.match.params.id].url}
+                </a>
               </div>
             </div>
           </div>
@@ -83,7 +93,12 @@ class CustomerView extends Component {
           </div>
         </div>
         <CustomerForm
-          form={getForm(fields, plugins, hooks, customer)}
+          form={getForm(
+            fields,
+            plugins,
+            hooks,
+            customersStore.customers[this.props.match.params.id]
+          )}
           isOpened={this.state.formIsOpened}
           toggleForm={this.toggleForm}
           mode={'edit'}
