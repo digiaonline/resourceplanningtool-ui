@@ -81,7 +81,11 @@ class PersonView extends Component {
 const PersonDetails = props => (
   <div className={css.container__personDetails}>
     <div className={css.personDetails__image}>
-      <img src={props.personDetails.picture} alt={props.personDetails.name} />
+      <img
+        className={css.image}
+        src={`http://${props.personDetails.picture}`}
+        alt={props.personDetails.name}
+      />
     </div>
     <div className={css.personDetails__mainInfo}>
       <h4 className={css.mainInfo__name}>{props.personDetails.name}</h4>

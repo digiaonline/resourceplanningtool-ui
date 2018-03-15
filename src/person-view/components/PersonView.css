@@ -71,6 +71,11 @@
   background-size: cover;
 }
 
+.image {
+  max-width: 300px;
+  max-height: 300px;
+}
+
 .personDetails__mainInfo {
   padding: 30px 30px 0;
   composes: flexbox-sizing;
