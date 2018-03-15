@@ -92,9 +92,13 @@ class ProjectView extends Component {
         <div className={css.detail}>
           <div className={css.detail__title}>People in project</div>
           {Data.persons.map(item => (
-            <span key={item.id} className={css.members__view}>
+            <Link
+              to={`/people/${item.id}`}
+              key={item.id}
+              className={css.members__view}
+            >
               {item.name}
-            </span>
+            </Link>
           ))}
         </div>
         <div className={css.detail}>
@@ -119,7 +123,14 @@ class ProjectView extends Component {
         </div>
         <div className={css.detail}>
           <div className={css.detail__title}>In the news</div>
-          <p> News</p>
+          {Data.news.map(item => (
+            <div key={item.id}>
+              <h4>
+                {item.description ? `${item.description} :` : ''}{' '}
+                <a href={item.url}>{item.url}</a>
+              </h4>
+            </div>
+          ))}
         </div>
         <ProjectModal
           form={form}

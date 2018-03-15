@@ -52,6 +52,7 @@ class NewsForm extends Component {
               </div>
             );
           }
+          return <p>loading...</p>;
         })}
       </div>
     );
