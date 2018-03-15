@@ -110,20 +110,30 @@ export const fields = [
 export const hooks = {
   async onSuccess(form) {
     if (ProjectsStore.formName === 'Create project') {
+      //Create project
       await ProjectsStore.createProject(form.values());
       const id = ProjectsStore.newProjectId;
+
       form
         .values()
         .members.map(member =>
           ProjectsStore.addPersonToProject(id, member.name)
         );
+
       form
         .values()
         .technologies.map(tech =>
           ProjectsStore.addTechnologiesToProject(id, tech.name)
         );
       ProjectsStore.addProjectToCustomer(id, form.values().customer);
+
+      form
+        .values()
+        .newNews.map(newsId => ProjectsStore.addNewsToProject(id, newsId));
+
+      ProjectsStore.addProjectToCustomer(id, form.values().customer);
     } else {
+      //Edit project
       const id = ProjectsStore.projectId;
       const Data = ProjectsStore.projectData;
       ProjectsStore.updateProject(form.values());
@@ -134,6 +144,7 @@ export const hooks = {
       Data.technologies.map(tech =>
         ProjectsStore.removeTechnologyFromProject(id, tech.id)
       );
+      Data.news.map(item => ProjectsStore.removeNewsFromProject(id, item.id));
       ProjectsStore.removeProjectFromCustomer(id, Data.customer.id);
       //add new data
       form
@@ -146,6 +157,10 @@ export const hooks = {
         .technologies.map(tech =>
           ProjectsStore.addTechnologiesToProject(id, tech.name)
         );
+
+      form
+        .values()
+        .newNews.map(newsId => ProjectsStore.addNewsToProject(id, newsId));
       ProjectsStore.addProjectToCustomer(id, form.values().customer);
     }
   },
