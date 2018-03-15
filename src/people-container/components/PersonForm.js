@@ -66,13 +66,13 @@ class PersonForm extends Component {
           <h3 className={css.formContainer__h3}>
             {this.props.mode === 'edit' ? 'Edit Person' : 'Create Person'}
           </h3>
-          <div className={css.form__imageContainer}>
-            <div className={css.form__image}>
-              {/* image will go here */}
-              Load image
-            </div>
-          </div>
           <form>
+            <div className={css.form__imageContainer}>
+              <div className={css.form__image}>
+                {/* image will go here */}
+                Load image
+              </div>
+            </div>
             <div className={css.form__inputs}>
               <div className={css.inputs__column}>
                 <div className={css.form__field__first}>
