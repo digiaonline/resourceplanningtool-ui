@@ -1,6 +1,7 @@
 // @flow
 
 import React, {Component} from 'react';
+import {observable} from 'mobx';
 import Modal from 'react-modal';
 import Autocomplete from 'react-autocomplete';
 import css from './PersonForm.css';
@@ -12,12 +13,23 @@ import skillsStore from '../skills-store';
 
 @observer
 class PersonForm extends Component {
+  @observable previewImage = `http://${this.props.form.$('picture').value}`;
+
   componentWillMount() {
     Modal.setAppElement(document.body);
     if (skillsStore.skills.length === 0) {
       skillsStore.fetchSkills();
     }
   }
+  onChangeImage = event => {
+    const {form} = this.props;
+    form.$('file').set('value', event.target.files[0]);
+    const reader = new FileReader();
+    reader.onload = e => {
+      this.previewImage = e.target.result;
+    };
+    reader.readAsDataURL(event.target.files[0]);
+  };
   updateRadioInput = (event: Event) => {
     const {form} = this.props;
     form.$('new-skill-level').set('value', event.target.value);
@@ -52,6 +64,10 @@ class PersonForm extends Component {
   };
   render() {
     const {form} = this.props;
+    const imagePreview = {
+      backgroundImage: `url(${this.previewImage})`,
+      backgroundSize: 'contain',
+    };
     return (
       <Modal isOpen={this.props.isOpened} style={modalStyle}>
         <div className={css.buttonContainer}>
@@ -68,10 +84,13 @@ class PersonForm extends Component {
           </h3>
           <form>
             <div className={css.form__imageContainer}>
-              <div className={css.form__image}>
-                {/* image will go here */}
-                Load image
-              </div>
+              <div className={css.form__image} style={imagePreview} />
+              <input
+                className={css.form__imageInput}
+                type="file"
+                value=""
+                onChange={this.onChangeImage}
+              />
             </div>
             <div className={css.form__inputs}>
               <div className={css.inputs__column}>
@@ -205,7 +224,7 @@ class PersonForm extends Component {
               </div>
             </div>
             <div className={css.form__technologies}>
-              <h4 className={css.technologies__h4}>Technology</h4>
+              <h4 className={css.technologies__h4}>Skill</h4>
               <div className={css.technologies__fields}>
                 <div className={css.technologies__input}>
                   <label
@@ -306,7 +325,7 @@ class PersonForm extends Component {
                     onClick={this.addNewSkill}
                   >
                     <img src={addIcon} alt="" />
-                    <span>&nbsp;NEW TECHNOLOGY</span>
+                    <span>&nbsp;NEW SKILL</span>
                   </button>
                 </div>
               </div>

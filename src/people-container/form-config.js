@@ -3,6 +3,7 @@
 import validatorjs from 'validatorjs';
 import peopleStore from './people-store';
 import {filterArray} from '../utils';
+import {uploadImage, getImage} from '../utils/image';
 
 export const plugins = {
   dvr: validatorjs,
@@ -11,6 +12,7 @@ export const plugins = {
 export const hooks = {
   onSuccess(form: Object) {
     const initialsValue = form.initials();
+    // identifier which items from skills array have been added or removed
     const skillsChanged = filterArray(
       initialsValue.skills,
       form.values().skills
@@ -19,11 +21,30 @@ export const hooks = {
       removedSkills: skillsChanged.removedItems,
       addedSkills: skillsChanged.addedItems,
     });
-    console.log(filteredValues);
     if (initialsValue.name === '') {
-      peopleStore.createPerson(filteredValues);
+      if (form.values().file !== '') {
+        uploadImage(form.values().file)
+          .then(pictureId => getImage(pictureId))
+          .then(pictureUrl => {
+            peopleStore.createPerson(
+              Object.assign({}, filteredValues, {picture: pictureUrl})
+            );
+          });
+      } else {
+        peopleStore.createPerson(filteredValues);
+      }
     } else {
-      peopleStore.updatePerson(filteredValues);
+      if (form.values().file !== '') {
+        uploadImage(form.values().file)
+          .then(pictureId => getImage(pictureId))
+          .then(pictureUrl => {
+            peopleStore.updatePerson(
+              Object.assign({}, filteredValues, {picture: pictureUrl})
+            );
+          });
+      } else {
+        peopleStore.updatePerson(filteredValues);
+      }
     }
   },
 };
@@ -87,7 +108,7 @@ export const fields = [
   },
   {
     name: 'new-skill-name',
-    label: 'Technology',
+    label: 'Skill',
     type: 'text',
     placeholder: 'enter new skill here',
     rules: 'string',
@@ -106,5 +127,13 @@ export const fields = [
   {
     name: 'id',
     label: 'id',
+  },
+  {
+    name: 'picture',
+    label: 'picture',
+  },
+  {
+    name: 'file',
+    label: 'file',
   },
 ];
