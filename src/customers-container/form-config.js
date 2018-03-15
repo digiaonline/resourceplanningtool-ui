@@ -2,6 +2,7 @@
 
 import validatorjs from 'validatorjs';
 import customersStore from './customers-store';
+import {uploadImage, getImage} from '../utils/image';
 
 export const plugins = {
   dvr: validatorjs,
@@ -33,6 +34,11 @@ export const fields = [
     name: 'id',
     label: 'id',
   },
+  {
+    name: 'logo',
+    type: 'file',
+    label: 'logo',
+  },
 ];
 
 export const hooks = {
@@ -44,7 +50,17 @@ export const hooks = {
       initialsValue.url === '' &&
       initialsValue.industry === ''
     ) {
-      customersStore.createCustomer(form.values());
+      if (form.$('logo').files.length > 0) {
+        uploadImage(form.$('logo').files[0])
+          .then(logoId => getImage(logoId))
+          .then(logoUrl => {
+            customersStore.createCustomer(
+              Object.assign({}, form.values(), {logo: logoUrl})
+            );
+          });
+      } else {
+        customersStore.createCustomer(form.values());
+      }
     } else {
       customersStore.updateCustomer(form.values());
     }
