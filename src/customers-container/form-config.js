@@ -36,8 +36,11 @@ export const fields = [
   },
   {
     name: 'logo',
-    type: 'file',
     label: 'logo',
+  },
+  {
+    name: 'file',
+    label: 'file',
   },
 ];
 
@@ -50,8 +53,9 @@ export const hooks = {
       initialsValue.url === '' &&
       initialsValue.industry === ''
     ) {
-      if (form.$('logo').files.length > 0) {
-        uploadImage(form.$('logo').files[0])
+      console.log(form.$('logo'));
+      if (form.$('file').value !== '') {
+        uploadImage(form.$('file').value)
           .then(logoId => getImage(logoId))
           .then(logoUrl => {
             customersStore.createCustomer(

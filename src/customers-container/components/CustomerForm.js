@@ -1,23 +1,35 @@
 // @flow
 
 import React, {Component} from 'react';
+import {observable} from 'mobx';
 import {observer} from 'mobx-react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import css from './CustomerForm.css';
 import closeIcon from '../../assets/icon_close.svg';
-import {uploadImage, getImage} from '../../utils/image';
 
 @observer
 class CustomerForm extends Component {
+  @observable previewImage = `http://${this.props.form.$('logo').value}`;
+
   componentWillMount() {
     Modal.setAppElement(document.body);
   }
-  test = event => {
-    uploadImage(event.target.files[0]);
+  onChangeImage = event => {
+    const {form} = this.props;
+    form.$('file').set('value', event.target.files[0]);
+    const reader = new FileReader();
+    reader.onload = e => {
+      this.previewImage = e.target.result;
+    };
+    reader.readAsDataURL(event.target.files[0]);
   };
   render() {
     const {form} = this.props;
+    const imagePreview = {
+      backgroundImage: `url(${this.previewImage})`,
+      backgroundSize: 'contain',
+    };
     return (
       <Modal isOpen={this.props.isOpened} style={modalStyle}>
         <div className={css.buttonContainer}>
@@ -34,10 +46,13 @@ class CustomerForm extends Component {
           </h3>
           <form className={css.container__form} onSubmit={form.onSubmit}>
             <div className={css.form__imageContainer}>
-              <div className={css.form__image}>
-                {/* image will go here */}
-                <input {...form.$('logo').bind()} />
-              </div>
+              <div className={css.form__image} style={imagePreview} />
+              <input
+                className={css.form__imageInput}
+                type="file"
+                value=""
+                onChange={this.onChangeImage}
+              />
             </div>
             <div className={css.form__inputs}>
               <div className={css.form__field}>
