@@ -68,8 +68,8 @@ const ProjectModal = observer(({form, isOpen, closeModal}) => {
           </div>
           <div className={css.table__header}>
             <div className={css.table__title}>
-              PERSON
-              <img className={css.form__icon} src={sortIcon} alt="sort" />
+              PERSONS
+              {/*<img className={css.form__icon} src={sortIcon} alt="sort" />*/}
             </div>
             <img
               className={css.form__icon}

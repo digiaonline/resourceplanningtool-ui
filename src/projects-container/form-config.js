@@ -61,7 +61,6 @@ export const fields = [
   {
     name: 'member',
     label: 'person',
-    rules: 'required',
   },
   {
     name: 'members',
@@ -70,7 +69,6 @@ export const fields = [
   {
     name: 'usedTechnologies',
     label: 'Technologies',
-    rules: 'required',
   },
   {
     name: 'technologies',
