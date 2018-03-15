@@ -132,6 +132,8 @@ export const hooks = {
         .newNews.map(newsId => ProjectsStore.addNewsToProject(id, newsId));
 
       ProjectsStore.addProjectToCustomer(id, form.values().customer);
+      ProjectsStore.Redirect = true;
+      ProjectsStore.modalToggle();
     } else {
       //Edit project
       const id = ProjectsStore.projectId;
@@ -162,6 +164,7 @@ export const hooks = {
         .values()
         .newNews.map(newsId => ProjectsStore.addNewsToProject(id, newsId));
       ProjectsStore.addProjectToCustomer(id, form.values().customer);
+      ProjectsStore.modalToggle();
     }
   },
   onError(form) {
