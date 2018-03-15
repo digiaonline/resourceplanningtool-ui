@@ -48,7 +48,6 @@ export const hooks = {
   onSuccess(form: Object) {
     // get initial values of the form, to see if we are creating or updating modalStyle
     const initialsValue = form.initials();
-    console.log(form.values());
     if (
       initialsValue.name === '' &&
       initialsValue.url === '' &&
