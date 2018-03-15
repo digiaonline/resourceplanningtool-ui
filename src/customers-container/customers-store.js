@@ -2,6 +2,7 @@
 
 import {observable, action} from 'mobx';
 import axios from 'axios';
+import {uploadImage, getImage} from '../utils/image';
 import {
   FETCH_CUSTOMERS_QUERY,
   getCreateCustomerQuery,
@@ -41,6 +42,7 @@ class CustomersStore {
         customerInfo.industry,
         customerInfo.logo
       );
+      console.log(CREATE_CUSTOMER_QUERY);
       await this.makeHttpRequest(CREATE_CUSTOMER_QUERY);
       // TODO: proper notification to be implemented
       console.info('create customer successfully');
@@ -52,11 +54,9 @@ class CustomersStore {
   };
 
   @action
-  deleteCustomer = async (index: Number) => {
+  deleteCustomer = async (id: Number) => {
     try {
-      const DELETE_CUSTOMER_QUERY = getDeleteCustomerQuery(
-        this.customers[index].id
-      );
+      const DELETE_CUSTOMER_QUERY = getDeleteCustomerQuery(id);
       const response = await this.makeHttpRequest(DELETE_CUSTOMER_QUERY);
       if (response.removeCustomer) {
         this.fetchCustomers();

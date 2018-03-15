@@ -6,12 +6,16 @@ import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import css from './CustomerForm.css';
 import closeIcon from '../../assets/icon_close.svg';
+import {uploadImage, getImage} from '../../utils/image';
 
 @observer
 class CustomerForm extends Component {
   componentWillMount() {
     Modal.setAppElement(document.body);
   }
+  test = event => {
+    uploadImage(event.target.files[0]);
+  };
   render() {
     const {form} = this.props;
     return (
@@ -29,6 +33,12 @@ class CustomerForm extends Component {
             {this.props.mode === 'edit' ? 'Edit customer' : 'Add customer'}
           </h3>
           <form className={css.container__form} onSubmit={form.onSubmit}>
+            <div className={css.form__imageContainer}>
+              <div className={css.form__image}>
+                {/* image will go here */}
+                <input {...form.$('logo').bind()} />
+              </div>
+            </div>
             <div className={css.form__inputs}>
               <div className={css.form__field}>
                 <label htmlFor={form.$('name').id}>
