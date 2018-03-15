@@ -117,6 +117,30 @@ export const getRemoveProjectFromCustomerQuery = (
   }`;
 };
 
+export const getAddNewsToProjectQuery = (
+  project_id: Number,
+  news_id: Number
+) => {
+  return `mutation {
+    addNewsToProject(
+      project_id: ${project_id},
+      news_id: ${news_id}
+    )
+  }`;
+};
+
+export const getRemoveNewsFromProjectQuery = (
+  project_id: Number,
+  news_id: Number
+) => {
+  return `mutation {
+    removeNewsFromProject(
+      project_id: ${project_id},
+      news_id: ${news_id}
+    ) 
+  }`;
+};
+
 export const getCreateNewsQuery = (url: String, description: String) => {
   return `mutation {
     createNews(
@@ -156,6 +180,7 @@ export const PROJECT_QUERY = `{
     customer {id}
     technologies {id name}
     persons {id name}
+    news {id url description}
   }
 }`;
 

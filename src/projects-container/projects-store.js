@@ -14,6 +14,8 @@ import {
   getRemoveTechnologiesFromProjectQuery,
   getRemoveProjectFromCustomerQuery,
   getCreateNewsQuery,
+  getAddNewsToProjectQuery,
+  getRemoveNewsFromProjectQuery,
   ALL_PROJECTS_QUERY,
   PROJECT_QUERY,
   TECHNOLOGIES_QUERY,
@@ -119,8 +121,8 @@ class ProjectsStore {
   };
 
   @action
-  addPersonToProject = async (projectId, personId) => {
-    const query = getAddPersonToProjectQuery(projectId, personId);
+  addPersonToProject = async (project_id, person_id) => {
+    const query = getAddPersonToProjectQuery(project_id, person_id);
     try {
       await this.makeHttpRequest(query);
     } catch (error) {
@@ -129,8 +131,8 @@ class ProjectsStore {
   };
 
   @action
-  removePersonFromProject = async (projectId, personId) => {
-    const query = getRemovePersonfromProjectQuery(projectId, personId);
+  removePersonFromProject = async (project_id, person_id) => {
+    const query = getRemovePersonfromProjectQuery(project_id, person_id);
     try {
       await this.makeHttpRequest(query);
     } catch (error) {
@@ -139,8 +141,8 @@ class ProjectsStore {
   };
 
   @action
-  addTechnologiesToProject = async (projectId, technologyid) => {
-    const query = getAddTechnologiesToProjectQuery(projectId, technologyid);
+  addTechnologiesToProject = async (project_id, technology_id) => {
+    const query = getAddTechnologiesToProjectQuery(project_id, technology_id);
     try {
       await this.makeHttpRequest(query);
     } catch (error) {
@@ -149,10 +151,10 @@ class ProjectsStore {
   };
 
   @action
-  removeTechnologyFromProject = async (projectId, technologyid) => {
+  removeTechnologyFromProject = async (project_id, technology_id) => {
     const query = getRemoveTechnologiesFromProjectQuery(
-      projectId,
-      technologyid
+      project_id,
+      technology_id
     );
     try {
       await this.makeHttpRequest(query);
@@ -162,8 +164,8 @@ class ProjectsStore {
   };
 
   @action
-  addProjectToCustomer = async (projectId, customerId) => {
-    const query = getAddProjectToCustomerQuery(projectId, customerId);
+  addProjectToCustomer = async (project_id, customer_id) => {
+    const query = getAddProjectToCustomerQuery(project_id, customer_id);
     try {
       await this.makeHttpRequest(query);
     } catch (error) {
@@ -172,10 +174,21 @@ class ProjectsStore {
   };
 
   @action
-  removeProjectFromCustomer = async (projectId, customerId) => {
-    const query = getRemoveProjectFromCustomerQuery(projectId, customerId);
+  removeProjectFromCustomer = async (project_id, customer_id) => {
+    const query = getRemoveProjectFromCustomerQuery(project_id, customer_id);
     try {
       await this.makeHttpRequest(query);
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
+
+  @action
+  deleteProject = async id => {
+    const query = getDeleteProjectQuery(id);
+    try {
+      this.makeHttpRequest(query);
+      console.log('Deleting Complete');
     } catch (error) {
       console.log('error', error);
     }
@@ -194,17 +207,6 @@ class ProjectsStore {
   };
 
   @action
-  deleteProject = async id => {
-    const query = getDeleteProjectQuery(id);
-    try {
-      this.makeHttpRequest(query);
-      console.log('Deleting Complete');
-    } catch (error) {
-      console.log('error', error);
-    }
-  };
-
-  @action
   fetchNews = async () => {
     try {
       const response = await this.makeHttpRequest(ALL_NEWS_QUERY);
@@ -213,6 +215,27 @@ class ProjectsStore {
       console.log(error);
     }
   };
+
+  @action
+  addNewsToProject = async (project_id, news_id) => {
+    const query = getAddNewsToProjectQuery(project_id, news_id);
+    try {
+      await this.makeHttpRequest(query);
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
+
+  @action
+  removeNewsFromProject = async (project_id, news_id) => {
+    const query = getRemoveNewsFromProjectQuery(project_id, news_id);
+    try {
+      await this.makeHttpRequest(query);
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
+
   @action
   makeHttpRequest = async (queryString: String) => {
     try {
@@ -304,6 +327,7 @@ class ProjectsStore {
     const members = Data.persons.map(item => {
       return {name: item.id};
     });
+    const news = Data.news.map(item => item.id);
     form.$('name').set('value', Data.name);
     form.$('contactemail').set('value', Data.contactemail);
     form.$('customer').set('value', Data.customer.id);
@@ -314,6 +338,7 @@ class ProjectsStore {
     form.$('shortdescription').set('value', Data.shortdescription);
     form.$('technologies').set('value', technologies);
     form.$('members').set('value', members);
+    form.$('newNews').set('value', news);
     form.$('liveat').set('value', Data.liveat);
     form.$('githuburl').set('value', Data.githuburl);
   };
