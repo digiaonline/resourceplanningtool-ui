@@ -39,6 +39,7 @@
 .form__imageContainer {
   margin: 15px auto 20px;
   padding: 0;
+  display: flex;
 }
 
 .form__image {
@@ -47,7 +48,13 @@
   background: rgb(200, 200, 200);
   display: table-cell;
   text-align: center;
+  padding-top: 60px;
   vertical-align: middle;
+}
+
+.form__imageInput {
+  font-size: 12px;
+  margin: 20px;
 }
 
 .form__inputs {
