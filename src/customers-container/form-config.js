@@ -48,14 +48,14 @@ export const hooks = {
   onSuccess(form: Object) {
     // get initial values of the form, to see if we are creating or updating modalStyle
     const initialsValue = form.initials();
+    console.log(form.values());
     if (
       initialsValue.name === '' &&
       initialsValue.url === '' &&
       initialsValue.industry === ''
     ) {
-      console.log(form.$('logo'));
-      if (form.$('file').value !== '') {
-        uploadImage(form.$('file').value)
+      if (form.values().file) {
+        uploadImage(form.values().file)
           .then(logoId => getImage(logoId))
           .then(logoUrl => {
             customersStore.createCustomer(
@@ -66,7 +66,17 @@ export const hooks = {
         customersStore.createCustomer(form.values());
       }
     } else {
-      customersStore.updateCustomer(form.values());
+      if (form.values().file !== '') {
+        uploadImage(form.values().file)
+          .then(logoId => getImage(logoId))
+          .then(logoUrl => {
+            customersStore.updateCustomer(
+              Object.assign({}, form.values(), {logo: logoUrl})
+            );
+          });
+      } else {
+        customersStore.updateCustomer(form.values());
+      }
     }
   },
 };
