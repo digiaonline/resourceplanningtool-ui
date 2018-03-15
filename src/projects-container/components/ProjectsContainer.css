@@ -144,6 +144,18 @@
   margin: 0 0 4px 4px;
 }
 
+.no__project {
+  position: relative;
+  text-align: center;
+  color: white;
+  font-size: 28px;
+  font-weight: 800;
+  margin-top: 40px;
+}
+
+.filters__select {
+  color: black;
+}
 @media (max-width: 1550px) {
   .contanier {
     width: 1150px;

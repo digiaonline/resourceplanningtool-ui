@@ -1,6 +1,6 @@
 //@flow
 
-import {observable, action} from 'mobx';
+import {observable, action, computed} from 'mobx';
 import axios from 'axios';
 import form from './form-config';
 import {
@@ -32,6 +32,29 @@ class ProjectsStore {
   @observable formName = null;
   @observable projectData = [];
   @observable technologiesList = [];
+  @observable technologyFilter = '';
+  @observable statusFilter = '';
+
+  @computed
+  get filteredDataList() {
+    return this.Data
+      .filter(project => {
+        const technologies = project.technologies.map(tech => tech.name);
+        return (
+          !this.technologyFilter || technologies.includes(this.technologyFilter)
+        );
+      })
+      .filter(project => {
+        const isEmpty = this.statusFilter === '';
+        let FILTER;
+        if (this.statusFilter === 'true') {
+          FILTER = true;
+        } else if (this.statusFilter === 'false') {
+          FILTER = false;
+        }
+        return isEmpty || project.ongoing === FILTER;
+      });
+  }
 
   @action
   modalToggle = () => {
@@ -43,7 +66,6 @@ class ProjectsStore {
     const query = ALL_PROJECTS_QUERY;
     try {
       const response = await this.makeHttpRequest(query);
-      console.log(response);
       this.Data = response.listProjects;
     } catch (error) {
       return [];

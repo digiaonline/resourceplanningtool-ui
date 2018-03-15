@@ -2,25 +2,43 @@
 
 import React from 'react';
 import css from './ProjectsContainer.css';
+import ProjectsStore from '../projects-store';
+
+const selectedTechnology = e => {
+  ProjectsStore.technologyFilter = e.target.value;
+};
+
+const selectedStatus = e => {
+  ProjectsStore.statusFilter = e.target.value;
+};
 
 const Filters = () => (
   <div className={css.filters}>
     <div className={css.filter}>
-      <label htmlFor="x">Technology</label>
-      <select id="x">
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
+      <label htmlFor="technologies">Technology</label>
+      <select
+        className={css.filters__select}
+        id="technologies"
+        onChange={e => selectedTechnology(e)}
+      >
+        <option value="">All</option>
+        {ProjectsStore.technologiesList.map(tech => (
+          <option key={tech.id} value={tech.name}>
+            {tech.name}
+          </option>
+        ))}
       </select>
     </div>
     <div className={css.filter}>
-      <label htmlFor="y">Status</label>
-      <select id="y">
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
+      <label htmlFor="Status">Status</label>
+      <select
+        className={css.filters__select}
+        id="Status"
+        onChange={e => selectedStatus(e)}
+      >
+        <option value="">All</option>
+        <option value="true">On going</option>
+        <option value="false">Finished</option>
       </select>
     </div>
   </div>

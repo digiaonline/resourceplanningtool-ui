@@ -33,7 +33,7 @@ class ProjectsContainer extends Component {
             customers={CustomersStore.customers.length}
           />
           <Filters />
-          <Projrcts projects={ProjectsStore.Data} />
+          <Projrcts projects={ProjectsStore.filteredDataList} />
         </div>
       </div>
     );

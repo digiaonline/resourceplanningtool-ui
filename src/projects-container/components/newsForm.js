@@ -52,7 +52,7 @@ class NewsForm extends Component {
               </div>
             );
           }
-          return <p>loading...</p>;
+          return <p key={Math.random()}>loading...</p>;
         })}
       </div>
     );

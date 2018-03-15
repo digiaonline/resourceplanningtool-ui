@@ -137,7 +137,7 @@ export const getRemoveNewsFromProjectQuery = (
     removeNewsFromProject(
       project_id: ${project_id},
       news_id: ${news_id}
-    ) 
+    )
   }`;
 };
 
@@ -156,9 +156,10 @@ export const ALL_PROJECTS_QUERY = `query {
   listProjects {
     id
     name
-    description
+    shortdescription
     githuburl
     liveat
+    ongoing
     technologies {
       id
       name

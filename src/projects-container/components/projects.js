@@ -3,10 +3,13 @@ import {Link} from 'react-router-dom';
 import css from './ProjectsContainer.css';
 
 const Projects = ({projects}) => {
-  const Data = projects.map(item => {
-    return <Project key={item.id} Data={item} />;
-  });
-  return <div className={css.projects}>{Data}</div>;
+  if (projects.length > 0) {
+    const Data = projects.map(item => {
+      return <Project key={item.id} Data={item} />;
+    });
+    return <div className={css.projects}>{Data}</div>;
+  }
+  return <div className={css.no__project}>There is no matching project!!!</div>;
 };
 
 export default Projects;
@@ -22,9 +25,11 @@ const Project = ({Data}) => (
         <a href={Data.liveat}>Live</a>|
         <a href={Data.githuburl}>Github</a>
       </div>
-      <div className={css.projectDesciption}>{Data.description}</div>
+      <div className={css.projectDesciption}>{Data.shortdescription}</div>
       <div className={css.technologies}>
-        {Data.technologies.map((tech, i) => <span key={i}>{tech.name}</span>)}
+        {Data.technologies
+          .filter((tech, i) => i < 2)
+          .map((tech, i) => <span key={i}>{tech.name}</span>)}
       </div>
     </div>
   </div>
