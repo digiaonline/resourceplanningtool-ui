@@ -37,8 +37,8 @@ export const getUpdateCustomerQuery = (
   id: String,
   name: String,
   industry: String,
-  logo: String,
-  url: String
+  url: String,
+  logo: String
 ) => {
   return `mutation {
     updateCustomer(id: ${+id}, name: "${name}", industry: "${industry}",  url: "${url}", logo: "${logo}",)

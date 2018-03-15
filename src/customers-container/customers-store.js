@@ -75,7 +75,7 @@ class CustomersStore {
         customerInfo.name,
         customerInfo.industry,
         customerInfo.url,
-        ''
+        customerInfo.logo
       );
       const response = await this.makeHttpRequest(UPDATE_CUSTOMER_QUERY);
       if (response.updateCustomer) {
