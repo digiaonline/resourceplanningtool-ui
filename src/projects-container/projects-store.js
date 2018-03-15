@@ -34,6 +34,7 @@ class ProjectsStore {
   @observable technologiesList = [];
   @observable technologyFilter = '';
   @observable statusFilter = '';
+  @observable Redirect = false;
 
   @computed
   get filteredDataList() {

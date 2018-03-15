@@ -2,6 +2,7 @@
 
 import React from 'react';
 import {observer} from 'mobx-react';
+import {Redirect} from 'react-router-dom';
 import Modal from 'react-modal';
 import ProjectStore from '../../projects-container/projects-store';
 import PeopleStore from '../../people-container/people-store';
@@ -159,6 +160,9 @@ const ProjectModal = observer(({form, isOpen, closeModal}) => {
           </div>
         </form>
       </div>
+      {ProjectStore.Redirect && (
+        <Redirect to={`/projects/${ProjectStore.newProjectId}`} />
+      )}
     </Modal>
   );
 });

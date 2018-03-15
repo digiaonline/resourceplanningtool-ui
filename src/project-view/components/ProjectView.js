@@ -21,6 +21,7 @@ class ProjectView extends Component {
     PeopleStore.fetchPeople();
     CustomersStore.fetchCustomers();
     ProjectStore.form_name('Edit project');
+    ProjectStore.Redirect = false;
   }
 
   openModalAndPassData = () => {

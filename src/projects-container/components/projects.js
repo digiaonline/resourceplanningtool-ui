@@ -28,7 +28,7 @@ const Project = ({Data}) => (
       <div className={css.projectDesciption}>{Data.shortdescription}</div>
       <div className={css.technologies}>
         {Data.technologies
-          .filter((tech, i) => i < 2)
+          .filter((tech, i) => i < 3)
           .map((tech, i) => <span key={i}>{tech.name}</span>)}
       </div>
     </div>
