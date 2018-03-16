@@ -50,6 +50,12 @@
   align-content: start;
 }
 
+.customer__logo {
+  margin-bottom: 40px;
+  max-width: 200px;
+  max-height: 200px;
+}
+
 .customer__name {
   font-size: 34px;
   margin: 0 auto 80px;
