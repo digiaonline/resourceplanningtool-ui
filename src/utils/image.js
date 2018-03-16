@@ -20,6 +20,11 @@ const client = contentful.createClient({
 
 export async function uploadImage(file) {
   try {
+    // check if file is an image
+    if (file.type.split('/')[0] !== 'image') {
+      alert('Please choose an image');
+      throw Error('Should choose an image');
+    }
     const space = await sdkClient.getSpace(spaceId);
     const upload = await space.createUpload({
       file: file,
