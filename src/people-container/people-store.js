@@ -84,6 +84,7 @@ class PeopleStore {
     } catch (error) {
       console.log('cant create person', error);
     }
+    utilityStore.turnOffWaiting();
   };
 
   @action

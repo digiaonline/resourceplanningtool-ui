@@ -2,11 +2,10 @@
 
 import React from 'react';
 import Modal from 'react-modal';
-import utilityStore from '../utils/utility-store';
 import {PulseLoader} from 'react-spinners';
 
 const Loading = props => (
-  <Modal isOpen={utilityStore.isWaiting} style={waitingModalStyle}>
+  <Modal isOpen={props.isOpened} style={waitingModalStyle}>
     Please wait<PulseLoader color={'white'} />
   </Modal>
 );

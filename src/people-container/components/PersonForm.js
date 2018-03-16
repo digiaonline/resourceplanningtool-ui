@@ -7,6 +7,7 @@ import Autocomplete from 'react-autocomplete';
 import {PropTypes} from 'prop-types';
 import {observer} from 'mobx-react';
 
+import utilityStore from '../../utils/utility-store';
 import css from './PersonForm.css';
 import closeIcon from '../../assets/icon_close.svg';
 import addIcon from '../../assets/icon_add_b.svg';
@@ -367,7 +368,7 @@ class PersonForm extends Component {
             </div>
           </form>
         </div>
-        <Loading />
+        <Loading isOpened={utilityStore.isWaiting} />
       </Modal>
     );
   }

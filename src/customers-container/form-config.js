@@ -3,6 +3,7 @@
 import validatorjs from 'validatorjs';
 import customersStore from './customers-store';
 import {uploadImage, getImage} from '../utils/image';
+import utilityStore from '../utils/utility-store';
 
 export const plugins = {
   dvr: validatorjs,
@@ -46,6 +47,7 @@ export const fields = [
 
 export const hooks = {
   onSuccess(form: Object) {
+    utilityStore.turnOnWaiting();
     // get initial values of the form, to see if we are creating or updating modalStyle
     const initialsValue = form.initials();
     if (
