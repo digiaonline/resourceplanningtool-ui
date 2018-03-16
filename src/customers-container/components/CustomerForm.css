@@ -65,10 +65,10 @@
 
 .form__field {
   width: 30%;
-  height: 64px;
+  height: 100px;
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
+  margin: 20px auto;
 }
 
 .field__input {
@@ -77,6 +77,13 @@
   margin-top: 5px;
   background-color: rgba(220, 220, 220, 0.64);
   border: 1px solid rgba(100, 100, 100, 0.6);
+}
+
+.input__warning {
+  color: red;
+  margin: 5px 0;
+  font-size: 14px;
+  height: 20px;
 }
 
 .form__actions {

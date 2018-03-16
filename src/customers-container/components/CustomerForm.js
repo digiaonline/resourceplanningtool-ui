@@ -5,6 +5,8 @@ import {observable} from 'mobx';
 import {observer} from 'mobx-react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
+
+import Loading from '../../loading-component/LoadingComponent';
 import css from './CustomerForm.css';
 import closeIcon from '../../assets/icon_close.svg';
 
@@ -64,7 +66,7 @@ class CustomerForm extends Component {
                   className={css.field__input}
                 />
                 <p>
-                  <i>{form.$('name').error}</i>
+                  <i className={css.input__warning}>{form.$('name').error}</i>
                 </p>
               </div>
               <div className={css.form__field}>
@@ -73,7 +75,7 @@ class CustomerForm extends Component {
                 </label>
                 <input {...form.$('url').bind()} className={css.field__input} />
                 <p>
-                  <i>{form.$('url').error}</i>
+                  <i className={css.input__warning}>{form.$('url').error}</i>
                 </p>
               </div>
               <div className={css.form__field}>
@@ -85,7 +87,9 @@ class CustomerForm extends Component {
                   className={css.field__input}
                 />
                 <p>
-                  <i>{form.$('industry').error}</i>
+                  <i className={css.input__warning}>
+                    {form.$('industry').error}
+                  </i>
                 </p>
               </div>
             </div>
@@ -109,6 +113,7 @@ class CustomerForm extends Component {
             </div>
           </form>
         </div>
+        <Loading />
       </Modal>
     );
   }
