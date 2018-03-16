@@ -53,6 +53,11 @@ class CustomerView extends Component {
         <div className={css.container__customer}>
           <div>
             <h3 className={css.customer__name}> {customer.name} </h3>
+            <img
+              className={css.customer__logo}
+              src={`http://${customer.logo}`}
+              alt={customer.name}
+            />
             <div className={css.customer__rows}>
               <div className={css.column__row}>
                 <span className={css.row__tag}>Industry</span>
