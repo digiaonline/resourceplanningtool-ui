@@ -3,6 +3,7 @@
 import React, {Component} from 'react';
 import {observable} from 'mobx';
 import Modal from 'react-modal';
+import {PulseLoader} from 'react-spinners';
 import Autocomplete from 'react-autocomplete';
 import css from './PersonForm.css';
 import closeIcon from '../../assets/icon_close.svg';
@@ -10,6 +11,7 @@ import addIcon from '../../assets/icon_add_b.svg';
 import {PropTypes} from 'prop-types';
 import {observer} from 'mobx-react';
 import skillsStore from '../skills-store';
+import utilityStore from '../../utils/utility-store';
 
 @observer
 class PersonForm extends Component {
@@ -365,6 +367,9 @@ class PersonForm extends Component {
             </div>
           </form>
         </div>
+        <Modal isOpen={utilityStore.isWaiting} style={waitingModalStyle}>
+          Please wait<PulseLoader color={'white'} />
+        </Modal>
       </Modal>
     );
   }
@@ -385,6 +390,23 @@ const modalStyle = {
     maxHeight: '1000px',
     maxWidth: '1220px',
     margin: '100px auto auto',
+  },
+};
+
+const waitingModalStyle = {
+  overlay: {
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+  },
+  content: {
+    background: 'transparent',
+    color: 'white',
+    border: '0',
+    fontSize: '34px',
+    textAlign: 'center',
+    padding: '20px 30px',
+    maxWidth: '300px',
+    maxHeight: '200px',
+    margin: '150px auto auto',
   },
 };
 

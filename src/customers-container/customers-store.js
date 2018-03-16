@@ -2,7 +2,6 @@
 
 import {observable, action} from 'mobx';
 import axios from 'axios';
-import {uploadImage, getImage} from '../utils/image';
 import {
   FETCH_CUSTOMERS_QUERY,
   getCreateCustomerQuery,

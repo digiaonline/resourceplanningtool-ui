@@ -4,6 +4,7 @@ import {observable, action} from 'mobx';
 import axios from 'axios';
 import skillsStore from './skills-store';
 import {isEmpty} from '../utils';
+import utilityStore from '../utils/utility-store';
 import {
   FETCH_PEOPLE_QUERY,
   getCreatePersonQuery,
@@ -143,6 +144,7 @@ class PeopleStore {
     } catch (error) {
       console.log('cant update person', error);
     }
+    utilityStore.turnOffWaiting();
   };
 
   @action
