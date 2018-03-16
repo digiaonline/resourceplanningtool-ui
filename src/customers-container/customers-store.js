@@ -2,6 +2,7 @@
 
 import {observable, action} from 'mobx';
 import axios from 'axios';
+import utilityStore from '../utils/utility-store';
 import {
   FETCH_CUSTOMERS_QUERY,
   getCreateCustomerQuery,
@@ -50,6 +51,7 @@ class CustomersStore {
       // TODO: proper notification to be implemented
       console.info('cant create new customer');
     }
+    utilityStore.turnOffWaiting();
   };
 
   @action
@@ -86,6 +88,7 @@ class CustomersStore {
       // TODO: proper notification to be implemented
       console.warn('cant save customer');
     }
+    utilityStore.turnOffWaiting();
   };
 
   @action

@@ -6,6 +6,7 @@ import {observer} from 'mobx-react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 
+import utilityStore from '../../utils/utility-store';
 import Loading from '../../loading-component/LoadingComponent';
 import css from './CustomerForm.css';
 import closeIcon from '../../assets/icon_close.svg';
@@ -113,7 +114,7 @@ class CustomerForm extends Component {
             </div>
           </form>
         </div>
-        <Loading />
+        <Loading isOpened={utilityStore.isWaiting} />
       </Modal>
     );
   }

@@ -87,6 +87,7 @@ class PeopleStore {
       // TODO: proper notification to be implemented
       console.warn('cant create person', error);
     }
+    utilityStore.turnOffWaiting();
   };
 
   @action
