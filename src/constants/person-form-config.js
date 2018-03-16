@@ -4,6 +4,7 @@ import validatorjs from 'validatorjs';
 import peopleStore from '../people-container/people-store';
 import {filterArray} from '../utils';
 import {uploadImage, getImage} from '../utils/image';
+import utilityStore from '../utils/utility-store';
 
 export const plugins = {
   dvr: validatorjs,
@@ -11,6 +12,7 @@ export const plugins = {
 
 export const hooks = {
   onSuccess(form: Object) {
+    utilityStore.turnOnWaiting();
     const initialsValue = form.initials();
     // identifier which items from skills array have been added or removed
     const skillsChanged = filterArray(
