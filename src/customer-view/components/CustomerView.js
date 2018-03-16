@@ -2,6 +2,7 @@
 
 import React, {Component} from 'react';
 import {observer} from 'mobx-react';
+import {Link} from 'react-router-dom';
 import CustomerForm from '../../customers-container/components/CustomerForm';
 import css from './CustomerView.css';
 import deleteIcon from '../../assets/icon_delete.svg';
@@ -46,9 +47,9 @@ class CustomerView extends Component {
     }
     return (
       <div className={css.container}>
-        <button type="button" className={css.container__backButton}>
-          <img src={backIcon} alt="" /> <span>&nbsp; BACK </span>
-        </button>
+        <Link className={css.container__backButton} to="/people">
+          <img src={backIcon} alt="back" /> <span>&nbsp;BACK </span>
+        </Link>
         <div className={css.container__customer}>
           <div>
             <h3 className={css.customer__name}> {customer.name} </h3>

@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
 import {observer} from 'mobx-react';
 import {Link} from 'react-router-dom';
-import ProjectStore from '../../projects-container/store';
-import form from '../../projects-container/form';
+import Confirm from 'react-confirm-bootstrap';
+import ProjectStore from '../../projects-container/projects-store';
+import PeopleStore from '../../people-container/people-store';
+import CustomersStore from '../../customers-container/customers-store';
+import form from '../../projects-container/form-config';
 import ProjectModal from '../../projects-container/components/projectModal';
 import css from './ProjectView.css';
 import backIcon from '../../assets/icon_arrow_back.svg';
@@ -13,14 +16,23 @@ import editIcon from '../../assets/icon_edit.svg';
 class ProjectView extends Component {
   componentWillMount() {
     ProjectStore.fetchProject(this.props.match.params.id);
+    ProjectStore.fetchTechnologies();
+    ProjectStore.fetchNews();
+    PeopleStore.fetchPeople();
+    CustomersStore.fetchCustomers();
+    ProjectStore.form_name('Edit project');
+    ProjectStore.Redirect = false;
   }
 
-  convertDate(date) {
-    const time = new Date(date);
-    const month = time.getMonth() + 1;
-    const year = time.getFullYear();
-    return `${month}-${year}`;
-  }
+  openModalAndPassData = () => {
+    ProjectStore.modalToggle();
+    ProjectStore.updateForm();
+  };
+
+  onConfirm = () => {
+    ProjectStore.deleteProject(this.props.match.params.id);
+    this.props.history.push('/projects');
+  };
 
   render() {
     if (!ProjectStore.projectData.name) {
@@ -36,11 +48,19 @@ class ProjectView extends Component {
         <div className={css.project__heading}>
           <div className={css.project__title}>{Data.name}</div>
           <div className={css.project__buttons}>
-            <div>
-              <img src={deleteIcon} alt="delete" />
-              <span>DELETE</span>
-            </div>
-            <div onClick={ProjectStore.modalToggle}>
+            <Confirm
+              onConfirm={this.onConfirm}
+              body="Are you sure you want to delete this?"
+              confirmBSStyle="danger"
+              confirmText="Confirm Delete"
+              title="Delete project"
+            >
+              <div>
+                <img src={deleteIcon} alt="delete" />
+                <span>Delete</span>
+              </div>
+            </Confirm>
+            <div onClick={this.openModalAndPassData}>
               <img src={editIcon} alt="EDIT" />
               <span>EDIT</span>
             </div>
@@ -49,24 +69,20 @@ class ProjectView extends Component {
         <div className={css.general__details}>
           <div className={css.details}>
             <div className={css.detail__row}>
-              <span>Sub-project</span>
-              subProject name
-            </div>
-            <div className={css.detail__row}>
               <span>Customer email</span>
               {Data.contactemail}
             </div>
             <div className={css.detail__row}>
               <span>Start time</span>
-              {this.convertDate(Data.starttime)}
+              {ProjectStore.convertDate(Data.starttime)}
             </div>
             <div className={css.detail__row}>
               <span>End time</span>
-              {this.convertDate(Data.endtime)}
+              {ProjectStore.convertDate(Data.endtime)}
             </div>
             <div className={css.detail__row}>
               <span>Project on-going</span>
-              {Data.ongoing ? 'Yes' : 'No'}
+              {Data.ongoing ? 'Yes' : 'Finished'}
             </div>
           </div>
           <div>
@@ -76,11 +92,23 @@ class ProjectView extends Component {
         </div>
         <div className={css.detail}>
           <div className={css.detail__title}>People in project</div>
-          <p> people</p>
+          {Data.persons.map(item => (
+            <Link
+              to={`/people/${item.id}`}
+              key={item.id}
+              className={css.members__view}
+            >
+              {item.name}
+            </Link>
+          ))}
         </div>
         <div className={css.detail}>
           <div className={css.detail__title}>Core technologies</div>
-          <p> technologies</p>
+          {Data.technologies.map(item => (
+            <span key={item.id} className={css.technologies__view}>
+              {item.name}
+            </span>
+          ))}
         </div>
         <div className={css.detail}>
           <div className={css.detail__title}>Live at</div>
@@ -96,13 +124,18 @@ class ProjectView extends Component {
         </div>
         <div className={css.detail}>
           <div className={css.detail__title}>In the news</div>
-          <p> News</p>
+          {Data.news.map(item => (
+            <div key={item.id}>
+              <h4>
+                {item.description ? `${item.description} :` : ''}{' '}
+                <a href={item.url}>{item.url}</a>
+              </h4>
+            </div>
+          ))}
         </div>
         <ProjectModal
           form={form}
           closeModal={ProjectStore.modalToggle}
-          modalName="Edit Project"
-          values={Data}
           isOpen={ProjectStore.isOpen}
         />
       </div>

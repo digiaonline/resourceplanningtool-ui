@@ -149,14 +149,13 @@
 
 .form__icon {
   float: right;
-  margin: 10.5px 0;
+  margin: 9.5px 0;
   cursor: pointer;
 }
 
 .table__item {
   font-size: 16px;
   font-weight: normal;
-  height: 45px;
   line-height: 43px;
   border-bottom: 1px solid lightgray;
 }
@@ -178,7 +177,6 @@
 
 .remove__tech {
   position: relative;
-  top: 5.5px;
   margin-left: 24px;
   cursor: pointer;
 }
@@ -230,6 +228,8 @@
   width: 60px;
   justify-content: space-between;
   cursor: pointer;
+  background: white;
+  border: none;
 }
 
 .helper {
@@ -239,6 +239,8 @@
 .select {
   --styled-select__background-color: #eee;
   --styled-select__border-color: lightgray;
+  --styled-select-placeholder__padding: 7px 10px;
+  --styled-select-input__padding: 8px;
   margin-top: 4px;
 }
 
@@ -331,5 +333,14 @@
 
   .inputGroup .input {
     padding: 12px 0px 12px 8px;
+  }
+
+  .news__url {
+    flex-direction: column;
+  }
+
+  .news__url .input__section {
+    width: 100%;
+    margin-top: 8px;
   }
 }

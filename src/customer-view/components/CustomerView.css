@@ -34,8 +34,11 @@
 .container__backButton {
   composes: button;
   border: 0 solid rgba(255, 255, 255, 0);
-  padding: 0;
+  padding: 15px 0;
+  text-decoration: none;
   text-align: left;
+  display: inline-flex;
+  width: 100px;
 }
 
 .container__customer {

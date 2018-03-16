@@ -86,6 +86,16 @@
   overflow: auto;
 }
 
+.members__view {
+  margin-right: 8px;
+  color: #337ab7;
+  cursor: pointer;
+}
+
+.technologies__view {
+  margin-right: 8px;
+}
+
 @media (max-width: 1250px) {
   .Modal {
     width: 85%;
