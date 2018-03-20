@@ -1,6 +1,8 @@
 import MobxReactForm from 'mobx-react-form';
 import ProjectsStore from './projects-store';
+import {uploadImage, getImage} from '../utils/image';
 import validatorjs from 'validatorjs';
+import utilityStore from '../utils/utility-store';
 
 export const plugins = {dvr: validatorjs};
 
@@ -36,7 +38,7 @@ export const fields = [
     name: 'endtime',
     label: 'End time (apprx)',
     type: 'month',
-    rules: 'required|date|after:starttime',
+    rules: 'date|after:starttime',
   },
   {
     name: 'ongoing',
@@ -78,13 +80,13 @@ export const fields = [
     name: 'liveat',
     label: 'Live at',
     placeholder: 'URL',
-    rules: 'required|url',
+    rules: 'url',
   },
   {
     name: 'githuburl',
     label: 'Github',
     placeholder: 'URL',
-    rules: 'required|url',
+    rules: 'url',
   },
   {
     name: 'newsLink',
@@ -103,12 +105,27 @@ export const fields = [
     name: 'newNews',
     value: [],
   },
+  {
+    name: 'picture',
+    value: '',
+  },
+  {
+    name: 'file',
+    value: '',
+  },
 ];
 
 export const hooks = {
   async onSuccess(form) {
     if (ProjectsStore.formName === 'Create project') {
       //Create project
+      if (form.values().file) {
+        utilityStore.turnOnWaiting();
+        await uploadImage(form.values().file)
+          .then(pictureId => getImage(pictureId))
+          .then(pictureUrl => (ProjectsStore.pictureUrl = pictureUrl));
+      }
+
       await ProjectsStore.createProject(form.values());
       const id = ProjectsStore.newProjectId;
 
@@ -130,10 +147,18 @@ export const hooks = {
         .newNews.map(newsId => ProjectsStore.addNewsToProject(id, newsId));
 
       ProjectsStore.addProjectToCustomer(id, form.values().customer);
+      utilityStore.turnOffWaiting();
       ProjectsStore.Redirect = true;
       ProjectsStore.modalToggle();
     } else {
       //Edit project
+      if (form.values().file) {
+        utilityStore.turnOnWaiting();
+        await uploadImage(form.values().file)
+          .then(pictureId => getImage(pictureId))
+          .then(pictureUrl => (ProjectsStore.pictureUrl = pictureUrl));
+      }
+
       const id = ProjectsStore.projectId;
       const Data = ProjectsStore.projectData;
       ProjectsStore.updateProject(form.values());
@@ -162,6 +187,7 @@ export const hooks = {
         .values()
         .newNews.map(newsId => ProjectsStore.addNewsToProject(id, newsId));
       ProjectsStore.addProjectToCustomer(id, form.values().customer);
+      utilityStore.turnOffWaiting();
       ProjectsStore.modalToggle();
     }
   },
