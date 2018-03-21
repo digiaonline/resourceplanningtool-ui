@@ -19,7 +19,9 @@ export const getCreateProjectQuery = (
   contactemail: String
 ) => {
   return `mutation {
-    createProject(picture: "${picture}", starttime: ${starttime}, endtime: ${endtime}, ongoing: ${ongoing}, shortdescription: "${shortdescription}",
+    createProject(picture: "${picture}", starttime: ${starttime}, endtime: ${endtime
+  ? endtime
+  : 0}, ongoing: ${ongoing}, shortdescription: "${shortdescription}",
                   liveat: "${liveat}", githuburl: "${githuburl}", name: "${name}", description: "${description}", contactemail: "${contactemail}") {
       id
     }
@@ -40,7 +42,9 @@ export const getUpdateProjectQuery = (
   contactemail: String
 ) => {
   return `mutation {
-    updateProject(id: ${+id}, picture: "${picture}", starttime: ${starttime}, endtime: ${endtime}, ongoing: ${ongoing}, shortdescription: "${shortdescription}",
+    updateProject(id: ${+id}, picture: "${picture}", starttime: ${starttime}, endtime: ${endtime
+  ? endtime
+  : 0}, ongoing: ${ongoing}, shortdescription: "${shortdescription}",
                   liveat: "${liveat}", githuburl: "${githuburl}", name: "${name}", description: "${description}", contactemail: "${contactemail}")
   }`;
 };
@@ -155,6 +159,7 @@ export const getCreateNewsQuery = (url: String, description: String) => {
 export const ALL_PROJECTS_QUERY = `query {
   listProjects {
     id
+    picture
     name
     shortdescription
     githuburl
@@ -170,6 +175,7 @@ export const ALL_PROJECTS_QUERY = `query {
 export const PROJECT_QUERY = `{
     id
     name
+    picture
     starttime
     endtime
     ongoing

@@ -152,11 +152,16 @@ export const hooks = {
       ProjectsStore.modalToggle();
     } else {
       //Edit project
-      if (form.values().file) {
-        utilityStore.turnOnWaiting();
-        await uploadImage(form.values().file)
-          .then(pictureId => getImage(pictureId))
-          .then(pictureUrl => (ProjectsStore.pictureUrl = pictureUrl));
+      console.log(!ProjectsStore.pictureUrl);
+      if (!ProjectsStore.pictureUrl) {
+        if (form.values().file) {
+          utilityStore.turnOnWaiting();
+          await uploadImage(form.values().file)
+            .then(pictureId => getImage(pictureId))
+            .then(pictureUrl => (ProjectsStore.pictureUrl = pictureUrl));
+        } else {
+          ProjectsStore.pictureUrl = '';
+        }
       }
 
       const id = ProjectsStore.projectId;

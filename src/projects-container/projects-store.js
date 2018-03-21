@@ -35,6 +35,7 @@ class ProjectsStore {
   @observable technologyFilter = '';
   @observable statusFilter = '';
   @observable Redirect = false;
+  @observable pictureUrl = '';
 
   @computed
   get filteredDataList() {
@@ -99,7 +100,7 @@ class ProjectsStore {
   @action
   createProject = async (progectInfo: object) => {
     const query = getCreateProjectQuery(
-      '',
+      this.pictureUrl,
       new Date(progectInfo.starttime).getTime() / 1000.0,
       new Date(progectInfo.endtime).getTime() / 1000.0,
       progectInfo.ongoing,
@@ -123,7 +124,7 @@ class ProjectsStore {
   updateProject = async (progectInfo: object) => {
     const query = getUpdateProjectQuery(
       this.projectId,
-      '',
+      this.pictureUrl,
       new Date(progectInfo.starttime).getTime() / 1000.0,
       new Date(progectInfo.endtime).getTime() / 1000.0,
       progectInfo.ongoing,
@@ -134,6 +135,7 @@ class ProjectsStore {
       progectInfo.description,
       progectInfo.contactemail
     );
+    console.log(query);
     try {
       await this.makeHttpRequest(query);
       this.fetchProject(this.projectId);
@@ -333,6 +335,8 @@ class ProjectsStore {
     form.$('customer').set('value', '');
     form.$('starttime').set('value', '');
     form.$('endtime').set('value', '');
+    form.$('picture').set('value', '');
+    form.$('file').set('value', '');
     form.$('ongoing').set('value', false);
     form.$('description').set('value', '');
     form.$('shortdescription').set('value', '');
@@ -357,6 +361,8 @@ class ProjectsStore {
     form.$('customer').set('value', Data.customer.id);
     form.$('starttime').set('value', this.convertDate(Data.starttime));
     form.$('endtime').set('value', this.convertDate(Data.endtime));
+    form.$('picture').set('value', Data.picture);
+    form.$('file').set('value', '');
     form.$('ongoing').set('value', Data.ongoing);
     form.$('description').set('value', Data.description);
     form.$('shortdescription').set('value', Data.shortdescription);
@@ -365,6 +371,7 @@ class ProjectsStore {
     form.$('newNews').set('value', news);
     form.$('liveat').set('value', Data.liveat);
     form.$('githuburl').set('value', Data.githuburl);
+    this.pictureUrl = Data.picture;
   };
 
   convertDate(date) {
