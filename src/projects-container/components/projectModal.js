@@ -4,6 +4,7 @@ import React, {Component} from 'react';
 import {observer} from 'mobx-react';
 import {observable} from 'mobx';
 import {Redirect} from 'react-router-dom';
+import {PropTypes} from 'prop-types';
 import Modal from 'react-modal';
 import ProjectStore from '../../projects-container/projects-store';
 import PeopleStore from '../../people-container/people-store';
@@ -18,7 +19,7 @@ import sortIcon from '../../assets/icon_arrow_up.svg';
 import deleteIcon from '../../assets/icon_delete.svg';
 
 const ProjectModal = observer(({form, isOpen, closeModal}) => {
-  const onsubmit = e => {
+  const onsubmit = (e: Object) => {
     form.onSubmit(e);
     ProjectStore.fetchAllProject();
   };
@@ -83,7 +84,7 @@ const ProjectModal = observer(({form, isOpen, closeModal}) => {
               onClick={ProjectStore.removeAllMembers}
             />
           </div>
-          {form.$('members').value.map((item, i) => {
+          {form.$('members').value.map((item: Object, i: Number) => {
             // get name from the id in store
             const personName = PeopleStore.people.filter(({id, name}) => {
               return id === item.name;
@@ -179,7 +180,7 @@ export default ProjectModal;
 export class Image extends Component {
   @observable previewImage = `http://${this.props.form.$('picture').value}`;
 
-  onChangeImage = event => {
+  onChangeImage = (event: Object) => {
     const {form} = this.props;
     form.$('file').set('value', event.target.files[0]);
     const reader = new FileReader();
@@ -231,3 +232,13 @@ export class Image extends Component {
     );
   }
 }
+
+ProjectModal.propTypes = {
+  form: PropTypes.object.isRequired,
+  isOpen: PropTypes.bool.isRequired,
+  closeModal: PropTypes.func.isRequired,
+};
+
+Image.propTypes = {
+  form: PropTypes.object.isRequired,
+};

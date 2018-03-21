@@ -1,10 +1,13 @@
+//@flow
+
 import React from 'react';
+import {PropTypes} from 'prop-types';
 import {Link} from 'react-router-dom';
 import css from './ProjectsContainer.css';
 
 const Projects = ({projects}) => {
   if (projects.length > 0) {
-    const Data = projects.map(item => {
+    const Data = projects.map((item: object) => {
       return <Project key={item.id} Data={item} />;
     });
     return <div className={css.projects}>{Data}</div>;
@@ -37,9 +40,17 @@ const Project = ({Data}) => (
       <div className={css.projectDesciption}>{Data.shortdescription}</div>
       <div className={css.technologies}>
         {Data.technologies
-          .filter((tech, i) => i < 3)
+          .filter((tech: Object, i: Number) => i < 3)
           .map((tech, i) => <span key={i}>{tech.name}</span>)}
       </div>
     </div>
   </div>
 );
+
+Projects.propsTypes = {
+  projects: PropTypes.object.isRequired,
+};
+
+Project.propsTypes = {
+  Data: PropTypes.object.isRequired,
+};

@@ -1,3 +1,5 @@
+//@flow
+
 import React, {Component} from 'react';
 import {observer} from 'mobx-react';
 import ProjectStore from '../../projects-container/projects-store';
@@ -9,7 +11,7 @@ import deleteIcon from '../../assets/icon_delete.svg';
 
 @observer
 class NewsForm extends Component {
-  onSubmit = async e => {
+  onSubmit = async (e: object) => {
     e.preventDefault();
     const newsLink = form.$('newsLink');
     const description = form.$('newsDescription');
@@ -34,7 +36,7 @@ class NewsForm extends Component {
             <img src={addIcon} alt="add" /> <span>ADD</span>
           </button>
         </div>
-        {form.$('newNews').value.map((item, i) => {
+        {form.$('newNews').value.map((item: Object, i: Number) => {
           const news = ProjectStore.allNews.filter(({id, url, description}) => {
             return id === item;
           });

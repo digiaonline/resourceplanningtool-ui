@@ -2,6 +2,7 @@
 
 import React from 'react';
 import {observer} from 'mobx-react';
+import {PropTypes} from 'prop-types';
 import ProjectStore from '../projects-store';
 import ProjectModal from './projectModal';
 import form from '../form-config';
@@ -38,3 +39,9 @@ const Heading = observer(({projects, members, customers}) => {
 });
 
 export default Heading;
+
+Heading.propTypes = {
+  projects: PropTypes.number.isRequired,
+  members: PropTypes.number.isRequired,
+  customers: PropTypes.number.isRequired,
+};

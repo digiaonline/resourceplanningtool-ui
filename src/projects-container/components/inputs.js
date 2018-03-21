@@ -1,5 +1,8 @@
+//@flow
+
 import React from 'react';
 import {observer} from 'mobx-react';
+import {PropTypes} from 'prop-types';
 import css from './projectModal.css';
 import Select from 'react-styled-select';
 
@@ -36,7 +39,7 @@ export const Textarea = observer(({field}) => (
 
 export const SELECT = observer(({field, addTo, option, showValue}) => {
   const options = option
-    ? option.map(item => {
+    ? option.map((item: Object) => {
       const id = item.id ? item.id : Math.random();
       return {value: id, label: item.name};
     })
@@ -61,3 +64,22 @@ export const SELECT = observer(({field, addTo, option, showValue}) => {
     </div>
   );
 });
+
+Input.propTypes = {
+  field: PropTypes.object.isRequired,
+};
+
+InputCheckbox.propTypes = {
+  field: PropTypes.object.isRequired,
+};
+
+Textarea.propTypes = {
+  field: PropTypes.object.isRequired,
+};
+
+SELECT.propTypes = {
+  field: PropTypes.object.isRequired,
+  addTo: PropTypes.func,
+  option: PropTypes.object.isRequired,
+  showValue: PropTypes.bool,
+};
