@@ -75,7 +75,7 @@ class ProjectsStore {
   };
 
   @action
-  fetchProject = async id => {
+  fetchProject = async (id: Number) => {
     this.projectId = id;
     const query = ` query { project (id: ${this.projectId}) ${PROJECT_QUERY}`;
     try {
@@ -98,7 +98,7 @@ class ProjectsStore {
   };
 
   @action
-  createProject = async (progectInfo: object) => {
+  createProject = async (progectInfo: Object) => {
     const query = getCreateProjectQuery(
       this.pictureUrl,
       new Date(progectInfo.starttime).getTime() / 1000.0,
@@ -121,7 +121,7 @@ class ProjectsStore {
   };
 
   @action
-  updateProject = async (progectInfo: object) => {
+  updateProject = async (progectInfo: Object) => {
     const query = getUpdateProjectQuery(
       this.projectId,
       this.pictureUrl,
@@ -145,7 +145,7 @@ class ProjectsStore {
   };
 
   @action
-  addPersonToProject = async (project_id, person_id) => {
+  addPersonToProject = async (project_id: Number, person_id: Number) => {
     const query = getAddPersonToProjectQuery(project_id, person_id);
     try {
       await this.makeHttpRequest(query);
@@ -155,7 +155,7 @@ class ProjectsStore {
   };
 
   @action
-  removePersonFromProject = async (project_id, person_id) => {
+  removePersonFromProject = async (project_id: Number, person_id: Number) => {
     const query = getRemovePersonfromProjectQuery(project_id, person_id);
     try {
       await this.makeHttpRequest(query);
@@ -165,7 +165,10 @@ class ProjectsStore {
   };
 
   @action
-  addTechnologiesToProject = async (project_id, technology_id) => {
+  addTechnologiesToProject = async (
+    project_id: Number,
+    technology_id: Number
+  ) => {
     const query = getAddTechnologiesToProjectQuery(project_id, technology_id);
     try {
       await this.makeHttpRequest(query);
@@ -175,7 +178,10 @@ class ProjectsStore {
   };
 
   @action
-  removeTechnologyFromProject = async (project_id, technology_id) => {
+  removeTechnologyFromProject = async (
+    project_id: Number,
+    technology_id: Number
+  ) => {
     const query = getRemoveTechnologiesFromProjectQuery(
       project_id,
       technology_id
@@ -188,7 +194,7 @@ class ProjectsStore {
   };
 
   @action
-  addProjectToCustomer = async (project_id, customer_id) => {
+  addProjectToCustomer = async (project_id: Number, customer_id: Number) => {
     const query = getAddProjectToCustomerQuery(project_id, customer_id);
     try {
       await this.makeHttpRequest(query);
@@ -198,7 +204,10 @@ class ProjectsStore {
   };
 
   @action
-  removeProjectFromCustomer = async (project_id, customer_id) => {
+  removeProjectFromCustomer = async (
+    project_id: Number,
+    customer_id: Number
+  ) => {
     const query = getRemoveProjectFromCustomerQuery(project_id, customer_id);
     try {
       await this.makeHttpRequest(query);
@@ -208,7 +217,7 @@ class ProjectsStore {
   };
 
   @action
-  deleteProject = async id => {
+  deleteProject = async (id: Number) => {
     const query = getDeleteProjectQuery(id);
     try {
       this.makeHttpRequest(query);
@@ -219,7 +228,7 @@ class ProjectsStore {
   };
 
   @action
-  createNews = async (url, description) => {
+  createNews = async (url: String, description: String) => {
     const query = getCreateNewsQuery(url, description);
     try {
       const response = await this.makeHttpRequest(query);
@@ -241,7 +250,7 @@ class ProjectsStore {
   };
 
   @action
-  addNewsToProject = async (project_id, news_id) => {
+  addNewsToProject = async (project_id: Number, news_id: Number) => {
     const query = getAddNewsToProjectQuery(project_id, news_id);
     try {
       await this.makeHttpRequest(query);
@@ -251,7 +260,7 @@ class ProjectsStore {
   };
 
   @action
-  removeNewsFromProject = async (project_id, news_id) => {
+  removeNewsFromProject = async (project_id: Number, news_id: Number) => {
     const query = getRemoveNewsFromProjectQuery(project_id, news_id);
     try {
       await this.makeHttpRequest(query);
@@ -264,7 +273,7 @@ class ProjectsStore {
   makeHttpRequest = async (queryString: String) => {
     try {
       const response = await axios.post(
-        'http://10.5.0.177:3002/skillz',
+        'http://ec2-13-59-1-119.us-east-2.compute.amazonaws.com:3002/skillz',
         queryString,
         {
           headers: {

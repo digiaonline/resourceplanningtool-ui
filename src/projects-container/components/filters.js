@@ -4,11 +4,11 @@ import React from 'react';
 import css from './ProjectsContainer.css';
 import ProjectsStore from '../projects-store';
 
-const selectedTechnology = e => {
+const selectedTechnology = (e: Object) => {
   ProjectsStore.technologyFilter = e.target.value;
 };
 
-const selectedStatus = e => {
+const selectedStatus = (e: Object) => {
   ProjectsStore.statusFilter = e.target.value;
 };
 
@@ -22,7 +22,7 @@ const Filters = () => (
         onChange={e => selectedTechnology(e)}
       >
         <option value="">All</option>
-        {ProjectsStore.technologiesList.map(tech => (
+        {ProjectsStore.technologiesList.map((tech: Object) => (
           <option key={tech.id} value={tech.name}>
             {tech.name}
           </option>
