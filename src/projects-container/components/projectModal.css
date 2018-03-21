@@ -269,6 +269,42 @@
   overflow: auto;
 }
 
+.image__container{
+  height: 240px;
+  width: 180px;
+  background-color: lightgray;
+  position: relative;
+}
+
+.input__file{
+  visibility: hidden;
+}
+
+.label__file{
+  color: #14688f;
+  position: relative;
+  top: -132px;
+  left: 44px;
+  cursor: pointer;
+  font-weight: bold;
+  z-index: 1;
+}
+
+.uploud__image{
+  position: relative;
+  height: 100%;
+  max-width: 360px;
+  z-index: 2;
+}
+
+.delete__image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 4;
+  background-color: white;
+  cursor: pointer;
+}
 @media (max-width: 1250px) {
   .Modal {
     width: 85%;

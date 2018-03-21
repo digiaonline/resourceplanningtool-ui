@@ -16,6 +16,15 @@ export default Projects;
 
 const Project = ({Data}) => (
   <div className={css.project}>
+    {Data.picture && (
+      <Link to={`/projects/${Data.id}`}>
+        <img
+          className={css.project__picture}
+          src={`http://${Data.picture}`}
+          alt={Data.name}
+        />
+      </Link>
+    )}
     <div className={css.projectDetails}>
       <Link to={`/projects/${Data.id}`} className={css.projectName}>
         {Data.name}

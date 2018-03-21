@@ -1,14 +1,17 @@
 //@flow
 
-import React from 'react';
+import React, {Component} from 'react';
 import {observer} from 'mobx-react';
+import {observable} from 'mobx';
 import {Redirect} from 'react-router-dom';
 import Modal from 'react-modal';
 import ProjectStore from '../../projects-container/projects-store';
 import PeopleStore from '../../people-container/people-store';
 import CustomersStore from '../../customers-container/customers-store';
+import utilityStore from '../../utils/utility-store';
 import {Input, InputCheckbox, Textarea, SELECT} from './inputs';
 import NewsForm from './newsForm';
+import Loading from '../../loading-component/LoadingComponent';
 import css from './projectModal.css';
 import closeIcon from '../../assets/icon_close.svg';
 import sortIcon from '../../assets/icon_arrow_up.svg';
@@ -19,6 +22,7 @@ const ProjectModal = observer(({form, isOpen, closeModal}) => {
     form.onSubmit(e);
     ProjectStore.fetchAllProject();
   };
+
   return (
     <Modal isOpen={isOpen} className={css.Modal} ariaHideApp={false}>
       <div>
@@ -30,6 +34,7 @@ const ProjectModal = observer(({form, isOpen, closeModal}) => {
         />
         <div className={css.modal__title}>{ProjectStore.formName}</div>
         <form>
+          <Image form={form} />
           <div className={css.section}>
             <div className={css.cell}>
               <SELECT
@@ -160,6 +165,7 @@ const ProjectModal = observer(({form, isOpen, closeModal}) => {
           </div>
         </form>
       </div>
+      <Loading isOpened={utilityStore.isWaiting} ariaHideApp={false} />
       {ProjectStore.Redirect && (
         <Redirect to={`/projects/${ProjectStore.newProjectId}`} />
       )}
@@ -168,3 +174,60 @@ const ProjectModal = observer(({form, isOpen, closeModal}) => {
 });
 
 export default ProjectModal;
+
+@observer
+export class Image extends Component {
+  @observable previewImage = `http://${this.props.form.$('picture').value}`;
+
+  onChangeImage = event => {
+    const {form} = this.props;
+    form.$('file').set('value', event.target.files[0]);
+    const reader = new FileReader();
+    reader.onload = e => {
+      this.previewImage = e.target.result;
+    };
+    reader.readAsDataURL(event.target.files[0]);
+  };
+
+  deleteImage = () => {
+    const {form} = this.props;
+    form.$('picture').set('value', '');
+    form.$('file').set('value', '');
+    this.previewImage = `http://${this.props.form.$('picture').value}`;
+    ProjectStore.pictureUrl = '';
+  };
+
+  render() {
+    const imgURL = this.previewImage;
+    const image = imgURL.length > 7;
+    return (
+      <div>
+        <div className={css.image__container}>
+          {!!image && (
+            <img
+              className={css.delete__image}
+              src={deleteIcon}
+              alt="Delete"
+              onClick={this.deleteImage}
+            />
+          )}
+          {!!image && (
+            <img className={css.uploud__image} src={imgURL} alt={image} />
+          )}
+        </div>
+        <div>
+          <label className={css.label__file} htmlFor="file">
+            Load Image
+          </label>
+          <input
+            className={css.input__file}
+            type="file"
+            id="file"
+            value=""
+            onChange={this.onChangeImage}
+          />
+        </div>
+      </div>
+    );
+  }
+}

@@ -39,6 +39,7 @@ class ProjectView extends Component {
       return <h1>loading...</h1>;
     }
     const Data = ProjectStore.projectData;
+    console.log(Data);
     return (
       <div className={css.project__view}>
         <Link className={css.back__button} to="/projects">
@@ -66,10 +67,17 @@ class ProjectView extends Component {
             </div>
           </div>
         </div>
+        {Data.picture && (
+          <img
+            className={css.project__image}
+            src={`http://${Data.picture}`}
+            alt={Data.name}
+          />
+        )}
         <div className={css.general__details}>
           <div className={css.details}>
             <div className={css.detail__row}>
-              <span>Customer email</span>
+              <span>Contact info</span>
               {Data.contactemail}
             </div>
             <div className={css.detail__row}>
@@ -78,7 +86,11 @@ class ProjectView extends Component {
             </div>
             <div className={css.detail__row}>
               <span>End time</span>
-              {ProjectStore.convertDate(Data.endtime)}
+              {Data.endtime ? (
+                ProjectStore.convertDate(Data.endtime)
+              ) : (
+                'Not avalable'
+              )}
             </div>
             <div className={css.detail__row}>
               <span>Project on-going</span>
@@ -87,51 +99,71 @@ class ProjectView extends Component {
           </div>
           <div>
             <div className={css.detail__title}>Description</div>
-            <p>{Data.description}</p>
+            <p>{Data.description ? Data.description : 'Not avalable'}</p>
           </div>
         </div>
         <div className={css.detail}>
           <div className={css.detail__title}>People in project</div>
-          {Data.persons.map(item => (
-            <Link
-              to={`/people/${item.id}`}
-              key={item.id}
-              className={css.members__view}
-            >
-              {item.name}
-            </Link>
-          ))}
+          {Data.persons.length > 0 ? (
+            Data.persons.map(item => (
+              <Link
+                to={`/people/${item.id}`}
+                key={item.id}
+                className={css.members__view}
+              >
+                {item.name}
+              </Link>
+            ))
+          ) : (
+            <div>Not avalable</div>
+          )}
         </div>
         <div className={css.detail}>
           <div className={css.detail__title}>Core technologies</div>
-          {Data.technologies.map(item => (
-            <span key={item.id} className={css.technologies__view}>
-              {item.name}
-            </span>
-          ))}
+          {Data.technologies.length > 0 ? (
+            Data.technologies.map(item => (
+              <span key={item.id} className={css.technologies__view}>
+                {item.name}
+              </span>
+            ))
+          ) : (
+            <div>Not avalable</div>
+          )}
         </div>
         <div className={css.detail}>
           <div className={css.detail__title}>Live at</div>
           <p>
-            <a href={Data.liveat}>{Data.liveat}</a>
+            {Data.liveat ? (
+              <a href={Data.liveat}>{Data.liveat}</a>
+            ) : (
+              <span>Not avalable</span>
+            )}
           </p>
         </div>
         <div className={css.detail}>
           <div className={css.detail__title}>Github</div>
           <p>
-            <a href={Data.githuburl}>{Data.githuburl}</a>
+            {Data.githuburl ? (
+              <a href={Data.githuburl}>{Data.githuburl}</a>
+            ) : (
+              <span>Not avalable</span>
+            )}
           </p>
         </div>
         <div className={css.detail}>
           <div className={css.detail__title}>In the news</div>
-          {Data.news.map(item => (
-            <div key={item.id}>
-              <h4>
-                {item.description ? `${item.description} :` : ''}{' '}
-                <a href={item.url}>{item.url}</a>
-              </h4>
-            </div>
-          ))}
+          {Data.news > 0 ? (
+            Data.news.map(item => (
+              <div key={item.id}>
+                <h4>
+                  {item.description ? `${item.description} :` : ''}
+                  <a href={item.url}>{item.url}</a>
+                </h4>
+              </div>
+            ))
+          ) : (
+            <div>Not avalable</div>
+          )}
         </div>
         <ProjectModal
           form={form}
