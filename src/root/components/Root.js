@@ -1,8 +1,12 @@
 // @flow
 
 import React from 'react';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import Hello from '../../hello/components/Hello';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from 'react-router-dom';
 import Header from '../../header/components/Header';
 import ProjectsContainer from '../../projects-container/components/ProjectsContainer';
 import ProjectView from '../../project-view/components/ProjectView';
@@ -19,7 +23,7 @@ const Root = () => (
       <div className={css.routes}>
         <Header />
         <Switch>
-          <Route exact path="/" component={Hello} />
+          <Route exact path="/" render={() => <Redirect to="/projects" />} />
           <Route exact path="/projects" component={ProjectsContainer} />
           <Route path="/projects/:id" component={ProjectView} />
           <Route
