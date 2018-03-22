@@ -341,6 +341,11 @@ class ProjectsStore {
     form.$('customer').set('value', '');
     form.$('starttime').set('value', '');
     form.$('endtime').set('value', '');
+    form.$('picture').set('value', '');
+    form.$('file').set('value', '');
+    form.$('newsLink').set('value', '');
+    form.$('newsDescription').set('value', '');
+    form.$('newNews').set('value', []);
     form.$('ongoing').set('value', false);
     form.$('description').set('value', '');
     form.$('shortdescription').set('value', '');
