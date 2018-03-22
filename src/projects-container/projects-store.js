@@ -277,7 +277,7 @@ class ProjectsStore {
   makeHttpRequest = async (queryString: String) => {
     try {
       const response = await axios.post(
-        'http://ec2-13-59-1-119.us-east-2.compute.amazonaws.com:3002/skillz',
+        process.env.REACT_APP_API,
         queryString,
         {
           headers: {
