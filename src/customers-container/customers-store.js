@@ -95,7 +95,7 @@ class CustomersStore {
   makeHttpRequest = async (queryString: String) => {
     try {
       const response = await axios.post(
-        'http://10.5.0.177:3002/skillz',
+        process.env.REACT_APP_API,
         queryString,
         {
           headers: {
