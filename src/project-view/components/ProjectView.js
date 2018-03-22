@@ -2,11 +2,14 @@ import React, {Component} from 'react';
 import {observer} from 'mobx-react';
 import {Link, Redirect} from 'react-router-dom';
 import Confirm from 'react-confirm-bootstrap';
+
 import ProjectStore from '../../projects-container/projects-store';
 import PeopleStore from '../../people-container/people-store';
 import CustomersStore from '../../customers-container/customers-store';
 import form from '../../projects-container/form-config';
 import ProjectModal from '../../projects-container/components/projectModal';
+import LoadFailedRedirect from '../../redirect-component/components/Redirect';
+
 import css from './ProjectView.css';
 import backIcon from '../../assets/icon_arrow_back.svg';
 import deleteIcon from '../../assets/icon_delete.svg';
@@ -40,7 +43,10 @@ class ProjectView extends Component {
       return (
         <div>
           {ProjectStore.notFound ? (
-            <Redirect to="/page-not-found" />
+            <LoadFailedRedirect
+              message={`Timeout, no Project with id "${this.props.match.params
+                .id}" was found`}
+            />
           ) : (
             <h1>loading...</h1>
           )}
