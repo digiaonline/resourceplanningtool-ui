@@ -17,11 +17,29 @@ import css from './projectModal.css';
 import closeIcon from '../../assets/icon_close.svg';
 import sortIcon from '../../assets/icon_arrow_up.svg';
 import deleteIcon from '../../assets/icon_delete.svg';
+import FormImage from '../../form-image';
 
 const ProjectModal = observer(({form, isOpen, closeModal}) => {
   const onsubmit = (e: Object) => {
     form.onSubmit(e);
     ProjectStore.fetchAllProject();
+  };
+
+  const onChangeImage = (event: Object) => {
+    form.$('file').set('value', event.target.files[0]);
+    const reader = new FileReader();
+    reader.onload = e => {
+      console.log(e.target.result);
+      form.$('picture').set('value', e.target.result);
+    };
+    reader.readAsDataURL(event.target.files[0]);
+  };
+
+  const deleteImage = () => {
+    console.log(form.$('picture').value);
+    form.$('picture').set('value', '');
+    form.$('file').set('value', '');
+    ProjectStore.pictureUrl = '';
   };
 
   return (
@@ -35,7 +53,11 @@ const ProjectModal = observer(({form, isOpen, closeModal}) => {
         />
         <div className={css.modal__title}>{ProjectStore.formName}</div>
         <form>
-          <Image form={form} />
+          <FormImage
+            imgURL={form.$('picture').value}
+            deleteImage={deleteImage}
+            onChangeImage={onChangeImage}
+          />
           <div className={css.section}>
             <div className={css.cell}>
               <SELECT
@@ -176,69 +198,8 @@ const ProjectModal = observer(({form, isOpen, closeModal}) => {
 
 export default ProjectModal;
 
-@observer
-export class Image extends Component {
-  @observable previewImage = `http://${this.props.form.$('picture').value}`;
-
-  onChangeImage = (event: Object) => {
-    const {form} = this.props;
-    form.$('file').set('value', event.target.files[0]);
-    const reader = new FileReader();
-    reader.onload = e => {
-      this.previewImage = e.target.result;
-    };
-    reader.readAsDataURL(event.target.files[0]);
-  };
-
-  deleteImage = () => {
-    const {form} = this.props;
-    form.$('picture').set('value', '');
-    form.$('file').set('value', '');
-    this.previewImage = `http://${this.props.form.$('picture').value}`;
-    ProjectStore.pictureUrl = '';
-  };
-
-  render() {
-    const imgURL = this.previewImage;
-    const image = imgURL.length > 7;
-    return (
-      <div>
-        <div className={css.image__container}>
-          {!!image && (
-            <img
-              className={css.delete__image}
-              src={deleteIcon}
-              alt="Delete"
-              onClick={this.deleteImage}
-            />
-          )}
-          {!!image && (
-            <img className={css.uploud__image} src={imgURL} alt={image} />
-          )}
-        </div>
-        <div>
-          <label className={css.label__file} htmlFor="file">
-            Load Image
-          </label>
-          <input
-            className={css.input__file}
-            type="file"
-            id="file"
-            value=""
-            onChange={this.onChangeImage}
-          />
-        </div>
-      </div>
-    );
-  }
-}
-
 ProjectModal.propTypes = {
   form: PropTypes.object.isRequired,
   isOpen: PropTypes.bool.isRequired,
   closeModal: PropTypes.func.isRequired,
-};
-
-Image.propTypes = {
-  form: PropTypes.object.isRequired,
 };

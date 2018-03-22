@@ -377,7 +377,7 @@ class ProjectsStore {
     form.$('customer').set('value', Data.customer.id);
     form.$('starttime').set('value', this.convertDate(Data.starttime));
     form.$('endtime').set('value', this.convertDate(Data.endtime));
-    form.$('picture').set('value', Data.picture);
+    form.$('picture').set('value', `http://${Data.picture}`);
     form.$('file').set('value', '');
     form.$('ongoing').set('value', Data.ongoing);
     form.$('description').set('value', Data.description);
