@@ -7,7 +7,7 @@ import PeopleStore from '../../people-container/people-store';
 import CustomersStore from '../../customers-container/customers-store';
 import Heading from './heading';
 import Filters from './filters';
-import Projrcts from './projects';
+import Projects from './projects';
 import css from './ProjectsContainer.css';
 
 @observer
@@ -32,7 +32,7 @@ class ProjectsContainer extends Component {
             customers={CustomersStore.customers.length}
           />
           <Filters />
-          <Projrcts projects={ProjectsStore.filteredDataList} />
+          <Projects projects={ProjectsStore.filteredDataList} />
         </div>
       </div>
     );
