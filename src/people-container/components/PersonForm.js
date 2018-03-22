@@ -13,6 +13,7 @@ import closeIcon from '../../assets/icon_close.svg';
 import addIcon from '../../assets/icon_add_b.svg';
 import skillsStore from '../skills-store';
 import Loading from '../../loading-component/LoadingComponent';
+import ImageUpload from '../../form-image';
 
 @observer
 class PersonForm extends Component {
@@ -32,6 +33,12 @@ class PersonForm extends Component {
       this.previewImage = e.target.result;
     };
     reader.readAsDataURL(event.target.files[0]);
+  };
+  onDeleteImage = event => {
+    const {form} = this.props;
+    form.$('picture').set('value', '');
+    form.$('file').set('value', '');
+    this.previewImage = '';
   };
   updateRadioInput = (event: Event) => {
     const {form} = this.props;
@@ -67,10 +74,6 @@ class PersonForm extends Component {
   };
   render() {
     const {form} = this.props;
-    const imagePreview = {
-      backgroundImage: `url(${this.previewImage})`,
-      backgroundSize: 'contain',
-    };
     return (
       <Modal isOpen={this.props.isOpened} style={modalStyle}>
         <div className={css.buttonContainer}>
@@ -86,15 +89,11 @@ class PersonForm extends Component {
             {this.props.mode === 'edit' ? 'Edit Person' : 'Create Person'}
           </h3>
           <form>
-            <div className={css.form__imageContainer}>
-              <div className={css.form__image} style={imagePreview} />
-              <input
-                className={css.form__imageInput}
-                type="file"
-                value=""
-                onChange={this.onChangeImage}
-              />
-            </div>
+            <ImageUpload
+              imgURL={this.previewImage}
+              deleteImage={this.onDeleteImage}
+              onChangeImage={this.onChangeImage}
+            />
             <div className={css.form__inputs}>
               <div className={css.inputs__column}>
                 <div className={css.form__field__first}>

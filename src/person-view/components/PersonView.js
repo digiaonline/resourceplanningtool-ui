@@ -138,6 +138,4 @@ const PersonDetails = props => (
   </div>
 );
 
-const Loading = props => <div>Loading ...</div>;
-
 export default PersonView;

@@ -10,6 +10,7 @@ import utilityStore from '../../utils/utility-store';
 import Loading from '../../loading-component/LoadingComponent';
 import css from './CustomerForm.css';
 import closeIcon from '../../assets/icon_close.svg';
+import ImageUpload from '../../form-image';
 
 @observer
 class CustomerForm extends Component {
@@ -27,12 +28,14 @@ class CustomerForm extends Component {
     };
     reader.readAsDataURL(event.target.files[0]);
   };
+  onDeleteImage = event => {
+    const {form} = this.props;
+    form.$('logo').set('value', '');
+    form.$('file').set('value', '');
+    this.previewImage = '';
+  };
   render() {
     const {form} = this.props;
-    const imagePreview = {
-      backgroundImage: `url(${this.previewImage})`,
-      backgroundSize: 'contain',
-    };
     return (
       <Modal isOpen={this.props.isOpened} style={modalStyle}>
         <div className={css.buttonContainer}>
@@ -48,15 +51,11 @@ class CustomerForm extends Component {
             {this.props.mode === 'edit' ? 'Edit customer' : 'Add customer'}
           </h3>
           <form className={css.container__form} onSubmit={form.onSubmit}>
-            <div className={css.form__imageContainer}>
-              <div className={css.form__image} style={imagePreview} />
-              <input
-                className={css.form__imageInput}
-                type="file"
-                value=""
-                onChange={this.onChangeImage}
-              />
-            </div>
+            <ImageUpload
+              imgURL={this.previewImage}
+              deleteImage={this.onDeleteImage}
+              onChangeImage={this.onChangeImage}
+            />
             <div className={css.form__inputs}>
               <div className={css.form__field}>
                 <label htmlFor={form.$('name').id}>
