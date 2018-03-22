@@ -51,11 +51,18 @@
   color: #fff;
   font-size: 30px;
   margin: 20px 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
-.headingDetailNumber {
+.headingDetails span {
+  font-size: 30px;
+}
+
+.headingDetails b {
   font-size: 40px;
-  font-weight: bold;
+  padding: 0 8px;
 }
 
 .filters {
@@ -158,7 +165,7 @@
 }
 
 .project__picture {
-  max-width: 100%;
+  max-width: 100.3%;
 }
 
 @media (max-width: 1550px) {

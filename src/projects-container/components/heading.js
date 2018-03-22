@@ -18,15 +18,15 @@ const Heading = observer(({projects, members, customers}) => {
         <span>NEW PROJECT</span>
       </div>
       <div className={css.headingDetails}>
-        <span className={css.headingDetailNumber}>
-          {projects}&nbsp;
-        </span>Projects
-        <span className={css.headingDetailNumber}>
-          &nbsp;{customers}&nbsp;
-        </span>Customers
-        <span className={css.headingDetailNumber}>
-          &nbsp;{members}&nbsp;
-        </span>People
+        <span>
+          <b>{projects}</b>Projects
+        </span>
+        <span>
+          <b>{customers}</b>Customers
+        </span>
+        <span>
+          <b>{members}</b>People
+        </span>
       </div>
       <ProjectModal
         form={form}

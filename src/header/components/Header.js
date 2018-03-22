@@ -12,8 +12,12 @@ class Header extends Component {
     showMenu: false,
   };
 
-  handleOnClick = () => {
+  handleOnClickIcon = () => {
     this.setState({showMenu: !this.state.showMenu});
+  };
+
+  handleOnClick = () => {
+    this.setState({showMenu: false});
   };
 
   render() {
@@ -49,7 +53,7 @@ class Header extends Component {
           </NavLink>
         </div>
         <img
-          onClick={this.handleOnClick}
+          onClick={this.handleOnClickIcon}
           className={css.menu__icon}
           src={menuIcon}
           alt="menu"
