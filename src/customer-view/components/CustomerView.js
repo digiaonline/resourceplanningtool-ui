@@ -11,6 +11,7 @@ import backIcon from '../../assets/icon_arrow_back.svg';
 import customersStore from '../../customers-container/customers-store';
 import {getForm} from '../../utils';
 import {fields, plugins, hooks} from '../../customers-container/form-config';
+import LoadFailedRedirect from '../../redirect-component/components/Redirect';
 
 @observer
 class CustomerView extends Component {
@@ -43,7 +44,12 @@ class CustomerView extends Component {
       customer => customer.id === this.props.match.params.id
     );
     if (!customer) {
-      return <Loading />;
+      return (
+        <LoadFailedRedirect
+          message={`Timeout, no customer with id "${this.props.match.params
+            .id}" was found`}
+        />
+      );
     }
     return (
       <div className={css.container}>
@@ -98,7 +104,5 @@ class CustomerView extends Component {
     );
   }
 }
-
-const Loading = props => <div>Loading ...</div>;
 
 export default CustomerView;
