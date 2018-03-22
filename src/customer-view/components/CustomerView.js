@@ -53,7 +53,7 @@ class CustomerView extends Component {
     }
     return (
       <div className={css.container}>
-        <Link className={css.container__backButton} to="/people">
+        <Link className={css.container__backButton} to="/customers">
           <img src={backIcon} alt="back" /> <span>&nbsp;BACK </span>
         </Link>
         <div className={css.container__customer}>
