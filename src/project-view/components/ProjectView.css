@@ -40,7 +40,7 @@
   align-items: center;
 }
 
-.project__image{
+.project__image {
   display: block;
   max-height: 200px;
   max-width: 80%;
@@ -122,7 +122,7 @@
     margin: 50px auto;
   }
 
-  .project__buttons{
+  .project__buttons {
     flex-direction: column;
   }
 
@@ -130,6 +130,10 @@
     height: 40px;
     width: 100px;
     margin-top: 5px;
+  }
+
+  .general__details {
+    flex-direction: column;
   }
 
   .project__image {
