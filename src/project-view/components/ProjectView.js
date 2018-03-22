@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {observer} from 'mobx-react';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import Confirm from 'react-confirm-bootstrap';
 import ProjectStore from '../../projects-container/projects-store';
 import PeopleStore from '../../people-container/people-store';
@@ -22,6 +22,7 @@ class ProjectView extends Component {
     CustomersStore.fetchCustomers();
     ProjectStore.form_name('Edit project');
     ProjectStore.Redirect = false;
+    ProjectStore.notFound = false;
   }
 
   openModalAndPassData = () => {
@@ -35,8 +36,16 @@ class ProjectView extends Component {
   };
 
   render() {
-    if (!ProjectStore.projectData.name) {
-      return <h1>loading...</h1>;
+    if (ProjectStore.projectData === null || !ProjectStore.projectData.name) {
+      return (
+        <div>
+          {ProjectStore.notFound ? (
+            <Redirect to="/page-not-found" />
+          ) : (
+            <h1>loading...</h1>
+          )}
+        </div>
+      );
     }
     const Data = ProjectStore.projectData;
     console.log(Data);

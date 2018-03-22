@@ -152,6 +152,28 @@ export const getCreateNewsQuery = (url: String, description: String) => {
   }`;
 };
 
+export const getProjectQuery = (id: Number) => {
+  return `query {
+    project (id: ${id}) {
+      id
+      name
+      picture
+      starttime
+      endtime
+      ongoing
+      liveat
+      githuburl
+      shortdescription
+      description
+      contactemail
+      customer {id}
+      technologies {id name}
+      persons {id name}
+      news {id url description}
+    }
+  }`;
+};
+
 export const ALL_PROJECTS_QUERY = `query {
   listProjects {
     id

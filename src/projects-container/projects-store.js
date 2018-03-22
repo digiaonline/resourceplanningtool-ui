@@ -16,8 +16,8 @@ import {
   getCreateNewsQuery,
   getAddNewsToProjectQuery,
   getRemoveNewsFromProjectQuery,
+  getProjectQuery,
   ALL_PROJECTS_QUERY,
-  PROJECT_QUERY,
   TECHNOLOGIES_QUERY,
   ALL_NEWS_QUERY,
 } from './queries';
@@ -30,11 +30,13 @@ class ProjectsStore {
   @observable newsID = null;
   @observable allNews = [];
   @observable formName = null;
-  @observable projectData = [];
+  @observable projectData = {};
   @observable technologiesList = [];
   @observable technologyFilter = '';
   @observable statusFilter = '';
   @observable Redirect = false;
+  @observable pictureUrl = '';
+  @observable notFound = false;
 
   @computed
   get filteredDataList() {
@@ -75,11 +77,13 @@ class ProjectsStore {
 
   @action
   fetchProject = async (id: Number) => {
-    this.projectId = id;
-    const query = ` query { project (id: ${this.projectId}) ${PROJECT_QUERY}`;
+    const query = getProjectQuery(id);
     try {
       const response = await this.makeHttpRequest(query);
-      this.projectData = response.project;
+      this.projectData = response.project || {};
+      response.project === null
+        ? (this.notFound = true)
+        : this.notFound === false;
     } catch (error) {
       // TODO: proper notification to be implemented
       console.warn('error', error);
