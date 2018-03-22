@@ -12,6 +12,7 @@ import {observer} from 'mobx-react';
 import {parseDateTime} from '../../utils';
 import {fields, plugins, hooks} from '../../constants/person-form-config';
 import {getForm} from '../../utils';
+import LoadFailedRedirect from '../../redirect-component/components/Redirect';
 
 @observer
 class PersonView extends Component {
@@ -41,7 +42,12 @@ class PersonView extends Component {
       person => person.id === this.props.match.params.id
     );
     if (!person) {
-      return <Loading />;
+      return (
+        <LoadFailedRedirect
+          message={`Timeout, no person with id "${this.props.match.params
+            .id}" was found`}
+        />
+      );
     }
     return (
       <div className={css.container}>
