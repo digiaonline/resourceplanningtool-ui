@@ -15,6 +15,7 @@ import {
   getRemoveTechnologiesFromProjectQuery,
   getRemoveProjectFromCustomerQuery,
   getCreateNewsQuery,
+  getCreateTechnologyQuery,
   getAddNewsToProjectQuery,
   getRemoveNewsFromProjectQuery,
   getProjectQuery,
@@ -237,6 +238,18 @@ class ProjectsStore {
       this.fetchNews();
     } catch (error) {
       console.warn('error', error);
+    }
+  };
+
+  @action
+  createTechnology = async (name: String, description: String) => {
+    const query = getCreateTechnologyQuery(name, description);
+    console.log(query);
+    try {
+      await this.makeHttpRequest(query);
+      this.fetchTechnologies();
+    } catch (error) {
+      console.log('error', error);
     }
   };
 

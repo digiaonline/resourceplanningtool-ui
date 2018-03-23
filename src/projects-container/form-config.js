@@ -102,6 +102,18 @@ export const fields = [
     value: '',
   },
   {
+    name: 'technologyName',
+    label: 'Name',
+    placeholder: 'Name',
+    rules: 'string',
+  },
+  {
+    name: 'technologyDescription',
+    label: 'Description',
+    placeholder: 'Description',
+    rules: 'string',
+  },
+  {
     name: 'newNews',
     value: [],
   },

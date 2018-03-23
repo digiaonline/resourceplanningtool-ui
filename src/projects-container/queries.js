@@ -152,6 +152,17 @@ export const getCreateNewsQuery = (url: String, description: String) => {
   }`;
 };
 
+export const getCreateTechnologyQuery = (name: String, description: String) => {
+  return `mutation {
+    createTechnology(
+      name: "${name}",
+      description: "${description}"
+    ) {
+      id
+    }
+  }`;
+};
+
 export const getProjectQuery = (id: Number) => {
   return `query {
     project (id: ${id}) {
