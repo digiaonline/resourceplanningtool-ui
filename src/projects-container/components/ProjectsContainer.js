@@ -2,12 +2,14 @@
 
 import React, {Component} from 'react';
 import {observer} from 'mobx-react';
+
 import ProjectsStore from '../projects-store';
 import PeopleStore from '../../people-container/people-store';
 import CustomersStore from '../../customers-container/customers-store';
 import Heading from './heading';
 import Filters from './filters';
 import Projects from './projects';
+
 import css from './ProjectsContainer.css';
 
 @observer

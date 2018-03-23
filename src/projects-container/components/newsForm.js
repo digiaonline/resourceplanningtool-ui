@@ -2,9 +2,11 @@
 
 import React, {Component} from 'react';
 import {observer} from 'mobx-react';
+
 import ProjectStore from '../../projects-container/projects-store';
 import form from '../form-config';
 import {Input} from './inputs';
+
 import css from './projectModal.css';
 import addIcon from '../../assets/icon_add_b.svg';
 import deleteIcon from '../../assets/icon_delete.svg';

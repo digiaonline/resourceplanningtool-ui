@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {observer} from 'mobx-react';
-import {Link, Redirect} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import Confirm from 'react-confirm-bootstrap';
+import Modal from 'react-modal';
 
 import ProjectStore from '../../projects-container/projects-store';
 import PeopleStore from '../../people-container/people-store';
@@ -18,14 +19,16 @@ import editIcon from '../../assets/icon_edit.svg';
 @observer
 class ProjectView extends Component {
   componentWillMount() {
+    Modal.setAppElement('body');
     ProjectStore.fetchProject(this.props.match.params.id);
     ProjectStore.fetchTechnologies();
     ProjectStore.fetchNews();
     PeopleStore.fetchPeople();
     CustomersStore.fetchCustomers();
     ProjectStore.form_name('Edit project');
+    ProjectStore.projectId = this.props.match.params.id;
     ProjectStore.Redirect = false;
-    ProjectStore.notFound = false;
+    ProjectStore.pictureUrl = '';
   }
 
   openModalAndPassData = () => {
@@ -42,19 +45,14 @@ class ProjectView extends Component {
     if (ProjectStore.projectData === null || !ProjectStore.projectData.name) {
       return (
         <div>
-          {ProjectStore.notFound ? (
-            <LoadFailedRedirect
-              message={`Timeout, no Project with id "${this.props.match.params
-                .id}" was found`}
-            />
-          ) : (
-            <h1>loading...</h1>
-          )}
+          <LoadFailedRedirect
+            message={`Timeout, no Project with id "${this.props.match.params
+              .id}" was found`}
+          />
         </div>
       );
     }
     const Data = ProjectStore.projectData;
-    console.log(Data);
     return (
       <div className={css.project__view}>
         <Link className={css.back__button} to="/projects">

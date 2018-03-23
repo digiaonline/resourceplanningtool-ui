@@ -1,8 +1,9 @@
 //@flow
 
 import React from 'react';
-import css from './ProjectsContainer.css';
+
 import ProjectsStore from '../projects-store';
+import css from './ProjectsContainer.css';
 
 const selectedTechnology = (e: Object) => {
   ProjectsStore.technologyFilter = e.target.value;

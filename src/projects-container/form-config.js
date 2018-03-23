@@ -152,7 +152,6 @@ export const hooks = {
       ProjectsStore.modalToggle();
     } else {
       //Edit project
-      console.log(!ProjectsStore.pictureUrl);
       if (!ProjectsStore.pictureUrl) {
         if (form.values().file) {
           utilityStore.turnOnWaiting();

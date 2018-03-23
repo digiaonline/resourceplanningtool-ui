@@ -3,9 +3,11 @@
 import React from 'react';
 import {observer} from 'mobx-react';
 import {PropTypes} from 'prop-types';
+
 import ProjectStore from '../projects-store';
 import ProjectModal from './projectModal';
 import form from '../form-config';
+
 import css from './ProjectsContainer.css';
 import iconAdd from '../../assets/icon_add.svg';
 

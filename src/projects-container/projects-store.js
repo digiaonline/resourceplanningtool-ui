@@ -2,6 +2,7 @@
 
 import {observable, action, computed} from 'mobx';
 import axios from 'axios';
+
 import form from './form-config';
 import {
   getDeleteProjectQuery,
@@ -36,7 +37,6 @@ class ProjectsStore {
   @observable statusFilter = '';
   @observable Redirect = false;
   @observable pictureUrl = '';
-  @observable notFound = false;
 
   @computed
   get filteredDataList() {
@@ -81,12 +81,8 @@ class ProjectsStore {
     try {
       const response = await this.makeHttpRequest(query);
       this.projectData = response.project || {};
-      response.project === null
-        ? (this.notFound = true)
-        : this.notFound === false;
     } catch (error) {
       console.log('error', error);
-      this.notFound = true;
       return [];
     }
   };
@@ -139,7 +135,6 @@ class ProjectsStore {
       progectInfo.description,
       progectInfo.contactemail
     );
-    console.log(query);
     try {
       await this.makeHttpRequest(query);
       this.fetchProject(this.projectId);
