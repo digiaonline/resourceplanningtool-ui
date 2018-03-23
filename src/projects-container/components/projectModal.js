@@ -1,6 +1,6 @@
 //@flow
 
-import React, {Component} from 'react';
+import React from 'react';
 import {observer} from 'mobx-react';
 import {Redirect} from 'react-router-dom';
 import {PropTypes} from 'prop-types';
@@ -12,13 +12,13 @@ import CustomersStore from '../../customers-container/customers-store';
 import utilityStore from '../../utils/utility-store';
 import {Input, InputCheckbox, Textarea, SELECT} from './inputs';
 import NewsForm from './newsForm';
+import NewTechnology from './createTechnology';
 import Loading from '../../loading-component/LoadingComponent';
 
 import css from './projectModal.css';
 import closeIcon from '../../assets/icon_close.svg';
 import sortIcon from '../../assets/icon_arrow_up.svg';
 import deleteIcon from '../../assets/icon_delete.svg';
-import addIcon from '../../assets/icon_add_b.svg';
 import FormImage from '../../form-image';
 
 const ProjectModal = observer(({form, isOpen, closeModal}) => {
@@ -209,62 +209,3 @@ ProjectModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   closeModal: PropTypes.func.isRequired,
 };
-
-@observer
-class NewTechnology extends Component {
-  state = {
-    isOpen: false,
-  };
-
-  modalToggle = () => {
-    this.setState({isOpen: !this.state.isOpen});
-  };
-
-  onSubmit = () => {
-    const {form} = this.props;
-    const name = form.$('technologyName').value;
-    const description = form.$('technologyDescription').value;
-    if (name) {
-      ProjectStore.createTechnology(name, description);
-      this.modalToggle();
-    }
-  };
-
-  render() {
-    const {form} = this.props;
-    return (
-      <div className={css.new__technology}>
-        <span onClick={this.modalToggle}>Add New Technology</span>
-        <Modal
-          ariaHideApp={false}
-          isOpen={this.state.isOpen}
-          className={css.technology__Modal}
-          overlayClassName={css.Overlay}
-        >
-          <img
-            className={css.modal__close}
-            src={closeIcon}
-            alt="close"
-            onClick={this.modalToggle}
-          />
-          <div className={css.modal__technology__title}>
-            Create new technology
-          </div>
-          <Input field={form.$('technologyName')} />
-          <Input field={form.$('technologyDescription')} />
-          <div className={css.form__button}>
-            <div className={css.form__button__sava} onClick={this.onSubmit}>
-              SAVE
-            </div>
-            <span
-              className={css.form__button__close}
-              onClick={this.modalToggle}
-            >
-              Cancel
-            </span>
-          </div>
-        </Modal>
-      </div>
-    );
-  }
-}
