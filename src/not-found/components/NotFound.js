@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import css from './NotFound.css';
+// import css from './NotFound.css';
 
 const NotFound = () => (
   <div>
