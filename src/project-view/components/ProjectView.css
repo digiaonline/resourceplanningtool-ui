@@ -1,0 +1,70 @@
+.project__view {
+    width: 75%;
+    margin: 100px auto;
+    color: #363636;
+}
+
+.back__button {
+    font-size: 16px;
+    font-weight: bold;
+    color: #363636;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    }
+
+.project__heading {
+    margin-top: 38px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.project__title {
+    font-size: 34px;
+}
+
+.project__buttons{
+    display: flex;
+}
+.project__buttons div {
+    font-size: 16px;
+    font-weight: bold;
+    height: 50px;
+    width: 122px;
+    border: 1px solid lightgray;
+    cursor: pointer;
+    margin-left: 18px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.general__details {
+    margin-top: 125px;
+    display: flex;
+}
+
+.details {
+    width: 50%;
+    font-size: 17px;
+}
+
+.detail {
+    margin-top: 40px;
+}
+
+.detail__row {
+    margin-bottom: 17px;
+}
+
+.detail__title {
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.detail__row span {
+    font-weight: bold;
+    display: inline-block;
+    width: 155px;
+}
+
