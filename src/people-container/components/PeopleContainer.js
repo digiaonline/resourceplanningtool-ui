@@ -8,7 +8,7 @@ import {withNavigation} from '../../table/components/withNavigation';
 import {observer} from 'mobx-react';
 import peopleStore from '../people-store';
 import addIcon from '../../assets/icon_add_b.svg';
-import {fields, plugins, hooks} from '../form-config';
+import {fields, plugins, hooks} from '../../constants/person-form-config';
 import {getForm} from '../../utils';
 
 @observer

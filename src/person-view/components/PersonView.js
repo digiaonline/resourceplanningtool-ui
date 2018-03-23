@@ -10,7 +10,7 @@ import PersonForm from '../../people-container/components/PersonForm';
 import peopleStore from '../../people-container/people-store';
 import {observer} from 'mobx-react';
 import {parseDateTime} from '../../utils';
-import {fields, plugins, hooks} from '../../people-container/form-config';
+import {fields, plugins, hooks} from '../../constants/person-form-config';
 import {getForm} from '../../utils';
 
 @observer

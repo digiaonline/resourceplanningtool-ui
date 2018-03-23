@@ -1,6 +1,3 @@
-// @flow
-
-// sorry clients, you are not actually dumb
 const dummyCustomers = [
   {
     id: 0,

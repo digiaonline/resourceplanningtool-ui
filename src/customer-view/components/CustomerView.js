@@ -9,7 +9,7 @@ import editIcon from '../../assets/icon_edit.svg';
 import backIcon from '../../assets/icon_arrow_back.svg';
 import customersStore from '../../customers-container/customers-store';
 import {getForm} from '../../utils';
-import {fields, plugins, hooks} from '../../customers-container/form-config';
+import {fields, plugins, hooks} from '../../constants/customer-form-config';
 
 @observer
 class CustomerView extends Component {

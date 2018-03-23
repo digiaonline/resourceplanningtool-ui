@@ -9,7 +9,7 @@ import Table from '../../table/components/Table';
 import {withNavigation} from '../../table/components/withNavigation';
 import addIcon from '../../assets/icon_add_b.svg';
 import customersStore from '../customers-store';
-import {fields, plugins, hooks} from '../form-config';
+import {fields, plugins, hooks} from '../../constants/customer-form-config';
 import {getForm} from '../../utils';
 
 @observer

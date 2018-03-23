@@ -1,7 +1,7 @@
 // @flow
 
 import validatorjs from 'validatorjs';
-import customersStore from './customers-store';
+import customersStore from '../customers-container/customers-store';
 
 export const plugins = {
   dvr: validatorjs,

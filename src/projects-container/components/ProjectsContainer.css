@@ -7,7 +7,7 @@
 
 .backgroundImg {
   position: absolute;
-  background-image: url('https://tyoelama-duunitori.imgix.net/wp-content/uploads/2017/12/rekrykuva10_digia.jpg');
+  background-image: url(../../assets/rekrykuva10_digia.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   height: 800px;

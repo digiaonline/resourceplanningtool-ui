@@ -10,7 +10,7 @@
 }
 
 /* composable style */
-.button {
+.wrapper_component-button {
   width: 122px;
   height: 50px;
   background-color: inherit;
@@ -34,7 +34,7 @@
 }
 
 .container__backButton {
-  composes: button;
+  composes: wrapper_component-button;
   border: 0 solid rgba(255, 255, 255, 0);
   padding: 15px 0;
   text-decoration: none;
@@ -48,7 +48,7 @@
 }
 
 .buttonsGroup__button {
-  composes: button;
+  composes: wrapper_component-button;
   composes: element--hover;
   padding: auto 24px;
   margin-left: 18px;
