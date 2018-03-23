@@ -1,0 +1,42 @@
+* {
+  box-sizing: border-box;
+}
+
+.element--hover:hover {
+  cursor: pointer;
+}
+
+.container__table {
+  margin: 7% 0 auto;
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.row {
+  text-align: left;
+  border-bottom: var(--border);
+  height: 45px;
+  line-height: 10px;
+  letter-spacing: var(--letter-spacing);
+  composes: element--hover;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.row__firstField {
+  width: 40%;
+  composes: row;
+}
+
+.row__secondField {
+  width: 30%;
+  padding-left: 10px;
+  composes: row;
+}
+
+.row__lastField {
+  width: 30%;
+  padding-left: 10px;
+  composes: row;
+}
