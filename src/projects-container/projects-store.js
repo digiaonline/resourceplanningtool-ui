@@ -93,6 +93,11 @@ class ProjectsStore {
     const query = TECHNOLOGIES_QUERY;
     try {
       const response = await makeHttpRequest(query);
+      response.listTechnologies.sort(function(a, b) {
+        return a.name.toUpperCase() > b.name.toUpperCase()
+          ? 1
+          : b.name.toUpperCase() > a.name.toUpperCase() ? -1 : 0;
+      });
       this.technologiesList = response.listTechnologies;
     } catch (error) {
       console.warn('error', error);

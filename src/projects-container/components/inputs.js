@@ -45,6 +45,11 @@ export const SELECT = observer(({field, addTo, option, showValue}) => {
       return {value: id, label: item.name};
     })
     : [];
+  options.sort(function(a, b) {
+    return a.label.toUpperCase() > b.label.toUpperCase()
+      ? 1
+      : b.label.toUpperCase() > a.label.toUpperCase() ? -1 : 0;
+  });
   return (
     <div className={css.input__section}>
       <label htmlFor={field.id} className={css.label}>
