@@ -3,8 +3,9 @@
 import React from 'react';
 import {observer} from 'mobx-react';
 import {PropTypes} from 'prop-types';
-import css from './projectModal.css';
 import Select from 'react-styled-select';
+
+import css from './projectModal.css';
 
 export const Input = observer(({field}) => (
   <div className={css.input__section}>

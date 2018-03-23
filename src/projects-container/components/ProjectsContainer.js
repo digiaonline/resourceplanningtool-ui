@@ -9,6 +9,7 @@ import CustomersStore from '../../customers-container/customers-store';
 import Heading from './heading';
 import Filters from './filters';
 import Projects from './projects';
+
 import css from './ProjectsContainer.css';
 
 @observer
