@@ -1,0 +1,11 @@
+.container {
+  margin: 50px auto;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.container__message {
+  font-size: 34px;
+  text-align: center;
+}

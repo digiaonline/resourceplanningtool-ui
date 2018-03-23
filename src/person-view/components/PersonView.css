@@ -1,0 +1,150 @@
+/* variables */
+:root {
+  --blurred-border: 2px solid rgb(220, 220, 220);
+}
+
+/* general style */
+* {
+  box-sizing: border-box;
+  font-size: 17px;
+}
+
+/* composable style */
+.button {
+  width: 122px;
+  height: 50px;
+  background-color: inherit;
+  font-weight: bold;
+  font-size: 16px;
+  font-family: Calibri, sans-serif;
+}
+
+.flexbox-sizing {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.element--hover:hover {
+  cursor: pointer;
+}
+
+/* main style here */
+.container {
+  margin: 20px 15% auto;
+}
+
+.container__backButton {
+  composes: button;
+  border: 0 solid rgba(255, 255, 255, 0);
+  padding: 15px 0;
+  text-decoration: none;
+  text-align: left;
+  display: inline-flex;
+  width: 100px;
+}
+
+.container__buttonsGroup {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.buttonsGroup__button {
+  composes: button;
+  composes: element--hover;
+  padding: auto 24px;
+  margin-left: 18px;
+  border: var(--blurred-border);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container__personDetails {
+  margin: 90px auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.personDetails__image {
+  composes: flexbox-sizing;
+  background-size: cover;
+}
+
+.image {
+  max-width: 300px;
+  max-height: 300px;
+}
+
+.personDetails__mainInfo {
+  padding: 30px 30px 0;
+  composes: flexbox-sizing;
+  margin: auto;
+}
+
+.mainInfo__name {
+  color: #c30000;
+  font-size: 34px;
+  font-weight: normal;
+  font-stretch: normal;
+  margin: 0;
+}
+
+.mainInfo__technologies {
+  margin: 47px auto;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 100%;
+}
+
+.mainInfo__technology {
+  background-color: rgb(30, 30, 30);
+  color: white;
+  font-weight: normal;
+  padding: 10px;
+  margin: auto 10px 10px 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.mainInfo__description {
+  max-width: 400px;
+}
+
+.personDetails__minorInfo {
+  padding: 50px 40px;
+  composes: flexbox-sizing;
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+}
+
+.minorInfo__column {
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+}
+
+.minorInfo__row {
+  margin-bottom: 20px;
+}
+
+.minorInfo__rowLinks {
+  composes: minorInfo__row;
+  display: flex;
+  flex-direction: row;
+  color: blue;
+}
+
+.links__separateLine {
+  width: 2px;
+  height: 20px;
+  background-color: rgba(50, 50, 50, 0.7);
+  margin: auto 10px;
+}
+
+.minorInfo__title {
+  font-size: 22px;
+  margin: 0 0 30px;
+}
