@@ -143,6 +143,7 @@ class ProjectsStore {
       progectInfo.description,
       progectInfo.contactemail
     );
+    console.log(query);
     try {
       await makeHttpRequest(query);
       this.fetchProject(this.projectId);
