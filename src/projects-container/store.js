@@ -28,7 +28,8 @@ class ProjectsStore {
       });
       this.projectData = response.data.data.project;
     } catch (error) {
-      console.log('error', error);
+      // TODO: proper notification to be implemented
+      console.warn('error', error);
       return [];
     }
   };
@@ -44,6 +45,8 @@ class ProjectsStore {
       });
       this.Data = response.data.data.listProjects;
     } catch (error) {
+      // TODO: proper notification to be implemented
+      console.warn('cant fetch projects', error);
       return [];
     }
   };

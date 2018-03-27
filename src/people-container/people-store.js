@@ -39,7 +39,8 @@ class PeopleStore {
       const responseData = await this.makeHttpRequest(FETCH_PEOPLE_QUERY);
       this.people = responseData.listPersons;
     } catch (error) {
-      console.log('cant fetch people', error);
+      // TODO: proper notification to be implemented
+      console.warn('cant fetch people', error);
     }
   };
 
@@ -77,11 +78,13 @@ class PeopleStore {
         );
       }
       if (createPersonResponse.createPerson) {
-        alert('create person successfully');
+        // TODO: proper notification to be implemented
+        console.info('create person successfully');
         this.fetchPeople();
       }
     } catch (error) {
-      console.log('cant create person', error);
+      // TODO: proper notification to be implemented
+      console.warn('cant create person', error);
     }
   };
 
@@ -91,11 +94,13 @@ class PeopleStore {
       const DELETE_PERSON_QUERY = getDeletePersonQuery(this.people[index].id);
       const response = await this.makeHttpRequest(DELETE_PERSON_QUERY);
       if (response.removePerson) {
-        alert('delete person successfully');
+        // TODO: proper notification to be implemented
+        console.info('delete person successfully');
         this.fetchPeople();
       }
     } catch (error) {
-      console.log('cant delete person');
+      // TODO: proper notification to be implemented
+      console.warn('cant delete person');
     }
   };
 
@@ -138,10 +143,12 @@ class PeopleStore {
       }
       if (updatePersonResponse.updatePerson) {
         this.fetchPeople();
-        alert('update person successful');
+        // TODO: proper notification to be implemented
+        console.info('update person successful');
       }
     } catch (error) {
-      console.log('cant update person', error);
+      // TODO: proper notification to be implemented
+      console.warn('cant update person', error);
     }
   };
 
@@ -159,7 +166,8 @@ class PeopleStore {
       );
       return response.data.data;
     } catch (error) {
-      console.log(error);
+      // TODO: proper notification to be implemented
+      console.warn(error);
     }
   };
 }

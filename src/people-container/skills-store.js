@@ -25,7 +25,8 @@ class SkillsStore {
       const responseData = await this.makeHttpRequest(FETCH_SKILLS_QUERY);
       this.skills = responseData.listSkills;
     } catch (error) {
-      console.log('cant fetch skills', error);
+      // TODO: proper notification to be implemented
+      console.warn('cant fetch skills', error);
     }
   };
 
@@ -38,7 +39,8 @@ class SkillsStore {
       );
       return createSkillsResponse;
     } catch (error) {
-      console.log('cant create skills', error);
+      // TODO: proper notification to be implemented
+      console.warn('cant create skills', error);
     }
   };
 
@@ -54,7 +56,8 @@ class SkillsStore {
       );
       return addSkillsResponse;
     } catch (error) {
-      console.log('cant create skills', error);
+      // TODO: proper notification to be implemented
+      console.warn('cant create skills', error);
     }
   };
 
@@ -89,7 +92,8 @@ class SkillsStore {
       );
       return response.data.data;
     } catch (error) {
-      console.log(error);
+      // TODO: proper notification to be implemented
+      console.warn(error);
     }
   };
 }
