@@ -27,7 +27,8 @@ class CustomersStore {
       const responseData = await this.makeHttpRequest(FETCH_CUSTOMERS_QUERY);
       this.customers = responseData.listCustomers;
     } catch (error) {
-      console.log('cant fetch customers', error);
+      // TODO: proper notification to be implemented
+      console.warn('cant fetch customers', error);
     }
   };
 
@@ -41,10 +42,12 @@ class CustomersStore {
         customerInfo.logo
       );
       await this.makeHttpRequest(CREATE_CUSTOMER_QUERY);
-      alert('create customer successfully');
+      // TODO: proper notification to be implemented
+      console.info('create customer successfully');
       this.fetchCustomers();
     } catch (error) {
-      console.log('cant create new customer');
+      // TODO: proper notification to be implemented
+      console.info('cant create new customer');
     }
   };
 
@@ -59,7 +62,8 @@ class CustomersStore {
         this.fetchCustomers();
       }
     } catch (error) {
-      console.log('cant delete customer');
+      // TODO: proper notification to be implemented
+      console.warn('cant delete customer');
     }
   };
 
@@ -73,10 +77,15 @@ class CustomersStore {
         customerInfo.url,
         ''
       );
-      await this.makeHttpRequest(UPDATE_CUSTOMER_QUERY);
-      this.fetchCustomers();
+      const response = await this.makeHttpRequest(UPDATE_CUSTOMER_QUERY);
+      if (response.updateCustomer) {
+        // TODO: proper notification to be implemented
+        console.info('update customer successfully');
+        this.fetchCustomers();
+      }
     } catch (error) {
-      console.log('cant save customer');
+      // TODO: proper notification to be implemented
+      console.warn('cant save customer');
     }
   };
 
@@ -88,13 +97,14 @@ class CustomersStore {
         queryString,
         {
           headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/graphql',
           },
         }
       );
       return response.data.data;
     } catch (error) {
-      return [];
+      // TODO: proper notification to be implemented
+      console.warn(error);
     }
   };
 }
