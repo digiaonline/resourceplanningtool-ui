@@ -42,7 +42,6 @@ class CustomersStore {
         customerInfo.industry,
         customerInfo.logo
       );
-      console.log(CREATE_CUSTOMER_QUERY);
       await this.makeHttpRequest(CREATE_CUSTOMER_QUERY);
       // TODO: proper notification to be implemented
       console.info('create customer successfully');
