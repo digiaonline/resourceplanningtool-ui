@@ -91,9 +91,9 @@ class PeopleStore {
   };
 
   @action
-  deletePerson = async (index: Number) => {
+  deletePerson = async (id: Number) => {
     try {
-      const DELETE_PERSON_QUERY = getDeletePersonQuery(this.people[index].id);
+      const DELETE_PERSON_QUERY = getDeletePersonQuery(id);
       const response = await this.makeHttpRequest(DELETE_PERSON_QUERY);
       if (response.removePerson) {
         // TODO: proper notification to be implemented
