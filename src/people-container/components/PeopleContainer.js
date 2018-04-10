@@ -19,14 +19,17 @@ class PeopleContainer extends Component {
       formIsOpened: false,
     };
   }
+
   componentWillMount() {
     peopleStore.fetchPeople();
   }
+
   toggleForm = () => {
     this.setState({
       formIsOpened: !this.state.formIsOpened,
     });
   };
+
   render() {
     return (
       <div className={css.container}>

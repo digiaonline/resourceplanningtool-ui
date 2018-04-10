@@ -19,9 +19,11 @@ class CustomersContainer extends Component {
   toggleForm = (customer: ?Customer) => {
     this.formIsOpened = !this.formIsOpened;
   };
+
   componentWillMount() {
     customersStore.fetchCustomers();
   }
+
   render() {
     return (
       <div className={css.container}>

@@ -12,6 +12,7 @@ import {observer} from 'mobx-react';
 import {parseDateTime} from '../../utils';
 import {fields, plugins, hooks} from '../../constants/person-form-config';
 import {getForm} from '../../utils';
+import LoadFailedRedirect from '../../redirect-component/components/Redirect';
 
 @observer
 class PersonView extends Component {
@@ -21,27 +22,36 @@ class PersonView extends Component {
       formIsOpened: false,
     };
   }
+
   toggleForm = () => {
     this.setState({
       formIsOpened: !this.state.formIsOpened,
     });
   };
+
   onDelete = () => {
     peopleStore.deletePerson(this.props.match.params.id);
     this.props.history.push('/people');
   };
+
   componentWillMount() {
     if (!peopleStore.people[this.props.match.params.id]) {
       peopleStore.fetchPeople();
     }
   }
+
   render() {
     // find the person with specific id from the store
     const person = peopleStore.people.find(
       person => person.id === this.props.match.params.id
     );
     if (!person) {
-      return <Loading />;
+      const personId = this.props.match.params.id;
+      return (
+        <LoadFailedRedirect
+          message={`Timeout, no person with id "${personId}" was found`}
+        />
+      );
     }
     return (
       <div className={css.container}>
@@ -81,7 +91,11 @@ class PersonView extends Component {
 const PersonDetails = props => (
   <div className={css.container__personDetails}>
     <div className={css.personDetails__image}>
-      <img src={props.personDetails.picture} alt={props.personDetails.name} />
+      <img
+        className={css.image}
+        src={`http://${props.personDetails.picture}`}
+        alt={props.personDetails.name}
+      />
     </div>
     <div className={css.personDetails__mainInfo}>
       <h4 className={css.mainInfo__name}>{props.personDetails.name}</h4>
@@ -127,7 +141,5 @@ const PersonDetails = props => (
     </div>
   </div>
 );
-
-const Loading = props => <div>Loading ...</div>;
 
 export default PersonView;

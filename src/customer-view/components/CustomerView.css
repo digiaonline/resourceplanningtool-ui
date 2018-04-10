@@ -34,8 +34,11 @@
 .container__backButton {
   composes: wrapper_component-button;
   border: 0 solid rgba(255, 255, 255, 0);
-  padding: 0;
+  padding: 15px 0;
+  text-decoration: none;
   text-align: left;
+  display: inline-flex;
+  width: 100px;
 }
 
 .container__customer {
@@ -48,6 +51,12 @@
   display: flex;
   flex-wrap: wrap;
   align-content: start;
+}
+
+.customer__logo {
+  margin-bottom: 40px;
+  max-width: 200px;
+  max-height: 200px;
 }
 
 .customer__name {

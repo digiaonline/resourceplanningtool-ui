@@ -1,27 +1,44 @@
 // @flow
 
 import React, {Component} from 'react';
+import {observable} from 'mobx';
 import Modal from 'react-modal';
 import Autocomplete from 'react-autocomplete';
+import {PropTypes} from 'prop-types';
+import {observer} from 'mobx-react';
+
+import utilityStore from '../../utils/utility-store';
+import {onChangeImage} from '../../utils';
 import css from './PersonForm.css';
 import closeIcon from '../../assets/icon_close.svg';
 import addIcon from '../../assets/icon_add_b.svg';
-import {PropTypes} from 'prop-types';
-import {observer} from 'mobx-react';
 import skillsStore from '../skills-store';
+import Loading from '../../loading-component/LoadingComponent';
+import ImageUpload from '../../form-image';
 
 @observer
 class PersonForm extends Component {
+  @observable previewImage = `http://${this.props.form.$('picture').value}`;
+
   componentWillMount() {
     Modal.setAppElement(document.body);
     if (skillsStore.skills.length === 0) {
       skillsStore.fetchSkills();
     }
   }
+
+  onDeleteImage = (event: Event) => {
+    const {form} = this.props;
+    form.$('picture').set('value', '');
+    form.$('file').set('value', '');
+    this.previewImage = '';
+  };
+
   updateRadioInput = (event: Event) => {
     const {form} = this.props;
     form.$('new-skill-level').set('value', event.target.value);
   };
+
   addNewSkill = () => {
     const {form} = this.props;
     if (form.$('new-skill-name').value && form.$('new-skill-level').value) {
@@ -35,6 +52,7 @@ class PersonForm extends Component {
       ]);
     }
   };
+
   removeSkill = (index: Number) => {
     const {form} = this.props;
     // filter the array of skills and remove the skill with provided index
@@ -42,14 +60,17 @@ class PersonForm extends Component {
       .$('skills')
       .set('value', form.$('skills').value.filter((skill, i) => i !== index));
   };
+
   onChangeSkillName = (event: Event) => {
     const {form} = this.props;
     form.$('new-skill-name').set('value', event.target.value);
   };
+
   onSelectSkillName = (value: String) => {
     const {form} = this.props;
     form.$('new-skill-name').set('value', value);
   };
+
   render() {
     const {form} = this.props;
     return (
@@ -66,13 +87,14 @@ class PersonForm extends Component {
           <h3 className={css.formContainer__h3}>
             {this.props.mode === 'edit' ? 'Edit Person' : 'Create Person'}
           </h3>
-          <div className={css.form__imageContainer}>
-            <div className={css.form__image}>
-              {/* image will go here */}
-              Load image
-            </div>
-          </div>
           <form>
+            <ImageUpload
+              imgURL={this.previewImage}
+              deleteImage={this.onDeleteImage}
+              onChangeImage={event => {
+                onChangeImage.bind(this)(event, form);
+              }}
+            />
             <div className={css.form__inputs}>
               <div className={css.inputs__column}>
                 <div className={css.form__field__first}>
@@ -205,7 +227,7 @@ class PersonForm extends Component {
               </div>
             </div>
             <div className={css.form__technologies}>
-              <h4 className={css.technologies__h4}>Technology</h4>
+              <h4 className={css.technologies__h4}>Skill</h4>
               <div className={css.technologies__fields}>
                 <div className={css.technologies__input}>
                   <label
@@ -306,7 +328,7 @@ class PersonForm extends Component {
                     onClick={this.addNewSkill}
                   >
                     <img src={addIcon} alt="" />
-                    <span>&nbsp;NEW TECHNOLOGY</span>
+                    <span>&nbsp;NEW SKILL</span>
                   </button>
                 </div>
               </div>
@@ -346,6 +368,7 @@ class PersonForm extends Component {
             </div>
           </form>
         </div>
+        <Loading isOpened={utilityStore.isWaiting} />
       </Modal>
     );
   }

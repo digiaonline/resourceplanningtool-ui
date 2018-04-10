@@ -12,6 +12,7 @@ export function withNavigation(WrappedComponent: Function, url: String) {
     navigate = (id: Number) => {
       this.props.history.push(`${url}/${id}`);
     };
+
     render() {
       return <WrappedComponent {...this.props} navigate={this.navigate} />;
     }
