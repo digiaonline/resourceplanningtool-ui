@@ -1,13 +1,13 @@
 // @flow
 
 import {observable, action} from 'mobx';
-import axios from 'axios';
 import {
   getCreateSkillsQuery,
   getAddSkillsForPersonQuery,
   getUpdateSkillsForPersonQuery,
   FETCH_SKILLS_QUERY,
 } from './queries';
+import {makeHttpRequest} from '../utils';
 
 class SkillsStore {
   @observable
@@ -22,7 +22,7 @@ class SkillsStore {
   @action
   fetchSkills = async () => {
     try {
-      const responseData = await this.makeHttpRequest(FETCH_SKILLS_QUERY);
+      const responseData = await makeHttpRequest(FETCH_SKILLS_QUERY);
       this.skills = responseData.listSkills;
     } catch (error) {
       // TODO: proper notification to be implemented
@@ -34,9 +34,7 @@ class SkillsStore {
   createSkills = async (skills: [Object]) => {
     try {
       const CREATE_SKILLS_QUERY = getCreateSkillsQuery(skills);
-      const createSkillsResponse = await this.makeHttpRequest(
-        CREATE_SKILLS_QUERY
-      );
+      const createSkillsResponse = await makeHttpRequest(CREATE_SKILLS_QUERY);
       return createSkillsResponse;
     } catch (error) {
       // TODO: proper notification to be implemented
@@ -51,7 +49,7 @@ class SkillsStore {
         personId,
         skillIds
       );
-      const addSkillsResponse = await this.makeHttpRequest(
+      const addSkillsResponse = await makeHttpRequest(
         ADD_SKILLS_FOR_PERSON_QUERY
       );
       return addSkillsResponse;
@@ -72,29 +70,8 @@ class SkillsStore {
       addedSkillIds,
       removeSkillIds
     );
-    const updateSkillsResponse = await this.makeHttpRequest(
-      UPDATE_SKILLS_QUERY
-    );
+    const updateSkillsResponse = await makeHttpRequest(UPDATE_SKILLS_QUERY);
     return updateSkillsResponse;
-  };
-
-  @action
-  makeHttpRequest = async (queryString: String) => {
-    try {
-      const response = await axios.post(
-        process.env.REACT_APP_API,
-        queryString,
-        {
-          headers: {
-            'Content-Type': 'application/graphql',
-          },
-        }
-      );
-      return response.data.data;
-    } catch (error) {
-      // TODO: proper notification to be implemented
-      console.warn(error);
-    }
   };
 }
 

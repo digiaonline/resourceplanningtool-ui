@@ -1,7 +1,7 @@
 // @flow
 
 import {observable, action} from 'mobx';
-import axios from 'axios';
+import {makeHttpRequest} from '../utils';
 import utilityStore from '../utils/utility-store';
 import {
   FETCH_CUSTOMERS_QUERY,
@@ -25,7 +25,7 @@ class CustomersStore {
   @action
   fetchCustomers = async () => {
     try {
-      const responseData = await this.makeHttpRequest(FETCH_CUSTOMERS_QUERY);
+      const responseData = await makeHttpRequest(FETCH_CUSTOMERS_QUERY);
       this.customers = responseData.listCustomers;
     } catch (error) {
       // TODO: proper notification to be implemented
@@ -42,7 +42,7 @@ class CustomersStore {
         customerInfo.industry,
         customerInfo.logo
       );
-      await this.makeHttpRequest(CREATE_CUSTOMER_QUERY);
+      await makeHttpRequest(CREATE_CUSTOMER_QUERY);
       // TODO: proper notification to be implemented
       console.info('create customer successfully');
       this.fetchCustomers();
@@ -57,7 +57,7 @@ class CustomersStore {
   deleteCustomer = async (id: Number) => {
     try {
       const DELETE_CUSTOMER_QUERY = getDeleteCustomerQuery(id);
-      const response = await this.makeHttpRequest(DELETE_CUSTOMER_QUERY);
+      const response = await makeHttpRequest(DELETE_CUSTOMER_QUERY);
       if (response.removeCustomer) {
         this.fetchCustomers();
       }
@@ -77,7 +77,7 @@ class CustomersStore {
         customerInfo.url,
         customerInfo.logo
       );
-      const response = await this.makeHttpRequest(UPDATE_CUSTOMER_QUERY);
+      const response = await makeHttpRequest(UPDATE_CUSTOMER_QUERY);
       if (response.updateCustomer) {
         // TODO: proper notification to be implemented
         console.info('update customer successfully');
@@ -88,25 +88,6 @@ class CustomersStore {
       console.warn('cant save customer');
     }
     utilityStore.turnOffWaiting();
-  };
-
-  @action
-  makeHttpRequest = async (queryString: String) => {
-    try {
-      const response = await axios.post(
-        process.env.REACT_APP_API,
-        queryString,
-        {
-          headers: {
-            'Content-Type': 'application/graphql',
-          },
-        }
-      );
-      return response.data.data;
-    } catch (error) {
-      // TODO: proper notification to be implemented
-      console.warn(error);
-    }
   };
 }
 

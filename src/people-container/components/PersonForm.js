@@ -8,6 +8,7 @@ import {PropTypes} from 'prop-types';
 import {observer} from 'mobx-react';
 
 import utilityStore from '../../utils/utility-store';
+import {onChangeImage} from '../../utils';
 import css from './PersonForm.css';
 import closeIcon from '../../assets/icon_close.svg';
 import addIcon from '../../assets/icon_add_b.svg';
@@ -25,25 +26,19 @@ class PersonForm extends Component {
       skillsStore.fetchSkills();
     }
   }
-  onChangeImage = event => {
-    const {form} = this.props;
-    form.$('file').set('value', event.target.files[0]);
-    const reader = new FileReader();
-    reader.onload = e => {
-      this.previewImage = e.target.result;
-    };
-    reader.readAsDataURL(event.target.files[0]);
-  };
-  onDeleteImage = event => {
+
+  onDeleteImage = (event: Event) => {
     const {form} = this.props;
     form.$('picture').set('value', '');
     form.$('file').set('value', '');
     this.previewImage = '';
   };
+
   updateRadioInput = (event: Event) => {
     const {form} = this.props;
     form.$('new-skill-level').set('value', event.target.value);
   };
+
   addNewSkill = () => {
     const {form} = this.props;
     if (form.$('new-skill-name').value && form.$('new-skill-level').value) {
@@ -57,6 +52,7 @@ class PersonForm extends Component {
       ]);
     }
   };
+
   removeSkill = (index: Number) => {
     const {form} = this.props;
     // filter the array of skills and remove the skill with provided index
@@ -64,14 +60,17 @@ class PersonForm extends Component {
       .$('skills')
       .set('value', form.$('skills').value.filter((skill, i) => i !== index));
   };
+
   onChangeSkillName = (event: Event) => {
     const {form} = this.props;
     form.$('new-skill-name').set('value', event.target.value);
   };
+
   onSelectSkillName = (value: String) => {
     const {form} = this.props;
     form.$('new-skill-name').set('value', value);
   };
+
   render() {
     const {form} = this.props;
     return (
@@ -92,7 +91,9 @@ class PersonForm extends Component {
             <ImageUpload
               imgURL={this.previewImage}
               deleteImage={this.onDeleteImage}
-              onChangeImage={this.onChangeImage}
+              onChangeImage={event => {
+                onChangeImage.bind(this)(event, form);
+              }}
             />
             <div className={css.form__inputs}>
               <div className={css.inputs__column}>

@@ -1,5 +1,6 @@
 // @flow
 import Form from 'mobx-react-form';
+import axios from 'axios';
 
 export function parseDateTime(timeNumber: Number) {
   // convert epoch timestamp to miliseconds
@@ -65,4 +66,27 @@ export function filterArray(
       item => remainedItems.indexOf(item.id) === -1
     ),
   };
+}
+
+export function onChangeImage(event: Event, form: Object) {
+  form.$('file').set('value', event.target.files[0]);
+  const reader = new FileReader();
+  reader.onload = e => {
+    this.previewImage = e.target.result;
+  };
+  reader.readAsDataURL(event.target.files[0]);
+}
+
+export async function makeHttpRequest(queryString: String) {
+  try {
+    const response = await axios.post(process.env.REACT_APP_API, queryString, {
+      headers: {
+        'Content-Type': 'application/graphql',
+      },
+    });
+    return response.data.data;
+  } catch (error) {
+    // TODO: proper notification to be implemented
+    console.warn(error);
+  }
 }

@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 
 import utilityStore from '../../utils/utility-store';
+import {onChangeImage} from '../../utils';
 import Loading from '../../loading-component/LoadingComponent';
 import css from './CustomerForm.css';
 import closeIcon from '../../assets/icon_close.svg';
@@ -19,21 +20,14 @@ class CustomerForm extends Component {
   componentWillMount() {
     Modal.setAppElement(document.body);
   }
-  onChangeImage = event => {
-    const {form} = this.props;
-    form.$('file').set('value', event.target.files[0]);
-    const reader = new FileReader();
-    reader.onload = e => {
-      this.previewImage = e.target.result;
-    };
-    reader.readAsDataURL(event.target.files[0]);
-  };
-  onDeleteImage = event => {
+
+  onDeleteImage = (event: Event) => {
     const {form} = this.props;
     form.$('logo').set('value', '');
     form.$('file').set('value', '');
     this.previewImage = '';
   };
+
   render() {
     const {form} = this.props;
     return (
@@ -54,7 +48,9 @@ class CustomerForm extends Component {
             <ImageUpload
               imgURL={this.previewImage}
               deleteImage={this.onDeleteImage}
-              onChangeImage={this.onChangeImage}
+              onChangeImage={event => {
+                onChangeImage.bind(this)(event, form);
+              }}
             />
             <div className={css.form__inputs}>
               <div className={css.form__field}>

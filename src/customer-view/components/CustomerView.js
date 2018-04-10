@@ -38,6 +38,7 @@ class CustomerView extends Component {
       customersStore.fetchCustomers();
     }
   }
+
   render() {
     // find the customer with specific id from the store
     const customer = customersStore.customers.find(

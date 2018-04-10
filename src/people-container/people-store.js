@@ -1,9 +1,8 @@
 // @flow
 
 import {observable, action} from 'mobx';
-import axios from 'axios';
 import skillsStore from './skills-store';
-import {isEmpty} from '../utils';
+import {isEmpty, makeHttpRequest} from '../utils';
 import utilityStore from '../utils/utility-store';
 import {
   FETCH_PEOPLE_QUERY,
@@ -37,7 +36,7 @@ class PeopleStore {
   @action
   fetchPeople = async () => {
     try {
-      const responseData = await this.makeHttpRequest(FETCH_PEOPLE_QUERY);
+      const responseData = await makeHttpRequest(FETCH_PEOPLE_QUERY);
       this.people = responseData.listPersons;
     } catch (error) {
       // TODO: proper notification to be implemented
@@ -60,11 +59,10 @@ class PeopleStore {
         personInfo.githuburl,
         personInfo.linkedinurl
       );
-      let createSkillsResponse, addSkillsResponse;
+      let createSkillsResponse = {};
+      let addSkillsResponse = {};
       // wait to finish creating a person
-      const createPersonResponse = await this.makeHttpRequest(
-        CREATE_PERSON_QUERY
-      );
+      const createPersonResponse = await makeHttpRequest(CREATE_PERSON_QUERY);
       if (personInfo.skills.length > 0) {
         // wait to finish creating skills
         createSkillsResponse = await skillsStore.createSkills(
@@ -78,7 +76,11 @@ class PeopleStore {
           )
         );
       }
-      if (createPersonResponse.createPerson) {
+      // check if all needed requests were successful
+      if (
+        createPersonResponse.createPerson &&
+        Object.values(addSkillsResponse).indexOf(false) <= -1
+      ) {
         // TODO: proper notification to be implemented
         console.info('create person successfully');
         this.fetchPeople();
@@ -94,7 +96,7 @@ class PeopleStore {
   deletePerson = async (id: Number) => {
     try {
       const DELETE_PERSON_QUERY = getDeletePersonQuery(id);
-      const response = await this.makeHttpRequest(DELETE_PERSON_QUERY);
+      const response = await makeHttpRequest(DELETE_PERSON_QUERY);
       if (response.removePerson) {
         // TODO: proper notification to be implemented
         console.info('delete person successfully');
@@ -122,8 +124,8 @@ class PeopleStore {
         personInfo.id
       );
       let createSkillsResponse = {};
-      let updateSkillsResponse;
-      const updatePersonResponse = await this.makeHttpRequest(
+      let updateSkillsResponse = {};
+      const updatePersonResponse = await makeHttpRequest(
         GET_UPDATE_PERSON_QUERY
       );
       if (personInfo.addedSkills.length > 0) {
@@ -143,7 +145,10 @@ class PeopleStore {
           )
         );
       }
-      if (updatePersonResponse.updatePerson) {
+      if (
+        updatePersonResponse.updatePerson &&
+        Object.values(updateSkillsResponse).indexOf(false) <= -1
+      ) {
         this.fetchPeople();
         // TODO: proper notification to be implemented
         console.info('update person successful');
@@ -153,25 +158,6 @@ class PeopleStore {
       console.warn('cant update person', error);
     }
     utilityStore.turnOffWaiting();
-  };
-
-  @action
-  makeHttpRequest = async (queryString: String) => {
-    try {
-      const response = await axios.post(
-        process.env.REACT_APP_API,
-        queryString,
-        {
-          headers: {
-            'Content-Type': 'application/graphql',
-          },
-        }
-      );
-      return response.data.data;
-    } catch (error) {
-      // TODO: proper notification to be implemented
-      console.warn(error);
-    }
   };
 }
 

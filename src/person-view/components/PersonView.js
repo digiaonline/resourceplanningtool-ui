@@ -22,30 +22,34 @@ class PersonView extends Component {
       formIsOpened: false,
     };
   }
+
   toggleForm = () => {
     this.setState({
       formIsOpened: !this.state.formIsOpened,
     });
   };
+
   onDelete = () => {
     peopleStore.deletePerson(this.props.match.params.id);
     this.props.history.push('/people');
   };
+
   componentWillMount() {
     if (!peopleStore.people[this.props.match.params.id]) {
       peopleStore.fetchPeople();
     }
   }
+
   render() {
     // find the person with specific id from the store
     const person = peopleStore.people.find(
       person => person.id === this.props.match.params.id
     );
     if (!person) {
+      const personId = this.props.match.params.id;
       return (
         <LoadFailedRedirect
-          message={`Timeout, no person with id "${this.props.match.params
-            .id}" was found`}
+          message={`Timeout, no person with id "${personId}" was found`}
         />
       );
     }

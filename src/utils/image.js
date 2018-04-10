@@ -1,3 +1,5 @@
+// @flow
+
 const sdk = require('contentful-management');
 const contentful = require('contentful');
 
@@ -14,7 +16,7 @@ const client = contentful.createClient({
   accessToken: process.env.REACT_APP_CONTENTFUL_KEY,
 });
 
-export async function uploadImage(file) {
+export async function uploadImage(file: File) {
   try {
     // check if file is an image
     if (file.type.split('/')[0] !== 'image') {
@@ -60,7 +62,7 @@ export async function uploadImage(file) {
   }
 }
 
-export async function getImage(id) {
+export async function getImage(id: String) {
   try {
     const asset = await client.getAsset(id);
     return asset.fields.file.url.slice(2);

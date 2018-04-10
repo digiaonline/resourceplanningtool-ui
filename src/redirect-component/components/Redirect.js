@@ -9,6 +9,7 @@ import css from './Redirect.css';
 @observer
 class LoadFailedRedirect extends Component {
   @observable shouldRedirect = false;
+
   render() {
     const redirectInfo = {
       pathname: '/*',

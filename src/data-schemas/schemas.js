@@ -29,12 +29,14 @@ export const ProjectSchema = {
   linkGithub: String,
   otherLinks: [String],
 };
+
 export const CustomerSchema = {
   id: Number,
   name: String,
   industry: String,
   website: String,
 };
+
 export const Person = {
   id: Number,
   imageUrl: String,
@@ -52,6 +54,7 @@ export const Person = {
     },
   ],
 };
+
 export const Technology = {
   id: Number,
   name: String,
