@@ -21,7 +21,6 @@ class Header extends Component {
   };
 
   render() {
-    console.log(this);
     const {showMenu} = this.state;
     return (
       <div className={css.header}>

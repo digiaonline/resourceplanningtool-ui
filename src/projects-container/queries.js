@@ -177,6 +177,7 @@ export const getProjectQuery = (id: Number) => {
 export const ALL_PROJECTS_QUERY = `query {
   listProjects {
     id
+    picture
     name
     shortdescription
     githuburl
@@ -186,24 +187,6 @@ export const ALL_PROJECTS_QUERY = `query {
       id
       name
     }
-  }
-}`;
-
-export const PROJECT_QUERY = `{
-    id
-    name
-    starttime
-    endtime
-    ongoing
-    liveat
-    githuburl
-    shortdescription
-    description
-    contactemail
-    customer {id}
-    technologies {id name}
-    persons {id name}
-    news {id url description}
   }
 }`;
 

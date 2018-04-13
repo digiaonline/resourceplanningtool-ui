@@ -1,9 +1,9 @@
 //@flow
 
 import {observable, action, computed} from 'mobx';
-import axios from 'axios';
 
 import form from './form-config';
+import {makeHttpRequest} from '../utils';
 import {
   getDeleteProjectQuery,
   getCreateProjectQuery,
@@ -68,7 +68,7 @@ class ProjectsStore {
   fetchAllProject = async () => {
     const query = ALL_PROJECTS_QUERY;
     try {
-      const response = await this.makeHttpRequest(query);
+      const response = await makeHttpRequest(query);
       this.Data = response.listProjects;
     } catch (error) {
       return [];
@@ -79,7 +79,7 @@ class ProjectsStore {
   fetchProject = async (id: Number) => {
     const query = getProjectQuery(id);
     try {
-      const response = await this.makeHttpRequest(query);
+      const response = await makeHttpRequest(query);
       this.projectData = response.project || {};
     } catch (error) {
       // TODO: proper notification to be implemented
@@ -91,9 +91,10 @@ class ProjectsStore {
   fetchTechnologies = async () => {
     const query = TECHNOLOGIES_QUERY;
     try {
-      const response = await this.makeHttpRequest(query);
+      const response = await makeHttpRequest(query);
       this.technologiesList = response.listTechnologies;
     } catch (error) {
+      console.warn('error', error);
       return [];
     }
   };
@@ -101,9 +102,9 @@ class ProjectsStore {
   @action
   createProject = async (progectInfo: Object) => {
     const query = getCreateProjectQuery(
-      '',
+      this.pictureUrl,
       new Date(progectInfo.starttime).getTime() / 1000.0,
-      new Date(progectInfo.endtime).getTime() / 1000.0,
+      progectInfo.endtime ? new Date(progectInfo.endtime).getTime() / 1000 : 0,
       progectInfo.ongoing,
       progectInfo.liveat,
       progectInfo.githuburl,
@@ -113,11 +114,11 @@ class ProjectsStore {
       progectInfo.contactemail
     );
     try {
-      const response = await this.makeHttpRequest(query);
+      const response = await makeHttpRequest(query);
       this.newProjectId = response.createProject.id;
       this.fetchAllProject();
     } catch (error) {
-      console.log(error);
+      console.warn('error', error);
     }
   };
 
@@ -125,9 +126,9 @@ class ProjectsStore {
   updateProject = async (progectInfo: Object) => {
     const query = getUpdateProjectQuery(
       this.projectId,
-      '',
+      this.pictureUrl,
       new Date(progectInfo.starttime).getTime() / 1000.0,
-      new Date(progectInfo.endtime).getTime() / 1000.0,
+      progectInfo.endtime ? new Date(progectInfo.endtime).getTime() / 1000 : 0,
       progectInfo.ongoing,
       progectInfo.liveat,
       progectInfo.githuburl,
@@ -137,10 +138,10 @@ class ProjectsStore {
       progectInfo.contactemail
     );
     try {
-      await this.makeHttpRequest(query);
+      await makeHttpRequest(query);
       this.fetchProject(this.projectId);
     } catch (error) {
-      console.log(error);
+      console.warn('error', error);
     }
   };
 
@@ -148,9 +149,9 @@ class ProjectsStore {
   addPersonToProject = async (project_id: Number, person_id: Number) => {
     const query = getAddPersonToProjectQuery(project_id, person_id);
     try {
-      await this.makeHttpRequest(query);
+      await makeHttpRequest(query);
     } catch (error) {
-      console.log('error', error);
+      console.warn('error', error);
     }
   };
 
@@ -158,9 +159,9 @@ class ProjectsStore {
   removePersonFromProject = async (project_id: Number, person_id: Number) => {
     const query = getRemovePersonfromProjectQuery(project_id, person_id);
     try {
-      await this.makeHttpRequest(query);
+      await makeHttpRequest(query);
     } catch (error) {
-      console.log('error', error);
+      console.warn('error', error);
     }
   };
 
@@ -171,9 +172,9 @@ class ProjectsStore {
   ) => {
     const query = getAddTechnologiesToProjectQuery(project_id, technology_id);
     try {
-      await this.makeHttpRequest(query);
+      await makeHttpRequest(query);
     } catch (error) {
-      console.log('error', error);
+      console.warn('error', error);
     }
   };
 
@@ -187,9 +188,9 @@ class ProjectsStore {
       technology_id
     );
     try {
-      await this.makeHttpRequest(query);
+      await makeHttpRequest(query);
     } catch (error) {
-      console.log('error', error);
+      console.warn('error', error);
     }
   };
 
@@ -197,9 +198,9 @@ class ProjectsStore {
   addProjectToCustomer = async (project_id: Number, customer_id: Number) => {
     const query = getAddProjectToCustomerQuery(project_id, customer_id);
     try {
-      await this.makeHttpRequest(query);
+      await makeHttpRequest(query);
     } catch (error) {
-      console.log('error', error);
+      console.warn('error', error);
     }
   };
 
@@ -210,9 +211,9 @@ class ProjectsStore {
   ) => {
     const query = getRemoveProjectFromCustomerQuery(project_id, customer_id);
     try {
-      await this.makeHttpRequest(query);
+      await makeHttpRequest(query);
     } catch (error) {
-      console.log('error', error);
+      console.warn('error', error);
     }
   };
 
@@ -220,10 +221,10 @@ class ProjectsStore {
   deleteProject = async (id: Number) => {
     const query = getDeleteProjectQuery(id);
     try {
-      this.makeHttpRequest(query);
+      makeHttpRequest(query);
       console.log('Deleting Complete');
     } catch (error) {
-      console.log('error', error);
+      console.warn('error', error);
     }
   };
 
@@ -231,21 +232,21 @@ class ProjectsStore {
   createNews = async (url: String, description: String) => {
     const query = getCreateNewsQuery(url, description);
     try {
-      const response = await this.makeHttpRequest(query);
+      const response = await makeHttpRequest(query);
       this.newsID = response.createNews.id;
       this.fetchNews();
     } catch (error) {
-      console.log('error', error);
+      console.warn('error', error);
     }
   };
 
   @action
   fetchNews = async () => {
     try {
-      const response = await this.makeHttpRequest(ALL_NEWS_QUERY);
+      const response = await makeHttpRequest(ALL_NEWS_QUERY);
       this.allNews = response.listNews;
     } catch (error) {
-      console.log(error);
+      console.warn('error', error);
     }
   };
 
@@ -253,9 +254,9 @@ class ProjectsStore {
   addNewsToProject = async (project_id: Number, news_id: Number) => {
     const query = getAddNewsToProjectQuery(project_id, news_id);
     try {
-      await this.makeHttpRequest(query);
+      await makeHttpRequest(query);
     } catch (error) {
-      console.log('error', error);
+      console.warn('error', error);
     }
   };
 
@@ -263,27 +264,9 @@ class ProjectsStore {
   removeNewsFromProject = async (project_id: Number, news_id: Number) => {
     const query = getRemoveNewsFromProjectQuery(project_id, news_id);
     try {
-      await this.makeHttpRequest(query);
+      await makeHttpRequest(query);
     } catch (error) {
-      console.log('error', error);
-    }
-  };
-
-  @action
-  makeHttpRequest = async (queryString: String) => {
-    try {
-      const response = await axios.post(
-        'http://ec2-13-59-1-119.us-east-2.compute.amazonaws.com:3002/skillz',
-        queryString,
-        {
-          headers: {
-            'Content-Type': 'application/graphql',
-          },
-        }
-      );
-      return response.data.data;
-    } catch (error) {
-      console.log(error);
+      console.warn('error', error);
     }
   };
 

@@ -2,7 +2,8 @@
 
 import React, {Component} from 'react';
 import {observer} from 'mobx-react';
-import form from '../form-config';
+import Modal from 'react-modal';
+
 import ProjectsStore from '../projects-store';
 import PeopleStore from '../../people-container/people-store';
 import CustomersStore from '../../customers-container/customers-store';
@@ -22,6 +23,7 @@ class ProjectsContainer extends Component {
     CustomersStore.fetchCustomers();
     PeopleStore.fetchPeople();
     ProjectsStore.form_name('Create project');
+    Modal.setAppElement(document.body);
   }
   render() {
     return (

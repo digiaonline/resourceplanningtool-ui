@@ -41,7 +41,6 @@ const ProjectModal = observer(({form, isOpen, closeModal}) => {
     form.$('file').set('value', '');
     ProjectStore.pictureUrl = '';
   };
-
   return (
     <div>
       <Modal ariaHideApp={false} isOpen={isOpen} className={css.Modal}>
@@ -109,9 +108,10 @@ const ProjectModal = observer(({form, isOpen, closeModal}) => {
             </div>
             {form.$('members').value.map((item: Object, i: Number) => {
               // get name from the id in store
-              const personName = PeopleStore.people.filter(({id, name}) => {
-                return id === item.name;
+              const personName = PeopleStore.people.filter(x => {
+                return x.id === item;
               });
+              console.log(personName);
               return (
                 <div key={i} className={css.table__item}>
                   <span>{personName[0].name}</span>
@@ -119,7 +119,7 @@ const ProjectModal = observer(({form, isOpen, closeModal}) => {
                     className={css.form__icon}
                     src={deleteIcon}
                     alt="delete"
-                    onClick={() => ProjectStore.removeMember(item.name)}
+                    onClick={() => ProjectStore.removeMember(item)}
                   />
                 </div>
               );
