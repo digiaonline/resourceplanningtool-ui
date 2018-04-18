@@ -165,7 +165,7 @@ class ProjectView extends Component {
         </div>
         <div className={css.detail}>
           <div className={css.detail__title}>In the news</div>
-          {Data.news > 0 ? (
+          {Data.news.length > 0 ? (
             Data.news.map(item => (
               <div key={item.id}>
                 <h4>
