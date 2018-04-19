@@ -143,7 +143,6 @@ class ProjectsStore {
       progectInfo.description,
       progectInfo.contactemail
     );
-    console.log(query);
     try {
       await makeHttpRequest(query);
       this.fetchProject(this.projectId);
@@ -229,7 +228,6 @@ class ProjectsStore {
     const query = getDeleteProjectQuery(id);
     try {
       makeHttpRequest(query);
-      console.log('Deleting Complete');
     } catch (error) {
       console.warn('error', error);
     }
@@ -250,12 +248,11 @@ class ProjectsStore {
   @action
   createTechnology = async (name: String, description: String) => {
     const query = getCreateTechnologyQuery(name, description);
-    console.log(query);
     try {
       await this.makeHttpRequest(query);
       this.fetchTechnologies();
     } catch (error) {
-      console.log('error', error);
+      console.warn('error', error);
     }
   };
 
@@ -322,7 +319,6 @@ class ProjectsStore {
   @action
   addToTechnologies = select => {
     const allTechnologies = form.$('technologies').value.map(item => item.name);
-    console.log(allTechnologies);
     if (!allTechnologies.includes(select)) {
       const values = form.$('technologies').value.concat({name: select});
       form.$('technologies').set('value', values);

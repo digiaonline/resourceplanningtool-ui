@@ -57,7 +57,7 @@ class ProjectView extends Component {
       <div className={css.project__view}>
         <Link className={css.back__button} to="/projects">
           <img src={backIcon} alt="back" />
-          <span>Back</span>
+          <span>&nbsp;Back</span>
         </Link>
         <div className={css.project__heading}>
           <div className={css.project__title}>{Data.name}</div>

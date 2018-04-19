@@ -204,11 +204,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 5px 12px 5px 0px;
 }
 
 .news__url .input__section {
   min-height: unset;
-  width: 46%;
+  width: 45%;
 }
 
 .news__url .label {
@@ -297,11 +298,14 @@
 }
 
 .new__technology {
-  align-self: center;
   color: #14688f;
-  text-align: center;
+  text-align: right;
+  width: 100%;
+  padding: 4px 0;
+}
+
+.new__technology span {
   cursor: pointer;
-  width: 46%;
 }
 
 .modal__technology__title {

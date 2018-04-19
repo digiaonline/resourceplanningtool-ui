@@ -37,14 +37,18 @@ const ProjectModal = observer(({form, isOpen, closeModal}) => {
   };
 
   const deleteImage = () => {
-    console.log(form.$('picture').value);
     form.$('picture').set('value', '');
     form.$('file').set('value', '');
     ProjectStore.pictureUrl = '';
   };
   return (
     <div>
-      <Modal ariaHideApp={false} isOpen={isOpen} className={css.Modal}>
+      <Modal
+        overlayClassName={css.Overlay}
+        ariaHideApp={false}
+        isOpen={isOpen}
+        className={css.Modal}
+      >
         <div>
           <img
             className={css.modal__close}
@@ -96,10 +100,7 @@ const ProjectModal = observer(({form, isOpen, closeModal}) => {
               />
             </div>
             <div className={css.table__header}>
-              <div className={css.table__title}>
-                PERSONS
-                {/*<img className={css.form__icon} src={sortIcon} alt="sort" />*/}
-              </div>
+              <div className={css.table__title}>PERSONS</div>
               <img
                 className={css.form__icon}
                 src={deleteIcon}
@@ -112,7 +113,6 @@ const ProjectModal = observer(({form, isOpen, closeModal}) => {
               const personName = PeopleStore.people.filter(x => {
                 return x.id === item;
               });
-              console.log(personName);
               return (
                 <div key={i} className={css.table__item}>
                   <span>{personName[0].name}</span>
@@ -134,8 +134,8 @@ const ProjectModal = observer(({form, isOpen, closeModal}) => {
                   option={ProjectStore.technologiesList}
                   showValue={false}
                 />
+                <NewTechnology form={form} />
               </div>
-              <NewTechnology form={form} />
             </div>
             <div className={css.selected__tech__container}>
               {form.$('technologies').value.map((tech, i) => {
