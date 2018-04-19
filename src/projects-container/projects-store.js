@@ -15,6 +15,7 @@ import {
   getRemoveTechnologiesFromProjectQuery,
   getRemoveProjectFromCustomerQuery,
   getCreateNewsQuery,
+  getCreateTechnologyQuery,
   getAddNewsToProjectQuery,
   getRemoveNewsFromProjectQuery,
   getProjectQuery,
@@ -92,6 +93,11 @@ class ProjectsStore {
     const query = TECHNOLOGIES_QUERY;
     try {
       const response = await makeHttpRequest(query);
+      response.listTechnologies.sort(function(a, b) {
+        return a.name.toUpperCase() > b.name.toUpperCase()
+          ? 1
+          : b.name.toUpperCase() > a.name.toUpperCase() ? -1 : 0;
+      });
       this.technologiesList = response.listTechnologies;
     } catch (error) {
       console.warn('error', error);
@@ -222,7 +228,6 @@ class ProjectsStore {
     const query = getDeleteProjectQuery(id);
     try {
       makeHttpRequest(query);
-      console.log('Deleting Complete');
     } catch (error) {
       console.warn('error', error);
     }
@@ -235,6 +240,17 @@ class ProjectsStore {
       const response = await makeHttpRequest(query);
       this.newsID = response.createNews.id;
       this.fetchNews();
+    } catch (error) {
+      console.warn('error', error);
+    }
+  };
+
+  @action
+  createTechnology = async (name: String, description: String) => {
+    const query = getCreateTechnologyQuery(name, description);
+    try {
+      await this.makeHttpRequest(query);
+      this.fetchTechnologies();
     } catch (error) {
       console.warn('error', error);
     }
@@ -303,7 +319,6 @@ class ProjectsStore {
   @action
   addToTechnologies = select => {
     const allTechnologies = form.$('technologies').value.map(item => item.name);
-    console.log(allTechnologies);
     if (!allTechnologies.includes(select)) {
       const values = form.$('technologies').value.concat({name: select});
       form.$('technologies').set('value', values);
