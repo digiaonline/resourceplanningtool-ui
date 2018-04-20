@@ -4,10 +4,10 @@ import {observable, action} from 'mobx';
 import axios from 'axios';
 
 class ProjectsStore {
-  @observable Data = [];
-  @observable isOpen: Boolean = false;
+  @observable Data: Array<any> = [];
+  @observable isOpen: boolean = false;
   @observable projectId = null;
-  @observable projectData = [];
+  @observable projectData: Array<any> = [];
 
   @action
   modalToggle = () => {
@@ -15,7 +15,7 @@ class ProjectsStore {
   };
 
   @action
-  fetchProject = async id => {
+  fetchProject = async (id: number) => {
     this.projectId = id;
     const query = ` query { project (id: ${this.projectId}) ${this
       .projectQuery}`;

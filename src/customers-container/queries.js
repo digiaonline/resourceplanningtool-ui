@@ -1,6 +1,6 @@
 // @flow
 
-export const FETCH_CUSTOMERS_QUERY = `query {
+export const FETCH_CUSTOMERS_QUERY: string = `query {
   listCustomers {
      id
      name
@@ -11,11 +11,11 @@ export const FETCH_CUSTOMERS_QUERY = `query {
 }`;
 
 export const getCreateCustomerQuery = (
-  name: String,
-  url: String,
-  industry: String,
-  logo: String
-) => {
+  name: string,
+  url: string,
+  industry: string,
+  logo: string
+): string => {
   return `mutation {
     createCustomer(name: "${name}", url: "${url}", industry: "${industry}", logo: "${logo}") {
       id
@@ -27,19 +27,19 @@ export const getCreateCustomerQuery = (
   }`;
 };
 
-export const getDeleteCustomerQuery = (id: String) => {
+export const getDeleteCustomerQuery = (id: string): string => {
   return `mutation {
     removeCustomer(id: "${id}")
   }`;
 };
 
 export const getUpdateCustomerQuery = (
-  id: String,
-  name: String,
-  industry: String,
-  url: String,
-  logo: String
-) => {
+  id: string,
+  name: string,
+  industry: string,
+  url: string,
+  logo: string
+): string => {
   return `mutation {
     updateCustomer(id: ${+id}, name: "${name}", industry: "${industry}",  url: "${url}", logo: "${logo}",)
   }`;

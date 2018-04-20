@@ -3,7 +3,7 @@
 import {observable, action} from 'mobx';
 
 class UtilityStore {
-  @observable isWaiting: Boolean = false;
+  @observable isWaiting: boolean = false;
 
   @action
   turnOffWaiting = () => {

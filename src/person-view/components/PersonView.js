@@ -16,7 +16,10 @@ import LoadFailedRedirect from '../../redirect-component/components/Redirect';
 
 @observer
 class PersonView extends Component {
-  constructor(props) {
+  state: {
+    formIsOpened: boolean
+  };
+  constructor(props: Object) {
     super(props);
     this.state = {
       formIsOpened: false,

@@ -4,7 +4,7 @@ import React from 'react';
 import Modal from 'react-modal';
 import {PulseLoader} from 'react-spinners';
 
-const Loading = props => (
+const Loading = (props: Object) => (
   <Modal isOpen={props.isOpened} style={waitingModalStyle}>
     Please wait<PulseLoader color={'white'} />
   </Modal>

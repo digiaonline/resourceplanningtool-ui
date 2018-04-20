@@ -53,7 +53,7 @@ class PersonForm extends Component {
     }
   };
 
-  removeSkill = (index: Number) => {
+  removeSkill = (index: number) => {
     const {form} = this.props;
     // filter the array of skills and remove the skill with provided index
     form
@@ -66,7 +66,7 @@ class PersonForm extends Component {
     form.$('new-skill-name').set('value', event.target.value);
   };
 
-  onSelectSkillName = (value: String) => {
+  onSelectSkillName = (value: string) => {
     const {form} = this.props;
     form.$('new-skill-name').set('value', value);
   };

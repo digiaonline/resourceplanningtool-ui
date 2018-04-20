@@ -14,24 +14,22 @@ import {
 class PeopleStore {
   // typechecking and initial value for list of people
   @observable
-  people: [
-    {
-      name: String,
-      description: String,
-      id: String,
-      githuburl: String,
-      linkedinurl: String,
-      email: String,
-      picture: String,
-      location: String,
-      startdate: Number,
-      title: String,
-      skills: {
-        level: Number,
-        name: String
-      }
-    }
-  ] = [];
+  people: Array<{
+    name: string,
+    description: string,
+    id: string,
+    githuburl: string,
+    linkedinurl: string,
+    email: string,
+    picture: string,
+    location: string,
+    startdate: number,
+    title: string,
+    skills: Array<{
+      level: number,
+      name: string
+    }>
+  }> = [];
 
   @action
   fetchPeople = async () => {
@@ -48,7 +46,7 @@ class PeopleStore {
   @action
   createPerson = async (personInfo: Object) => {
     try {
-      const CREATE_PERSON_QUERY = getCreatePersonQuery(
+      const CREATE_PERSON_QUERY: string = getCreatePersonQuery(
         personInfo.name,
         personInfo.description,
         personInfo.picture,
@@ -59,8 +57,8 @@ class PeopleStore {
         personInfo.githuburl,
         personInfo.linkedinurl
       );
-      let createSkillsResponse = {};
-      let addSkillsResponse = {};
+      let createSkillsResponse: ?Object = {};
+      let addSkillsResponse: ?Object = {};
       // wait to finish creating a person
       const createPersonResponse = await makeHttpRequest(CREATE_PERSON_QUERY);
       if (personInfo.skills.length > 0) {
@@ -93,7 +91,7 @@ class PeopleStore {
   };
 
   @action
-  deletePerson = async (id: Number) => {
+  deletePerson = async (id: number) => {
     try {
       const DELETE_PERSON_QUERY = getDeletePersonQuery(id);
       const response = await makeHttpRequest(DELETE_PERSON_QUERY);
@@ -123,8 +121,8 @@ class PeopleStore {
         personInfo.linkedinurl,
         personInfo.id
       );
-      let createSkillsResponse = {};
-      let updateSkillsResponse = {};
+      let createSkillsResponse: ?Object = {};
+      let updateSkillsResponse: ?Object = {};
       const updatePersonResponse = await makeHttpRequest(
         GET_UPDATE_PERSON_QUERY
       );

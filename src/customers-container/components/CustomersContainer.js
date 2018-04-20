@@ -16,7 +16,7 @@ import {getForm} from '../../utils';
 class CustomersContainer extends Component {
   @observable formIsOpened = false;
 
-  toggleForm = (customer: ?Customer) => {
+  toggleForm = (customer: ?Object) => {
     this.formIsOpened = !this.formIsOpened;
   };
 

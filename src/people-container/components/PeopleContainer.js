@@ -13,7 +13,10 @@ import {getForm} from '../../utils';
 
 @observer
 class PeopleContainer extends Component {
-  constructor(props) {
+  state: {
+    formIsOpened: boolean
+  };
+  constructor(props: Object) {
     super(props);
     this.state = {
       formIsOpened: false,
