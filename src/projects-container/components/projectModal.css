@@ -149,14 +149,13 @@
 
 .form__icon {
   float: right;
-  margin: 10.5px 0;
+  margin: 9.5px 0;
   cursor: pointer;
 }
 
 .table__item {
   font-size: 16px;
   font-weight: normal;
-  height: 45px;
   line-height: 43px;
   border-bottom: 1px solid lightgray;
 }
@@ -178,7 +177,6 @@
 
 .remove__tech {
   position: relative;
-  top: 5.5px;
   margin-left: 24px;
   cursor: pointer;
 }
@@ -206,11 +204,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 5px 12px 5px 0px;
 }
 
 .news__url .input__section {
   min-height: unset;
-  width: 46%;
+  width: 45%;
 }
 
 .news__url .label {
@@ -230,6 +229,8 @@
   width: 60px;
   justify-content: space-between;
   cursor: pointer;
+  background: white;
+  border: none;
 }
 
 .helper {
@@ -239,6 +240,8 @@
 .select {
   --styled-select__background-color: #eee;
   --styled-select__border-color: lightgray;
+  --styled-select-placeholder__padding: 7px 10px;
+  --styled-select-input__padding: 8px;
   margin-top: 4px;
 }
 
@@ -265,6 +268,49 @@
   color: #363636;
   width: 1220px;
   overflow: auto;
+}
+
+.technology__Modal {
+  position: absolute;
+  top: 10%;
+  left: 0;
+  right: 0;
+  bottom: 10%;
+  font-family: Calibri, sans-serif;
+  margin: 0 auto;
+  background-color: #fff;
+  outline: none;
+  border-radius: 4px;
+  padding: 20px 40px;
+  color: #363636;
+  width: 60%;
+  height: 470px;
+  overflow: auto;
+}
+
+.Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #010101cc;
+}
+
+.new__technology {
+  color: #14688f;
+  text-align: right;
+  width: 100%;
+  padding: 4px 0;
+}
+
+.new__technology span {
+  cursor: pointer;
+}
+
+.modal__technology__title {
+  font-size: 34px;
+  margin-bottom: 40px;
 }
 
 @media (max-width: 1250px) {
@@ -331,5 +377,21 @@
 
   .inputGroup .input {
     padding: 12px 0px 12px 8px;
+  }
+
+  .news__url {
+    flex-direction: column;
+  }
+
+  .news__url .input__section {
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  .technology__Modal {
+    width: 95%;
+    height: 500px;
+    top: 2%;
+    bottom: 5%;
   }
 }
