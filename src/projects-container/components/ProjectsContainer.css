@@ -1,18 +1,9 @@
 .projectsApp {
-  position: relative;
-  background: #f2f2f2;
   width: 100%;
-  font-family: Calibri, sans-serif;
-}
-
-.backgroundImg {
-  position: absolute;
   background-image: url('../../assets/rekrykuva10_digia.jpg');
-  background-repeat: no-repeat;
   background-size: cover;
-  height: 800px;
-  width: 100%;
-  z-index: 0;
+  background-position: center;
+  flex: 1;
 }
 
 .contanier {
@@ -44,6 +35,10 @@
   padding: 20px 30px;
   border: 1px solid white;
   cursor: pointer;
+}
+
+.headingButton img {
+  padding-right: 5px;
 }
 
 .headingDetails {
