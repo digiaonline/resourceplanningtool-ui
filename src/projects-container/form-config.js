@@ -133,9 +133,9 @@ export const hooks = {
       //Create project
       if (form.values().file) {
         utilityStore.turnOnWaiting();
-        await uploadImage(form.values().file)
-          .then(pictureId => getImage(pictureId))
-          .then(pictureUrl => (ProjectsStore.pictureUrl = pictureUrl));
+        const pictureId = await uploadImage(form.values().file);
+        const pictureUrl = await getImage(pictureId);
+        ProjectsStore.pictureUrl = pictureUrl;
       }
 
       await ProjectsStore.createProject(form.values());

@@ -46,7 +46,7 @@ export const fields = [
 ];
 
 export const hooks = {
-  onSuccess(form: Object) {
+  onSuccess: async (form: Object) => {
     utilityStore.turnOnWaiting();
     // get initial values of the form, to see if we are creating or updating modalStyle
     const initialsValue = form.initials();
@@ -56,28 +56,33 @@ export const hooks = {
       initialsValue.industry === ''
     ) {
       if (form.values().file) {
-        uploadImage(form.values().file)
-          .then(logoId => getImage(logoId))
-          .then(logoUrl => {
-            customersStore.createCustomer(
-              Object.assign({}, form.values(), {logo: logoUrl})
-            );
-          });
+        try {
+          const logoId = await uploadImage(form.values().file);
+          const logoUrl = await getImage(logoId);
+          await customersStore.createCustomer(
+            Object.assign({}, form.values(), {logo: logoUrl})
+          );
+        } catch (e) {
+          utilityStore.turnOffWaiting();
+        }
       } else {
-        customersStore.createCustomer(form.values());
+        await customersStore.createCustomer(form.values());
       }
     } else {
       if (form.values().file !== '') {
-        uploadImage(form.values().file)
-          .then(logoId => getImage(logoId))
-          .then(logoUrl => {
-            customersStore.updateCustomer(
-              Object.assign({}, form.values(), {logo: logoUrl})
-            );
-          });
+        try {
+          const logoId = await uploadImage(form.values().file);
+          const logoUrl = await getImage(logoId);
+          await customersStore.updateCustomer(
+            Object.assign({}, form.values(), {logo: logoUrl})
+          );
+        } catch (e) {
+          utilityStore.turnOffWaiting();
+        }
       } else {
-        customersStore.updateCustomer(form.values());
+        await customersStore.updateCustomer(form.values());
       }
     }
+    utilityStore.toggleCustomerForm();
   },
 };

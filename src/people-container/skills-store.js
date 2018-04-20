@@ -1,6 +1,7 @@
 // @flow
 
 import {observable, action} from 'mobx';
+import alertify from 'alertify.js';
 import {
   getCreateSkillsQuery,
   getAddSkillsForPersonQuery,
@@ -25,8 +26,8 @@ class SkillsStore {
       const responseData = await makeHttpRequest(FETCH_SKILLS_QUERY);
       this.skills = responseData.listSkills;
     } catch (error) {
-      // TODO: proper notification to be implemented
-      console.warn('cant fetch skills', error);
+      alertify.error('Cannot fetch list of skills');
+      throw error;
     }
   };
 
@@ -37,8 +38,8 @@ class SkillsStore {
       const createSkillsResponse = await makeHttpRequest(CREATE_SKILLS_QUERY);
       return createSkillsResponse;
     } catch (error) {
-      // TODO: proper notification to be implemented
-      console.warn('cant create skills', error);
+      alertify.error('Cannot create skills');
+      throw error;
     }
   };
 
@@ -54,8 +55,8 @@ class SkillsStore {
       );
       return addSkillsResponse;
     } catch (error) {
-      // TODO: proper notification to be implemented
-      console.warn('cant create skills', error);
+      alertify.error('Cannot add skills to person');
+      throw error;
     }
   };
 

@@ -2,7 +2,6 @@
 
 import React, {Component} from 'react';
 import {observer} from 'mobx-react';
-import {observable} from 'mobx';
 import css from './CustomersContainer.css';
 import CustomerForm from './CustomerForm';
 import Table from '../../table/components/Table';
@@ -11,15 +10,10 @@ import addIcon from '../../assets/icon_add_b.svg';
 import customersStore from '../customers-store';
 import {fields, plugins, hooks} from '../../constants/customer-form-config';
 import {getForm} from '../../utils';
+import utilityStore from '../../utils/utility-store';
 
 @observer
 class CustomersContainer extends Component {
-  @observable formIsOpened = false;
-
-  toggleForm = (customer: ?Customer) => {
-    this.formIsOpened = !this.formIsOpened;
-  };
-
   componentWillMount() {
     customersStore.fetchCustomers();
   }
@@ -32,14 +26,12 @@ class CustomersContainer extends Component {
           <button
             type="button"
             className={css.header__button}
-            onClick={this.toggleForm}
+            onClick={utilityStore.toggleCustomerForm}
           >
             <img src={addIcon} alt="" />
             <span>&nbsp; NEW CUSTOMER</span>
           </button>
           <CustomerForm
-            isOpened={this.formIsOpened}
-            toggleForm={this.toggleForm}
             form={getForm(fields, plugins, hooks, {})}
             mode={'new'}
           />

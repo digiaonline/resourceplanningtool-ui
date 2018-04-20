@@ -6,6 +6,7 @@ import Modal from 'react-modal';
 import Autocomplete from 'react-autocomplete';
 import {PropTypes} from 'prop-types';
 import {observer} from 'mobx-react';
+import alertify from 'alertify.js';
 
 import utilityStore from '../../utils/utility-store';
 import {onChangeImage} from '../../utils';
@@ -43,17 +44,15 @@ class PersonForm extends Component {
     const {form} = this.props;
     const skillsList = form.$('skills').value;
     if (!form.$('new-skill-name').value || !form.$('new-skill-level').value) {
-      // TODO: replace with proper notification
-      console.warn('Should provide skill name and skill level before adding.');
-      return 0;
+      return alertify.error(
+        'Should provide skill name and skill level before adding.'
+      );
     }
     if (
       skillsList.filter(skill => skill.name === form.$('new-skill-name').value)
         .length > 0
     ) {
-      // TODO: replace with proper notification
-      console.warn('Skill already selected.');
-      return 0;
+      return alertify.error('Skill already selected.');
     }
     form.$('skills').set('value', [
       ...skillsList,
@@ -85,13 +84,13 @@ class PersonForm extends Component {
   render() {
     const {form} = this.props;
     return (
-      <Modal isOpen={this.props.isOpened} style={modalStyle}>
+      <Modal isOpen={utilityStore.personFormState} style={modalStyle}>
         <div className={css.buttonContainer}>
           <img
             alt=""
             src={closeIcon}
             className={css.modal__close}
-            onClick={this.props.toggleForm}
+            onClick={utilityStore.togglePersonForm}
           />
         </div>
         <div className={css.formContainer}>
@@ -371,7 +370,7 @@ class PersonForm extends Component {
               <button
                 className={css.actions__buttonReset}
                 type="reset"
-                onClick={this.props.toggleForm}
+                onClick={utilityStore.togglePersonForm}
               >
                 {' '}
                 Cancel{' '}
@@ -386,8 +385,7 @@ class PersonForm extends Component {
 }
 
 PersonForm.propTypes = {
-  isOpened: PropTypes.bool.isRequired,
-  toggleForm: PropTypes.func.isRequired,
+  form: PropTypes.object.isRequired,
   mode: PropTypes.string,
 };
 
