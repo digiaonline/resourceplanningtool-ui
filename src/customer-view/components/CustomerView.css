@@ -3,13 +3,6 @@
   --blurred-border: 2px solid rgb(220, 220, 220);
 }
 
-/* general style */
-* {
-  box-sizing: border-box;
-  font-family: Calibri, sans-serif;
-  font-size: 17px;
-}
-
 /* composable style */
 .wrapper_component-button {
   width: 122px;
@@ -19,7 +12,6 @@
   display: inline-flex;
   font-size: 16px;
   margin: auto auto 20px;
-  font-family: Calibri, sans-serif;
 }
 
 .element--hover:hover {

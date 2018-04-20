@@ -9,13 +9,6 @@
   cursor: pointer;
 }
 
-/* general style */
-* {
-  box-sizing: border-box;
-  font-size: 16px;
-  font-family: Calibri, sans-serif;
-}
-
 .input--background {
   background-color: rgba(220, 220, 220, 0.64);
   border: 1px solid rgba(200, 200, 200, 0.6);

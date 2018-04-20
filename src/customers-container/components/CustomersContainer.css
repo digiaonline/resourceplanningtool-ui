@@ -4,7 +4,7 @@
   --letter-spacing: 0.4px;
 }
 
-* {
+ {
   box-sizing: border-box;
 }
 
@@ -14,7 +14,6 @@
 
 .container {
   margin: 85px 20% auto;
-  font-family: Calibri, sans-serif;
   font-weight: normal;
   letter-spacing: normal;
   font-stretch: normal;
@@ -48,7 +47,6 @@
   display: inline-flex;
   align-items: center;
   font-size: 16px;
-  font-family: Calibri, sans-serif;
   composes: element--hover;
   padding: 0 20px;
 }

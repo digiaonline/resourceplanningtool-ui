@@ -1,5 +1,11 @@
-@import url(https://fonts.googleapis.com/css?family=Vollkorn);
+@import url(https://fonts.googleapis.com/css?family=Calibri:400,700,400italic,700italic);
 
 :root {
-  --font-serif: Calibri, serif;
+  --font-serif: Calibri, san-serif;
+}
+
+* {
+  font-family: Calibri, sans-serif;
+  box-sizing: border-box;
+  font-size: 16px;
 }
