@@ -1,47 +1,54 @@
+//@flow
+
 import React from 'react';
 import {observer} from 'mobx-react';
+import {Redirect} from 'react-router-dom';
+import {PropTypes} from 'prop-types';
 import Modal from 'react-modal';
+
+import ProjectStore from '../../projects-container/projects-store';
+import PeopleStore from '../../people-container/people-store';
+import CustomersStore from '../../customers-container/customers-store';
+import utilityStore from '../../utils/utility-store';
 import {Input, InputCheckbox, Textarea, SELECT} from './inputs';
+import NewsForm from './newsForm';
+import NewTechnology from './createTechnology';
+import Loading from '../../loading-component/LoadingComponent';
+
 import css from './projectModal.css';
 import closeIcon from '../../assets/icon_close.svg';
 import sortIcon from '../../assets/icon_arrow_up.svg';
 import deleteIcon from '../../assets/icon_delete.svg';
-import addIcon from '../../assets/icon_add_b.svg';
+import FormImage from '../../form-image';
 
-const ProjectModal = observer(
-  ({form, isOpen, closeModal, modalName, values}) => {
-    const addToMembers = select => {
-      if (!form.$('members').value.includes(select)) {
-        const values = form.$('members').value.concat(select);
-        form.$('members').set('value', values);
-      }
+const ProjectModal = observer(({form, isOpen, closeModal}) => {
+  const onsubmit = (e: Object) => {
+    form.onSubmit(e);
+    ProjectStore.fetchAllProject();
+  };
+
+  const onChangeImage = (event: Object) => {
+    form.$('file').set('value', event.target.files[0]);
+    const reader = new FileReader();
+    reader.onload = e => {
+      form.$('picture').set('value', e.target.result);
     };
+    reader.readAsDataURL(event.target.files[0]);
+  };
 
-    const removeAllMembers = () => {
-      form.$('members').set('value', []);
-    };
-
-    const removeMember = member => {
-      const Selected = form.$('members').value.filter(item => item !== member);
-      form.$('members').set('value', Selected);
-    };
-
-    const addToTechnologies = select => {
-      if (!form.$('technologies').value.includes(select)) {
-        const values = form.$('technologies').value.concat(select);
-        form.$('technologies').set('value', values);
-      }
-    };
-
-    const removeTechnologie = member => {
-      const Selected = form
-        .$('technologies')
-        .value.filter(item => item !== member);
-      form.$('technologies').set('value', Selected);
-    };
-
-    return (
-      <Modal isOpen={isOpen} className={css.Modal} ariaHideApp={false}>
+  const deleteImage = () => {
+    form.$('picture').set('value', '');
+    form.$('file').set('value', '');
+    ProjectStore.pictureUrl = '';
+  };
+  return (
+    <div>
+      <Modal
+        overlayClassName={css.Overlay}
+        ariaHideApp={false}
+        isOpen={isOpen}
+        className={css.Modal}
+      >
         <div>
           <img
             className={css.modal__close}
@@ -49,21 +56,28 @@ const ProjectModal = observer(
             alt="close"
             onClick={closeModal}
           />
-          <div className={css.modal__title}>{modalName}</div>
+          <div className={css.modal__title}>{ProjectStore.formName}</div>
           <form>
+            <FormImage
+              imgURL={form.$('picture').value}
+              deleteImage={deleteImage}
+              onChangeImage={onChangeImage}
+            />
             <div className={css.section}>
               <div className={css.cell}>
-                <Input field={form.$('customer')} />
-                <Input field={form.$('customeremail')} />
+                <SELECT
+                  field={form.$('customer')}
+                  option={CustomersStore.customers}
+                  showValue={true}
+                />
+                <Input field={form.$('contactemail')} />
                 <InputCheckbox field={form.$('ongoing')} />
               </div>
               <div className={css.verticalLine} />
               <div className={css.cell}>
                 <Input field={form.$('name')} />
-                <div className={css.input__group}>
-                  <Input field={form.$('starttime')} />
-                  <Input field={form.$('endtime')} />
-                </div>
+                <Input field={form.$('starttime')} />
+                <Input field={form.$('endtime')} />
               </div>
             </div>
             <div className={css.form__dvider}>Project description</div>
@@ -78,50 +92,71 @@ const ProjectModal = observer(
             </div>
             <div className={css.form__dvider}>People in project</div>
             <div className={css.cell}>
-              <SELECT field={form.$('member')} addTo={addToMembers} />
+              <SELECT
+                field={form.$('member')}
+                addTo={ProjectStore.addToMembers}
+                option={PeopleStore.people}
+                showValue={false}
+              />
             </div>
             <div className={css.table__header}>
-              <div className={css.table__title}>
-                PERSON
-                <img className={css.form__icon} src={sortIcon} alt="sort" />
-              </div>
+              <div className={css.table__title}>PERSONS</div>
               <img
                 className={css.form__icon}
                 src={deleteIcon}
                 alt="delete"
-                onClick={removeAllMembers}
+                onClick={ProjectStore.removeAllMembers}
               />
             </div>
-            {form.$('members').value.map((item, i) => (
-              <div key={i} className={css.table__item}>
-                <span>{item}</span>
-                <img
-                  className={css.form__icon}
-                  src={deleteIcon}
-                  alt="delete"
-                  onClick={() => removeMember(item)}
-                />
-              </div>
-            ))}
-            <div className={css.form__dvider}>Core technologies</div>
-            <div className={css.cell}>
-              <SELECT
-                field={form.$('usedTechnologies')}
-                addTo={addToTechnologies}
-              />
-            </div>
-            <div className={css.selected__tech__container}>
-              {form.$('technologies').value.map((item, i) => (
-                <div key={i} className={css.selected__tech}>
-                  {item}
+            {form.$('members').value.map((item: Object, i: Number) => {
+              // get name from the id in store
+              const personName = PeopleStore.people.filter(x => {
+                return x.id === item;
+              });
+              return (
+                <div key={i} className={css.table__item}>
+                  <span>{personName[0].name}</span>
                   <img
-                    className={css.remove__tech}
-                    onClick={() => removeTechnologie(item)}
-                    src={closeIcon}
-                    alt="close"
+                    className={css.form__icon}
+                    src={deleteIcon}
+                    alt="delete"
+                    onClick={() => ProjectStore.removeMember(item)}
                   />
                 </div>
-              ))}
+              );
+            })}
+            <div className={css.form__dvider}>Core technologies</div>
+            <div className={css.section}>
+              <div className={css.cell}>
+                <SELECT
+                  field={form.$('usedTechnologies')}
+                  addTo={ProjectStore.addToTechnologies}
+                  option={ProjectStore.technologiesList}
+                  showValue={false}
+                />
+                <NewTechnology form={form} />
+              </div>
+            </div>
+            <div className={css.selected__tech__container}>
+              {form.$('technologies').value.map((tech, i) => {
+                // get name from the id in store
+                const techName = ProjectStore.technologiesList.filter(
+                  ({id, name}) => {
+                    return id === tech.name;
+                  }
+                );
+                return (
+                  <div key={i} className={css.selected__tech}>
+                    {techName[0].name}
+                    <img
+                      className={css.remove__tech}
+                      onClick={() => ProjectStore.removeTechnologie(tech.name)}
+                      src={closeIcon}
+                      alt="close"
+                    />
+                  </div>
+                );
+              })}
             </div>
             <div className={css.form__dvider}>Links</div>
             <div className={css.section}>
@@ -138,18 +173,18 @@ const ProjectModal = observer(
                 IN THE NEWS
                 <img className={css.form__icon} src={sortIcon} alt="sort" />
               </div>
-              <img className={css.form__icon} src={deleteIcon} alt="delete" />
+              <img
+                className={css.form__icon}
+                src={deleteIcon}
+                alt="delete"
+                onClick={ProjectStore.removeAllNews}
+              />
             </div>
             <div className={css.table__item}>
-              <div className={css.news__url}>
-                <Input field={form.$('otherLinks')} />
-                <div className={css.news__url__button}>
-                  <img src={addIcon} alt="add" /> <span>ADD</span>
-                </div>
-              </div>
+              <NewsForm />
             </div>
             <div className={css.form__button}>
-              <div onClick={form.onSubmit} className={css.form__button__sava}>
+              <div onClick={onsubmit} className={css.form__button__sava}>
                 SAVE
               </div>
               <span onClick={closeModal} className={css.form__button__close}>
@@ -158,9 +193,19 @@ const ProjectModal = observer(
             </div>
           </form>
         </div>
+        {ProjectStore.Redirect && (
+          <Redirect to={`/projects/${ProjectStore.newProjectId}`} />
+        )}
       </Modal>
-    );
-  }
-);
+      <Loading isOpened={utilityStore.isWaiting} ariaHideApp={false} />
+    </div>
+  );
+});
 
 export default ProjectModal;
+
+ProjectModal.propTypes = {
+  form: PropTypes.object.isRequired,
+  isOpen: PropTypes.bool.isRequired,
+  closeModal: PropTypes.func.isRequired,
+};

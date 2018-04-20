@@ -41,16 +41,27 @@ class PersonForm extends Component {
 
   addNewSkill = () => {
     const {form} = this.props;
-    if (form.$('new-skill-name').value && form.$('new-skill-level').value) {
-      const skillsList = form.$('skills').value;
-      form.$('skills').set('value', [
-        ...skillsList,
-        {
-          level: +form.$('new-skill-level').value,
-          name: form.$('new-skill-name').value,
-        },
-      ]);
+    const skillsList = form.$('skills').value;
+    if (!form.$('new-skill-name').value || !form.$('new-skill-level').value) {
+      // TODO: replace with proper notification
+      console.warn('Should provide skill name and skill level before adding.');
+      return 0;
     }
+    if (
+      skillsList.filter(skill => skill.name === form.$('new-skill-name').value)
+        .length > 0
+    ) {
+      // TODO: replace with proper notification
+      console.warn('Skill already selected.');
+      return 0;
+    }
+    form.$('skills').set('value', [
+      ...skillsList,
+      {
+        level: +form.$('new-skill-level').value,
+        name: form.$('new-skill-name').value,
+      },
+    ]);
   };
 
   removeSkill = (index: number) => {

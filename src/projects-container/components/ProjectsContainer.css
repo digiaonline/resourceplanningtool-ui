@@ -7,7 +7,7 @@
 
 .backgroundImg {
   position: absolute;
-  background-image: url(../../assets/rekrykuva10_digia.jpg);
+  background-image: url('../../assets/rekrykuva10_digia.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   height: 800px;
@@ -51,11 +51,18 @@
   color: #fff;
   font-size: 30px;
   margin: 20px 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
-.headingDetailNumber {
+.headingDetails span {
+  font-size: 30px;
+}
+
+.headingDetails b {
   font-size: 40px;
-  font-weight: bold;
+  padding: 0 8px;
 }
 
 .filters {
@@ -142,6 +149,23 @@
   height: 40px;
   line-height: 40px;
   margin: 0 0 4px 4px;
+}
+
+.no__project {
+  position: relative;
+  text-align: center;
+  color: white;
+  font-size: 28px;
+  font-weight: 800;
+  margin-top: 40px;
+}
+
+.filters__select {
+  color: black;
+}
+
+.project__picture {
+  max-width: 100.3%;
 }
 
 @media (max-width: 1550px) {
