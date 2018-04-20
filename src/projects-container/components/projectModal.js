@@ -111,7 +111,7 @@ const ProjectModal = observer(({form, isOpen, closeModal}) => {
             {form.$('members').value.map((item: Object, i: Number) => {
               // get name from the id in store
               const personName = PeopleStore.people.filter(x => {
-                return x.id === item;
+                return x.id === item.name;
               });
               return (
                 <div key={i} className={css.table__item}>
