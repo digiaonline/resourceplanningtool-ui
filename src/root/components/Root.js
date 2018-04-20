@@ -23,7 +23,7 @@ const Root = () => (
       <div className={css.routes}>
         <Header />
         <Switch>
-          <Route exact path="/" render={() => <Redirect to="/projects" />} />
+          <Redirect exact from="/" to="/projects" />
           <Route exact path="/projects" component={ProjectsContainer} />
           <Route path="/projects/:id" component={ProjectView} />
           <Route
