@@ -8,11 +8,13 @@
 [libs]
 flow-typed/
 ./node_modules/stylelint/decls
+./node_modules/mobx/lib/mobx.js.flow
 decls/
 
 [options]
 module.name_mapper.extension='css' -> 'CSSModule'
 module.name_mapper.extension='svg' -> 'EmptyModule'
+unsafe.enable_getters_and_setters=true
 
 esproposal.decorators=ignore
 

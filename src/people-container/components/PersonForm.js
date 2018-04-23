@@ -4,7 +4,7 @@ import React, {Component} from 'react';
 import {observable} from 'mobx';
 import Modal from 'react-modal';
 import Autocomplete from 'react-autocomplete';
-import {PropTypes} from 'prop-types';
+import * as PropTypes from 'prop-types';
 import {observer} from 'mobx-react';
 
 import utilityStore from '../../utils/utility-store';
@@ -36,7 +36,10 @@ class PersonForm extends Component {
 
   updateRadioInput = (event: Event) => {
     const {form} = this.props;
-    form.$('new-skill-level').set('value', event.target.value);
+    const element = event.target;
+    if (element instanceof HTMLInputElement) {
+      form.$('new-skill-level').set('value', element.value);
+    }
   };
 
   addNewSkill = () => {
@@ -74,7 +77,10 @@ class PersonForm extends Component {
 
   onChangeSkillName = (event: Event) => {
     const {form} = this.props;
-    form.$('new-skill-name').set('value', event.target.value);
+    const element = event.target;
+    if (element instanceof HTMLInputElement) {
+      form.$('new-skill-name').set('value', element.value);
+    }
   };
 
   onSelectSkillName = (value: string) => {

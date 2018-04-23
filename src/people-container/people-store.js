@@ -2,6 +2,7 @@
 
 import {observable, action} from 'mobx';
 import skillsStore from './skills-store';
+import {values} from 'lodash';
 import {isEmpty, makeHttpRequest} from '../utils';
 import utilityStore from '../utils/utility-store';
 import {
@@ -57,10 +58,12 @@ class PeopleStore {
         personInfo.githuburl,
         personInfo.linkedinurl
       );
-      let createSkillsResponse: ?Object = {};
-      let addSkillsResponse: ?Object = {};
+      let createSkillsResponse: Object = {};
+      let addSkillsResponse: Object = {};
       // wait to finish creating a person
-      const createPersonResponse = await makeHttpRequest(CREATE_PERSON_QUERY);
+      const createPersonResponse: Object = await makeHttpRequest(
+        CREATE_PERSON_QUERY
+      );
       if (personInfo.skills.length > 0) {
         // wait to finish creating skills
         createSkillsResponse = await skillsStore.createSkills(
@@ -69,9 +72,7 @@ class PeopleStore {
         // wait to finish adding created skills to created person
         addSkillsResponse = await skillsStore.addSkillsForPerson(
           createPersonResponse.createPerson.id,
-          Object.values(createSkillsResponse).map(
-            skillResponse => +skillResponse.id
-          )
+          values(createSkillsResponse).map(skillResponse => skillResponse.id)
         );
       }
       // check if all needed requests were successful
@@ -138,9 +139,7 @@ class PeopleStore {
         updateSkillsResponse = await skillsStore.updateSkillsForPerson(
           personInfo.id,
           personInfo.removedSkills.map(skill => skill.id),
-          Object.values(createSkillsResponse).map(
-            skillResponse => +skillResponse.id
-          )
+          values(createSkillsResponse).map(skillResponse => +skillResponse.id)
         );
       }
       if (

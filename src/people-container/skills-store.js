@@ -29,7 +29,7 @@ class SkillsStore {
   };
 
   @action
-  createSkills = async (skills: Array<Object>): ?Object => {
+  createSkills = async (skills: Array<Object>): Object => {
     try {
       const CREATE_SKILLS_QUERY: string = getCreateSkillsQuery(skills);
       const createSkillsResponse: Object = await makeHttpRequest(
@@ -46,7 +46,7 @@ class SkillsStore {
   addSkillsForPerson = async (
     personId: number,
     skillIds: Array<number>
-  ): ?Object => {
+  ): Object => {
     try {
       const ADD_SKILLS_FOR_PERSON_QUERY: string = getAddSkillsForPersonQuery(
         personId,

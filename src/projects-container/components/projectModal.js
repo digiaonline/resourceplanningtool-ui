@@ -3,8 +3,9 @@
 import React from 'react';
 import {observer} from 'mobx-react';
 import {Redirect} from 'react-router-dom';
-import {PropTypes} from 'prop-types';
+import * as PropTypes from 'prop-types';
 import Modal from 'react-modal';
+import {toString} from 'lodash';
 
 import ProjectStore from '../../projects-container/projects-store';
 import PeopleStore from '../../people-container/people-store';
@@ -194,7 +195,7 @@ const ProjectModal = observer(({form, isOpen, closeModal}) => {
           </form>
         </div>
         {ProjectStore.Redirect && (
-          <Redirect to={`/projects/${ProjectStore.newProjectId}`} />
+          <Redirect to={`/projects/${toString(ProjectStore.newProjectId)}`} />
         )}
       </Modal>
       <Loading isOpened={utilityStore.isWaiting} ariaHideApp={false} />

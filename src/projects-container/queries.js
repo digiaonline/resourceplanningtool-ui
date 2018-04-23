@@ -1,25 +1,28 @@
 // @flow
+import {toString} from 'lodash';
 
-export const getDeleteProjectQuery = (id: Number) => {
+export const getDeleteProjectQuery = (id: number): string => {
   return `mutation {
 	    removeProject(id: ${id})
 	  }`;
 };
 
 export const getCreateProjectQuery = (
-  picture: String,
-  starttime: Number,
-  endtime: Number,
-  ongoing: Boolean,
-  liveat: String,
-  githuburl: String,
-  name: String,
-  shortdescription: String,
-  description: String,
-  contactemail: String
-) => {
+  picture: string,
+  starttime: number,
+  endtime: number,
+  ongoing: boolean,
+  liveat: string,
+  githuburl: string,
+  name: string,
+  shortdescription: string,
+  description: string,
+  contactemail: string
+): string => {
   return `mutation {
-    createProject(picture: "${picture}", starttime: ${starttime}, endtime: ${endtime}, ongoing: ${ongoing}, shortdescription: "${shortdescription}",
+    createProject(picture: "${picture}", starttime: ${starttime}, endtime: ${endtime}, ongoing: ${toString(
+  ongoing
+)}, shortdescription: "${shortdescription}",
                   liveat: "${liveat}", githuburl: "${githuburl}", name: "${name}", description: "${description}", contactemail: "${contactemail}") {
       id
     }
@@ -27,28 +30,30 @@ export const getCreateProjectQuery = (
 };
 
 export const getUpdateProjectQuery = (
-  id: Number,
-  picture: String,
-  starttime: Number,
-  endtime: Number,
-  ongoing: Boolean,
-  liveat: String,
-  githuburl: String,
-  name: String,
-  shortdescription: String,
-  description: String,
-  contactemail: String
-) => {
+  id: ?number,
+  picture: string,
+  starttime: number,
+  endtime: number,
+  ongoing: boolean,
+  liveat: string,
+  githuburl: string,
+  name: string,
+  shortdescription: string,
+  description: string,
+  contactemail: string
+): string => {
   return `mutation {
-    updateProject(id: ${+id}, picture: "${picture}", starttime: ${starttime}, endtime: ${endtime}, ongoing: ${ongoing}, shortdescription: "${shortdescription}",
+    updateProject(id: ${+id}, picture: "${picture}", starttime: ${starttime}, endtime: ${endtime}, ongoing: ${toString(
+  ongoing
+)}, shortdescription: "${shortdescription}",
                   liveat: "${liveat}", githuburl: "${githuburl}", name: "${name}", description: "${description}", contactemail: "${contactemail}")
   }`;
 };
 
 export const getAddPersonToProjectQuery = (
-  projectId: Number,
-  personId: Number
-) => {
+  projectId: number,
+  personId: number
+): string => {
   return `mutation {
     addPersonToProject(
       project_id: ${projectId},
@@ -58,9 +63,9 @@ export const getAddPersonToProjectQuery = (
 };
 
 export const getRemovePersonfromProjectQuery = (
-  projectId: Number,
-  personId: Number
-) => {
+  projectId: number,
+  personId: number
+): string => {
   return `mutation {
     removePersonFromProject(
       project_id: ${projectId},
@@ -70,9 +75,9 @@ export const getRemovePersonfromProjectQuery = (
 };
 
 export const getAddTechnologiesToProjectQuery = (
-  projectId: Number,
-  technologyId: Number
-) => {
+  projectId: number,
+  technologyId: number
+): string => {
   return `mutation {
     addTechnologyToProject(
       project_id: ${projectId},
@@ -82,9 +87,9 @@ export const getAddTechnologiesToProjectQuery = (
 };
 
 export const getRemoveTechnologiesFromProjectQuery = (
-  projectId: Number,
-  technologyId: Number
-) => {
+  projectId: number,
+  technologyId: number
+): string => {
   return `mutation {
     removeTechnologyFromProject(
       project_id: ${projectId},
@@ -94,9 +99,9 @@ export const getRemoveTechnologiesFromProjectQuery = (
 };
 
 export const getAddProjectToCustomerQuery = (
-  projectId: Number,
-  customerId: Number
-) => {
+  projectId: number,
+  customerId: number
+): string => {
   return `mutation {
     addProjectToCustomer(
       project_id: ${projectId},
@@ -106,9 +111,9 @@ export const getAddProjectToCustomerQuery = (
 };
 
 export const getRemoveProjectFromCustomerQuery = (
-  projectId: Number,
-  customerId: Number
-) => {
+  projectId: number,
+  customerId: number
+): string => {
   return `mutation {
     removeProjectFromCustomer(
       project_id: ${projectId},
@@ -118,9 +123,9 @@ export const getRemoveProjectFromCustomerQuery = (
 };
 
 export const getAddNewsToProjectQuery = (
-  project_id: Number,
-  news_id: Number
-) => {
+  project_id: number,
+  news_id: number
+): string => {
   return `mutation {
     addNewsToProject(
       project_id: ${project_id},
@@ -130,9 +135,9 @@ export const getAddNewsToProjectQuery = (
 };
 
 export const getRemoveNewsFromProjectQuery = (
-  project_id: Number,
-  news_id: Number
-) => {
+  project_id: number,
+  news_id: number
+): string => {
   return `mutation {
     removeNewsFromProject(
       project_id: ${project_id},
@@ -141,7 +146,10 @@ export const getRemoveNewsFromProjectQuery = (
   }`;
 };
 
-export const getCreateNewsQuery = (url: String, description: String) => {
+export const getCreateNewsQuery = (
+  url: string,
+  description: string
+): string => {
   return `mutation {
     createNews(
       url: "${url}",
@@ -152,7 +160,10 @@ export const getCreateNewsQuery = (url: String, description: String) => {
   }`;
 };
 
-export const getCreateTechnologyQuery = (name: String, description: String) => {
+export const getCreateTechnologyQuery = (
+  name: string,
+  description: string
+): string => {
   return `mutation {
     createTechnology(
       name: "${name}",
@@ -163,9 +174,9 @@ export const getCreateTechnologyQuery = (name: String, description: String) => {
   }`;
 };
 
-export const getProjectQuery = (id: Number) => {
+export const getProjectQuery = (id: ?number): string => {
   return `query {
-    project (id: ${id}) {
+    project (id: ${toString(id)}) {
       id
       name
       picture
@@ -185,7 +196,7 @@ export const getProjectQuery = (id: Number) => {
   }`;
 };
 
-export const ALL_PROJECTS_QUERY = `query {
+export const ALL_PROJECTS_QUERY: string = `query {
   listProjects {
     id
     picture
@@ -201,14 +212,14 @@ export const ALL_PROJECTS_QUERY = `query {
   }
 }`;
 
-export const TECHNOLOGIES_QUERY = `query {
+export const TECHNOLOGIES_QUERY: string = `query {
   listTechnologies {
     id
     name
   }
 }`;
 
-export const ALL_NEWS_QUERY = `query {
+export const ALL_NEWS_QUERY: string = `query {
   listNews {
     id
     url

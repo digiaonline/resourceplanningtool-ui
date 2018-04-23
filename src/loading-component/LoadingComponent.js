@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Modal from 'react-modal';
+import * as PropTypes from 'prop-types';
 import {PulseLoader} from 'react-spinners';
 
 const Loading = (props: Object) => (
@@ -25,6 +26,10 @@ const waitingModalStyle = {
     maxHeight: '200px',
     margin: '150px auto auto',
   },
+};
+
+Loading.propTypes = {
+  isOpened: PropTypes.bool.isRequired,
 };
 
 export default Loading;

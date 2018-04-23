@@ -13,7 +13,7 @@ import deleteIcon from '../../assets/icon_delete.svg';
 
 @observer
 class NewsForm extends Component {
-  onSubmit = async (e: object) => {
+  onSubmit = async (e: Object) => {
     e.preventDefault();
     const newsLink = form.$('newsLink');
     const description = form.$('newsDescription');

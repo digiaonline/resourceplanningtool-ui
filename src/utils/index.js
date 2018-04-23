@@ -79,11 +79,15 @@ export function onChangeImage(event: Object, form: Object) {
 
 export async function makeHttpRequest(queryString: string): Object {
   try {
-    const response = await axios.post(process.env.REACT_APP_API, queryString, {
-      headers: {
-        'Content-Type': 'application/graphql',
-      },
-    });
+    const response = await axios.post(
+      process.env.REACT_APP_API || '',
+      queryString,
+      {
+        headers: {
+          'Content-Type': 'application/graphql',
+        },
+      }
+    );
     return response.data.data;
   } catch (error) {
     // TODO: proper notification to be implemented
