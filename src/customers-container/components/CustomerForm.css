@@ -3,12 +3,6 @@
   cursor: pointer;
 }
 
-/* general style */
-* {
-  box-sizing: border-box;
-  font-family: Calibri, sans-serif;
-}
-
 /* specific style */
 .buttonContainer {
   display: flex;
