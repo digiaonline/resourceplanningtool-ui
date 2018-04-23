@@ -65,7 +65,7 @@
 }
 
 .image {
-  max-width: 300px;
+  max-width: 100%;
   max-height: 300px;
 }
 
@@ -105,7 +105,7 @@
 }
 
 .personDetails__minorInfo {
-  padding: 50px 40px;
+  padding: 50px 30px;
   composes: flexbox-sizing;
   display: flex;
   flex-direction: row;
@@ -125,7 +125,7 @@
 .minorInfo__rowLinks {
   composes: minorInfo__row;
   display: flex;
-  flex-direction: row;
+  flex-flow: row wrap;
   color: blue;
 }
 
