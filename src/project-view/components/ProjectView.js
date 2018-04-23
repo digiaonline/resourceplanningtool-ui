@@ -114,10 +114,10 @@ class ProjectView extends Component {
             <div className={css.detail}>
               <div className={css.detail__title}>People in project</div>
               {Data.persons.length > 0 ? (
-                Data.persons.map(item => (
+                Data.persons.map((item, i) => (
                   <Link
                     to={`/people/${item.id}`}
-                    key={item.id}
+                    key={i}
                     className={css.members__view}
                   >
                     {item.name}

@@ -361,7 +361,7 @@ class ProjectsStore {
       return {name: item.id};
     });
     const members = Data.persons.map(item => {
-      return {name: item.id};
+      return item.id;
     });
     const news = Data.news.map(item => item.id);
     form.$('name').set('value', Data.name);
