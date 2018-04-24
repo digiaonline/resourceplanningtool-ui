@@ -1,7 +1,8 @@
 import MobxReactForm from 'mobx-react-form';
 import ProjectsStore from './projects-store';
-import {uploadImage, getImage} from '../utils/image';
 import validatorjs from 'validatorjs';
+import alertify from 'alertify.js';
+import {uploadImage, getImage} from '../utils/image';
 import utilityStore from '../utils/utility-store';
 
 export const plugins = {dvr: validatorjs};
@@ -159,6 +160,7 @@ export const hooks = {
       ProjectsStore.addProjectToCustomer(id, form.values().customer);
       utilityStore.turnOffWaiting();
       ProjectsStore.Redirect = true;
+      alertify.success('Project Created.');
       ProjectsStore.modalToggle();
     } else {
       //Edit project
@@ -200,6 +202,7 @@ export const hooks = {
         .newNews.map(newsId => ProjectsStore.addNewsToProject(id, newsId));
       ProjectsStore.addProjectToCustomer(id, form.values().customer);
       utilityStore.turnOffWaiting();
+      alertify.success('Project Updated.');
       ProjectsStore.modalToggle();
     }
   },

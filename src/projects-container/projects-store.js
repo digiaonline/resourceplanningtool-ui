@@ -1,7 +1,7 @@
 //@flow
 
 import {observable, action, computed} from 'mobx';
-
+import alertify from 'alertify.js';
 import form from './form-config';
 import {makeHttpRequest} from '../utils';
 import {
@@ -124,7 +124,7 @@ class ProjectsStore {
       this.newProjectId = response.createProject.id;
       this.fetchAllProject();
     } catch (error) {
-      console.warn('error', error);
+      alertify.error("Project didn't create.");
     }
   };
 
@@ -147,7 +147,7 @@ class ProjectsStore {
       await makeHttpRequest(query);
       this.fetchProject(this.projectId);
     } catch (error) {
-      console.warn('error', error);
+      alertify.error("Project didn't updated.");
     }
   };
 
@@ -157,7 +157,7 @@ class ProjectsStore {
     try {
       await makeHttpRequest(query);
     } catch (error) {
-      console.warn('error', error);
+      alertify.error("Person didn't added to project.");
     }
   };
 
@@ -167,7 +167,7 @@ class ProjectsStore {
     try {
       await makeHttpRequest(query);
     } catch (error) {
-      console.warn('error', error);
+      alertify.error("Person didn't removed from project.");
     }
   };
 
@@ -180,7 +180,7 @@ class ProjectsStore {
     try {
       await makeHttpRequest(query);
     } catch (error) {
-      console.warn('error', error);
+      alertify.error("Technnology didn't added to project.");
     }
   };
 
@@ -196,7 +196,7 @@ class ProjectsStore {
     try {
       await makeHttpRequest(query);
     } catch (error) {
-      console.warn('error', error);
+      alertify.error("Technology didn't removed from project.");
     }
   };
 
@@ -206,7 +206,7 @@ class ProjectsStore {
     try {
       await makeHttpRequest(query);
     } catch (error) {
-      console.warn('error', error);
+      alertify.error("Customer didn't added to project.");
     }
   };
 
@@ -219,7 +219,7 @@ class ProjectsStore {
     try {
       await makeHttpRequest(query);
     } catch (error) {
-      console.warn('error', error);
+      alertify.error("Customer didn't removed from project.");
     }
   };
 
@@ -228,8 +228,9 @@ class ProjectsStore {
     const query = getDeleteProjectQuery(id);
     try {
       makeHttpRequest(query);
+      alertify.success('Project deleted .');
     } catch (error) {
-      console.warn('error', error);
+      alertify.error("Project didn't deleted .");
     }
   };
 
@@ -241,7 +242,7 @@ class ProjectsStore {
       this.newsID = response.createNews.id;
       this.fetchNews();
     } catch (error) {
-      console.warn('error', error);
+      alertify.error("News didn't created .");
     }
   };
 
@@ -249,10 +250,11 @@ class ProjectsStore {
   createTechnology = async (name: String, description: String) => {
     const query = getCreateTechnologyQuery(name, description);
     try {
-      await this.makeHttpRequest(query);
+      await makeHttpRequest(query);
       this.fetchTechnologies();
+      alertify.success('New technologe added.');
     } catch (error) {
-      console.warn('error', error);
+      alertify.error("Technology didn't created .");
     }
   };
 
@@ -272,7 +274,7 @@ class ProjectsStore {
     try {
       await makeHttpRequest(query);
     } catch (error) {
-      console.warn('error', error);
+      alertify.error("News didn't added to project .");
     }
   };
 
@@ -282,7 +284,7 @@ class ProjectsStore {
     try {
       await makeHttpRequest(query);
     } catch (error) {
-      console.warn('error', error);
+      alertify.error("News didn't removed from project .");
     }
   };
 
