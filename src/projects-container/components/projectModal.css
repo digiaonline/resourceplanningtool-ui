@@ -6,7 +6,8 @@
 .modal__close {
   position: absolute;
   right: 0;
-  top: 5px;
+  top: 0;
+  margin: 16px 16px auto auto;
   cursor: pointer;
 }
 

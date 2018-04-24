@@ -55,7 +55,8 @@ class CustomerView extends Component {
     return (
       <div className={css.container}>
         <Link className={css.container__backButton} to="/customers">
-          <img src={backIcon} alt="back" /> <span>&nbsp;BACK </span>
+          <img src={backIcon} alt="back" />{' '}
+          <span className={css.button__text}> BACK </span>
         </Link>
         <div className={css.container__customer}>
           <div>
@@ -83,7 +84,7 @@ class CustomerView extends Component {
               onClick={this.onDelete}
             >
               <img alt="" src={deleteIcon} />
-              <span>&nbsp; DELETE</span>
+              <span className={css.button__text}> DELETE</span>
             </button>
             <button
               type="button"
@@ -91,7 +92,7 @@ class CustomerView extends Component {
               onClick={this.toggleForm}
             >
               <img alt="" src={editIcon} />
-              <span>&nbsp; EDIT</span>
+              <span className={css.button__text}> EDIT</span>
             </button>
           </div>
         </div>
