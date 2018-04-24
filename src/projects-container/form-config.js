@@ -178,7 +178,7 @@ export const hooks = {
       ProjectsStore.updateProject(form.values());
       //remove old data
       Data.persons.map(person =>
-        ProjectsStore.removePersonFromProject(id, person)
+        ProjectsStore.removePersonFromProject(id, person.id)
       );
       Data.technologies.map(tech =>
         ProjectsStore.removeTechnologyFromProject(id, tech.id)
