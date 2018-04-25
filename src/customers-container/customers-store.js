@@ -18,7 +18,11 @@ class CustomersStore {
       name: String,
       url: String,
       logo: String,
-      industry: String
+      industry: String,
+      projects: Array<{
+        id: number,
+        name: string
+      }>
     }
   ] = [];
 

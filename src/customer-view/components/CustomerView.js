@@ -2,6 +2,7 @@
 
 import React, {Component} from 'react';
 import {observer} from 'mobx-react';
+import {isEmpty} from 'lodash';
 import {Link} from 'react-router-dom';
 import CustomerForm from '../../customers-container/components/CustomerForm';
 import css from './CustomerView.css';
@@ -41,9 +42,10 @@ class CustomerView extends Component {
 
   render() {
     // find the customer with specific id from the store
-    const customer = customersStore.customers.find(
-      customer => customer.id === this.props.match.params.id
-    );
+    const customer =
+      customersStore.customers.find(
+        customer => customer.id === this.props.match.params.id
+      ) || {};
     if (!customer) {
       return (
         <LoadFailedRedirect
@@ -69,6 +71,25 @@ class CustomerView extends Component {
               <div className={css.column__row}>
                 <span className={css.row__tag}>Industry</span>
                 <span>{customer.industry}</span>
+              </div>
+              <div className={css.column__row}>
+                <span className={css.row__tag}>Projects</span>
+                {!isEmpty(customer.projects) ? (
+                  customer.projects.map((project, index) => (
+                    <Link
+                      to={`/projects/${project.id}`}
+                      key={project.id}
+                      className={css.rowTag__customerProjects}
+                    >
+                      {/* separate item with a comma except for the last item */}
+                      {`${project.name}${customer.projects.length === index + 1
+                        ? ''
+                        : ', '}`}
+                    </Link>
+                  ))
+                ) : (
+                  <span>Not available</span>
+                )}
               </div>
               <div className={css.column__row}>
                 <span className={css.row__tag}>Website</span>
