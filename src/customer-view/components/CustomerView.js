@@ -3,11 +3,14 @@
 import React, {Component} from 'react';
 import {observer} from 'mobx-react';
 import {Link} from 'react-router-dom';
+import {isEmpty} from 'lodash';
+
 import CustomerForm from '../../customers-container/components/CustomerForm';
 import css from './CustomerView.css';
 import deleteIcon from '../../assets/icon_delete.svg';
 import editIcon from '../../assets/icon_edit.svg';
 import backIcon from '../../assets/icon_arrow_back.svg';
+import defaultPicture from '../../assets/default-picture.png';
 import customersStore from '../../customers-container/customers-store';
 import {getForm} from '../../utils';
 import {fields, plugins, hooks} from '../../constants/customer-form-config';
@@ -62,7 +65,13 @@ class CustomerView extends Component {
             <h3 className={css.customer__name}> {customer.name} </h3>
             <img
               className={css.customer__logo}
-              src={`http://${customer.logo}`}
+              src={
+                isEmpty(customer.logo) ? (
+                  defaultPicture
+                ) : (
+                  `http://${customer.logo}`
+                )
+              }
               alt={customer.name}
             />
             <div className={css.customer__rows}>

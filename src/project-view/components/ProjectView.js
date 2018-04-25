@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {observer} from 'mobx-react';
 import {Link} from 'react-router-dom';
+import {isEmpty} from 'lodash';
 import Confirm from 'react-confirm-bootstrap';
 import Modal from 'react-modal';
 
@@ -15,6 +16,7 @@ import css from './ProjectView.css';
 import backIcon from '../../assets/icon_arrow_back.svg';
 import deleteIcon from '../../assets/icon_delete.svg';
 import editIcon from '../../assets/icon_edit.svg';
+import defaultPicture from '../../assets/default-picture.png';
 
 @observer
 class ProjectView extends Component {
@@ -80,13 +82,13 @@ class ProjectView extends Component {
             </div>
           </div>
         </div>
-        {Data.picture && (
-          <img
-            className={css.project__image}
-            src={`http://${Data.picture}`}
-            alt={Data.name}
-          />
-        )}
+        <img
+          className={css.project__image}
+          src={
+            isEmpty(Data.picture) ? defaultPicture : `http://${Data.picture}`
+          }
+          alt={Data.name}
+        />
         <div className={css.container}>
           <div className={css.general__details}>
             <div className={css.details}>
