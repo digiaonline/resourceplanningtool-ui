@@ -1,6 +1,8 @@
+// @flow
+
 import React, {Component} from 'react';
 import {observer} from 'mobx-react';
-import {PropTypes} from 'prop-types';
+import * as PropTypes from 'prop-types';
 import Modal from 'react-modal';
 
 import ProjectStore from '../../projects-container/projects-store';
@@ -11,7 +13,10 @@ import closeIcon from '../../assets/icon_close.svg';
 
 @observer
 class NewTechnology extends Component {
-  state = {
+  state: {
+    isOpen: boolean,
+    error: string,
+  } = {
     isOpen: false,
     error: '',
   };
@@ -28,8 +33,8 @@ class NewTechnology extends Component {
 
   onSubmit = () => {
     const {form} = this.props;
-    const name = form.$('technologyName').value;
-    const description = form.$('technologyDescription').value;
+    const name: string = form.$('technologyName').value;
+    const description: string = form.$('technologyDescription').value;
     if (name) {
       const technologies = ProjectStore.technologiesList.map(({id, name}) =>
         name.toLowerCase().replace(/\s/g, '')
