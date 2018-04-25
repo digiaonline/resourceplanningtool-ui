@@ -143,9 +143,7 @@ export const hooks = {
 
       form
         .values()
-        .members.map(member =>
-          ProjectsStore.addPersonToProject(id, member.name)
-        );
+        .members.map(member => ProjectsStore.addPersonToProject(id, member));
 
       form
         .values()
@@ -190,9 +188,7 @@ export const hooks = {
       //add new data
       form
         .values()
-        .members.map(member =>
-          ProjectsStore.addPersonToProject(id, member.name)
-        );
+        .members.map(member => ProjectsStore.addPersonToProject(id, member));
       form
         .values()
         .technologies.map(tech =>

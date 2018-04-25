@@ -18,7 +18,6 @@
 
 .container {
   margin: 85px 18% auto;
-  font-family: Calibri, sans-serif;
   font-weight: normal;
   letter-spacing: normal;
   font-stretch: normal;
@@ -52,7 +51,6 @@
   text-align: left;
   font-size: 16px;
   display: inline-flex;
-  font-family: Calibri, sans-serif;
   composes: element--hover;
 }
 

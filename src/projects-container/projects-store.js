@@ -377,8 +377,8 @@ class ProjectsStore {
     const technologies: Array<{name: number}> = Data.technologies.map(item => {
       return {name: item.id};
     });
-    const members: Array<{name: number}> = Data.persons.map(item => {
-      return {name: item.id};
+    const members = Data.persons.map(item => {
+      return item.id;
     });
     const news: Array<number> = Data.news.map(item => item.id);
     form.$('name').set('value', Data.name);

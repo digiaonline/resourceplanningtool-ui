@@ -28,7 +28,6 @@ class ProjectsContainer extends Component {
   render() {
     return (
       <div className={css.projectsApp}>
-        <div className={css.backgroundImg} />
         <div className={css.contanier}>
           <Heading
             projects={ProjectsStore.Data.length}
