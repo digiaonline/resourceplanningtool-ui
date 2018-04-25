@@ -201,6 +201,10 @@
   cursor: pointer;
 }
 
+.news__description {
+  padding-right: 10px;
+}
+
 .news__url {
   display: flex;
   justify-content: space-between;
