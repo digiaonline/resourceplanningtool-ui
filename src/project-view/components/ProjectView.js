@@ -182,7 +182,9 @@ class ProjectView extends Component {
           </div>
           <div>
             <div className={css.description__title}>Description</div>
-            <p>{Data.description ? Data.description : 'Not avalable'}</p>
+            <p className={css.description__content}>
+              {Data.description ? Data.description : 'Not avalable'}
+            </p>
           </div>
         </div>
       </div>

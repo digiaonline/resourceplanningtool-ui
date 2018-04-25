@@ -2,7 +2,7 @@
 
 import validatorjs from 'validatorjs';
 import peopleStore from '../people-container/people-store';
-import {filterArray} from '../utils';
+import {filterArray, normalizeString} from '../utils';
 import {uploadImage, getImage} from '../utils/image';
 import utilityStore from '../utils/utility-store';
 
@@ -22,7 +22,9 @@ export const hooks = {
     const filteredValues = Object.assign({}, form.values(), {
       removedSkills: skillsChanged.removedItems,
       addedSkills: skillsChanged.addedItems,
+      description: normalizeString(form.values().description),
     });
+    console.log(filteredValues);
     if (initialsValue.name === '') {
       if (form.values().file !== '') {
         uploadImage(form.values().file)

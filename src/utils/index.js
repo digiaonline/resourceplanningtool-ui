@@ -90,3 +90,7 @@ export async function makeHttpRequest(queryString: String) {
     console.warn(error);
   }
 }
+
+export function normalizeString(inputString: string): string {
+  return inputString.replace(/(\r\n\t|\n|\r\t)/gm, '\\n');
+}

@@ -66,7 +66,6 @@
   color: #363636;
   background-color: #eee;
   padding: 15px 10px;
-  border: none;
   margin-top: 5px;
   border: 1px solid lightgray;
 }
@@ -204,7 +203,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5px 12px 5px 0px;
+  padding: 5px 12px 5px 0;
 }
 
 .news__url .input__section {
@@ -374,7 +373,7 @@
   }
 
   .inputGroup .input {
-    padding: 12px 0px 12px 8px;
+    padding: 12px 0 12px 8px;
   }
 
   .news__url {
