@@ -150,7 +150,6 @@ export const hooks = {
         .technologies.map(tech =>
           ProjectsStore.addTechnologiesToProject(id, tech.name)
         );
-      ProjectsStore.addProjectToCustomer(id, form.values().customer);
 
       form
         .values()

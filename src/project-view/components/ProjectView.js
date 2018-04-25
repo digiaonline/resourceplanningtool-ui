@@ -3,6 +3,7 @@ import {observer} from 'mobx-react';
 import {Link} from 'react-router-dom';
 import Confirm from 'react-confirm-bootstrap';
 import Modal from 'react-modal';
+import {find} from 'lodash';
 
 import ProjectStore from '../../projects-container/projects-store';
 import PeopleStore from '../../people-container/people-store';
@@ -53,6 +54,10 @@ class ProjectView extends Component {
       );
     }
     const Data = ProjectStore.projectData;
+    const customer = find(
+      CustomersStore.customers,
+      customer => customer.id === Data.customer.id
+    );
     return (
       <div className={css.project__view}>
         <Link className={css.back__button} to="/projects">
@@ -90,6 +95,19 @@ class ProjectView extends Component {
         <div className={css.container}>
           <div className={css.general__details}>
             <div className={css.details}>
+              <div className={css.detail__row}>
+                <span>Customer name</span>
+                {Data.customer.id ? (
+                  <Link
+                    to={`/customers/${customer.id}`}
+                    className={css.members__view}
+                  >
+                    {customer ? customer.name : 'Not available'}
+                  </Link>
+                ) : (
+                  <span>Not available</span>
+                )}
+              </div>
               <div className={css.detail__row}>
                 <span>Contact info</span>
                 {Data.contactemail}
