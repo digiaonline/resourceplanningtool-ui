@@ -39,7 +39,6 @@ class PeopleStore {
       this.people = responseData.listPersons;
     } catch (error) {
       alertify.error('Cannot fetch people');
-      throw error;
     }
   };
 

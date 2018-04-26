@@ -2,8 +2,8 @@
 
 import {observable, action, computed} from 'mobx';
 import alertify from 'alertify.js';
-import {toString} from 'lodash';
 import form from './form-config';
+import {toString} from 'lodash';
 import {makeHttpRequest} from '../utils';
 import {
   getDeleteProjectQuery,
@@ -285,7 +285,7 @@ class ProjectsStore {
       const response: Object = await makeHttpRequest(ALL_NEWS_QUERY);
       this.allNews = response.listNews;
     } catch (error) {
-      throw error;
+      alertify.error('Cannot fetch news');
     }
   };
 

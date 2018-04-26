@@ -99,12 +99,12 @@ class ProjectView extends Component {
             <div className={css.details}>
               <div className={css.detail__row}>
                 <span>Customer name</span>
-                {Data.customer.id ? (
+                {!isEmpty(customer) ? (
                   <Link
                     to={`/customers/${customer.id}`}
                     className={css.members__view}
                   >
-                    {customer ? customer.name : 'Not available'}
+                    {customer.name}
                   </Link>
                 ) : (
                   <span>Not available</span>

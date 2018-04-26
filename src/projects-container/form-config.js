@@ -172,9 +172,9 @@ export const hooks = {
       try {
         if (!ProjectsStore.pictureUrl) {
           if (updatedValues.file) {
-            await uploadImage(updatedValues.file)
-              .then(pictureId => getImage(pictureId))
-              .then(pictureUrl => (ProjectsStore.pictureUrl = pictureUrl));
+            const pictureId = await uploadImage(form.values().file);
+            const pictureUrl = await getImage(pictureId);
+            ProjectsStore.pictureUrl = pictureUrl;
           } else {
             ProjectsStore.pictureUrl = '';
           }
