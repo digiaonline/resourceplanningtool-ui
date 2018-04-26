@@ -41,7 +41,8 @@ export function getForm(
 ) {
   if (!isEmpty(values)) {
     const fieldsWithValues = updateFieldsWithValues(fields, values);
-    return new Form({fields: fieldsWithValues}, {plugins, hooks});
+    const form = new Form({fields: fieldsWithValues}, {plugins, hooks});
+    return form;
   } else {
     return new Form({fields}, {plugins, hooks});
   }
@@ -76,11 +77,20 @@ export function onChangeImage(event: Object, form: Object) {
   reader.readAsDataURL(event.target.files[0]);
 }
 
-export async function makeHttpRequest(queryString: String) {
-  const response = await axios.post(process.env.REACT_APP_API, queryString, {
-    headers: {
-      'Content-Type': 'application/graphql',
-    },
-  });
-  return response.data.data;
+export async function makeHttpRequest(queryString: string): Object {
+  try {
+    const response = await axios.post(
+      process.env.REACT_APP_API || '',
+      queryString,
+      {
+        headers: {
+          'Content-Type': 'application/graphql',
+        },
+      }
+    );
+    return response.data.data;
+  } catch (error) {
+    // TODO: proper notification to be implemented
+    console.warn(error);
+  }
 }

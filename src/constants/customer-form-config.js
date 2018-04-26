@@ -46,7 +46,7 @@ export const fields = [
 ];
 
 export const hooks = {
-  onSuccess: async (form: Object) => {
+  onSuccess(form: Object) {
     utilityStore.turnOnWaiting();
     // get initial values of the form, to see if we are creating or updating modalStyle
     const initialsValue = form.initials();
@@ -56,47 +56,27 @@ export const hooks = {
       initialsValue.industry === ''
     ) {
       if (form.values().file) {
-        try {
-          const logoId = await uploadImage(form.values().file);
-          const logoUrl = await getImage(logoId);
-          await customersStore.createCustomer(
-            Object.assign({}, form.values(), {logo: logoUrl})
-          );
-          utilityStore.turnOffWaiting();
-          utilityStore.toggleCustomerForm();
-        } catch (e) {
-          utilityStore.turnOffWaiting();
-        }
+        uploadImage(form.values().file)
+          .then(logoId => getImage(logoId))
+          .then(logoUrl => {
+            customersStore.createCustomer(
+              Object.assign({}, form.values(), {logo: logoUrl})
+            );
+          });
       } else {
-        try {
-          await customersStore.createCustomer(form.values());
-          utilityStore.turnOffWaiting();
-          utilityStore.toggleCustomerForm();
-        } catch (e) {
-          utilityStore.turnOffWaiting();
-        }
+        customersStore.createCustomer(form.values());
       }
     } else {
       if (form.values().file !== '') {
-        try {
-          const logoId = await uploadImage(form.values().file);
-          const logoUrl = await getImage(logoId);
-          await customersStore.updateCustomer(
-            Object.assign({}, form.values(), {logo: logoUrl})
-          );
-          utilityStore.turnOffWaiting();
-          utilityStore.toggleCustomerForm();
-        } catch (e) {
-          utilityStore.turnOffWaiting();
-        }
+        uploadImage(form.values().file)
+          .then(logoId => getImage(logoId))
+          .then(logoUrl => {
+            customersStore.updateCustomer(
+              Object.assign({}, form.values(), {logo: logoUrl})
+            );
+          });
       } else {
-        try {
-          await customersStore.updateCustomer(form.values());
-          utilityStore.turnOffWaiting();
-          utilityStore.toggleCustomerForm();
-        } catch (e) {
-          utilityStore.turnOffWaiting();
-        }
+        customersStore.updateCustomer(form.values());
       }
     }
   },

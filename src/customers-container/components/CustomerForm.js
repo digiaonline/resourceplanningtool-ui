@@ -31,13 +31,13 @@ class CustomerForm extends Component {
   render() {
     const {form} = this.props;
     return (
-      <Modal isOpen={utilityStore.customerFormState} style={modalStyle}>
+      <Modal isOpen={this.props.isOpened} style={modalStyle}>
         <div className={css.buttonContainer}>
           <img
             alt=""
             src={closeIcon}
             className={css.modal__close}
-            onClick={utilityStore.toggleCustomerForm}
+            onClick={this.props.toggleForm}
           />
         </div>
         <div className={css.formContainer}>
@@ -101,7 +101,7 @@ class CustomerForm extends Component {
               <button
                 className={css.actions__buttonReset}
                 type="reset"
-                onClick={utilityStore.toggleCustomerForm}
+                onClick={this.props.toggleForm}
               >
                 {' '}
                 Cancel{' '}
@@ -116,6 +116,8 @@ class CustomerForm extends Component {
 }
 
 CustomerForm.propTypes = {
+  isOpened: PropTypes.bool.isRequired,
+  toggleForm: PropTypes.func.isRequired,
   mode: PropTypes.string,
   form: PropTypes.object.isRequired,
 };
