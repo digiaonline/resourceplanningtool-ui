@@ -31,11 +31,19 @@ export const hooks = {
           await peopleStore.createPerson(
             Object.assign({}, filteredValues, {picture: pictureUrl})
           );
+          utilityStore.turnOffWaiting();
+          utilityStore.togglePersonForm();
         } catch (e) {
           utilityStore.turnOffWaiting();
         }
       } else {
-        await peopleStore.createPerson(filteredValues);
+        try {
+          await peopleStore.createPerson(filteredValues);
+          utilityStore.turnOffWaiting();
+          utilityStore.togglePersonForm();
+        } catch (e) {
+          utilityStore.turnOffWaiting();
+        }
       }
     } else {
       if (form.values().file !== '') {
@@ -45,14 +53,21 @@ export const hooks = {
           await peopleStore.updatePerson(
             Object.assign({}, filteredValues, {picture: pictureUrl})
           );
+          utilityStore.turnOffWaiting();
+          utilityStore.togglePersonForm();
         } catch (e) {
           utilityStore.turnOffWaiting();
         }
       } else {
-        await peopleStore.updatePerson(filteredValues);
+        try {
+          await peopleStore.updatePerson(filteredValues);
+          utilityStore.turnOffWaiting();
+          utilityStore.togglePersonForm();
+        } catch (e) {
+          utilityStore.turnOffWaiting();
+        }
       }
     }
-    utilityStore.togglePersonForm();
   },
 };
 

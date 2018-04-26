@@ -62,11 +62,19 @@ export const hooks = {
           await customersStore.createCustomer(
             Object.assign({}, form.values(), {logo: logoUrl})
           );
+          utilityStore.turnOffWaiting();
+          utilityStore.toggleCustomerForm();
         } catch (e) {
           utilityStore.turnOffWaiting();
         }
       } else {
-        await customersStore.createCustomer(form.values());
+        try {
+          await customersStore.createCustomer(form.values());
+          utilityStore.turnOffWaiting();
+          utilityStore.toggleCustomerForm();
+        } catch (e) {
+          utilityStore.turnOffWaiting();
+        }
       }
     } else {
       if (form.values().file !== '') {
@@ -76,13 +84,20 @@ export const hooks = {
           await customersStore.updateCustomer(
             Object.assign({}, form.values(), {logo: logoUrl})
           );
+          utilityStore.turnOffWaiting();
+          utilityStore.toggleCustomerForm();
         } catch (e) {
           utilityStore.turnOffWaiting();
         }
       } else {
-        await customersStore.updateCustomer(form.values());
+        try {
+          await customersStore.updateCustomer(form.values());
+          utilityStore.turnOffWaiting();
+          utilityStore.toggleCustomerForm();
+        } catch (e) {
+          utilityStore.turnOffWaiting();
+        }
       }
     }
-    utilityStore.toggleCustomerForm();
   },
 };

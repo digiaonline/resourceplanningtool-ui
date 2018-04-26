@@ -5,7 +5,6 @@ import alertify from 'alertify.js';
 import skillsStore from './skills-store';
 import {isEmpty, makeHttpRequest} from '../utils';
 import {values} from 'lodash';
-import utilityStore from '../utils/utility-store';
 import {
   FETCH_PEOPLE_QUERY,
   getCreatePersonQuery,
@@ -88,7 +87,6 @@ class PeopleStore {
       alertify.error('Cannot create person.');
       throw error;
     }
-    utilityStore.turnOffWaiting();
   };
 
   @action
@@ -152,7 +150,6 @@ class PeopleStore {
       alertify.error('Cannot save changes made to person.');
       throw error;
     }
-    utilityStore.turnOffWaiting();
   };
 }
 

@@ -3,7 +3,6 @@
 import {observable, action} from 'mobx';
 import alertify from 'alertify.js';
 import {makeHttpRequest} from '../utils';
-import utilityStore from '../utils/utility-store';
 import {
   FETCH_CUSTOMERS_QUERY,
   getCreateCustomerQuery,
@@ -50,7 +49,6 @@ class CustomersStore {
       alertify.error('Cannot create customer.');
       throw error;
     }
-    utilityStore.turnOffWaiting();
   };
 
   @action
@@ -87,7 +85,6 @@ class CustomersStore {
       alertify.error('Cannot save changes made to customer');
       throw error;
     }
-    utilityStore.turnOffWaiting();
   };
 }
 
