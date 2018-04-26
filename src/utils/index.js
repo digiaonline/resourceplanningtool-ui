@@ -2,15 +2,15 @@
 import Form from 'mobx-react-form';
 import axios from 'axios';
 
-export function parseDateTime(timeNumber: Number) {
+export function parseDateTime(timeNumber: number) {
   // convert epoch timestamp to miliseconds
   const date: Date = new Date(timeNumber * 1000);
-  const month: Number = date.getMonth() + 1;
-  const year: Number = date.getFullYear();
+  const month: number = date.getMonth() + 1;
+  const year: number = date.getFullYear();
   return `${year}-${month >= 10 ? `${month}` : `0${month}`}`;
 }
 
-export function isEmpty(object: Object) {
+export function isEmpty(object: ?Object) {
   for (let key in object) {
     if (object.hasOwnProperty(key));
     return false;
@@ -19,7 +19,7 @@ export function isEmpty(object: Object) {
 }
 
 // update predefined input fields with corresponding intial values
-export function updateFieldsWithValues(fields: [Object], values: Object) {
+export function updateFieldsWithValues(fields: Array<Object>, values: Object) {
   let fieldsWithValues = fields.map(field => {
     let value = values[field.name];
     if (field.type === 'month') {
@@ -34,15 +34,14 @@ export function updateFieldsWithValues(fields: [Object], values: Object) {
 
 // create a mobx-react-form with provided fields, plugins, hooks, and initial values
 export function getForm(
-  fields: [Object],
+  fields: Array<Object>,
   plugins: Object,
   hooks: Object,
   values: Object
 ) {
   if (!isEmpty(values)) {
     const fieldsWithValues = updateFieldsWithValues(fields, values);
-    const form = new Form({fields: fieldsWithValues}, {plugins, hooks});
-    return form;
+    return new Form({fields: fieldsWithValues}, {plugins, hooks});
   } else {
     return new Form({fields}, {plugins, hooks});
   }
@@ -51,11 +50,11 @@ export function getForm(
 // function to identify what item was added, and what item was removed from an initial array
 // after operations, for updating a list of skills of a person
 export function filterArray(
-  initialArray: [any],
-  comparedArray: [any]
+  initialArray: Array<any>,
+  comparedArray: Array<any>
 ): {
-  removedItems: [any],
-  addedItems: [any]
+  removedItems: Array<any>,
+  addedItems: Array<any>
 } {
   const remainedItems = comparedArray
     .filter(item => item.id)
@@ -68,7 +67,7 @@ export function filterArray(
   };
 }
 
-export function onChangeImage(event: Event, form: Object) {
+export function onChangeImage(event: Object, form: Object) {
   form.$('file').set('value', event.target.files[0]);
   const reader = new FileReader();
   reader.onload = e => {
@@ -77,18 +76,13 @@ export function onChangeImage(event: Event, form: Object) {
   reader.readAsDataURL(event.target.files[0]);
 }
 
-export async function makeHttpRequest(queryString: String) {
-  try {
-    const response = await axios.post(process.env.REACT_APP_API, queryString, {
-      headers: {
-        'Content-Type': 'application/graphql',
-      },
-    });
-    return response.data.data;
-  } catch (error) {
-    // TODO: proper notification to be implemented
-    console.warn(error);
-  }
+export async function makeHttpRequest(queryString: string) {
+  const response = await axios.post(process.env.REACT_APP_API || '', queryString, {
+    headers: {
+      'Content-Type': 'application/graphql',
+    },
+  });
+  return response.data.data;
 }
 
 export function normalizeString(inputString: string): string {

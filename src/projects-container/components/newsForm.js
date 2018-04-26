@@ -13,7 +13,7 @@ import deleteIcon from '../../assets/icon_delete.svg';
 
 @observer
 class NewsForm extends Component {
-  onSubmit = async (e: object) => {
+  onSubmit = async (e: Object) => {
     e.preventDefault();
     const newsLink = form.$('newsLink');
     const description = form.$('newsDescription');
@@ -45,7 +45,9 @@ class NewsForm extends Component {
           if (news[0]) {
             return (
               <div key={i} className={css.table__item}>
-                <span>{news[0].description}</span>
+                <span className={css.news__description}>
+                  {news[0].description}
+                </span>
                 <a href={news[0].url}>{news[0].url}</a>
                 <img
                   className={css.form__icon}
