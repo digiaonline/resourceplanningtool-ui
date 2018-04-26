@@ -58,7 +58,7 @@ export const hooks = {
       if (form.values().file) {
         try {
           const logoId = await uploadImage(form.values().file);
-          const logoUrl: string = await getImage(logoId);
+          const logoUrl = await getImage(logoId);
           await customersStore.createCustomer(
             Object.assign({}, form.values(), {logo: logoUrl})
           );
@@ -80,7 +80,7 @@ export const hooks = {
       if (form.values().file !== '') {
         try {
           const logoId = await uploadImage(form.values().file);
-          const logoUrl: string = await getImage(logoId);
+          const logoUrl = await getImage(logoId);
           await customersStore.updateCustomer(
             Object.assign({}, form.values(), {logo: logoUrl})
           );

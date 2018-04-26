@@ -2,7 +2,7 @@
 
 import validatorjs from 'validatorjs';
 import peopleStore from '../people-container/people-store';
-import {filterArray} from '../utils';
+import {filterArray, normalizeString} from '../utils';
 import {uploadImage, getImage} from '../utils/image';
 import utilityStore from '../utils/utility-store';
 
@@ -22,12 +22,14 @@ export const hooks = {
     const filteredValues = Object.assign({}, form.values(), {
       removedSkills: skillsChanged.removedItems,
       addedSkills: skillsChanged.addedItems,
+      description: normalizeString(form.values().description),
     });
+    console.log(filteredValues);
     if (initialsValue.name === '') {
       if (form.values().file !== '') {
         try {
           const pictureId = await uploadImage(form.values().file);
-          const pictureUrl: string = await getImage(pictureId);
+          const pictureUrl = await getImage(pictureId);
           await peopleStore.createPerson(
             Object.assign({}, filteredValues, {picture: pictureUrl})
           );
@@ -49,7 +51,7 @@ export const hooks = {
       if (form.values().file !== '') {
         try {
           const pictureId = await uploadImage(form.values().file);
-          const pictureUrl: string = await getImage(pictureId);
+          const pictureUrl = await getImage(pictureId);
           await peopleStore.updatePerson(
             Object.assign({}, filteredValues, {picture: pictureUrl})
           );

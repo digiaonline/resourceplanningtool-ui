@@ -1,5 +1,6 @@
 import MobxReactForm from 'mobx-react-form';
 import ProjectsStore from './projects-store';
+import {normalizeString} from '../utils';
 import validatorjs from 'validatorjs';
 import alertify from 'alertify.js';
 import {uploadImage, getImage} from '../utils/image';
@@ -131,33 +132,34 @@ export const fields = [
 export const hooks = {
   async onSuccess(form) {
     utilityStore.turnOnWaiting();
+    const updatedValues = Object.assign({}, form.values(), {
+      description: normalizeString(form.values().description),
+      shortdescription: normalizeString(form.values().shortdescription),
+    });
     if (ProjectsStore.formName === 'Create project') {
       //Create project
       try {
-        if (form.values().file) {
-          const pictureId = await uploadImage(form.values().file);
+        if (updatedValues.file) {
+          const pictureId = await uploadImage(updatedValues.file);
           const pictureUrl = await getImage(pictureId);
           ProjectsStore.pictureUrl = pictureUrl;
         }
 
-        await ProjectsStore.createProject(form.values());
+        await ProjectsStore.createProject(updatedValues);
         const id = ProjectsStore.newProjectId;
-
         form
           .values()
           .members.map(member => ProjectsStore.addPersonToProject(id, member));
-
         form
           .values()
           .technologies.map(tech =>
             ProjectsStore.addTechnologiesToProject(id, tech.name)
           );
-
+        ProjectsStore.addProjectToCustomer(id, updatedValues.customer);
         form
           .values()
           .newNews.map(newsId => ProjectsStore.addNewsToProject(id, newsId));
-
-        ProjectsStore.addProjectToCustomer(id, form.values().customer);
+        ProjectsStore.addProjectToCustomer(id, updatedValues.customer);
         utilityStore.turnOffWaiting();
         ProjectsStore.Redirect = true;
         alertify.success('Project Created.');
@@ -169,7 +171,7 @@ export const hooks = {
       //Edit project
       try {
         if (!ProjectsStore.pictureUrl) {
-          if (form.values().file) {
+          if (updatedValues.file) {
             const pictureId = await uploadImage(form.values().file);
             const pictureUrl = await getImage(pictureId);
             ProjectsStore.pictureUrl = pictureUrl;
@@ -179,10 +181,10 @@ export const hooks = {
         }
         const id = ProjectsStore.projectId;
         const Data = ProjectsStore.projectData;
-        ProjectsStore.updateProject(form.values());
+        ProjectsStore.updateProject(updatedValues);
         //remove old data
         Data.persons.map(person =>
-          ProjectsStore.removePersonFromProject(id, person.id)
+          ProjectsStore.removePersonFromProject(id, person)
         );
         Data.technologies.map(tech =>
           ProjectsStore.removeTechnologyFromProject(id, tech.id)
@@ -198,11 +200,10 @@ export const hooks = {
           .technologies.map(tech =>
             ProjectsStore.addTechnologiesToProject(id, tech.name)
           );
-
         form
           .values()
           .newNews.map(newsId => ProjectsStore.addNewsToProject(id, newsId));
-        ProjectsStore.addProjectToCustomer(id, form.values().customer);
+        ProjectsStore.addProjectToCustomer(id, updatedValues.customer);
         utilityStore.turnOffWaiting();
         alertify.success('Project Updated.');
         ProjectsStore.modalToggle();
