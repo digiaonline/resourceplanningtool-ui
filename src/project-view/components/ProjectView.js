@@ -1,8 +1,12 @@
+// @flow
+
 import React, {Component} from 'react';
 import {observer} from 'mobx-react';
 import {Link} from 'react-router-dom';
+import {isEmpty} from 'lodash';
 import Confirm from 'react-confirm-bootstrap';
 import Modal from 'react-modal';
+import {find} from 'lodash';
 
 import ProjectStore from '../../projects-container/projects-store';
 import PeopleStore from '../../people-container/people-store';
@@ -15,6 +19,7 @@ import css from './ProjectView.css';
 import backIcon from '../../assets/icon_arrow_back.svg';
 import deleteIcon from '../../assets/icon_delete.svg';
 import editIcon from '../../assets/icon_edit.svg';
+import defaultPicture from '../../assets/default-picture.png';
 
 @observer
 class ProjectView extends Component {
@@ -43,16 +48,18 @@ class ProjectView extends Component {
 
   render() {
     if (ProjectStore.projectData === null || !ProjectStore.projectData.name) {
+      const message: string = `Timeout, no Project with id "${this.props.match.params.id}" was found`; 
       return (
         <div>
-          <LoadFailedRedirect
-            message={`Timeout, no Project with id "${this.props.match.params
-              .id}" was found`}
-          />
+          <LoadFailedRedirect message={message} />
         </div>
       );
     }
     const Data = ProjectStore.projectData;
+    const customer = find(
+      CustomersStore.customers,
+      customer => customer.id === Data.customer.id
+    ) || {};
     return (
       <div className={css.project__view}>
         <Link className={css.back__button} to="/projects">
@@ -80,16 +87,29 @@ class ProjectView extends Component {
             </div>
           </div>
         </div>
-        {Data.picture && (
-          <img
-            className={css.project__image}
-            src={`http://${Data.picture}`}
-            alt={Data.name}
-          />
-        )}
+        <img
+          className={css.project__image}
+          src={
+            isEmpty(Data.picture) ? defaultPicture : `http://${Data.picture}`
+          }
+          alt={Data.name}
+        />
         <div className={css.container}>
           <div className={css.general__details}>
             <div className={css.details}>
+              <div className={css.detail__row}>
+                <span>Customer name</span>
+                {!isEmpty(customer) ? (
+                  <Link
+                    to={`/customers/${customer.id}`}
+                    className={css.members__view}
+                  >
+                    {customer.name}
+                  </Link>
+                ) : (
+                  <span>Not available</span>
+                )}
+              </div>
               <div className={css.detail__row}>
                 <span>Contact info</span>
                 {Data.contactemail}
@@ -103,7 +123,7 @@ class ProjectView extends Component {
                 {Data.endtime ? (
                   ProjectStore.convertDate(Data.endtime)
                 ) : (
-                  'Not avalable'
+                  'Not available'
                 )}
               </div>
               <div className={css.detail__row}>
@@ -124,7 +144,7 @@ class ProjectView extends Component {
                   </Link>
                 ))
               ) : (
-                <div>Not avalable</div>
+                <div>Not available</div>
               )}
             </div>
             <div className={css.detail}>
@@ -136,7 +156,7 @@ class ProjectView extends Component {
                   </span>
                 ))
               ) : (
-                <div>Not avalable</div>
+                <div>Not available</div>
               )}
             </div>
             <div className={css.detail}>
@@ -145,7 +165,7 @@ class ProjectView extends Component {
                 {Data.liveat ? (
                   <a href={Data.liveat}>{Data.liveat}</a>
                 ) : (
-                  <span>Not avalable</span>
+                  <span>Not available</span>
                 )}
               </p>
             </div>
@@ -155,7 +175,7 @@ class ProjectView extends Component {
                 {Data.githuburl ? (
                   <a href={Data.githuburl}>{Data.githuburl}</a>
                 ) : (
-                  <span>Not avalable</span>
+                  <span>Not available</span>
                 )}
               </p>
             </div>
@@ -171,7 +191,7 @@ class ProjectView extends Component {
                   </div>
                 ))
               ) : (
-                <div>Not avalable</div>
+                <div>Not available</div>
               )}
             </div>
             <ProjectModal
@@ -182,7 +202,9 @@ class ProjectView extends Component {
           </div>
           <div>
             <div className={css.description__title}>Description</div>
-            <p>{Data.description ? Data.description : 'Not avalable'}</p>
+            <p className={css.description__content}>
+              {Data.description ? Data.description : 'Not avalable'}
+            </p>
           </div>
         </div>
       </div>
