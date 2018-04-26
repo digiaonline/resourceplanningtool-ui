@@ -1,7 +1,8 @@
 import MobxReactForm from 'mobx-react-form';
 import ProjectsStore from './projects-store';
-import {uploadImage, getImage} from '../utils/image';
 import validatorjs from 'validatorjs';
+import alertify from 'alertify.js';
+import {uploadImage, getImage} from '../utils/image';
 import utilityStore from '../utils/utility-store';
 
 export const plugins = {dvr: validatorjs};
@@ -129,77 +130,86 @@ export const fields = [
 
 export const hooks = {
   async onSuccess(form) {
+    utilityStore.turnOnWaiting();
     if (ProjectsStore.formName === 'Create project') {
       //Create project
-      if (form.values().file) {
-        utilityStore.turnOnWaiting();
-        await uploadImage(form.values().file)
-          .then(pictureId => getImage(pictureId))
-          .then(pictureUrl => (ProjectsStore.pictureUrl = pictureUrl));
+      try {
+        if (form.values().file) {
+          const pictureId = await uploadImage(form.values().file);
+          const pictureUrl = await getImage(pictureId);
+          ProjectsStore.pictureUrl = pictureUrl;
+        }
+
+        await ProjectsStore.createProject(form.values());
+        const id = ProjectsStore.newProjectId;
+
+        form
+          .values()
+          .members.map(member => ProjectsStore.addPersonToProject(id, member));
+
+        form
+          .values()
+          .technologies.map(tech =>
+            ProjectsStore.addTechnologiesToProject(id, tech.name)
+          );
+        ProjectsStore.addProjectToCustomer(id, form.values().customer);
+
+        form
+          .values()
+          .newNews.map(newsId => ProjectsStore.addNewsToProject(id, newsId));
+
+        ProjectsStore.addProjectToCustomer(id, form.values().customer);
+        utilityStore.turnOffWaiting();
+        ProjectsStore.Redirect = true;
+        alertify.success('Project Created.');
+        ProjectsStore.modalToggle();
+      } catch (e) {
+        utilityStore.turnOffWaiting();
       }
-
-      await ProjectsStore.createProject(form.values());
-      const id = ProjectsStore.newProjectId;
-
-      form
-        .values()
-        .members.map(member => ProjectsStore.addPersonToProject(id, member));
-
-      form
-        .values()
-        .technologies.map(tech =>
-          ProjectsStore.addTechnologiesToProject(id, tech.name)
-        );
-
-      form
-        .values()
-        .newNews.map(newsId => ProjectsStore.addNewsToProject(id, newsId));
-
-      ProjectsStore.addProjectToCustomer(id, form.values().customer);
-      utilityStore.turnOffWaiting();
-      ProjectsStore.Redirect = true;
-      ProjectsStore.modalToggle();
     } else {
       //Edit project
-      if (!ProjectsStore.pictureUrl) {
-        if (form.values().file) {
-          utilityStore.turnOnWaiting();
-          await uploadImage(form.values().file)
-            .then(pictureId => getImage(pictureId))
-            .then(pictureUrl => (ProjectsStore.pictureUrl = pictureUrl));
-        } else {
-          ProjectsStore.pictureUrl = '';
+      try {
+        if (!ProjectsStore.pictureUrl) {
+          if (form.values().file) {
+            await uploadImage(form.values().file)
+              .then(pictureId => getImage(pictureId))
+              .then(pictureUrl => (ProjectsStore.pictureUrl = pictureUrl));
+          } else {
+            ProjectsStore.pictureUrl = '';
+          }
         }
-      }
-
-      const id = ProjectsStore.projectId;
-      const Data = ProjectsStore.projectData;
-      ProjectsStore.updateProject(form.values());
-      //remove old data
-      Data.persons.map(person =>
-        ProjectsStore.removePersonFromProject(id, person.id)
-      );
-      Data.technologies.map(tech =>
-        ProjectsStore.removeTechnologyFromProject(id, tech.id)
-      );
-      Data.news.map(item => ProjectsStore.removeNewsFromProject(id, item.id));
-      ProjectsStore.removeProjectFromCustomer(id, Data.customer.id);
-      //add new data
-      form
-        .values()
-        .members.map(member => ProjectsStore.addPersonToProject(id, member));
-      form
-        .values()
-        .technologies.map(tech =>
-          ProjectsStore.addTechnologiesToProject(id, tech.name)
+        const id = ProjectsStore.projectId;
+        const Data = ProjectsStore.projectData;
+        ProjectsStore.updateProject(form.values());
+        //remove old data
+        Data.persons.map(person =>
+          ProjectsStore.removePersonFromProject(id, person)
         );
+        Data.technologies.map(tech =>
+          ProjectsStore.removeTechnologyFromProject(id, tech.id)
+        );
+        Data.news.map(item => ProjectsStore.removeNewsFromProject(id, item.id));
+        ProjectsStore.removeProjectFromCustomer(id, Data.customer.id);
+        //add new data
+        form
+          .values()
+          .members.map(member => ProjectsStore.addPersonToProject(id, member));
+        form
+          .values()
+          .technologies.map(tech =>
+            ProjectsStore.addTechnologiesToProject(id, tech.name)
+          );
 
-      form
-        .values()
-        .newNews.map(newsId => ProjectsStore.addNewsToProject(id, newsId));
-      ProjectsStore.addProjectToCustomer(id, form.values().customer);
-      utilityStore.turnOffWaiting();
-      ProjectsStore.modalToggle();
+        form
+          .values()
+          .newNews.map(newsId => ProjectsStore.addNewsToProject(id, newsId));
+        ProjectsStore.addProjectToCustomer(id, form.values().customer);
+        utilityStore.turnOffWaiting();
+        alertify.success('Project Updated.');
+        ProjectsStore.modalToggle();
+      } catch (e) {
+        utilityStore.turnOffWaiting();
+      }
     }
   },
   onError(form) {
