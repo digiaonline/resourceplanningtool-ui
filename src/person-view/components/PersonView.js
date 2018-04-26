@@ -15,11 +15,26 @@ import {observer} from 'mobx-react';
 import {parseDateTime} from '../../utils';
 import {fields, plugins, hooks} from '../../constants/person-form-config';
 import {getForm} from '../../utils';
-import utilityStore from '../../utils/utility-store';
 import LoadFailedRedirect from '../../redirect-component/components/Redirect';
 
 @observer
 class PersonView extends Component {
+  state: {
+    formIsOpened: boolean
+  };
+  constructor(props: Object) {
+    super(props);
+    this.state = {
+      formIsOpened: false,
+    };
+  }
+
+  toggleForm = () => {
+    this.setState({
+      formIsOpened: !this.state.formIsOpened,
+    });
+  };
+
   onDelete = () => {
     peopleStore.deletePerson(this.props.match.params.id);
     this.props.history.push('/people');
@@ -54,7 +69,7 @@ class PersonView extends Component {
           <button
             type="button"
             className={css.buttonsGroup__button}
-            onClick={utilityStore.togglePersonForm}
+            onClick={this.toggleForm}
           >
             <img alt="" src={editIcon} />
             <span className={css.button__text}>EDIT</span>
@@ -71,6 +86,8 @@ class PersonView extends Component {
         <PersonDetails personDetails={person} />
         <PersonForm
           form={getForm(fields, plugins, hooks, person)}
+          isOpened={this.state.formIsOpened}
+          toggleForm={this.toggleForm}
           mode={'edit'}
         />
       </div>

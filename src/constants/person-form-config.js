@@ -11,7 +11,7 @@ export const plugins = {
 };
 
 export const hooks = {
-  onSuccess: async (form: Object) => {
+  onSuccess(form: Object) {
     utilityStore.turnOnWaiting();
     const initialsValue = form.initials();
     // identifier which items from skills array have been added or removed
@@ -25,47 +25,27 @@ export const hooks = {
     });
     if (initialsValue.name === '') {
       if (form.values().file !== '') {
-        try {
-          const pictureId = await uploadImage(form.values().file);
-          const pictureUrl = await getImage(pictureId);
-          await peopleStore.createPerson(
-            Object.assign({}, filteredValues, {picture: pictureUrl})
-          );
-          utilityStore.turnOffWaiting();
-          utilityStore.togglePersonForm();
-        } catch (e) {
-          utilityStore.turnOffWaiting();
-        }
+        uploadImage(form.values().file)
+          .then(pictureId => getImage(pictureId))
+          .then(pictureUrl => {
+            peopleStore.createPerson(
+              Object.assign({}, filteredValues, {picture: pictureUrl})
+            );
+          });
       } else {
-        try {
-          await peopleStore.createPerson(filteredValues);
-          utilityStore.turnOffWaiting();
-          utilityStore.togglePersonForm();
-        } catch (e) {
-          utilityStore.turnOffWaiting();
-        }
+        peopleStore.createPerson(filteredValues);
       }
     } else {
       if (form.values().file !== '') {
-        try {
-          const pictureId = await uploadImage(form.values().file);
-          const pictureUrl = await getImage(pictureId);
-          await peopleStore.updatePerson(
-            Object.assign({}, filteredValues, {picture: pictureUrl})
-          );
-          utilityStore.turnOffWaiting();
-          utilityStore.togglePersonForm();
-        } catch (e) {
-          utilityStore.turnOffWaiting();
-        }
+        uploadImage(form.values().file)
+          .then(pictureId => getImage(pictureId))
+          .then(pictureUrl => {
+            peopleStore.updatePerson(
+              Object.assign({}, filteredValues, {picture: pictureUrl})
+            );
+          });
       } else {
-        try {
-          await peopleStore.updatePerson(filteredValues);
-          utilityStore.turnOffWaiting();
-          utilityStore.togglePersonForm();
-        } catch (e) {
-          utilityStore.turnOffWaiting();
-        }
+        peopleStore.updatePerson(filteredValues);
       }
     }
   },
