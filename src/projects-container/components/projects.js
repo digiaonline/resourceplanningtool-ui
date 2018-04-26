@@ -1,16 +1,16 @@
 //@flow
 
 import React from 'react';
-import {PropTypes} from 'prop-types';
+import * as PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {isEmpty} from 'lodash';
 
 import defaultPicture from '../../assets/default-picture.png';
 import css from './ProjectsContainer.css';
 
-const Projects = ({projects}) => {
+const Projects = ({projects}: {projects: Array<Object>}) => {
   if (projects.length > 0) {
-    const Data = projects.map((item: object) => {
+    const Data = projects.map((item: Object) => {
       return <Project key={item.id} Data={item} />;
     });
     return <div className={css.projects}>{Data}</div>;
@@ -20,7 +20,7 @@ const Projects = ({projects}) => {
 
 export default Projects;
 
-const Project = ({Data}) => (
+const Project = ({Data}: {Data: Object}) => (
   <div className={css.project}>
     <Link to={`/projects/${Data.id}`}>
       <img
@@ -41,7 +41,7 @@ const Project = ({Data}) => (
       <div className={css.projectDesciption}>{Data.shortdescription}</div>
       <div className={css.technologies}>
         {Data.technologies
-          .filter((tech: Object, i: Number) => i < 3)
+          .filter((tech: Object, i: number) => i < 3)
           .map((tech, i) => <span key={i}>{tech.name}</span>)}
       </div>
     </div>

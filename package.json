@@ -75,7 +75,7 @@
     "flow:fetch-types": "flow-typed install --flowVersion=0.52",
     "lint": "eslint src",
     "lint-staged": "lint-staged",
-    "precommit": "lint-staged",
+    "precommit": "flow check",
     "stylelint": "stylelint 'src/**/*.css'",
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",

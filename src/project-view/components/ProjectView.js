@@ -1,3 +1,5 @@
+// @flow
+
 import React, {Component} from 'react';
 import {observer} from 'mobx-react';
 import {Link} from 'react-router-dom';
@@ -46,12 +48,10 @@ class ProjectView extends Component {
 
   render() {
     if (ProjectStore.projectData === null || !ProjectStore.projectData.name) {
+      const message: string = `Timeout, no Project with id "${this.props.match.params.id}" was found`; 
       return (
         <div>
-          <LoadFailedRedirect
-            message={`Timeout, no Project with id "${this.props.match.params
-              .id}" was found`}
-          />
+          <LoadFailedRedirect message={message} />
         </div>
       );
     }
@@ -123,7 +123,7 @@ class ProjectView extends Component {
                 {Data.endtime ? (
                   ProjectStore.convertDate(Data.endtime)
                 ) : (
-                  'Not avalable'
+                  'Not available'
                 )}
               </div>
               <div className={css.detail__row}>
@@ -144,7 +144,7 @@ class ProjectView extends Component {
                   </Link>
                 ))
               ) : (
-                <div>Not avalable</div>
+                <div>Not available</div>
               )}
             </div>
             <div className={css.detail}>
@@ -156,7 +156,7 @@ class ProjectView extends Component {
                   </span>
                 ))
               ) : (
-                <div>Not avalable</div>
+                <div>Not available</div>
               )}
             </div>
             <div className={css.detail}>
@@ -165,7 +165,7 @@ class ProjectView extends Component {
                 {Data.liveat ? (
                   <a href={Data.liveat}>{Data.liveat}</a>
                 ) : (
-                  <span>Not avalable</span>
+                  <span>Not available</span>
                 )}
               </p>
             </div>
@@ -175,7 +175,7 @@ class ProjectView extends Component {
                 {Data.githuburl ? (
                   <a href={Data.githuburl}>{Data.githuburl}</a>
                 ) : (
-                  <span>Not avalable</span>
+                  <span>Not available</span>
                 )}
               </p>
             </div>
@@ -191,7 +191,7 @@ class ProjectView extends Component {
                   </div>
                 ))
               ) : (
-                <div>Not avalable</div>
+                <div>Not available</div>
               )}
             </div>
             <ProjectModal
@@ -202,7 +202,7 @@ class ProjectView extends Component {
           </div>
           <div>
             <div className={css.description__title}>Description</div>
-            <p>{Data.description ? Data.description : 'Not avalable'}</p>
+            <p>{Data.description ? Data.description : 'Not available'}</p>
           </div>
         </div>
       </div>
