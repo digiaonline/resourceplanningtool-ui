@@ -45,6 +45,10 @@
   align-content: start;
 }
 
+.button__text {
+  padding-left: 5px;
+}
+
 .customer__logo {
   margin-bottom: 40px;
   max-width: 200px;

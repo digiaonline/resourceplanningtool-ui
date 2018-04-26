@@ -51,6 +51,10 @@
   justify-content: center;
 }
 
+.button__text {
+  padding-left: 5px;
+}
+
 .container__personDetails {
   margin: 90px auto;
   display: flex;
@@ -80,7 +84,7 @@
   font-size: 34px;
   font-weight: normal;
   font-stretch: normal;
-  margin: 0;
+  margin: 0 0 20px;
 }
 
 .mainInfo__technologies {

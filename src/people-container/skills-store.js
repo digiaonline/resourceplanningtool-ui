@@ -12,18 +12,16 @@ import {makeHttpRequest} from '../utils';
 
 class SkillsStore {
   @observable
-  skills: [
-    {
-      id: Number,
-      name: String,
-      level: Number
-    }
-  ] = [];
+  skills: Array<{
+    id: number,
+    name: string,
+    level: number
+  }> = [];
 
   @action
   fetchSkills = async () => {
     try {
-      const responseData = await makeHttpRequest(FETCH_SKILLS_QUERY);
+      const responseData: Object = await makeHttpRequest(FETCH_SKILLS_QUERY);
       this.skills = responseData.listSkills;
     } catch (error) {
       alertify.error('Cannot fetch list of skills');
@@ -32,10 +30,12 @@ class SkillsStore {
   };
 
   @action
-  createSkills = async (skills: [Object]) => {
+  createSkills = async (skills: Array<Object>): Object => {
     try {
-      const CREATE_SKILLS_QUERY = getCreateSkillsQuery(skills);
-      const createSkillsResponse = await makeHttpRequest(CREATE_SKILLS_QUERY);
+      const CREATE_SKILLS_QUERY: string = getCreateSkillsQuery(skills);
+      const createSkillsResponse: Object = await makeHttpRequest(
+        CREATE_SKILLS_QUERY
+      );
       return createSkillsResponse;
     } catch (error) {
       alertify.error('Cannot create skills');
@@ -44,13 +44,16 @@ class SkillsStore {
   };
 
   @action
-  addSkillsForPerson = async (personId: Number, skillIds: [Number]) => {
+  addSkillsForPerson = async (
+    personId: number,
+    skillIds: Array<number>
+  ): Object => {
     try {
-      const ADD_SKILLS_FOR_PERSON_QUERY = getAddSkillsForPersonQuery(
+      const ADD_SKILLS_FOR_PERSON_QUERY: string = getAddSkillsForPersonQuery(
         personId,
         skillIds
       );
-      const addSkillsResponse = await makeHttpRequest(
+      const addSkillsResponse: Object = await makeHttpRequest(
         ADD_SKILLS_FOR_PERSON_QUERY
       );
       return addSkillsResponse;
@@ -62,10 +65,10 @@ class SkillsStore {
 
   @action
   updateSkillsForPerson = async (
-    personId: Number,
-    addedSkillIds: [Number],
-    removeSkillIds: [Number]
-  ) => {
+    personId: number,
+    addedSkillIds: Array<number>,
+    removeSkillIds: Array<number>
+  ): ?Object => {
     const UPDATE_SKILLS_QUERY = getUpdateSkillsForPersonQuery(
       personId,
       addedSkillIds,

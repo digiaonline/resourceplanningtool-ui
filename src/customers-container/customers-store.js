@@ -12,15 +12,13 @@ import {
 
 class CustomersStore {
   @observable
-  customers: [
-    {
-      id: String,
-      name: String,
-      url: String,
-      logo: String,
-      industry: String
-    }
-  ] = [];
+  customers: Array<{
+    id: string,
+    name: string,
+    url: string,
+    logo: string,
+    industry: string
+  }> = [];
 
   @action
   fetchCustomers = async () => {
@@ -36,7 +34,7 @@ class CustomersStore {
   @action
   createCustomer = async (customerInfo: Object) => {
     try {
-      const CREATE_CUSTOMER_QUERY = getCreateCustomerQuery(
+      const CREATE_CUSTOMER_QUERY: string = getCreateCustomerQuery(
         customerInfo.name,
         customerInfo.url,
         customerInfo.industry,
@@ -52,10 +50,10 @@ class CustomersStore {
   };
 
   @action
-  deleteCustomer = async (id: Number) => {
+  deleteCustomer = async (id: string) => {
     try {
       const DELETE_CUSTOMER_QUERY = getDeleteCustomerQuery(id);
-      const response = await makeHttpRequest(DELETE_CUSTOMER_QUERY);
+      const response: Object = await makeHttpRequest(DELETE_CUSTOMER_QUERY);
       if (response.removeCustomer) {
         alertify.success('Customer deleted.');
         this.fetchCustomers();

@@ -29,7 +29,7 @@ class CustomersContainer extends Component {
             onClick={utilityStore.toggleCustomerForm}
           >
             <img src={addIcon} alt="" />
-            <span>&nbsp; NEW CUSTOMER</span>
+            <span className={css.button__text}> NEW CUSTOMER</span>
           </button>
           <CustomerForm
             form={getForm(fields, plugins, hooks, {})}

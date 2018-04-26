@@ -3,7 +3,7 @@
 import React, {Component} from 'react';
 import {observable} from 'mobx';
 import {observer} from 'mobx-react';
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 import Modal from 'react-modal';
 
 import utilityStore from '../../utils/utility-store';

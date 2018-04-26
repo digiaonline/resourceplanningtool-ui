@@ -2,7 +2,7 @@
 
 import React from 'react';
 import {observer} from 'mobx-react';
-import {PropTypes} from 'prop-types';
+import * as PropTypes from 'prop-types';
 import Select from 'react-styled-select';
 
 import css from './projectModal.css';

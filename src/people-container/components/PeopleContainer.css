@@ -54,6 +54,10 @@
   composes: element--hover;
 }
 
+.button__text {
+  padding-left: 5px;
+}
+
 .button__plusIcon {
   width: 21px;
   height: 21px;

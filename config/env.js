@@ -3,6 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const paths = require('./paths');
+const chalk = require('chalk');
 
 // Make sure that including paths.js after env.js will read .env variables.
 delete require.cache[require.resolve('./paths')];
@@ -58,33 +59,50 @@ process.env.NODE_PATH = (process.env.NODE_PATH || '')
 const REACT_APP = /^REACT_APP_/i;
 
 function getClientEnvironment(publicUrl) {
-  const raw = Object.keys(process.env)
-    .filter(key => REACT_APP.test(key))
-    .reduce(
-      (env, key) => {
-        env[key] = process.env[key];
-        return env;
-      },
-      {
-        // Useful for determining whether we’re running in production mode.
-        // Most importantly, it switches React into the correct mode.
-        NODE_ENV: process.env.NODE_ENV || 'development',
-        // Useful for resolving the correct path to static assets in `public`.
-        // For example, <img src={process.env.PUBLIC_URL + '/img/logo.png'} />.
-        // This should only be used as an escape hatch. Normally you would put
-        // images into the `src` and `import` them in code to get their paths.
-        PUBLIC_URL: publicUrl,
+  try {
+    const raw = Object.keys(process.env)
+      .filter(key => REACT_APP.test(key))
+      .reduce(
+        (env, key) => {
+          env[key] = process.env[key];
+          return env;
+        },
+        {
+          // Useful for determining whether we’re running in production mode.
+          // Most importantly, it switches React into the correct mode.
+          NODE_ENV: process.env.NODE_ENV || 'development',
+          // Useful for resolving the correct path to static assets in `public`.
+          // For example, <img src={process.env.PUBLIC_URL + '/img/logo.png'} />.
+          // This should only be used as an escape hatch. Normally you would put
+          // images into the `src` and `import` them in code to get their paths.
+          PUBLIC_URL: publicUrl,
+        }
+      );
+    // check if all credentials needed for the application are available as environment variables  
+    const credentialKeys = [
+      'REACT_APP_API',
+      'REACT_APP_CONTENTFUL_TOKEN',
+      'REACT_APP_CONTENTFUL_KEY',
+      'REACT_APP_SPACE_ID'
+    ];
+    credentialKeys.forEach(function(key) {
+      if (!raw[key] || raw[key] === '') {
+        throw new Error(chalk.red(`The ${key} environment variable is required but was not specified.`));
       }
-    );
-  // Stringify all values so we can feed into Webpack DefinePlugin
-  const stringified = {
-    'process.env': Object.keys(raw).reduce((env, key) => {
-      env[key] = JSON.stringify(raw[key]);
-      return env;
-    }, {}),
-  };
+    });  
+    // Stringify all values so we can feed into Webpack DefinePlugin
+    const stringified = {
+      'process.env': Object.keys(raw).reduce((env, key) => {
+        env[key] = JSON.stringify(raw[key]);
+        return env;
+      }, {}),
+    };
 
-  return { raw, stringified };
+    return { raw, stringified };
+  } catch (err) {
+    console.log(err);
+    process.exit(1);
+  }
 }
 
 module.exports = getClientEnvironment;

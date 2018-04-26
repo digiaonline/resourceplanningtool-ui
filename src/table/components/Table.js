@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import {PropTypes as MobxPropTypes} from 'mobx-react';
 import css from './Table.css';
 
-const Table = props => (
+const Table = (props: Object) => (
   <table className={css.container__table}>
     <thead>
       <tr>
@@ -31,7 +31,7 @@ const Table = props => (
   </table>
 );
 
-export const Row = props => (
+export const Row = (props: Object) => (
   <tr
     onClick={() => {
       props.navigate(props.values.id);

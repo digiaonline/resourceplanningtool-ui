@@ -3,11 +3,14 @@
 import React, {Component} from 'react';
 import {observer} from 'mobx-react';
 import {Link} from 'react-router-dom';
+import {isEmpty} from 'lodash';
+
 import CustomerForm from '../../customers-container/components/CustomerForm';
 import css from './CustomerView.css';
 import deleteIcon from '../../assets/icon_delete.svg';
 import editIcon from '../../assets/icon_edit.svg';
 import backIcon from '../../assets/icon_arrow_back.svg';
+import defaultPicture from '../../assets/default-picture.png';
 import customersStore from '../../customers-container/customers-store';
 import {getForm} from '../../utils';
 import {fields, plugins, hooks} from '../../constants/customer-form-config';
@@ -43,14 +46,21 @@ class CustomerView extends Component {
     return (
       <div className={css.container}>
         <Link className={css.container__backButton} to="/customers">
-          <img src={backIcon} alt="back" /> <span>&nbsp;BACK </span>
+          <img src={backIcon} alt="back" />{' '}
+          <span className={css.button__text}> BACK </span>
         </Link>
         <div className={css.container__customer}>
           <div>
             <h3 className={css.customer__name}> {customer.name} </h3>
             <img
               className={css.customer__logo}
-              src={`http://${customer.logo}`}
+              src={
+                isEmpty(customer.logo) ? (
+                  defaultPicture
+                ) : (
+                  `http://${customer.logo}`
+                )
+              }
               alt={customer.name}
             />
             <div className={css.customer__rows}>
@@ -71,7 +81,7 @@ class CustomerView extends Component {
               onClick={this.onDelete}
             >
               <img alt="" src={deleteIcon} />
-              <span>&nbsp; DELETE</span>
+              <span className={css.button__text}> DELETE</span>
             </button>
             <button
               type="button"
@@ -79,7 +89,7 @@ class CustomerView extends Component {
               onClick={utilityStore.toggleCustomerForm}
             >
               <img alt="" src={editIcon} />
-              <span>&nbsp; EDIT</span>
+              <span className={css.button__text}> EDIT</span>
             </button>
           </div>
         </div>

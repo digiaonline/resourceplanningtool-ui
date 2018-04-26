@@ -6,7 +6,8 @@
 .modal__close {
   position: absolute;
   right: 0;
-  top: 5px;
+  top: 0;
+  margin: 16px 16px auto auto;
   cursor: pointer;
 }
 
@@ -198,6 +199,10 @@
 .form__button__close {
   padding: 20px 32px;
   cursor: pointer;
+}
+
+.news__description {
+  padding-right: 10px;
 }
 
 .news__url {

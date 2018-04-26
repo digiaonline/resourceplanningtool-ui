@@ -178,7 +178,6 @@ export const hooks = {
             ProjectsStore.pictureUrl = '';
           }
         }
-
         const id = ProjectsStore.projectId;
         const Data = ProjectsStore.projectData;
         ProjectsStore.updateProject(form.values());

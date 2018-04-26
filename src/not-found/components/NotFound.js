@@ -3,7 +3,7 @@
 import React from 'react';
 import css from './NotFound.css';
 
-const NotFound = props => (
+const NotFound = (props: Object) => (
   <div className={css.container}>
     <h1 className={css.container__message}>
       {props.location.state ? (

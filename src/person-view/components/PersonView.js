@@ -1,10 +1,13 @@
 // @flow
 
 import React, {Component} from 'react';
+import {isEmpty} from 'lodash';
+
 import css from './PersonView.css';
 import deleteIcon from '../../assets/icon_delete.svg';
 import editIcon from '../../assets/icon_edit.svg';
 import backIcon from '../../assets/icon_arrow_back.svg';
+import defaultPicture from '../../assets/default-picture.png';
 import {Link} from 'react-router-dom';
 import PersonForm from '../../people-container/components/PersonForm';
 import peopleStore from '../../people-container/people-store';
@@ -44,7 +47,8 @@ class PersonView extends Component {
     return (
       <div className={css.container}>
         <Link className={css.container__backButton} to="/people">
-          <img src={backIcon} alt="back" /> <span>&nbsp;BACK </span>
+          <img src={backIcon} alt="back" />{' '}
+          <span className={css.button__text}>BACK</span>
         </Link>
         <div className={css.container__buttonsGroup}>
           <button
@@ -53,7 +57,7 @@ class PersonView extends Component {
             onClick={utilityStore.togglePersonForm}
           >
             <img alt="" src={editIcon} />
-            <span>&nbsp;EDIT</span>
+            <span className={css.button__text}>EDIT</span>
           </button>
           <button
             type="button"
@@ -61,7 +65,7 @@ class PersonView extends Component {
             onClick={this.onDelete}
           >
             <img alt="" src={deleteIcon} />
-            <span>&nbsp;DELETE</span>
+            <span className={css.button__text}>DELETE</span>
           </button>
         </div>
         <PersonDetails personDetails={person} />
@@ -79,7 +83,13 @@ const PersonDetails = props => (
     <div className={css.personDetails__image}>
       <img
         className={css.image}
-        src={`http://${props.personDetails.picture}`}
+        src={
+          isEmpty(props.personDetails.picture) ? (
+            defaultPicture
+          ) : (
+            `http://${props.personDetails.picture}`
+          )
+        }
         alt={props.personDetails.name}
       />
     </div>

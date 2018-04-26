@@ -29,7 +29,7 @@ class PeopleContainer extends Component {
             onClick={utilityStore.togglePersonForm}
           >
             <img src={addIcon} alt="" />
-            <span>&nbsp; NEW PERSON</span>
+            <span className={css.button__text}> NEW PERSON</span>
           </button>
           <PersonForm mode={'new'} form={getForm(fields, plugins, hooks, {})} />
         </div>
