@@ -51,6 +51,10 @@
   padding: 0 20px;
 }
 
+.button__text {
+  padding-left: 5px;
+}
+
 @media (max-width: 700px) {
   .container {
     margin: 80px 15% auto;

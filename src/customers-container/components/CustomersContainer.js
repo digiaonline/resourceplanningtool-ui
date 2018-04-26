@@ -35,7 +35,7 @@ class CustomersContainer extends Component {
             onClick={this.toggleForm}
           >
             <img src={addIcon} alt="" />
-            <span>&nbsp; NEW CUSTOMER</span>
+            <span className={css.button__text}> NEW CUSTOMER</span>
           </button>
           <CustomerForm
             isOpened={this.formIsOpened}

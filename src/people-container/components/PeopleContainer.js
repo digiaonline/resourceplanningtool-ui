@@ -41,7 +41,7 @@ class PeopleContainer extends Component {
             onClick={this.toggleForm}
           >
             <img src={addIcon} alt="" />
-            <span>&nbsp; NEW PERSON</span>
+            <span className={css.button__text}> NEW PERSON</span>
           </button>
           <PersonForm
             isOpened={this.state.formIsOpened}
