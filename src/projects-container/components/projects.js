@@ -3,7 +3,9 @@
 import React from 'react';
 import {PropTypes} from 'prop-types';
 import {Link} from 'react-router-dom';
+import {isEmpty} from 'lodash';
 
+import defaultPicture from '../../assets/default-picture.png';
 import css from './ProjectsContainer.css';
 
 const Projects = ({projects}) => {
@@ -20,15 +22,13 @@ export default Projects;
 
 const Project = ({Data}) => (
   <div className={css.project}>
-    {Data.picture && (
-      <Link to={`/projects/${Data.id}`}>
-        <img
-          className={css.project__picture}
-          src={`http://${Data.picture}`}
-          alt={Data.name}
-        />
-      </Link>
-    )}
+    <Link to={`/projects/${Data.id}`}>
+      <img
+        className={css.project__picture}
+        src={isEmpty(Data.picture) ? defaultPicture : `http://${Data.picture}`}
+        alt={Data.name}
+      />
+    </Link>
     <div className={css.projectDetails}>
       <Link to={`/projects/${Data.id}`} className={css.projectName}>
         {Data.name}

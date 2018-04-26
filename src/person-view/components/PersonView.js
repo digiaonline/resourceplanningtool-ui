@@ -1,10 +1,13 @@
 // @flow
 
 import React, {Component} from 'react';
+import {isEmpty} from 'lodash';
+
 import css from './PersonView.css';
 import deleteIcon from '../../assets/icon_delete.svg';
 import editIcon from '../../assets/icon_edit.svg';
 import backIcon from '../../assets/icon_arrow_back.svg';
+import defaultPicture from '../../assets/default-picture.png';
 import {Link} from 'react-router-dom';
 import PersonForm from '../../people-container/components/PersonForm';
 import peopleStore from '../../people-container/people-store';
@@ -94,7 +97,13 @@ const PersonDetails = props => (
     <div className={css.personDetails__image}>
       <img
         className={css.image}
-        src={`http://${props.personDetails.picture}`}
+        src={
+          isEmpty(props.personDetails.picture) ? (
+            defaultPicture
+          ) : (
+            `http://${props.personDetails.picture}`
+          )
+        }
         alt={props.personDetails.name}
       />
     </div>
