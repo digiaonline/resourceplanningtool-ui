@@ -1,8 +1,8 @@
 // @flow
 
 import {observable, action} from 'mobx';
+import alertify from 'alertify.js';
 import {makeHttpRequest} from '../utils';
-import utilityStore from '../utils/utility-store';
 import {
   FETCH_CUSTOMERS_QUERY,
   getCreateCustomerQuery,
@@ -26,8 +26,8 @@ class CustomersStore {
       const responseData = await makeHttpRequest(FETCH_CUSTOMERS_QUERY);
       this.customers = responseData.listCustomers;
     } catch (error) {
-      // TODO: proper notification to be implemented
-      console.warn('cant fetch customers', error);
+      alertify.error('Cannot fetch customers.');
+      throw error;
     }
   };
 
@@ -41,14 +41,12 @@ class CustomersStore {
         customerInfo.logo
       );
       await makeHttpRequest(CREATE_CUSTOMER_QUERY);
-      // TODO: proper notification to be implemented
-      console.info('create customer successfully');
+      alertify.success('Create customer successfully');
       this.fetchCustomers();
     } catch (error) {
-      // TODO: proper notification to be implemented
-      console.info('cant create new customer');
+      alertify.error('Cannot create customer.');
+      throw error;
     }
-    utilityStore.turnOffWaiting();
   };
 
   @action
@@ -57,11 +55,12 @@ class CustomersStore {
       const DELETE_CUSTOMER_QUERY = getDeleteCustomerQuery(id);
       const response: Object = await makeHttpRequest(DELETE_CUSTOMER_QUERY);
       if (response.removeCustomer) {
+        alertify.success('Customer deleted.');
         this.fetchCustomers();
       }
     } catch (error) {
-      // TODO: proper notification to be implemented
-      console.warn('cant delete customer');
+      alertify.error('Cannot delete customer.');
+      throw error;
     }
   };
 
@@ -77,15 +76,13 @@ class CustomersStore {
       );
       const response = await makeHttpRequest(UPDATE_CUSTOMER_QUERY);
       if (response.updateCustomer) {
-        // TODO: proper notification to be implemented
-        console.info('update customer successfully');
+        alertify.success('Update customer successfully');
         this.fetchCustomers();
       }
     } catch (error) {
-      // TODO: proper notification to be implemented
-      console.warn('cant save customer');
+      alertify.error('Cannot save changes made to customer');
+      throw error;
     }
-    utilityStore.turnOffWaiting();
   };
 }
 

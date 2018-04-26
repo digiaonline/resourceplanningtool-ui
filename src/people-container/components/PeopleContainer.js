@@ -10,28 +10,13 @@ import peopleStore from '../people-store';
 import addIcon from '../../assets/icon_add_b.svg';
 import {fields, plugins, hooks} from '../../constants/person-form-config';
 import {getForm} from '../../utils';
+import utilityStore from '../../utils/utility-store';
 
 @observer
 class PeopleContainer extends Component {
-  state: {
-    formIsOpened: boolean
-  };
-  constructor(props: Object) {
-    super(props);
-    this.state = {
-      formIsOpened: false,
-    };
-  }
-
   componentWillMount() {
     peopleStore.fetchPeople();
   }
-
-  toggleForm = () => {
-    this.setState({
-      formIsOpened: !this.state.formIsOpened,
-    });
-  };
 
   render() {
     return (
@@ -41,16 +26,12 @@ class PeopleContainer extends Component {
           <button
             type="button"
             className={css.header__button}
-            onClick={this.toggleForm}
+            onClick={utilityStore.togglePersonForm}
           >
             <img src={addIcon} alt="" />
             <span className={css.button__text}> NEW PERSON</span>
           </button>
-          <PersonForm
-            isOpened={this.state.formIsOpened}
-            toggleForm={this.toggleForm}
-            form={getForm(fields, plugins, hooks, {})}
-          />
+          <PersonForm mode={'new'} form={getForm(fields, plugins, hooks, {})} />
         </div>
         <TableWithNavigation
           {...this.props}

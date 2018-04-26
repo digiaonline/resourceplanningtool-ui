@@ -1,4 +1,5 @@
 // @flow
+import alertify from 'alertify.js';
 
 const sdk = require('contentful-management');
 const contentful = require('contentful');
@@ -20,8 +21,7 @@ export async function uploadImage(file: File) {
   try {
     // check if file is an image
     if (file.type.split('/')[0] !== 'image') {
-      // TODO: proper notification to be implemented
-      console.warn('Should choose an image');
+      alertify.error('File should be an image.');
       return false;
     } else {
       const space = await sdkClient.getSpace(process.env.REACT_APP_SPACE_ID);
@@ -57,8 +57,8 @@ export async function uploadImage(file: File) {
       return publishedAsset.sys.id;
     }
   } catch (error) {
-    // TODO: proper notification to be implemented
-    console.warn(error);
+    alertify.error('Cannot upload image');
+    throw error;
   }
 }
 
@@ -67,7 +67,7 @@ export async function getImage(id: String) {
     const asset = await client.getAsset(id);
     return asset.fields.file.url.slice(2);
   } catch (error) {
-    // TODO: proper notification to be implemented
-    console.warn(error);
+    alertify.error('Cannot get image');
+    throw error;
   }
 }

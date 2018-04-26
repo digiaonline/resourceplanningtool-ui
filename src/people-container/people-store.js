@@ -1,10 +1,11 @@
 // @flow
 
 import {observable, action} from 'mobx';
+import alertify from 'alertify.js';
 import skillsStore from './skills-store';
 import {values} from 'lodash';
 import {isEmpty, makeHttpRequest} from '../utils';
-import utilityStore from '../utils/utility-store';
+import {values} from 'lodash';
 import {
   FETCH_PEOPLE_QUERY,
   getCreatePersonQuery,
@@ -38,8 +39,8 @@ class PeopleStore {
       const responseData = await makeHttpRequest(FETCH_PEOPLE_QUERY);
       this.people = responseData.listPersons;
     } catch (error) {
-      // TODO: proper notification to be implemented
-      console.warn('cant fetch people', error);
+      alertify.error('Cannot fetch people');
+      throw error;
     }
   };
 
@@ -78,17 +79,15 @@ class PeopleStore {
       // check if all needed requests were successful
       if (
         createPersonResponse.createPerson &&
-        Object.values(addSkillsResponse).indexOf(false) <= -1
+        values(addSkillsResponse).indexOf(false) <= -1
       ) {
-        // TODO: proper notification to be implemented
-        console.info('create person successfully');
+        alertify.success('Create person successfully');
         this.fetchPeople();
       }
     } catch (error) {
-      // TODO: proper notification to be implemented
-      console.warn('cant create person', error);
+      alertify.error('Cannot create person.');
+      throw error;
     }
-    utilityStore.turnOffWaiting();
   };
 
   @action
@@ -97,13 +96,12 @@ class PeopleStore {
       const DELETE_PERSON_QUERY = getDeletePersonQuery(id);
       const response = await makeHttpRequest(DELETE_PERSON_QUERY);
       if (response.removePerson) {
-        // TODO: proper notification to be implemented
-        console.info('delete person successfully');
+        alertify.success('Delete person successfully.');
         this.fetchPeople();
       }
     } catch (error) {
-      // TODO: proper notification to be implemented
-      console.warn('cant delete person');
+      alertify.error('Cannot delete person.');
+      throw error;
     }
   };
 
@@ -144,17 +142,15 @@ class PeopleStore {
       }
       if (
         updatePersonResponse.updatePerson &&
-        Object.values(updateSkillsResponse).indexOf(false) <= -1
+        values(updateSkillsResponse).indexOf(false) <= -1
       ) {
         this.fetchPeople();
-        // TODO: proper notification to be implemented
-        console.info('update person successful');
+        alertify.success('Update person successfully');
       }
     } catch (error) {
-      // TODO: proper notification to be implemented
-      console.warn('cant update person', error);
+      alertify.error('Cannot save changes made to person.');
+      throw error;
     }
-    utilityStore.turnOffWaiting();
   };
 }
 
