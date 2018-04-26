@@ -15,25 +15,10 @@ import customersStore from '../../customers-container/customers-store';
 import {getForm} from '../../utils';
 import {fields, plugins, hooks} from '../../constants/customer-form-config';
 import LoadFailedRedirect from '../../redirect-component/components/Redirect';
+import utilityStore from '../../utils/utility-store';
 
 @observer
 class CustomerView extends Component {
-  state: {
-    formIsOpened: boolean
-  };
-  constructor(props: Object) {
-    super(props);
-    this.state = {
-      formIsOpened: false,
-    };
-  }
-
-  toggleForm = () => {
-    this.setState({
-      formIsOpened: !this.state.formIsOpened,
-    });
-  };
-
   onDelete = () => {
     customersStore.deleteCustomer(this.props.match.params.id);
     this.props.history.push('/customers');
@@ -51,10 +36,10 @@ class CustomerView extends Component {
       customer => customer.id === this.props.match.params.id
     );
     if (!customer) {
+      const customerId = this.props.match.params.id;
       return (
         <LoadFailedRedirect
-          message={`Timeout, no customer with id "${this.props.match.params
-            .id}" was found`}
+          message={`Timeout, no customer with id "${customerId}" was found`}
         />
       );
     }
@@ -101,7 +86,7 @@ class CustomerView extends Component {
             <button
               type="button"
               className={css.buttonsGroup__button}
-              onClick={this.toggleForm}
+              onClick={utilityStore.toggleCustomerForm}
             >
               <img alt="" src={editIcon} />
               <span className={css.button__text}> EDIT</span>
@@ -110,8 +95,6 @@ class CustomerView extends Component {
         </div>
         <CustomerForm
           form={getForm(fields, plugins, hooks, customer)}
-          isOpened={this.state.formIsOpened}
-          toggleForm={this.toggleForm}
           mode={'edit'}
         />
       </div>
