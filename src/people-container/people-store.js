@@ -5,7 +5,6 @@ import alertify from 'alertify.js';
 import skillsStore from './skills-store';
 import {values} from 'lodash';
 import {isEmpty, makeHttpRequest} from '../utils';
-import {values} from 'lodash';
 import {
   FETCH_PEOPLE_QUERY,
   getCreatePersonQuery,
@@ -40,7 +39,6 @@ class PeopleStore {
       this.people = responseData.listPersons;
     } catch (error) {
       alertify.error('Cannot fetch people');
-      throw error;
     }
   };
 

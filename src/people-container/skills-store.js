@@ -25,7 +25,6 @@ class SkillsStore {
       this.skills = responseData.listSkills;
     } catch (error) {
       alertify.error('Cannot fetch list of skills');
-      throw error;
     }
   };
 

@@ -27,7 +27,7 @@ export const hooks = {
       if (form.values().file !== '') {
         try {
           const pictureId = await uploadImage(form.values().file);
-          const pictureUrl = await getImage(pictureId);
+          const pictureUrl: string = await getImage(pictureId);
           await peopleStore.createPerson(
             Object.assign({}, filteredValues, {picture: pictureUrl})
           );
@@ -49,7 +49,7 @@ export const hooks = {
       if (form.values().file !== '') {
         try {
           const pictureId = await uploadImage(form.values().file);
-          const pictureUrl = await getImage(pictureId);
+          const pictureUrl: string = await getImage(pictureId);
           await peopleStore.updatePerson(
             Object.assign({}, filteredValues, {picture: pictureUrl})
           );
