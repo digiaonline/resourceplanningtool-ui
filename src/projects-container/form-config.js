@@ -152,7 +152,6 @@ export const hooks = {
           .technologies.map(tech =>
             ProjectsStore.addTechnologiesToProject(id, tech.name)
           );
-        ProjectsStore.addProjectToCustomer(id, form.values().customer);
 
         form
           .values()
@@ -171,9 +170,9 @@ export const hooks = {
       try {
         if (!ProjectsStore.pictureUrl) {
           if (form.values().file) {
-            await uploadImage(form.values().file)
-              .then(pictureId => getImage(pictureId))
-              .then(pictureUrl => (ProjectsStore.pictureUrl = pictureUrl));
+            const pictureId = await uploadImage(form.values().file);
+            const pictureUrl = await getImage(pictureId);
+            ProjectsStore.pictureUrl = pictureUrl;
           } else {
             ProjectsStore.pictureUrl = '';
           }
@@ -183,7 +182,7 @@ export const hooks = {
         ProjectsStore.updateProject(form.values());
         //remove old data
         Data.persons.map(person =>
-          ProjectsStore.removePersonFromProject(id, person)
+          ProjectsStore.removePersonFromProject(id, person.id)
         );
         Data.technologies.map(tech =>
           ProjectsStore.removeTechnologyFromProject(id, tech.id)

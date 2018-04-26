@@ -3,6 +3,7 @@
 import {observable, action, computed} from 'mobx';
 import alertify from 'alertify.js';
 import form from './form-config';
+import {toString} from 'lodash';
 import {makeHttpRequest} from '../utils';
 import {
   getDeleteProjectQuery,
@@ -84,7 +85,7 @@ class ProjectsStore {
       const response: Object = await makeHttpRequest(query);
       this.projectData = response.project || {};
     } catch (error) {
-      alertify.error(`Cannot fetch project with id ${id}`);
+      alertify.error(`Cannot fetch project with id ${toString(id)}`);
       return [];
     }
   };
@@ -284,7 +285,7 @@ class ProjectsStore {
       const response: Object = await makeHttpRequest(ALL_NEWS_QUERY);
       this.allNews = response.listNews;
     } catch (error) {
-      throw error;
+      alertify.error('Cannot fetch news');
     }
   };
 

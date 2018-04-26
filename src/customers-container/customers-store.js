@@ -27,7 +27,6 @@ class CustomersStore {
       this.customers = responseData.listCustomers;
     } catch (error) {
       alertify.error('Cannot fetch customers.');
-      throw error;
     }
   };
 

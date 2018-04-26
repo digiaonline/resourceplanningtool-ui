@@ -62,7 +62,7 @@ export async function uploadImage(file: File) {
   }
 }
 
-export async function getImage(id: String) {
+export async function getImage(id: string | boolean) {
   try {
     const asset = await client.getAsset(id);
     return asset.fields.file.url.slice(2);

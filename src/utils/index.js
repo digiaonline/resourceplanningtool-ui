@@ -76,8 +76,8 @@ export function onChangeImage(event: Object, form: Object) {
   reader.readAsDataURL(event.target.files[0]);
 }
 
-export async function makeHttpRequest(queryString: String) {
-  const response = await axios.post(process.env.REACT_APP_API, queryString, {
+export async function makeHttpRequest(queryString: string) {
+  const response = await axios.post(process.env.REACT_APP_API || '', queryString, {
     headers: {
       'Content-Type': 'application/graphql',
     },
