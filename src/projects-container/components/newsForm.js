@@ -35,7 +35,7 @@ class NewsForm extends Component {
           <Input field={form.$('newsLink')} />
           <Input field={form.$('newsDescription')} />
           <button onClick={this.onSubmit} className={css.news__url__button}>
-            <img src={addIcon} alt="add" /> <span>ADD</span>
+            <img src={addIcon} alt="add" /> <span className={css.news__addButton} >ADD</span>
           </button>
         </div>
         {form.$('newNews').value.map((item: Object, i: Number) => {

@@ -175,8 +175,6 @@ export const hooks = {
             const pictureId = await uploadImage(form.values().file);
             const pictureUrl = await getImage(pictureId);
             ProjectsStore.pictureUrl = pictureUrl;
-          } else {
-            ProjectsStore.pictureUrl = '';
           }
         }
         const id = ProjectsStore.projectId;
@@ -184,7 +182,7 @@ export const hooks = {
         ProjectsStore.updateProject(updatedValues);
         //remove old data
         Data.persons.map(person =>
-          ProjectsStore.removePersonFromProject(id, person)
+          ProjectsStore.removePersonFromProject(id, person.id)
         );
         Data.technologies.map(tech =>
           ProjectsStore.removeTechnologyFromProject(id, tech.id)

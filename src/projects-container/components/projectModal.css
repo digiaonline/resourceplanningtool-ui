@@ -102,7 +102,7 @@
 }
 
 .input__checkbox:checked + .squire {
-  background: url('../../assets/done.svg');
+  background: url(../../assets/done.svg);
 }
 
 .input__group .input__section {
@@ -235,6 +235,10 @@
   cursor: pointer;
   background: white;
   border: none;
+}
+
+.news__addButton {
+  padding-left: 5px;
 }
 
 .helper {

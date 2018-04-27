@@ -1,6 +1,6 @@
 .projectsApp {
   width: 100%;
-  background-image: url('../../assets/rekrykuva10_digia.jpg');
+  background-image: url(../../assets/rekrykuva10_digia.jpg);
   background-size: cover;
   background-position: center;
   flex: 1;
@@ -160,7 +160,7 @@
 }
 
 .project__picture {
-  max-width: 100.3%;
+  width: 100.3%;
 }
 
 @media (max-width: 1550px) {

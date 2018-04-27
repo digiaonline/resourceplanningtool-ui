@@ -33,7 +33,6 @@ class ProjectView extends Component {
     ProjectStore.form_name('Edit project');
     ProjectStore.projectId = this.props.match.params.id;
     ProjectStore.Redirect = false;
-    ProjectStore.pictureUrl = '';
   }
 
   openModalAndPassData = () => {
