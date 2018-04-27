@@ -24,7 +24,6 @@ export const hooks = {
       addedSkills: skillsChanged.addedItems,
       description: normalizeString(form.values().description),
     });
-    console.log(filteredValues);
     if (initialsValue.name === '') {
       if (form.values().file !== '') {
         try {

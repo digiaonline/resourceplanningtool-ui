@@ -4,7 +4,6 @@ import React, {Component} from 'react';
 import {observer} from 'mobx-react';
 import {isEmpty} from 'lodash';
 import {Link} from 'react-router-dom';
-import {isEmpty} from 'lodash';
 
 import CustomerForm from '../../customers-container/components/CustomerForm';
 import css from './CustomerView.css';
