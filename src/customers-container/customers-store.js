@@ -17,7 +17,11 @@ class CustomersStore {
     name: string,
     url: string,
     logo: string,
-    industry: string
+    industry: string,
+    projects: Array<{
+      id: number,
+      name: string
+    }>
   }> = [];
 
   @action

@@ -77,6 +77,10 @@
   margin-right: 40px;
 }
 
+.rowTag__customerProjects {
+  margin-right: 5px;
+}
+
 .buttonsGroup__button {
   composes: wrapper_component-button;
   composes: element--hover;

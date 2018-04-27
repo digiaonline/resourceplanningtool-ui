@@ -7,6 +7,10 @@ export const FETCH_CUSTOMERS_QUERY: string = `query {
      logo
      industry
      url
+     projects {
+       id
+       name
+     }
    }
 }`;
 
