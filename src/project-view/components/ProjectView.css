@@ -5,6 +5,7 @@
   background-color: inherit;
   font-weight: bold;
   font-size: 16px;
+  cursor: pointer;
 }
 
 .project__view {

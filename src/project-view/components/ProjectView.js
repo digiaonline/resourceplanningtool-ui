@@ -61,10 +61,10 @@ class ProjectView extends Component {
     ) || {};
     return (
       <div className={css.project__view}>
-        <Link className={css.back__button} to="/projects">
+        <div className={css.back__button} onClick={this.props.history.goBack}>
           <img src={backIcon} alt="back" />
           <span className={css.button__text} >BACK</span>
-        </Link>
+        </div>
         <div className={css.project__heading}>
           <div className={css.project__title}>{Data.name}</div>
           <div className={css.project__buttons}>

@@ -8,7 +8,6 @@ import deleteIcon from '../../assets/icon_delete.svg';
 import editIcon from '../../assets/icon_edit.svg';
 import backIcon from '../../assets/icon_arrow_back.svg';
 import defaultPicture from '../../assets/default-picture.png';
-import {Link} from 'react-router-dom';
 import PersonForm from '../../people-container/components/PersonForm';
 import peopleStore from '../../people-container/people-store';
 import {observer} from 'mobx-react';
@@ -46,10 +45,10 @@ class PersonView extends Component {
     }
     return (
       <div className={css.container}>
-        <Link className={css.container__backButton} to="/people">
+        <div className={css.container__backButton} onClick={this.props.history.goBack}>
           <img src={backIcon} alt="back" />{' '}
           <span className={css.button__text}>BACK</span>
-        </Link>
+        </div>
         <div className={css.container__buttonsGroup}>
           <button
             type="button"
