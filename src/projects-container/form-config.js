@@ -210,9 +210,6 @@ export const hooks = {
       }
     }
   },
-  onError(form) {
-    console.log('All form errors', form.errors());
-  },
 };
 
 export default new MobxReactForm({fields}, {plugins, hooks});
