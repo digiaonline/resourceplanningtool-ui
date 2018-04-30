@@ -46,10 +46,10 @@ class CustomerView extends Component {
     }
     return (
       <div className={css.container}>
-        <Link className={css.container__backButton} to="/customers">
+        <div className={css.container__backButton} onClick={this.props.history.goBack}>
           <img src={backIcon} alt="back" />{' '}
           <span className={css.button__text}> BACK </span>
-        </Link>
+        </div>
         <div className={css.container__customer}>
           <div>
             <h3 className={css.customer__name}> {customer.name} </h3>

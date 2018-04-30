@@ -40,10 +40,12 @@
 
 .navbar a:hover {
   background-color: #df192c7a;
+  text-decoration: none;
 }
 
 .active {
   background-color: #df192c;
+  text-decoration: none;
 }
 
 .menu__icon {

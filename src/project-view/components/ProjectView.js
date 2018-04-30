@@ -61,10 +61,10 @@ class ProjectView extends Component {
     ) || {};
     return (
       <div className={css.project__view}>
-        <Link className={css.back__button} to="/projects">
+        <div className={css.back__button} onClick={this.props.history.goBack}>
           <img src={backIcon} alt="back" />
-          <span>Back</span>
-        </Link>
+          <span className={css.button__text} >BACK</span>
+        </div>
         <div className={css.project__heading}>
           <div className={css.project__title}>{Data.name}</div>
           <div className={css.project__buttons}>
@@ -162,7 +162,7 @@ class ProjectView extends Component {
               <div className={css.detail__title}>Live at</div>
               <p>
                 {Data.liveat ? (
-                  <a href={Data.liveat}>{Data.liveat}</a>
+                  <a href={Data.liveat} >Live Link</a>
                 ) : (
                   <span>Not available</span>
                 )}
@@ -172,7 +172,7 @@ class ProjectView extends Component {
               <div className={css.detail__title}>Github</div>
               <p>
                 {Data.githuburl ? (
-                  <a href={Data.githuburl}>{Data.githuburl}</a>
+                  <a href={Data.githuburl} >Github Link</a>
                 ) : (
                   <span>Not available</span>
                 )}
@@ -184,8 +184,8 @@ class ProjectView extends Component {
                 Data.news.map(item => (
                   <div key={item.id}>
                     <h4>
-                      {item.description ? `${item.description} :` : ''}
-                      <a href={item.url}>{item.url}</a>
+                      {item.description ? `${item.description} : ` : ''}
+                      <a href={item.url} >Link</a>
                     </h4>
                   </div>
                 ))
