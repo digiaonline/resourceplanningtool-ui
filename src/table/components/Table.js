@@ -6,67 +6,78 @@ import {PropTypes as MobxPropTypes} from 'mobx-react';
 import css from './Table.css';
 
 const Table = (props: Object) => (
-  <table className={css.container__table}>
-    <thead>
-      <tr>
-        <th className={css.row__firstField}>
-          {props.columnHeaders[0]}
-          <span id="sort" />{' '}
-        </th>
-        <th className={css.row__secondField}>{props.columnHeaders[1]}</th>
-        <th className={css.row__lastField}>{props.columnHeaders[2]}</th>
-      </tr>
-    </thead>
-    <tbody>
-      {props.rowsValue.map((row, index) => (
-        <Row
-          key={index}
-          values={row}
-          displayedFields={props.displayedFields}
-          navigate={props.navigate}
-          index={index}
-        />
-      ))}
-    </tbody>
-  </table>
+  <div className={css[`table__${props.tableName}`]}>
+    {
+      props.displayedFields.map(field => (
+        <div key={field} className={css[`header__${field}`]}>{field}</div>
+      ))
+    }
+    {props.rowsValue.map((row, index) => (
+      <Row
+        tableName={props.tableName}
+        key={index}
+        values={row}
+        displayedFields={props.displayedFields}
+        navigate={props.navigate}
+      />
+    ))}
+  </div>
 );
 
 export const Row = (props: Object) => (
-  <tr
+  <div
+    className={css[`row__${props.tableName}`]}
     onClick={() => {
       props.navigate(props.values.id);
     }}
   >
-    <td className={css.row__firstField}>
-      <span>{props.values[props.displayedFields[0]]}</span>
-    </td>
-    <td className={css.row__secondField}>
-      {// if the table cell contains a link, we wrap it in <a> tag
-        props.displayedFields[1] === 'url' ? (
-          <span>
-            <a href={props.values[props.displayedFields[1]]}>
-              {props.values[props.displayedFields[1]]}
-            </a>
-          </span>
-        ) : (
-          <span>{props.values[props.displayedFields[1]]}</span>
-        )}
-    </td>
-    <td className={css.row__lastField}>
-      {props.displayedFields[2] !== 'skills' ? (
-        <span>{props.values[props.displayedFields[2]]}</span>
-      ) : (
-        <span>
-          {props.values[props.displayedFields[2]].map(
-            skill => `${skill.name}(${skill.level}), `
-          )}
-        </span>
-      )}
-    </td>
-  </tr>
+    {
+      props.displayedFields.map(field => (
+        <div key={field} className={css[`cell__${field}`]} style={
+          getGridPositionStyle(props.displayedFields.indexOf(field) + 1, 1)
+        }>
+          <Cell label={field} value={props.values[field]} />
+        </div>
+      ))
+    }
+  </div>
 );
 
+export const Cell = (props: Object) => {
+  const {label, value} = props;
+  if (label === 'url') {
+    return (
+      <span>
+        <a href={value}>
+          {value}
+        </a>
+      </span>
+    );
+  } else if (label === 'skills') {
+    return (
+      <span>
+        {value.map(
+          skill => `${skill.name}(${skill.level}), `
+        )}
+      </span>
+    );
+  } else {
+    return <span>{value}</span>;
+  }
+};
+
+const getGridPositionStyle = (column: number, row: number): {
+  gridColumn: string,
+  gridRow: string,
+} => {
+  return {
+    gridColumn: `${column} / ${column + 1}`,
+    gridRow: `${row} / ${row + 1}`,
+  };
+};
+
 Table.propTypes = {
+  tableName: PropTypes.string.isRequired,
   columnHeaders: PropTypes.arrayOf(PropTypes.string).isRequired, // should have 3 values
   rowsValue: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -76,9 +87,19 @@ Table.propTypes = {
 };
 
 Row.propTypes = {
+  tableName: PropTypes.string.isRequired,
   values: PropTypes.object.isRequired,
   displayedFields: PropTypes.arrayOf(PropTypes.string).isRequired,
-  navigate: PropTypes.func.isRequired,
+  navigate: PropTypes.func,
+  row: PropTypes.number.isRequired,
+};
+
+Cell.propTypes = {
+  value: PropTypes.oneOfType([
+    PropTypes.string.isRequired,
+    PropTypes.object.isRequired,
+  ]),
+  label: PropTypes.string.isRequired,
 };
 
 export default Table;

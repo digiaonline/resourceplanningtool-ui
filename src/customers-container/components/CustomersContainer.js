@@ -38,6 +38,7 @@ class CustomersContainer extends Component {
         </div>
         <TableWithNavigation
           {...this.props}
+          tableName='customers'
           columnHeaders={['CUSTOMER', 'WEBSITE', 'INDUSTRY']}
           rowsValue={customersStore.customers}
           displayedFields={['name', 'url', 'industry']}

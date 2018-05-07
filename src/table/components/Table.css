@@ -2,22 +2,16 @@
   cursor: pointer;
 }
 
-.container__table {
+/* .container__table {
   margin: 7% 0 auto;
   width: 100%;
   table-layout: fixed;
   border-collapse: collapse;
 }
 
-.row {
-  text-align: left;
-  border-bottom: var(--border);
-  height: 45px;
-  line-height: 10px;
-  letter-spacing: var(--letter-spacing);
-  composes: element--hover;
-  overflow: hidden;
-  white-space: nowrap;
+.table__header {
+  composes: row;
+  text-transform: uppercase;
 }
 
 .row__firstField {
@@ -35,4 +29,114 @@
   width: 45%;
   padding-left: 10px;
   composes: row;
+} */
+
+.container__table {
+  display: grid;
+  margin: 7% 0;
+  width: 100%;
+}
+
+.row {
+  min-height: 45px;
+  border-bottom: 2px solid rgb(210, 210, 210);
+  letter-spacing: var(--letter-spacing);
+  composes: element--hover;
+}
+
+.table__people {
+  composes: container__table;
+  grid-template-columns: 20% 15% 20% 45%;
+}
+
+.table__customers {
+  composes: container__table;
+  grid-template-columns: 30% 40% 30%;
+}
+
+.table__header {
+  composes: row;
+  grid-row: 1 / 2;
+  text-transform: uppercase;
+  font-weight: bold;
+  overflow-wrap: break-word;
+}
+
+.header__name {
+  grid-column: 1 / 2;
+  composes: table__header;
+}
+
+.header__location {
+  grid-column: 2 / 3;
+  composes: table__header;
+}
+
+.header__title {
+  grid-column: 3 / 4;
+  composes: table__header;
+}
+
+.header__skills {
+  grid-column: 4 / 5;
+  composes: table__header;
+}
+
+.header__url {
+  grid-column: 2 / 3;
+  composes: table__header;
+}
+
+.header__industry {
+  grid-column: 3 / 4;
+  composes: table__header;
+}
+
+.table__row {
+  composes: row;
+  width: 100%;
+  display: grid;
+  grid-template-rows: 100%;
+}
+
+.row__customers {
+  composes: table__row;
+  grid-column: 1 / span 3;
+  grid-template-columns: 30% 40% 30%;
+}
+
+.row__people {
+  composes: table__row;
+  grid-column: 1 / span 4;
+  grid-template-columns: 20% 15% 20% 45%;
+}
+
+.table__cell {
+  padding: 10px 5px 10px 0;
+  overflow-wrap: break-word;
+  text-align: left;
+}
+
+.cell__name {
+  composes: table__cell;
+}
+
+.cell__url {
+  composes: table__cell;
+}
+
+.cell__industry {
+  composes: table__cell;
+}
+
+.cell__location {
+  composes: table__cell;
+}
+
+.cell__title {
+  composes: table__cell;
+}
+
+.cell__skills {
+  composes: table__cell;
 }

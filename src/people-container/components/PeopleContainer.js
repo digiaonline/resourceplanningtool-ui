@@ -35,9 +35,10 @@ class PeopleContainer extends Component {
         </div>
         <TableWithNavigation
           {...this.props}
-          columnHeaders={['PERSON', 'TITLE', 'SKILLS']}
+          tableName='people'
+          columnHeaders={['PERSON', 'LOCATION', 'TITLE', 'SKILLS']}
           rowsValue={peopleStore.people}
-          displayedFields={['name', 'title', 'skills']}
+          displayedFields={['name', 'location', 'title', 'skills']}
         />
       </div>
     );
