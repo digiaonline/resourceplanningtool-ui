@@ -7,6 +7,7 @@ import Autocomplete from 'react-autocomplete';
 import * as PropTypes from 'prop-types';
 import {observer} from 'mobx-react';
 import alertify from 'alertify.js';
+import {toString, uniqBy, sortBy} from 'lodash';
 
 import utilityStore from '../../utils/utility-store';
 import {onChangeImage} from '../../utils';
@@ -89,6 +90,11 @@ class PersonForm extends Component {
 
   render() {
     const {form} = this.props;
+    const skillsList: Array<{
+      id: number,
+      name: string,
+      level: number,
+    }> = uniqBy(skillsStore.skills, 'name');
     return (
       <Modal isOpen={utilityStore.personFormState} style={modalStyle}>
         <div className={css.buttonContainer}>
@@ -260,7 +266,7 @@ class PersonForm extends Component {
                     {...form.$('new-skill-name').bind()}
                     shouldItemRender={(item, value) =>
                       item.toLowerCase().indexOf(value.toLowerCase()) > -1}
-                    items={skillsStore.skills.map(skill => skill.name)}
+                    items={sortBy(skillsList, (item => item.name.toLowerCase())).map(skill => skill.name)}
                     getItemValue={item => item}
                     onChange={this.onChangeSkillName}
                     onSelect={this.onSelectSkillName}
@@ -283,57 +289,27 @@ class PersonForm extends Component {
                     <b>{form.$('new-skill-level').label}</b>
                   </span>
                   <div className={css.radio}>
-                    <div className={css.radio__optionFields}>
-                      <input
-                        name="level"
-                        type="radio"
-                        id="tech-level-1"
-                        value={1}
-                        className={css.radio__option}
-                        onClick={this.updateRadioInput}
-                        checked={form.$('new-skill-level').value === '1'}
-                      />
-                      <label
-                        htmlFor="tech-level-1"
-                        className={css.option__label}
-                      >
-                        1
-                      </label>
-                    </div>
-                    <div className={css.radio__optionFields}>
-                      <input
-                        name="level"
-                        type="radio"
-                        id="tech-level"
-                        value={2}
-                        className={css.radio__option}
-                        onClick={this.updateRadioInput}
-                        checked={form.$('new-skill-level').value === '2'}
-                      />
-                      <label
-                        htmlFor="tech-level-2"
-                        className={css.option__label}
-                      >
-                        2
-                      </label>
-                    </div>
-                    <div className={css.radio__optionFields}>
-                      <input
-                        name="level"
-                        type="radio"
-                        id="tech-level"
-                        value={3}
-                        className={css.radio__option}
-                        onClick={this.updateRadioInput}
-                        checked={form.$('new-skill-level').value === '3'}
-                      />
-                      <label
-                        htmlFor="tech-level-3"
-                        className={css.option__label}
-                      >
-                        3
-                      </label>
-                    </div>
+                    {
+                      [1, 2, 3].map(value => (
+                        <div className={css.radio__optionFields}>
+                          <input
+                            name="level"
+                            type="radio"
+                            id={`tech-level-${value}`}
+                            value={value}
+                            className={css.radio__option}
+                            onClick={this.updateRadioInput}
+                            checked={form.$('new-skill-level').value === toString(value)}
+                          />
+                          <label
+                            htmlFor={`tech-level-${value}`}
+                            className={css.option__label}
+                          >
+                            {value}
+                          </label>
+                        </div>
+                      ))
+                    }
                   </div>
                 </div>
                 <div className={css.technologies__input}>
