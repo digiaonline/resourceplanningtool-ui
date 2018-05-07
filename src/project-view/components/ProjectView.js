@@ -97,7 +97,7 @@ class ProjectView extends Component {
           <div className={css.general__details}>
             <div className={css.details}>
               <div className={css.detail__row}>
-                <span>Customer name</span>
+                <span>Customer</span>
                 {!isEmpty(customer) ? (
                   <Link
                     to={`/customers/${customer.id}`}
