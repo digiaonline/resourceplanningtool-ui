@@ -30,6 +30,7 @@ class Header extends Component {
         </NavLink>
         <div className={showMenu ? css.navbar : css.navbar__hidden}>
           <NavLink
+            className={css.nav__link}
             onClick={this.handleOnClick}
             exact
             to="/projects"
@@ -38,6 +39,7 @@ class Header extends Component {
             PROJECTS
           </NavLink>
           <NavLink
+            className={css.nav__link}
             onClick={this.handleOnClick}
             to="/customers"
             activeClassName={css.active}
@@ -45,6 +47,7 @@ class Header extends Component {
             CUSTOMERS
           </NavLink>
           <NavLink
+            className={css.nav__link}
             onClick={this.handleOnClick}
             to="/people"
             activeClassName={css.active}
