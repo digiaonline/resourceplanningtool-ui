@@ -4,8 +4,9 @@ import React, {Component} from 'react';
 import {observable} from 'mobx';
 import Modal from 'react-modal';
 import Autocomplete from 'react-autocomplete';
-import {PropTypes} from 'prop-types';
+import * as PropTypes from 'prop-types';
 import {observer} from 'mobx-react';
+import alertify from 'alertify.js';
 
 import utilityStore from '../../utils/utility-store';
 import {onChangeImage} from '../../utils';
@@ -36,24 +37,36 @@ class PersonForm extends Component {
 
   updateRadioInput = (event: Event) => {
     const {form} = this.props;
-    form.$('new-skill-level').set('value', event.target.value);
+    const element = event.target;
+    if (element instanceof HTMLInputElement) {
+      form.$('new-skill-level').set('value', element.value);
+    }
   };
 
   addNewSkill = () => {
     const {form} = this.props;
-    if (form.$('new-skill-name').value && form.$('new-skill-level').value) {
-      const skillsList = form.$('skills').value;
-      form.$('skills').set('value', [
-        ...skillsList,
-        {
-          level: +form.$('new-skill-level').value,
-          name: form.$('new-skill-name').value,
-        },
-      ]);
+    const skillsList = form.$('skills').value;
+    if (!form.$('new-skill-name').value || !form.$('new-skill-level').value) {
+      return alertify.error(
+        'Should provide skill name and skill level before adding.'
+      );
     }
+    if (
+      skillsList.filter(skill => skill.name === form.$('new-skill-name').value)
+        .length > 0
+    ) {
+      return alertify.error('Skill already selected.');
+    }
+    form.$('skills').set('value', [
+      ...skillsList,
+      {
+        level: +form.$('new-skill-level').value,
+        name: form.$('new-skill-name').value,
+      },
+    ]);
   };
 
-  removeSkill = (index: Number) => {
+  removeSkill = (index: number) => {
     const {form} = this.props;
     // filter the array of skills and remove the skill with provided index
     form
@@ -63,10 +76,13 @@ class PersonForm extends Component {
 
   onChangeSkillName = (event: Event) => {
     const {form} = this.props;
-    form.$('new-skill-name').set('value', event.target.value);
+    const element = event.target;
+    if (element instanceof HTMLInputElement) {
+      form.$('new-skill-name').set('value', element.value);
+    }
   };
 
-  onSelectSkillName = (value: String) => {
+  onSelectSkillName = (value: string) => {
     const {form} = this.props;
     form.$('new-skill-name').set('value', value);
   };
@@ -74,13 +90,13 @@ class PersonForm extends Component {
   render() {
     const {form} = this.props;
     return (
-      <Modal isOpen={this.props.isOpened} style={modalStyle}>
+      <Modal isOpen={utilityStore.personFormState} style={modalStyle}>
         <div className={css.buttonContainer}>
           <img
             alt=""
             src={closeIcon}
             className={css.modal__close}
-            onClick={this.props.toggleForm}
+            onClick={utilityStore.togglePersonForm}
           />
         </div>
         <div className={css.formContainer}>
@@ -360,7 +376,7 @@ class PersonForm extends Component {
               <button
                 className={css.actions__buttonReset}
                 type="reset"
-                onClick={this.props.toggleForm}
+                onClick={utilityStore.togglePersonForm}
               >
                 {' '}
                 Cancel{' '}
@@ -375,8 +391,7 @@ class PersonForm extends Component {
 }
 
 PersonForm.propTypes = {
-  isOpened: PropTypes.bool.isRequired,
-  toggleForm: PropTypes.func.isRequired,
+  form: PropTypes.object.isRequired,
   mode: PropTypes.string,
 };
 

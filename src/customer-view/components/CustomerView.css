@@ -3,13 +3,6 @@
   --blurred-border: 2px solid rgb(220, 220, 220);
 }
 
-/* general style */
-* {
-  box-sizing: border-box;
-  font-family: Calibri, sans-serif;
-  font-size: 17px;
-}
-
 /* composable style */
 .wrapper_component-button {
   width: 122px;
@@ -19,7 +12,7 @@
   display: inline-flex;
   font-size: 16px;
   margin: auto auto 20px;
-  font-family: Calibri, sans-serif;
+  cursor: pointer;
 }
 
 .element--hover:hover {
@@ -53,6 +46,10 @@
   align-content: start;
 }
 
+.button__text {
+  padding-left: 5px;
+}
+
 .customer__logo {
   margin-bottom: 40px;
   max-width: 200px;
@@ -79,6 +76,10 @@
 .row__tag {
   font-weight: bold;
   margin-right: 40px;
+}
+
+.rowTag__customerProjects {
+  margin-right: 5px;
 }
 
 .buttonsGroup__button {

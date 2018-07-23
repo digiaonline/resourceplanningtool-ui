@@ -1,18 +1,9 @@
 .projectsApp {
-  position: relative;
-  background: #f2f2f2;
   width: 100%;
-  font-family: Calibri, sans-serif;
-}
-
-.backgroundImg {
-  position: absolute;
   background-image: url(../../assets/rekrykuva10_digia.jpg);
-  background-repeat: no-repeat;
   background-size: cover;
-  height: 800px;
-  width: 100%;
-  z-index: 0;
+  background-position: center;
+  flex: 1;
 }
 
 .contanier {
@@ -46,16 +37,27 @@
   cursor: pointer;
 }
 
+.headingButton img {
+  padding-right: 5px;
+}
+
 .headingDetails {
   min-width: 100%;
   color: #fff;
   font-size: 30px;
   margin: 20px 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
-.headingDetailNumber {
+.headingDetails span {
+  font-size: 30px;
+}
+
+.headingDetails b {
   font-size: 40px;
-  font-weight: bold;
+  padding: 0 8px;
 }
 
 .filters {
@@ -142,6 +144,23 @@
   height: 40px;
   line-height: 40px;
   margin: 0 0 4px 4px;
+}
+
+.no__project {
+  position: relative;
+  text-align: center;
+  color: white;
+  font-size: 28px;
+  font-weight: 800;
+  margin-top: 40px;
+}
+
+.filters__select {
+  color: black;
+}
+
+.project__picture {
+  width: 100.3%;
 }
 
 @media (max-width: 1550px) {

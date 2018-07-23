@@ -1,16 +1,30 @@
+/* composable style */
+.wrapper_component-button {
+  width: 122px;
+  height: 50px;
+  background-color: inherit;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+}
+
 .project__view {
   width: 75%;
-  margin: 100px auto;
+  margin: 20px auto;
   color: #363636;
 }
 
 .back__button {
-  font-size: 16px;
-  font-weight: bold;
-  color: #363636;
+  composes: wrapper_component-button;
+  border: 0 solid rgba(255, 255, 255, 0);
+  padding: 15px 0;
   text-decoration: none;
-  display: flex;
-  align-items: center;
+  text-align: left;
+  display: inline-flex;
+}
+
+.button__text {
+  padding-left: 5px;
 }
 
 .project__heading {
@@ -40,13 +54,26 @@
   align-items: center;
 }
 
-.general__details {
-  margin-top: 125px;
+.project__image {
+  display: block;
+  max-height: 200px;
+  max-width: 80%;
+  margin-top: 12px;
+}
+
+.container {
   display: flex;
+  margin-top: 80px;
+}
+
+.general__details {
+  display: flex;
+  flex-direction: column;
+  min-width: 40%;
+  padding-right: 30px;
 }
 
 .details {
-  width: 50%;
   font-size: 17px;
 }
 
@@ -63,6 +90,15 @@
   font-weight: bold;
 }
 
+.description__title {
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.description__content {
+  white-space: pre-wrap;
+}
+
 .detail__row span {
   font-weight: bold;
   display: inline-block;
@@ -75,7 +111,6 @@
   left: 0;
   right: 0;
   bottom: 10%;
-  font-family: Calibri, sans-serif;
   margin: 0 auto;
   background-color: #fff;
   outline: none;
@@ -84,6 +119,16 @@
   color: #363636;
   width: 1220px;
   overflow: auto;
+}
+
+.members__view {
+  margin-right: 8px;
+  color: #337ab7;
+  cursor: pointer;
+}
+
+.technologies__view {
+  margin-right: 8px;
 }
 
 @media (max-width: 1250px) {
@@ -96,5 +141,34 @@
   .Modal {
     width: 95%;
     padding: 25px 20px;
+  }
+}
+
+@media (max-width: 800px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .project__view {
+    width: 90%;
+    margin: 50px auto;
+  }
+
+  .project__buttons {
+    flex-direction: column;
+  }
+
+  .project__buttons div {
+    height: 40px;
+    width: 100px;
+    margin-top: 5px;
+  }
+
+  .project__image {
+    margin: 10px auto;
+  }
+
+  .description__title {
+    margin-top: 40px;
   }
 }

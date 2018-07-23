@@ -3,12 +3,6 @@
   --blurred-border: 2px solid rgb(220, 220, 220);
 }
 
-/* general style */
-* {
-  box-sizing: border-box;
-  font-size: 17px;
-}
-
 /* composable style */
 .wrapper_component-button {
   width: 122px;
@@ -16,7 +10,7 @@
   background-color: inherit;
   font-weight: bold;
   font-size: 16px;
-  font-family: Calibri, sans-serif;
+  cursor: pointer;
 }
 
 .flexbox-sizing {
@@ -58,6 +52,10 @@
   justify-content: center;
 }
 
+.button__text {
+  padding-left: 5px;
+}
+
 .container__personDetails {
   margin: 90px auto;
   display: flex;
@@ -72,7 +70,7 @@
 }
 
 .image {
-  max-width: 300px;
+  max-width: 100%;
   max-height: 300px;
 }
 
@@ -87,7 +85,7 @@
   font-size: 34px;
   font-weight: normal;
   font-stretch: normal;
-  margin: 0;
+  margin: 0 0 20px;
 }
 
 .mainInfo__technologies {
@@ -109,10 +107,11 @@
 
 .mainInfo__description {
   max-width: 400px;
+  white-space: pre-wrap;
 }
 
 .personDetails__minorInfo {
-  padding: 50px 40px;
+  padding: 50px 30px;
   composes: flexbox-sizing;
   display: flex;
   flex-direction: row;
@@ -132,7 +131,7 @@
 .minorInfo__rowLinks {
   composes: minorInfo__row;
   display: flex;
-  flex-direction: row;
+  flex-flow: row wrap;
   color: blue;
 }
 

@@ -1,6 +1,6 @@
 // @flow
 
-export const FETCH_PEOPLE_QUERY = `query {
+export const FETCH_PEOPLE_QUERY: string = `query {
 	listPersons {
         description
         title
@@ -20,7 +20,7 @@ export const FETCH_PEOPLE_QUERY = `query {
     }
 }`;
 
-export const FETCH_SKILLS_QUERY = `query {
+export const FETCH_SKILLS_QUERY: string = `query {
 	listSkills {
 		id
 		name
@@ -29,16 +29,16 @@ export const FETCH_SKILLS_QUERY = `query {
 }`;
 
 export const getCreatePersonQuery = (
-  name: String,
-  description: String,
-  picture: String,
+  name: string,
+  description: string,
+  picture: string,
   startdate: Date,
-  email: String,
-  title: String,
-  location: String,
-  githuburl: String,
-  linkedinurl: String
-) => {
+  email: string,
+  title: string,
+  location: string,
+  githuburl: string,
+  linkedinurl: string
+): string => {
   return `mutation {
 		createPerson(
 			name: "${name}", description: "${description}", picture: "${picture}",
@@ -52,16 +52,16 @@ export const getCreatePersonQuery = (
 };
 
 export const getUpdatePersonQuery = (
-  name: String,
-  description: String,
-  picture: String,
+  name: string,
+  description: string,
+  picture: string,
   startdate: Date,
-  email: String,
-  title: String,
-  location: String,
-  githuburl: String,
-  linkedinurl: String,
-  id: Number
+  email: string,
+  title: string,
+  location: string,
+  githuburl: string,
+  linkedinurl: string,
+  id: number
 ) => {
   return `mutation {
 		updatePerson(
@@ -74,64 +74,70 @@ export const getUpdatePersonQuery = (
 };
 
 export const getCreateSkillsQuery = (
-  skills: [
-    {
-      level: Number,
-      name: String
-    }
-  ]
-) => {
+  skills: Array<{
+    level: Number,
+    name: string
+  }>
+): string => {
   return `mutation {
-		${skills.map(
-    (
-      skill,
-      index
-    ) => `skill${index}: createSkill(name: "${skill.name}", level: ${skill.level}) {
+		${skills
+    .map(
+      (
+        skill: Object,
+        index: number
+      ) => `skill${index}: createSkill(name: "${skill.name}", level: ${skill.level}) {
 			id
 		}\n`
-  )}
+    )
+    .toString()}
 	}`;
 };
 
 export const getAddSkillsForPersonQuery = (
-  personId: Number,
-  skillsId: [Number]
-) => {
+  personId: number,
+  skillsId: Array<number>
+): string => {
   return `mutation {
-		${skillsId.map(
-    (skillId, index) =>
-      `addSkill${index}: addSkillForPerson(person_id: ${personId}, skill_id: ${skillId})`
-  )}
+		${skillsId
+    .map(
+      (skillId, index) =>
+        `addSkill${index}: addSkillForPerson(person_id: ${personId}, skill_id: ${skillId})`
+    )
+    .toString()}
 	}`;
 };
 
-export const getRemoveSkillsForPersonQuery = (idsList: [Number]) => {
+export const getRemoveSkillsForPersonQuery = (idsList: Array<number>) => {
   return `mutation {
-		${idsList.map(
-    (id, index) => `remove${index}: removeSkillForPerson(id: ${id})`
-  )}
+		${idsList
+    .map((id, index) => `remove${index}: removeSkillForPerson(id: ${id})`)
+    .toString()}
 	}`;
 };
 
-export const getDeletePersonQuery = (id: String) => {
+export const getDeletePersonQuery = (id: number) => {
   return `mutation {
 	    removePerson(id: "${id}")
 	  }`;
 };
 
 export const getUpdateSkillsForPersonQuery = (
-  personId: Number,
-  removedItemIds: [Number],
-  addedItemIds: [Number]
+  personId: number,
+  removedItemIds: Array<number>,
+  addedItemIds: Array<number>
 ) => {
   return `mutation {
-		${removedItemIds.map(
-    (id, index) =>
-      `remove${index}: removeSkillForPerson(skill_id: ${id}, person_id: ${personId})`
-  )}
-		${addedItemIds.map(
-    (id, index) =>
-      `add${index}: addSkillForPerson(person_id: ${personId}, skill_id: ${id})`
-  )}
+		${removedItemIds
+    .map(
+      (id: number, index) =>
+        `remove${index}: removeSkillForPerson(skill_id: ${id}, person_id: ${personId})`
+    )
+    .toString()}
+		${addedItemIds
+    .map(
+      (id, index) =>
+        `add${index}: addSkillForPerson(person_id: ${personId}, skill_id: ${id})`
+    )
+    .toString()}
 	}`;
 };

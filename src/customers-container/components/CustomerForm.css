@@ -3,12 +3,6 @@
   cursor: pointer;
 }
 
-/* general style */
-* {
-  box-sizing: border-box;
-  font-family: Calibri, sans-serif;
-}
-
 /* specific style */
 .buttonContainer {
   display: flex;
@@ -17,8 +11,6 @@
 
 .modal__close {
   composes: element--hover;
-  width: 16px;
-  height: 16px;
   text-align: right;
   margin: 16px 16px auto auto;
 }

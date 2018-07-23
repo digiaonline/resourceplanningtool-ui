@@ -2,9 +2,11 @@
 
 import React, {createElement} from 'react';
 import {render} from 'react-dom';
+import alertify from 'alertify.js';
 import {AppContainer} from 'react-hot-loader';
 import Root from './root/components/Root';
 import './index.css';
+import './index.global.css';
 
 const renderApp = (component: any) =>
   render(
@@ -13,6 +15,10 @@ const renderApp = (component: any) =>
   );
 
 renderApp(Root);
+
+// customized alertify for notification
+alertify.delay(4000);
+alertify.logPosition('bottom right');
 
 if (module.hot) {
   // $FlowFixMe

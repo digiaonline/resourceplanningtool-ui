@@ -6,7 +6,8 @@
 .modal__close {
   position: absolute;
   right: 0;
-  top: 5px;
+  top: 0;
+  margin: 16px 16px auto auto;
   cursor: pointer;
 }
 
@@ -66,7 +67,6 @@
   color: #363636;
   background-color: #eee;
   padding: 15px 10px;
-  border: none;
   margin-top: 5px;
   border: 1px solid lightgray;
 }
@@ -102,7 +102,7 @@
 }
 
 .input__checkbox:checked + .squire {
-  background: url('../../assets/done.svg');
+  background: url(../../assets/done.svg);
 }
 
 .input__group .input__section {
@@ -149,14 +149,13 @@
 
 .form__icon {
   float: right;
-  margin: 10.5px 0;
+  margin: 9.5px 0;
   cursor: pointer;
 }
 
 .table__item {
   font-size: 16px;
   font-weight: normal;
-  height: 45px;
   line-height: 43px;
   border-bottom: 1px solid lightgray;
 }
@@ -178,7 +177,6 @@
 
 .remove__tech {
   position: relative;
-  top: 5.5px;
   margin-left: 24px;
   cursor: pointer;
 }
@@ -202,15 +200,19 @@
   cursor: pointer;
 }
 
+.news__description {
+  padding-right: 10px;
+}
+
 .news__url {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  padding: 5px 12px 5px 0;
 }
 
 .news__url .input__section {
   min-height: unset;
-  width: 46%;
+  width: 45%;
 }
 
 .news__url .label {
@@ -228,17 +230,27 @@
   font-size: 17px;
   font-weight: bold;
   width: 60px;
+  max-height: 60px;
   justify-content: space-between;
   cursor: pointer;
+  background: white;
+  border: none;
+}
+
+.news__addButton {
+  padding-left: 5px;
 }
 
 .helper {
   color: red;
+  font-style: italic;
 }
 
 .select {
   --styled-select__background-color: #eee;
   --styled-select__border-color: lightgray;
+  --styled-select-placeholder__padding: 7px 10px;
+  --styled-select-input__padding: 8px;
   margin-top: 4px;
 }
 
@@ -256,7 +268,6 @@
   left: 0;
   right: 0;
   bottom: 10%;
-  font-family: Calibri, sans-serif;
   margin: 0 auto;
   background-color: #fff;
   outline: none;
@@ -265,6 +276,48 @@
   color: #363636;
   width: 1220px;
   overflow: auto;
+}
+
+.technology__Modal {
+  position: absolute;
+  top: 10%;
+  left: 0;
+  right: 0;
+  bottom: 10%;
+  margin: 0 auto;
+  background-color: #fff;
+  outline: none;
+  border-radius: 4px;
+  padding: 20px 40px;
+  color: #363636;
+  width: 60%;
+  height: 470px;
+  overflow: auto;
+}
+
+.Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #010101cc;
+}
+
+.new__technology {
+  color: #14688f;
+  text-align: right;
+  width: 100%;
+  padding: 4px 0;
+}
+
+.new__technology span {
+  cursor: pointer;
+}
+
+.modal__technology__title {
+  font-size: 34px;
+  margin-bottom: 40px;
 }
 
 @media (max-width: 1250px) {
@@ -330,6 +383,22 @@
   }
 
   .inputGroup .input {
-    padding: 12px 0px 12px 8px;
+    padding: 12px 0 12px 8px;
+  }
+
+  .news__url {
+    flex-direction: column;
+  }
+
+  .news__url .input__section {
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  .technology__Modal {
+    width: 95%;
+    height: 500px;
+    top: 2%;
+    bottom: 5%;
   }
 }
